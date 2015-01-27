@@ -8,4 +8,9 @@ Vagrant.configure(2) do |config|
   config.vm.box_download_checksum_type = "sha256"
   config.vm.box_download_checksum = "575adf4241dc8020061d72dc9b98dec6ae20c939c16d5e732c1a0307f4b0b7bb"
 
+  # use bridged netword
+  # to get the ip use vagrant ssh -c ifconfig
+  #
+  config.vm.network "public_network"
+
 end
