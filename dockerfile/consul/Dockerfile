@@ -16,10 +16,12 @@ RUN cd /consul/bin && unzip /tmp/consul.zip && chmod +x consul && rm /tmp/consul
 ADD https://dl.bintray.com/mitchellh/consul/${CONSUL_VERSION}_web_ui.zip /tmp/webui.zip
 RUN cd /consul/ui && unzip /tmp/webui.zip && rm /tmp/webui.zip
 
+ADD ./start.sh /consul/bin/start.sh
 ADD ./config /consul/config/
 
 RUN useradd -d /consul -M -s /bin/bash -p '*' consul
 RUN chown -R consul:consul /consul
+RUN chmod +x /consul/bin/start.sh
 
 # cleanup
 RUN apt-get autoremove \
@@ -34,4 +36,4 @@ USER consul
 ENV SHELL /bin/bash
 
 # TODO check http://www.consul.io/docs/agent/options.html#_bootstrap_expect
-CMD ["/consul/bin/consul", "agent", "-config-dir=/consul/config", "-server", "-bootstrap"]
+CMD /consul/bin/start.sh

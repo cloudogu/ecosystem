@@ -1,6 +1,6 @@
 #!/bin/bash
 docker rm consul
-docker run \
+docker run -d \
   --name consul \
   -h consul \
   -p 8300:8300 \
@@ -11,4 +11,5 @@ docker run \
   -p 8400:8400 \
   -p 8500:8500 \
   -p 53:8053/udp \
+  -v /etc/ces:/etc/ces \
   cesi/consul
