@@ -3,7 +3,7 @@
 source /etc/ces/functions.sh
 
 docker rm registrator
-docker run \
+docker run -d \
   --name registrator \
   -h registrator \
   -v /var/run/docker.sock:/var/run/docker.sock \
