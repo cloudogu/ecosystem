@@ -13,4 +13,8 @@ Vagrant.configure(2) do |config|
   #
   config.vm.network "public_network"
 
+  # create flag file to set appliance type to vagrant
+  config.vm.provision "shell",
+    inline: "mkdir /etc/ces && echo 'vagrant' > /etc/ces/type"
+
 end
