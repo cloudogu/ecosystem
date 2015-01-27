@@ -1,4 +1,5 @@
 # cesi/consul
+# dockerfile is based on https://github.com/progrium/docker-consul
 FROM debian:wheezy
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
