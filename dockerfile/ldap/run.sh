@@ -10,4 +10,6 @@ if ! [ -d $dbDir ]; then
 	fi
 fi
 
-docker run -d -p 389:389 -v $dbDir/data:/etc/ldap cesi/ldap
+docker run -d -p 389:389 -v $dbDir/data:/etc/ldap -v /etc/ces:/etc/ces cesi/ldap
+#docker run -p 389:389 -v $dbDir/data:/etc/ldap -v /etc/ces:/etc/ces cesi/ldap
+#docker run -p 389:389 cesi/ldap
