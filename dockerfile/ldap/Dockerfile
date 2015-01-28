@@ -2,6 +2,9 @@ FROM debian:wheezy
 
 MAINTAINER	stephan christann	<stephan.christann@christann.net>
 
+# ADD EMPTY STANDARD LDAP
+ADD resources/ldap.tgz /ldap.tgz
+
 # INSTALL SOFTWARE
 RUN apt-get -y update && apt-get -y install slapd ldap-utils
 
@@ -9,11 +12,8 @@ RUN apt-get -y update && apt-get -y install slapd ldap-utils
 ADD startup.sh /startup.sh
 RUN chmod 755 /startup.sh
 
-# ADD LDIF FILES
-ADD default.ldif /default.ldif
-
 # VOLUMES 
-VOLUME  ["/tmp", "/etc/ldap"]
+VOLUME  ["/tmp", "/etc/ldap", "/etc/ces/"]
 
 # MYSQL PORT
 EXPOSE 389
