@@ -18,8 +18,11 @@ RUN chown -R sonar:sonar /opt/sonar
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
 
+ADD ./startup.sh /startup.sh
+RUN chmod +x /startup.sh
+
 USER sonar
 
 EXPOSE 9000
 
-CMD ["/opt/sonar/bin/linux-x86-64/sonar.sh", "console"]
+CMD /startup.sh
