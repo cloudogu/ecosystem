@@ -23,3 +23,19 @@ function get_ip(){
 }
 
 export -f get_ip
+
+function get_domain(){
+  cat /etc/ces/domain
+}
+
+export -f get_domain
+
+function get_fqdn(){
+  if [ -f '/etc/ces/fqdn' ]; then
+    cat /etc/ces/fqdn
+  else
+    get_ip
+  fi
+}
+
+export -f get_fqdn

@@ -10,13 +10,17 @@ fi
 # create structure
 
 # create btrfs subvolumes
+echo "creating btrfs subvolumes"
 $INSTALL_HOME/install/create-subvolumes.sh
 
 # snyc resources
+echo "sync files"
 $INSTALL_HOME/install/sync-files.sh
 
 # install repository keys
+echo "install repository keys"
 $INSTALL_HOME/install/apt-keys.sh
 
 # install packages
+echo "install missing packages"
 $INSTALL_HOME/install/apt-packages.sh
