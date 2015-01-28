@@ -17,11 +17,11 @@ RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins
 # can be persisted and survive image upgrades
 VOLUME /var/lib/jenkins
 
-ENV JENKINS_VERSION 1.580.1
+ENV JENKINS_VERSION 1.580.3
 
 # could use ADD but this one does not check Last-Modified header
 # see https://github.com/docker/docker/issues/8331
-RUN curl -L http://mirrors.jenkins-ci.org/war-stable/1.580.1/jenkins.war -o /jenkins.war
+RUN curl -L http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war -o /jenkins.war
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
