@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# fqdn functions
+
 function get_ip(){
   IPS=$(/sbin/ifconfig | grep eth -A1 | grep addr: | awk '{print $2}' | awk -F':' '{print $2}')
   COUNT=$(echo $IPS | wc -w)
@@ -39,3 +41,52 @@ function get_fqdn(){
 }
 
 export -f get_fqdn
+
+# encryption & decryption
+
+function get_secret_key(){
+  if [ ! -f '/etc/ces/.secretkey' ]; then
+    uuidgen | shasum | awk '{print $1}' > '/etc/ces/.secretkey'
+  fi
+  cat '/etc/ces/.secretkey'
+}
+
+export -f get_secret_key
+
+function encrypt(){
+  VALUE="$1"
+  KEY=$(get_secret_key)
+  echo $VALUE | openssl enc -aes-128-cbc -a -salt -pass "pass:$KEY"
+}
+
+export -f encrypt
+
+function decrypt(){
+  VALUE="$1"
+  KEY=$(get_secret_key)
+  echo $VALUE | openssl enc -aes-128-cbc -a -d -salt -pass "pass:$KEY"
+}
+
+export -f decrypt
+
+# ces passwd
+
+function add_ces_user(){
+  CESUSER="$1"
+  CESPASS="$2"
+  echo "$CESUSER:"$(encrypt "$CESPASS") >> /etc/ces/.passwd
+}
+
+export -f add_ces_user
+
+function get_ces_pass(){
+  CESUSER="$1"
+  CESPASS=$(cat /etc/ces/.passwd | grep "$CESUSER" | awk -F':' '{print $2}')
+  if [ $? = 0 ]; then
+    decrypt "$CESPASS"
+  else
+    exit 1
+  fi
+}
+
+export -f get_ces_pass
