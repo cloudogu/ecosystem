@@ -31,4 +31,4 @@ EXPOSE 8080
 
 USER jenkins
 
-CMD ["java", "-jar", "/jenkins.war"]
+CMD ["java", "-jar", "/jenkins.war", "--prefix=/jenkins"]
