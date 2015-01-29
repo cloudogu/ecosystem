@@ -8,4 +8,7 @@ docker run -d \
   -h registrator \
   -v /var/run/docker.sock:/var/run/docker.sock \
   cesi/registrator \
-  consul://$(get_ip):8500
+  -internal \
+  etcd://$(get_ip):4001/services
+
+# consul://$(get_ip):8500

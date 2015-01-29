@@ -1,0 +1,14 @@
+server {
+  listen 80 default_server;
+
+  # services
+{{range $topkey := lsdir "/services"}}{{$topdir := printf "/services/%s/*" $topkey}}{{range $dir := getvs $topdir}}{{$service := json $dir}}{{range $tag := $service.tags}}{{if eq $tag "webapp"}}
+  location /{{$service.name}} {
+    proxy_pass http://{{$service.service}};
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+{{end}}{{end}}{{end}}{{end}}
+  # end of services
+}

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-DATADIR="/var/lib/ces/jenkins"
+source /etc/ces/functions.sh
+
+DATADIR="/var/lib/ces/etcd"
 if [ ! -d "$DATADIR" ]; then
   btrfs subvolume create "$DATADIR"
   mkdir "$DATADIR/data"
@@ -8,10 +10,12 @@ if [ ! -d "$DATADIR" ]; then
   chmod -R 755 "$DATADIR"
 fi
 
-docker rm jenkins
+docker rm etcd
 docker run -d \
-  --name jenkins \
-  -h jenkins \
+  --name etcd \
+  -h etcd \
+  -p 4001:4001 \
   -v /etc/ces:/etc/ces \
-  -v "$DATADIR/data":/var/lib/jenkins \
-  cesi/jenkins
+  -v "$DATADIR/data":/var/lib/etcd \
+  cesi/etcd \
+  -addr=$(get_ip):4001
