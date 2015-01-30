@@ -9,7 +9,7 @@ if [ ! -d "$DATADIR" ]; then
 fi
 
 docker rm sonar
-docker run -d \
+docker create \
   --name sonar \
   -h sonar \
   -P \
