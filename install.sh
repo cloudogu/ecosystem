@@ -24,3 +24,7 @@ $INSTALL_HOME/install/apt-keys.sh
 # install packages
 echo "install missing packages"
 $INSTALL_HOME/install/apt-packages.sh
+
+# build containers
+echo "install containers"
+$INSTALL_HOME/dockerfile/install-containers.sh
