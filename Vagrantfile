@@ -15,6 +15,6 @@ Vagrant.configure(2) do |config|
 
   # create flag file to set appliance type to vagrant
   config.vm.provision "shell",
-    inline: "mkdir /etc/ces && echo 'vagrant' > /etc/ces/type"
+    inline: "mkdir /etc/ces && echo 'vagrant' > /etc/ces/type && /vagrant/install.sh"
 
 end
