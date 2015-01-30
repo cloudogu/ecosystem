@@ -1,6 +1,8 @@
 base
 etcd
 registrator
+ldap
+mysql
 nginx
 java
 scm

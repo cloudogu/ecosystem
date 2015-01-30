@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM cesi/base
 
 MAINTAINER	stephan christann	<stephan.christann@christann.net>
 
@@ -13,7 +13,7 @@ RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysq
 ADD startup.sh /startup.sh
 RUN chmod 755 /startup.sh
 
-# VOLUMES 
+# VOLUMES
 VOLUME  ["/tmp", "/var/lib/mysql"]
 
 # MYSQL PORT

@@ -10,4 +10,4 @@ if ! [ -d $dbDir ]; then
 	fi
 fi
 
-docker create --name mysql -h mysql -v $dbDir/data:/var/lib/mysql cesi/mysql
+docker create --name mysql -h mysql -v /etc/ces:/etc/ces -v $dbDir/data:/var/lib/mysql cesi/mysql

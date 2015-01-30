@@ -15,7 +15,7 @@ RUN apt-get -y update && apt-get -y install slapd ldap-utils
 ADD startup.sh /startup.sh
 RUN chmod 755 /startup.sh
 
-# VOLUMES 
+# VOLUMES
 VOLUME  ["/tmp", "/etc/ldap", "/etc/ces/", "/var/lib/ldap"]
 
 # MYSQL PORT

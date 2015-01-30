@@ -1,3 +1,2 @@
 #!/bin/bash
-
-docker build -t cesi/ldap .
+docker build -t cesi/ldap $(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
