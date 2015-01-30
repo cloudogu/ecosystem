@@ -1,6 +1,6 @@
 # cesi/registrator
 # dockerfile is based on https://github.com/progrium/registrator
-FROM debian:wheezy
+FROM cesi/base
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 ADD registrator_0.4.0_patched.tgz /bin
