@@ -11,7 +11,7 @@ if [ ! -d "$DATADIR" ]; then
 fi
 
 docker rm etcd
-docker run -d \
+docker create \
   --name etcd \
   -h etcd \
   -p 4001:4001 \
