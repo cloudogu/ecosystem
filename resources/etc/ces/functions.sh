@@ -81,12 +81,36 @@ export -f add_ces_user
 
 function get_ces_pass(){
   CESUSER="$1"
-  CESPASS=$(cat /etc/ces/.passwd | grep "$CESUSER" | awk -F':' '{print $2}')
-  if [ $? = 0 ]; then
-    decrypt "$CESPASS"
+  if [ -f "/etc/ces/.passwd" ]; then
+    CESPASS=$(cat /etc/ces/.passwd | grep "$CESUSER" | awk -F':' '{print $2}')
+    if [ $? = 0 ]; then
+      decrypt "$CESPASS"
+    else
+      exit 1
+    fi
   else
-    exit 1
+    exit 2
   fi
 }
 
 export -f get_ces_pass
+
+function generate_password(){
+  openssl rand -base64 16 | cut -c1-16
+}
+
+export -f generate_password
+
+function create_or_get_ces_pass(){
+  CESUSER="$1"
+  CESPASS=$(get_ces_pass $CESUSER)
+  if [ $? != 0 ]; then
+    CESPASS=$(generate_password)
+    add_ces_user "$CESUSER" "$CESPASS"
+    echo $CESPASS
+  else
+    echo $CESPASS
+  fi
+}
+
+export -f create_or_get_ces_pass
