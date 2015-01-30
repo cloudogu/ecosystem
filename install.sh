@@ -7,8 +7,6 @@ if [ $UID != 0 ]; then
   exit 1
 fi
 
-# create structure
-
 # create btrfs subvolumes
 echo "creating btrfs subvolumes"
 $INSTALL_HOME/install/create-subvolumes.sh
@@ -24,6 +22,10 @@ $INSTALL_HOME/install/apt-keys.sh
 # install packages
 echo "install missing packages"
 $INSTALL_HOME/install/apt-packages.sh
+
+# prepare container environment
+echo "prepare container environment"
+$INSTALL_HOME/install/prepare-environment.sh
 
 # build containers
 echo "install containers"
