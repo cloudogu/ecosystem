@@ -11,7 +11,7 @@ ENV SCM_HOME /var/lib/scm
 # install scm-server
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get update \
-    && apt-get install -qq -y curl mercurial \
+    && apt-get install -qq -y mercurial \
     && curl -Lks "$SCM_PKG_URL" -o /root/scm-server.tar.gz \
     && /usr/sbin/useradd --create-home --home-dir /opt/scm-server --shell /bin/bash scm \
     && tar zxf /root/scm-server.tar.gz --strip=1 -C /opt/scm-server \
