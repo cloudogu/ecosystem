@@ -1,18 +1,19 @@
 # cesi/nginx
-FROM debian:wheezy
+FROM cesi/base
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
 
-ENV DEBIAN_FRONTEND noninteractive
 ENV CONFD_VERSION 0.7.1
 ADD repo.list /etc/apt/sources.list.d/nginx.list
 
 # Install Nginx.
-RUN \
-  apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 && \
-  apt-get update && \
-  apt-get install -y nginx curl
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 \
+  && apt-get update \
+  && apt-get install -y nginx \
+  && apt-get autoremove \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD nginx.toml /etc/confd/conf.d/nginx.toml
 ADD nginx.conf.tmpl /etc/confd/templates/nginx.conf.tmpl
