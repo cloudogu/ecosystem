@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATADIR="/var/lib/ces/jenkins"
+DATADIR="/var/lib/ces/nexus"
 if [ ! -d "$DATADIR" ]; then
   btrfs subvolume create "$DATADIR"
   mkdir "$DATADIR/data"
@@ -8,11 +8,10 @@ if [ ! -d "$DATADIR" ]; then
   chmod -R 755 "$DATADIR"
 fi
 
-docker rm jenkins
-docker run -d \
-  --name jenkins \
-  -h jenkins \
-  -P \
+docker rm nexus
+docker create \
+  --name nexus \
+  -h nexus \
   -v /etc/ces:/etc/ces \
-  -v "$DATADIR/data":/var/lib/jenkins \
-  cesi/jenkins
+  -v "$DATADIR/data":/var/lib/nexus \
+  cesi/nexus

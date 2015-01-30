@@ -9,10 +9,9 @@ if [ ! -d "$DATADIR" ]; then
 fi
 
 docker rm scm
-docker run -d \
+docker create \
   --name scm \
   -h scm \
-  -P \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/scm \
   cesi/scm

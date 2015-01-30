@@ -1,8 +1,0 @@
-{
-  "data_dir": "/consul/data",
-  "ui_dir": "/consul/ui",
-  "client_addr": "0.0.0.0",
-  "ports": {
-    "dns": 8053
-  }
-}

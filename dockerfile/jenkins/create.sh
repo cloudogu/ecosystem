@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATADIR="/var/lib/ces/sonar"
+DATADIR="/var/lib/ces/jenkins"
 if [ ! -d "$DATADIR" ]; then
   btrfs subvolume create "$DATADIR"
   mkdir "$DATADIR/data"
@@ -8,11 +8,10 @@ if [ ! -d "$DATADIR" ]; then
   chmod -R 755 "$DATADIR"
 fi
 
-docker rm sonar
-docker run -d \
-  --name sonar \
-  -h sonar \
-  -P \
+docker rm jenkins
+docker create \
+  --name jenkins \
+  -h jenkins \
   -v /etc/ces:/etc/ces \
-  -v "$DATADIR/data":/var/lib/sonar \
-  cesi/sonar
+  -v "$DATADIR/data":/var/lib/jenkins \
+  cesi/jenkins

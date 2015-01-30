@@ -1,5 +1,5 @@
 # cesi/java
-FROM debian:wheezy
+FROM cesi/base
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # install oracle java 8

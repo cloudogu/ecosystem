@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATADIR="/var/lib/ces/nexus"
+DATADIR="/var/lib/ces/sonar"
 if [ ! -d "$DATADIR" ]; then
   btrfs subvolume create "$DATADIR"
   mkdir "$DATADIR/data"
@@ -8,11 +8,11 @@ if [ ! -d "$DATADIR" ]; then
   chmod -R 755 "$DATADIR"
 fi
 
-docker rm nexus
-docker run -d \
-  --name nexus \
-  -h nexus \
+docker rm sonar
+docker create \
+  --name sonar \
+  -h sonar \
   -P \
   -v /etc/ces:/etc/ces \
-  -v "$DATADIR/data":/var/lib/nexus \
-  cesi/nexus
+  -v "$DATADIR/data":/var/lib/sonar \
+  cesi/sonar

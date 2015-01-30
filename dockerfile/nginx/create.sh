@@ -1,6 +1,6 @@
 #!/bin/bash
 docker rm nginx
-docker run -d \
+docker create \
   --name nginx \
   -h nginx \
   -p 80:80 \
