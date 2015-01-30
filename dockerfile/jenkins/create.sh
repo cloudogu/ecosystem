@@ -9,7 +9,7 @@ if [ ! -d "$DATADIR" ]; then
 fi
 
 docker rm jenkins
-docker run -d \
+docker create \
   --name jenkins \
   -h jenkins \
   -v /etc/ces:/etc/ces \

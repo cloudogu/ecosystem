@@ -4,8 +4,6 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # Dockerfile based on https://github.com/cloudbees/jenkins-ci.org-docker/blob/f313389f8ab728d7b4207da36804ea54415c830b/1.580.1/Dockerfile
 
-RUN apt-get update && apt-get install -y wget git curl zip && rm -rf /var/lib/apt/lists/*
-
 ENV JENKINS_HOME /var/lib/jenkins
 
 # Jenkins is ran with user `jenkins`, uid = 1000
