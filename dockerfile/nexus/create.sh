@@ -9,10 +9,9 @@ if [ ! -d "$DATADIR" ]; then
 fi
 
 docker rm nexus
-docker run -d \
+docker create \
   --name nexus \
   -h nexus \
-  -P \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/nexus \
   cesi/nexus

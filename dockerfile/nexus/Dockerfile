@@ -7,8 +7,6 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 # The version of nexus to install
 ENV NEXUS_VERSION 2.11.1-01
 
-RUN apt-get update && apt-get install curl -y && apt-get clean
-
 RUN mkdir -p /opt/sonatype/nexus \
   && curl --fail --silent --location --retry 3 \
     http://download.sonatype.com/nexus/oss/nexus-${NEXUS_VERSION}-bundle.tar.gz \
