@@ -1,0 +1,28 @@
+dn: dc=cloudogu,dc=com
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: cloudogu
+dc: cloudogu
+structuralObjectClass: organization
+entryUUID: 91f4c1b2-3c9e-1034-89eb-e1d13129f742
+creatorsName: cn=admin,dc=cloudogu,dc=com
+createTimestamp: 20150130073721Z
+entryCSN: 20150130073721.519005Z#000000#000#000000
+modifiersName: cn=admin,dc=cloudogu,dc=com
+modifyTimestamp: 20150130073721Z
+
+dn: cn=admin,dc=cloudogu,dc=com
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword:: e1NTSEF9UkpPekZoblFNL0VsKzMwd3BaVzVZNnl5UlhDQ3B4U2E=
+structuralObjectClass: organizationalRole
+entryUUID: 91f5861a-3c9e-1034-89ec-e1d13129f742
+creatorsName: cn=admin,dc=cloudogu,dc=com
+createTimestamp: 20150130073721Z
+entryCSN: 20150130073721.524032Z#000000#000#000000
+modifiersName: cn=admin,dc=cloudogu,dc=com
+modifyTimestamp: 20150130073721Z
+

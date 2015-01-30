@@ -10,4 +10,4 @@ if ! [ -d $dbDir ]; then
 	fi
 fi
 
-docker run -d -p 3306:3306 -v $dbDir/data:/var/lib/mysql cesi/mysql
+docker create --name mysql -h mysql -v $dbDir/data:/var/lib/mysql cesi/mysql
