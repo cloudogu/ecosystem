@@ -10,5 +10,4 @@ if ! [ -d $mailDir ]; then
 	fi
 fi
 
-docker rm -f postfix
 docker create --name postfix -h mail -v /etc/ces:/etc/ces -v $mailDir/conf:/etc/postfix cesi/postfix
