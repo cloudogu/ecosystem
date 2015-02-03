@@ -114,3 +114,14 @@ function create_or_get_ces_pass(){
 }
 
 export -f create_or_get_ces_pass
+
+# services
+
+function get_service(){
+  NAME=$1
+  PORT=$2
+
+  etcdctl --peers $(cat /etc/ces/ip_addr):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
+}
+
+export -f get_service
