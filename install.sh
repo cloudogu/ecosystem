@@ -23,8 +23,12 @@ $INSTALL_HOME/install/apt-keys.sh
 echo "install missing packages"
 $INSTALL_HOME/install/apt-packages.sh
 
-# prepare container environment
-echo "prepare container environment"
+# install etcd
+echo "install etcd"
+$INSTALL_HOME/install/install-etcd.sh
+
+# prepare environment
+echo "prepare environment"
 $INSTALL_HOME/install/prepare-environment.sh
 
 # build containers
