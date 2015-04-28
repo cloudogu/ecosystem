@@ -125,3 +125,9 @@ function get_service(){
 }
 
 export -f get_service
+
+function get_service_ip(){
+  get_service "$1" "$2" | awk -F':' '{print $1}'
+}
+
+export -f get_service_ip
