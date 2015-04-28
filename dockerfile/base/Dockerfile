@@ -2,8 +2,6 @@
 FROM debian:wheezy
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
-
-
 # fix some apt installation problems
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -15,7 +13,8 @@ RUN apt-get update -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # etcd version
-ENV CES_ETCD_VERSION 2.0.0
+# TODO use same as system (install-etcd.sh)
+ENV CES_ETCD_VERSION 2.0.10
 
 # install etcd
 ADD https://github.com/coreos/etcd/releases/download/v${CES_ETCD_VERSION}/etcd-v${CES_ETCD_VERSION}-linux-amd64.tar.gz /tmp/etcd.tar.gz
