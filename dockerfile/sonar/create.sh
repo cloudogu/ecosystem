@@ -12,7 +12,6 @@ docker rm sonar
 docker create \
   --name sonar \
   -h sonar \
-  -P \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/sonar \
   cesi/sonar
