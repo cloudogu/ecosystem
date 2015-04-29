@@ -1,27 +1,49 @@
 #!/bin/bash
 
-domain=$(cat /etc/ces/domain)
-ldapDir=/etc/ldap
+source /etc/ces/functions.sh
+
+CONFDIR=/etc/ceslap
 
 # LDAP ALREADY INITIALIZED?
-if ! [ -f $ldapDir/ldap.conf  ]; then
-	if ! [ -d $ldapDir ]; then
-		mkdir -p $ldapDir
-	fi
-	# DEPLOY STANDARD LDAP DB AND CONFIG
-	# DC=CLOUDOGU,DC=COM
-	cd /
-	tar xvfz ldappackage.tgz
-	cd /backup
-	tar xvfz el.tgz
-	tar xvfz vll.tgz
-        cd /backup
-	cd var/lib/ldap && mv * /var/lib/ldap/
-        cd /backup
-	cd etc/ldap && mv * /etc/ldap/
-        cd /backup
-	/backup/ldaprestore.sh
-fi
+if [ ! -f "$CONFDIR/ldap.conf"  ]; then
+  mv /etc/ldap/* "$CONFDIR"
+	rmdir /etc/ldap
+	ln -s "$CONFDIR" /etc/ldap
 
-# START LDAP
-/usr/sbin/slapd -h "ldap:///" -4 -u openldap -g openldap -d 0
+  # get domain and root password
+	LDAP_ROOTPASS=$(create_or_get_ces_pass ldap_root)
+	LDAP_BASE_DOMAIN="cloudogu.com"
+	LDAP_DOMAIN=$(get_domain)
+	LDAP_DOMAIN_ADMIN_PASSWORD=$(create_or_get_ces_pass "ldap_da_${LDAP_DOMAIN}")
+	LDAP_DOMAIN_ADMIN_PASSWORD_HASHED=$(slappasswd -s "ldap_da_${LDAP_DOMAIN_ADMIN_PASSWORD}")
+
+	# set domain and root password
+	cat <<EOF | debconf-set-selections
+slapd slapd/internal/generated_adminpw password ${LDAP_ROOTPASS}
+slapd slapd/internal/adminpw password ${LDAP_ROOTPASS}
+slapd slapd/password2 password ${LDAP_ROOTPASS}
+slapd slapd/password1 password ${LDAP_ROOTPASS}
+slapd slapd/dump_database_destdir string /var/backups/slapd-VERSION
+slapd slapd/domain string ${LDAP_BASE_DOMAIN}
+slapd shared/organization string ${LDAP_BASE_DOMAIN}
+slapd slapd/backend string HDB
+slapd slapd/purge_database boolean true
+slapd slapd/move_old_database boolean true
+slapd slapd/allow_ldap_v2 boolean false
+slapd slapd/no_configuration boolean false
+slapd slapd/dump_database select when needed
+EOF
+
+  # reconfigure slapd
+  dpkg-reconfigure -f noninteractive slapd
+	# start ldap
+	/usr/sbin/slapd -h "ldap:///" -4 -u openldap -g openldap -d 0 &
+  sleep 2
+  render_template "/resources/domain.ldif.tpl" > "/resources/domain.ldif"
+	ldapadd -D"cn=admin,dc=cloudogu,dc=com" -x -w"${LDAP_ROOTPASS}" -f "/resources/domain.ldif"
+	# bring slapd back to foreground
+	fg
+else
+	# START LDAP
+	/usr/sbin/slapd -h "ldap:///" -4 -u openldap -g openldap -d 0
+fi

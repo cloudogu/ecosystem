@@ -1,15 +1,21 @@
 #!/bin/sh
 
-ldapDir="/var/lib/ces/ldap"
+DATADIR="/var/lib/ces/ldap"
 
-if ! [ -d $ldapDir ]; then
-	btrfs subvolume create $ldapDir
-	if ! [ -d $ldapDir/data ]; then
-		mkdir -p $ldapDir/data/config
-		mkdir -p $ldapDir/data/db
-		chown -R 102:102 $ldapDir/data
+if ! [ -d $DATADIR ]; then
+	btrfs subvolume create $DATADIR
+	if ! [ -d $DATADIR/data ]; then
+		mkdir -p $DATADIR/data/config
+		mkdir -p $DATADIR/data/db
+		chown -R 102:102 $DATADIR/data
 	fi
 fi
 
 docker rm -f ldap
-docker create --name ldap -h ldap -v $ldapDir/data/config:/etc/ldap -v /etc/ces:/etc/ces -v $ldapDir/data/db:/var/lib/ldap cesi/ldap
+docker create \
+  --name ldap \
+  -h ldap \
+	-v $DATADIR/data/config:/etc/ceslap \
+	-v $DATADIR/data/db:/var/lib/ldap \
+	-v /etc/ces:/etc/ces \
+	cesi/ldap
