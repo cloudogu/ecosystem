@@ -14,7 +14,7 @@ ADD startup.sh /startup.sh
 RUN chmod 755 /startup.sh
 
 # VOLUMES
-VOLUME  ["/tmp", "/var/lib/mysql"]
+VOLUME "/var/lib/mysql"
 
 # MYSQL PORT
 EXPOSE 3306
