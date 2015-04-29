@@ -14,8 +14,6 @@ if [ ! -f "$CONFDIR/ldap.conf"  ]; then
 	LDAP_ROOTPASS=$(create_or_get_ces_pass ldap_root)
 	LDAP_BASE_DOMAIN="cloudogu.com"
 	LDAP_DOMAIN=$(get_domain)
-	LDAP_DOMAIN_ADMIN_PASSWORD=$(create_or_get_ces_pass "ldap_da_${LDAP_DOMAIN}")
-	LDAP_DOMAIN_ADMIN_PASSWORD_HASHED=$(slappasswd -s "ldap_da_${LDAP_DOMAIN_ADMIN_PASSWORD}")
 
 	# set domain and root password
 	cat <<EOF | debconf-set-selections
