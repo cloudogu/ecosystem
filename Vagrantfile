@@ -17,4 +17,10 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell",
     inline: "mkdir /etc/ces && echo 'vagrant' > /etc/ces/type && /vagrant/install.sh"
 
+  # configure virtual hardware
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 3072
+    # v.cpus = 2
+  end
+
 end
