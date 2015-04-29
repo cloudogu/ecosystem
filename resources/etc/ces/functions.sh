@@ -42,6 +42,28 @@ function get_fqdn(){
 
 export -f get_fqdn
 
+# utils functions
+
+function render_template(){
+  FILE="$1"
+  if [ ! -f "$FILE" ]; then
+    echo "could not find template $FILE"
+    exit 1
+  fi
+
+  # render template
+  eval "echo \"$(cat $FILE)\""
+}
+
+export -f render_template
+
+function render_template_clean(){
+  # render template
+  render_template "$1" | egrep -v '^#' | egrep -v '^\s*$' > "$FILE"
+}
+
+export -f render_template_clean
+
 # encryption & decryption
 
 function get_secret_key(){
