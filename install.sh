@@ -33,4 +33,4 @@ $INSTALL_HOME/install/prepare-environment.sh
 
 # build containers
 echo "install containers"
-$INSTALL_HOME/dockerfile/install-containers.sh
+$INSTALL_HOME/containers/install-containers.sh
