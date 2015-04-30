@@ -3,6 +3,7 @@ source /etc/ces/functions.sh
 
 # write current ip
 get_ip > /etc/ces/ip_addr
+get_ip > /etc/ces/fqdn
 
 # modify sudoers save path
 echo "modify sudoers"
