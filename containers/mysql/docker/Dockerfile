@@ -6,8 +6,8 @@ MAINTAINER	stephan christann	<stephan.christann@christann.net>
 RUN dpkg-divert --local --rename --add /sbin/initctl
 
 # INSTALL SOFTWARE
-RUN apt-get update
-    && apt-get -yq install mysql-server
+RUN apt-get update \
+    && apt-get -yq install mysql-server \
 		&& apt-get autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
