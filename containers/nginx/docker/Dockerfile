@@ -5,7 +5,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
 
 ENV CONFD_VERSION 0.7.1
-ADD repo.list /etc/apt/sources.list.d/nginx.list
+ADD resources/repo.list /etc/apt/sources.list.d/nginx.list
 
 # Install Nginx.
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 \
@@ -15,10 +15,12 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD nginx.toml /etc/confd/conf.d/nginx.toml
-ADD nginx.conf.tmpl /etc/confd/templates/nginx.conf.tmpl
-ADD https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 /bin/confd
+ADD resources/nginx.conf /etc/nginx/nginx.conf
+ADD resources/nginx.toml /etc/confd/conf.d/nginx.toml
+ADD resources/apps.conf.tmpl /etc/confd/templates/apps.conf.tmpl
 
+# install confd, use wget because of add is not cached
+RUN wget https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /bin/confd
 RUN chmod +x /bin/confd
 RUN rm -v /etc/nginx/conf.d/*
 ADD startup.sh /startup.sh
