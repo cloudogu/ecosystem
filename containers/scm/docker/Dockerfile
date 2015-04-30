@@ -7,6 +7,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 ENV SCM_VERSION 1.45
 ENV SCM_PKG_URL https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 ENV SCM_HOME /var/lib/scm
+ADD default /etc/default/scm-server
 
 # install scm-server
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
@@ -19,6 +20,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     && chown -R scm:scm /opt/scm-server \
     && mkdir -p /var/lib/scm \
     && chown scm:scm /var/lib/scm \
+    && chmod +x /etc/default/scm-server \
     && apt-get autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
