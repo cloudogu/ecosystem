@@ -25,6 +25,9 @@ ADD resources/default.conf /etc/nginx/conf.d/default.conf
 ADD resources/nginx.toml /etc/confd/conf.d/nginx.toml
 ADD resources/apps.conf.tmpl /etc/confd/templates/apps.conf.tmpl
 
+# add warp
+ADD warp /var/www/html/warp
+
 ADD startup.sh /startup.sh
 RUN chmod +x /startup.sh /bin/confd
 
