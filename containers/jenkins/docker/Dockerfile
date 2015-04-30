@@ -15,7 +15,8 @@ RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins
 # can be persisted and survive image upgrades
 VOLUME /var/lib/jenkins
 
-ENV JENKINS_VERSION 1.580.3
+# jenkins version
+ENV JENKINS_VERSION 1.596.2
 
 # could use ADD but this one does not check Last-Modified header
 # see https://github.com/docker/docker/issues/8331
@@ -29,4 +30,9 @@ EXPOSE 8080
 
 USER jenkins
 
-CMD ["java", "-jar", "/jenkins.war", "--prefix=/jenkins"]
+# start jenkins
+CMD java -Djava.awt.headless=true \
+  -Djava.net.preferIPv4Stack=true \
+  -Djavax.net.ssl.trustStore=/etc/ces/ssl/truststore.jks \
+  -Djavax.net.ssl.trustStorePassword=changeit \
+  -jar /jenkins.war --prefix=/jenkins
