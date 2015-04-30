@@ -18,8 +18,8 @@ server {
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Scheme $scheme;
   proxy_set_header X-Real-IP $remote_addr;
-  # disable gzip encoding on client side
-  proxy_hide_header Accept;
+  # disable gzip encoding for proxy applications
+  proxy_set_header Accept-Encoding identity;
 
   # warp, warp, warp
   set $warp '<script type="text/javascript" async="true">(function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = "/warp/warp.js";var x = document.getElementsByTagName("script")[0];x.parentNode.insertBefore(s, x);})();</script></body>';
