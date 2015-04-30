@@ -5,6 +5,9 @@ MAINTAINER stephan christann <stephan.christann@christann.net>
 # INSTALL SOFTWARE
 RUN apt-get -y update \
     && apt-get -y install slapd ldap-utils
+    && apt-get autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # ADD resources
 ADD resources /resources

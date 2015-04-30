@@ -11,8 +11,11 @@ run echo "postfix postfix/mailname string cloudogu.com" >> preseed.txt
 run debconf-set-selections preseed.txt
 
 # INSTALL SOFTWARE
-RUN apt-get update 
-RUN DEBIAN_FRONTEND=noninteractive apt-get -yq install postfix
+RUN apt-get update
+    && apt-get -yq install postfix
+		&& apt-get autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # SAVE DEFAULT CONFIG
 RUN tar cvfz /postfix.tgz /etc/postfix

@@ -14,6 +14,9 @@ RUN apt-get update -y \
     && curl -L -O http://dist.sonar.codehaus.org/sonarqube-${SONAR_VERSION}.zip \
     && unzip sonarqube-${SONAR_VERSION}.zip \
     && mv sonarqube-${SONAR_VERSION} /opt/sonar
+    && apt-get autoremove \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # copy templates
 ADD conf/sonar.properties /opt/sonar/conf/sonar.properties.tpl
