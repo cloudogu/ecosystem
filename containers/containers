@@ -5,6 +5,7 @@ ldap
 mysql
 nginx
 java
+universeadm
 scm
 jenkins
 nexus
