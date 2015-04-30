@@ -15,16 +15,18 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# install confd, use wget because of add is not cached
+RUN wget https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /bin/confd
+
+RUN rm -v /etc/nginx/conf.d/*
+
 ADD resources/nginx.conf /etc/nginx/nginx.conf
+ADD resources/default.conf /etc/nginx/conf.d/default.conf
 ADD resources/nginx.toml /etc/confd/conf.d/nginx.toml
 ADD resources/apps.conf.tmpl /etc/confd/templates/apps.conf.tmpl
 
-# install confd, use wget because of add is not cached
-RUN wget https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /bin/confd
-RUN chmod +x /bin/confd
-RUN rm -v /etc/nginx/conf.d/*
 ADD startup.sh /startup.sh
-RUN chmod +x /startup.sh
+RUN chmod +x /startup.sh /bin/confd
 
 # force log to stdout and stderr
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
