@@ -33,6 +33,11 @@ ces@$CN
 EOF
 openssl x509 -req -days 3650 -in /etc/ces/ssl/server.csr -signkey /etc/ces/ssl/server.key -out /etc/ces/ssl/server.crt
 
-# create java keystore
-cp /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts /etc/ces/ssl/truststore.jks
-keytool -keystore /etc/ces/ssl/truststore.jks -storepass changeit -alias ces -import -file /etc/ces/ssl/server.crt -noprompt
+# copy jdk truststore
+docker run --rm -v /etc/ces/ssl:/etc/ces/ssl cesi/java \
+  cp /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts /etc/ces/ssl/truststore.jks
+
+# add generated certificate to truststore
+docker run --rm -v /etc/ces/ssl:/etc/ces/ssl cesi/java \
+  keytool -keystore /etc/ces/ssl/truststore.jks -storepass changeit -alias ces \
+  -import -file /etc/ces/ssl/server.crt -noprompt

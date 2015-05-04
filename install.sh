@@ -31,9 +31,14 @@ $INSTALL_HOME/install/install-etcd.sh
 echo "prepare environment"
 $INSTALL_HOME/install/prepare-environment.sh
 
+# build base containers
+echo "build base container"
+$INSTALL_HOME/containers/install-containers.sh "base-containers"
+
 # generate ssl certificates
+echo "generate ssl certificates"
 $INSTALL_HOME/install/ssl.sh
 
 # build containers
-echo "install containers"
-$INSTALL_HOME/containers/install-containers.sh
+echo "build app container"
+$INSTALL_HOME/containers/install-containers.sh "app-containers"

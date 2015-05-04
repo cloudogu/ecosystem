@@ -1,6 +1,13 @@
 #!/bin/bash
 BASEDIR=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
-CONTAINERS=$(cat $BASEDIR/containers)
+CONTAINERFILE="$BASEDIR/$1"
+
+if [ ! -f "$CONTAINERFILE" ]; then
+  echo "could not find container file"
+  exit 1
+fi
+
+CONTAINERS=$(cat $CONTAINERFILE)
 for C in $CONTAINERS; do
   DIR="$BASEDIR/$C"
   if [ ! -f "$DIR/build.sh" ]; then

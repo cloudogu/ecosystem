@@ -1,9 +1,11 @@
 #!/bin/bash
-echo check packages
+echo "check packages"
 
-while read SEL; do
-  echo $SEL | /usr/bin/debconf-set-selections
-done < $INSTALL_HOME/install/debconf-set-selections
+if [ -f "$INSTALL_HOME/install/debconf-set-selections" ]; then
+  while read SEL; do
+    echo $SEL | /usr/bin/debconf-set-selections
+  done < $INSTALL_HOME/install/debconf-set-selections
+fi
 
 ALL=$(dpkg -l | awk '{print $2}')
 NEWPKGS=$(cat $INSTALL_HOME/install/packages)
