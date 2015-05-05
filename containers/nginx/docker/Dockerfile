@@ -24,6 +24,8 @@ ADD resources/nginx.conf /etc/nginx/nginx.conf
 ADD resources/default.conf /etc/nginx/conf.d/default.conf
 ADD resources/nginx.toml /etc/confd/conf.d/nginx.toml
 ADD resources/apps.conf.tmpl /etc/confd/templates/apps.conf.tmpl
+ADD resources/warp.conf /etc/nginx/include.d/warp.conf
+ADD resources/ssl.conf.tpl /etc/nginx/include.d/ssl.conf.tpl
 
 # add warp
 ADD warp /var/www/html/warp

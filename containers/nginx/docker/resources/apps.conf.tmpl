@@ -1,15 +1,5 @@
 server {
-  listen 443  ssl spdy;
-
-  ssl_certificate /etc/ces/ssl/server.crt;
-  ssl_certificate_key /etc/ces/ssl/server.key;
-
-  ssl_session_cache shared:SSL:50m;
-  ssl_session_timeout 5m;
-
-  ssl_prefer_server_ciphers on;
-  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-  ssl_ciphers  HIGH:!aNULL:!MD5;
+  include /etc/nginx/include.d/ssl.conf;
 
   # default proxy settings
   proxy_set_header Host $http_host;
@@ -21,35 +11,7 @@ server {
   # disable gzip encoding for proxy applications
   proxy_set_header Accept-Encoding identity;
 
-  # warp, warp, warp
-  set $warp '<script type="text/javascript" async="true">(function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = "/warp/warp.js";var x = document.getElementsByTagName("script")[0];x.parentNode.insertBefore(s, x);})();</script></body>';
-
-  # apply warp menu only on GET or POST requests
-  set $allowed_method 0;
-  if ($request_method = GET){
-    set $allowed_method 1;
-  }
-  if ($request_method = POST){
-    set $allowed_method 1;
-  }
-  if ($allowed_method != 1){
-    set $warp '</body>';
-  }
-
-  # do not apply warp menu on ajax requests
-  if ($http_x_requested_with ~ XMLHttpRequest) {
-    set $warp '</body>';
-  }
-
-  # replace </body> with $warp for html pages
-  sub_filter_types text/html;
-  sub_filter '</body>' $warp;
-  sub_filter_once on;
-
-  # warp menu
-  location /warp {
-    root /var/www/html;
-  }
+  include /etc/nginx/include.d/warp.conf;
 
   # static stuff
   location /_static {

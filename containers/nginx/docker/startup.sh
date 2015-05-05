@@ -1,5 +1,11 @@
 #!/bin/bash
+source /etc/ces/functions.sh
+
 ETCD=$(cat /etc/ces/ip_addr):4001
+FQDN=$(get_fqdn)
+
+# include fqdn in ssl.conf
+render_template "/etc/nginx/include.d/ssl.conf.tpl" > "/etc/nginx/include.d/ssl.conf"
 
 echo "[nginx] booting container. ETCD: $ETCD"
 
