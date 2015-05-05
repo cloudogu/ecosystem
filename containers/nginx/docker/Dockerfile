@@ -28,6 +28,9 @@ ADD resources/apps.conf.tmpl /etc/confd/templates/apps.conf.tmpl
 # add warp
 ADD warp /var/www/html/warp
 
+# add static resources
+ADD _static /var/www/html/_static
+
 ADD startup.sh /startup.sh
 RUN chmod +x /startup.sh /bin/confd
 
