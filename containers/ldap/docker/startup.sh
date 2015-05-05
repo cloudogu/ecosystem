@@ -14,6 +14,12 @@ if [ ! -f "$CONFDIR/ldap.conf"  ]; then
 	LDAP_ROOTPASS=$(create_or_get_ces_pass ldap_root)
 	LDAP_BASE_DOMAIN="cloudogu.com"
 	LDAP_DOMAIN=$(get_domain)
+  ADMIN_USERNAME="admin"
+  # TODO change admin password
+  ADMIN_PASSWORD="$(slappasswd -s admin)"
+  SYSTEM_USERNAME="system"
+  # TODO change system password
+  SYSTEM_PASSWORD="$(slappasswd -s system)"
 
 	# set domain and root password
 	cat <<EOF | debconf-set-selections
@@ -40,7 +46,7 @@ EOF
   render_template "/resources/domain.ldif.tpl" > "/resources/domain.ldif"
 	ldapadd -D"cn=admin,dc=cloudogu,dc=com" -x -w"${LDAP_ROOTPASS}" -f "/resources/domain.ldif"
 	# bring slapd back to foreground
-	fg
+	wait
 else
 	# START LDAP
 	/usr/sbin/slapd -h "ldap:///" -4 -u openldap -g openldap -d 0
