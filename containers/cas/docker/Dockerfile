@@ -29,7 +29,7 @@ ADD resources/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
 # install cas webapp
 RUN mkdir ${CATALINA_BASE}/webapps/cas/ \
     && curl --fail --silent --location --retry 3 -o ${CATALINA_BASE}/webapps/cas/cas.war \
-		https://universe.triology.de/nexus/content/repositories/snapshots/de/triology/scm/universe/scmm-universe-cas/4.0.2-SCMMU-SNAPSHOT/scmm-universe-cas-4.0.2-SCMMU-20150505.114118-5.war \
+		https://universe.triology.de/nexus/content/repositories/snapshots/de/triology/scm/universe/scmm-universe-cas/4.0.2-SCMMU-SNAPSHOT/scmm-universe-cas-4.0.2-SCMMU-20150505.130049-10.war \
     && cd ${CATALINA_BASE}/webapps/cas/ \
     && jar xvf cas.war \
     && rm -f cas.war
