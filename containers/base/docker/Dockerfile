@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # install common packages
 RUN apt-get update -y \
-    && apt-get install -y --no-install-recommends openssl wget curl zip unzip ca-certificates \
+    && apt-get install -y --no-install-recommends openssl wget curl zip unzip ca-certificates mysql-client \
     && apt-get autoremove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

@@ -3,6 +3,7 @@ registrator
 ldap
 mysql
 nginx
+cas
 universeadm
 scm
 jenkins
