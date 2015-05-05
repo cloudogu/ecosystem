@@ -23,6 +23,9 @@ RUN curl --fail --silent --location --retry 3 \
 # copy server.xml to configure RemoteIpValve
 ADD resources/server.xml ${CATALINA_BASE}/conf/server.xml
 
+# copy setenv.sh to configure missing jvm settings
+ADD resources/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
+
 # install cas webapp
 RUN mkdir ${CATALINA_BASE}/webapps/cas/ \
     && curl --fail --silent --location --retry 3 -o ${CATALINA_BASE}/webapps/cas/cas.war \
@@ -35,9 +38,9 @@ RUN mkdir ${CATALINA_BASE}/webapps/cas/ \
 RUN chown -R cas:cas ${CATALINA_BASE}
 
 # copy resource templates
-ADD resources/ /resources
+ADD resources/cas.properties.tpl /resources/cas.properties.tpl
 ADD startup.sh /startup.sh
-RUN chmod +x /startup.sh
+RUN chmod +x /startup.sh ${CATALINA_BASE}/bin/setenv.sh
 
 # tag for nginx
 ENV SERVICE_TAGS webapp
