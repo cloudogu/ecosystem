@@ -43,6 +43,11 @@ server {
     root /var/www/html;
   }
 
+  # static stuff
+  location /_static {
+    root /var/www/html;
+  }
+
   # services
 {{range $topkey := lsdir "/services"}}{{$topdir := printf "/services/%s/*" $topkey}}{{range $dir := getvs $topdir}}{{$service := json $dir}}{{range $tag := $service.tags}}{{if eq $tag "webapp"}}
   location /{{$service.name}} {
