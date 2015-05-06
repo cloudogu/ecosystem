@@ -40,9 +40,21 @@ EOF
 
   # reconfigure slapd
   dpkg-reconfigure -f noninteractive slapd
+
 	# start ldap
-	/usr/sbin/slapd -h "ldap:///" -4 -u openldap -g openldap -d 0 &
+	/usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u openldap -g openldap -d 0 &
   sleep 2
+
+  # enable memberOf
+  ldapadd -Q -Y EXTERNAL -H ldapi:/// -f /resources/memberof-overlay.ldif
+  ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /resources/refint.ldif
+
+  # restart
+  kill -INT $!
+  /usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u openldap -g openldap -d 0 &
+  sleep 2
+
+  # add structure
   render_template "/resources/domain.ldif.tpl" > "/resources/domain.ldif"
 	ldapadd -D"cn=admin,dc=cloudogu,dc=com" -x -w"${LDAP_ROOTPASS}" -f "/resources/domain.ldif"
 	# bring slapd back to foreground

@@ -5,12 +5,6 @@ objectClass: top
 objectClass: organization
 description: Root entry for domain ${LDAP_DOMAIN}
 
-dn: ou=Groups,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
-ou: Groups
-description: Root entry for groups
-objectClass: top
-objectClass: organizationalUnit
-
 dn: ou=People,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
 ou: People
 description: Root entry for persons
@@ -42,6 +36,41 @@ sn: System
 cn: Universe System
 mail: system@${LDAP_DOMAIN}
 userPassword: ${SYSTEM_PASSWORD}
+
+dn: ou=Groups,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
+ou: Groups
+description: Root entry for groups
+objectClass: top
+objectClass: organizationalUnit
+
+dn: cn=UniverseAdministrators,ou=Groups,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
+cn: UniverseAdministrators
+description: Members of the UniverseAdministrators have full access to the universe administration application
+member: uid=${ADMIN_USERNAME},ou=People,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
+member: cn=dummy
+objectClass: top
+objectClass: groupOfNames
+
+dn: cn=universalAdmin,ou=Groups,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
+cn: universalAdmin
+description: This group grants administrative rights to all development applications of SCM-Manager Universe (except Bugzilla)
+member: cn=dummy
+objectClass: top
+objectClass: groupOfNames
+
+dn: cn=universalWrite,ou=Groups,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
+cn: universalWrite
+description: This group grants write permissions to all projects in SCM-Manager Universe
+member: cn=dummy
+objectClass: top
+objectClass: groupOfNames
+
+dn: cn=universalRead,ou=Groups,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
+cn: universalRead
+description: This group grants read access to all projects in SCM-Manager Universe
+member: cn=dummy
+objectClass: top
+objectClass: groupOfNames
 
 dn: ou=Special Users,o=${LDAP_DOMAIN},dc=cloudogu,dc=com
 ou: Special Users
