@@ -17,7 +17,7 @@ ADD startup.sh /startup.sh
 RUN chmod 755 /startup.sh
 
 # VOLUMES
-VOLUME ["/var/lib/ldap", "/etc/ceslap"]
+VOLUME ["/var/lib/ldap", "/etc/cesldap"]
 
 # MYSQL PORT
 EXPOSE 389

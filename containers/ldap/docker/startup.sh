@@ -2,7 +2,8 @@
 
 source /etc/ces/functions.sh
 
-CONFDIR=/etc/ceslap
+LOGLEVEL=256
+CONFDIR=/etc/cesldap
 
 # LDAP ALREADY INITIALIZED?
 if [ ! -f "$CONFDIR/ldap.conf"  ]; then
@@ -42,16 +43,20 @@ EOF
   dpkg-reconfigure -f noninteractive slapd
 
 	# start ldap
-	/usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u openldap -g openldap -d 0 &
+	/usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u openldap -g openldap -d $LOGLEVEL &
   sleep 2
 
   # enable memberOf
   ldapadd -Q -Y EXTERNAL -H ldapi:/// -f /resources/memberof-overlay.ldif
   ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /resources/refint.ldif
 
+  # index attributes
+  ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /resources/index.ldif
+
   # restart
   kill -INT $!
-  /usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u openldap -g openldap -d 0 &
+  sleep 1
+  /usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u openldap -g openldap -d $LOGLEVEL &
   sleep 2
 
   # add structure
@@ -61,5 +66,5 @@ EOF
 	wait
 else
 	# START LDAP
-	/usr/sbin/slapd -h "ldap:///" -4 -u openldap -g openldap -d 0
+	/usr/sbin/slapd -h "ldap:///" -4 -u openldap -g openldap -d $LOGLEVEL
 fi
