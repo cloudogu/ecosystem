@@ -169,4 +169,4 @@ ldap.authn.attribute.mail=mail
 ldap.authn.attribute.givenName=givenName
 ldap.authn.attribute.surname=sn
 ldap.authn.attribute.displayName=displayName
-ldap.authn.attribute.groups=ou
+ldap.authn.attribute.groups=memberOf

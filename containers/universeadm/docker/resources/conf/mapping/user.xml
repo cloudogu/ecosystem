@@ -22,7 +22,7 @@
       in-search="false">
       password
     </attribute>
-    <attribute ldap-name="ou" is-multi-value="true">memberOf</attribute>
+    <attribute ldap-name="memberOf" is-multi-value="true">memberOf</attribute>
   </attributes>
 
 </mapping>
