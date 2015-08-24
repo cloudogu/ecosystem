@@ -11,4 +11,4 @@ function install_key(){
 }
 
 # docker repository key
-install_key 36A1D7869245C8950F966E92D8576A8BA88D21E9
+install_key 58118E89F3A912897C070ADBF76221572C52609D
