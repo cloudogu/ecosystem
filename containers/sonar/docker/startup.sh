@@ -44,6 +44,9 @@ MYSQL_DB="sonar"
 render_template "/opt/sonar/conf/sonar.properties"
 render_template "/opt/sonar/conf/wrapper.conf"
 
+# move cas plugin to right folder
+mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
+
 # prepare database
 if [ $(mysql -N -s -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "select count(*) from information_schema.tables where table_schema='${MYSQL_DB}' and table_name='projects';") -eq 1 ]; then
   echo "sonar database is already installed"
