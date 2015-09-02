@@ -16,7 +16,7 @@ RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins
 VOLUME /var/lib/jenkins
 
 # jenkins version
-ENV JENKINS_VERSION 1.596.2
+ENV JENKINS_VERSION 1.609.2
 
 # could use ADD but this one does not check Last-Modified header
 # see https://github.com/docker/docker/issues/8331
