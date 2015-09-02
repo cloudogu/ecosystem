@@ -22,6 +22,10 @@ RUN apt-get update -y \
 ADD conf/sonar.properties /opt/sonar/conf/sonar.properties.tpl
 ADD conf/wrapper.conf /opt/sonar/conf/wrapper.conf.tpl
 
+# copy sonar-cas plugin (into wrong folder; correct folder would be: /var/lib/sonar/extensions/plugins/)
+# is moved to right folder via startup.sh
+ADD sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar
+
 # create user
 RUN useradd -d "$SONAR_HOME" -u 1000 -m -s /bin/bash sonar
 RUN chown -R sonar:sonar /opt/sonar
