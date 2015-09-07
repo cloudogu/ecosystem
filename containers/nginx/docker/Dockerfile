@@ -4,7 +4,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
 
-ENV CONFD_VERSION 0.7.1
+ENV CONFD_VERSION 0.10.0
 ADD resources/repo.list /etc/apt/sources.list.d/nginx.list
 
 # Install Nginx.
