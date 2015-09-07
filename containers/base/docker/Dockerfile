@@ -14,7 +14,7 @@ RUN apt-get update -y \
 
 # etcd version
 # TODO use same as system (install-etcd.sh)
-ENV CES_ETCD_VERSION 2.0.10
+ENV CES_ETCD_VERSION 2.1.3
 
 # install etcd
 ADD https://github.com/coreos/etcd/releases/download/v${CES_ETCD_VERSION}/etcd-v${CES_ETCD_VERSION}-linux-amd64.tar.gz /tmp/etcd.tar.gz

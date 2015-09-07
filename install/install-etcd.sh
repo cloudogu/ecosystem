@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ETCD_VERSION=v2.0.10
+ETCD_VERSION=v2.1.3
 
 function install_etcd(){
   curl -L  https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz -o /tmp/etcd.tar.gz
