@@ -4,7 +4,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 
 # scm-server environment
-ENV SCM_VERSION 1.45
+ENV SCM_VERSION 1.46
 ENV SCM_PKG_URL https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 ENV SCM_HOME /var/lib/scm
 ADD default /etc/default/scm-server
