@@ -5,7 +5,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 # dockerfile based on https://registry.hub.docker.com/u/sonatype/nexus/dockerfile/
 
 # The version of nexus to install
-ENV NEXUS_VERSION 2.11.2-06
+ENV NEXUS_VERSION 2.11.4-01
 
 RUN mkdir -p /opt/sonatype/nexus \
   && curl --fail --silent --location --retry 3 \
