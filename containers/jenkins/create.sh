@@ -14,4 +14,6 @@ docker create \
   -h jenkins \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/jenkins \
+  --log-driver="syslog" \
+  --log-opt='syslog-tag=jenkins' \
   cesi/jenkins

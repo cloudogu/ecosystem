@@ -10,4 +10,11 @@ if ! [ -d $mailDir ]; then
 	fi
 fi
 
-docker create --name postfix -h mail -v /etc/ces:/etc/ces -v $mailDir/conf:/etc/postfix cesi/postfix
+docker create \
+	--name postfix \
+	-h mail \
+	-v /etc/ces:/etc/ces \
+	-v $mailDir/conf:/etc/postfix \
+	--log-driver="syslog" \
+	--log-opt='syslog-tag=postfix' \
+	cesi/postfix

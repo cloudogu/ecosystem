@@ -6,4 +6,6 @@ docker create \
   -p 80:80 \
   -p 443:443 \
   -v /etc/ces:/etc/ces \
+  --log-driver="syslog" \
+  --log-opt='syslog-tag=nginx' \
   cesi/nginx

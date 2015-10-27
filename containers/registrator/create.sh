@@ -12,6 +12,8 @@ docker create \
   --name registrator \
   -h registrator \
   -v /var/run/docker.sock:/var/run/docker.sock \
+  --log-driver="syslog" \
+  --log-opt='syslog-tag=registrator' \
   cesi/registrator \
   -internal \
   etcd://$(get_ip):4001/services

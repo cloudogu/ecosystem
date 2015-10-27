@@ -18,4 +18,6 @@ docker create \
 	-v $DATADIR/data/config:/etc/ceslap \
 	-v $DATADIR/data/db:/var/lib/ldap \
 	-v /etc/ces:/etc/ces \
+	--log-driver="syslog" \
+	--log-opt='syslog-tag=ldap' \
 	cesi/ldap
