@@ -14,4 +14,6 @@ docker create \
   -h scm \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/scm \
+  --log-driver="syslog" \
+  --log-opt='syslog-tag=scm' \
   cesi/scm

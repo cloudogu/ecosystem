@@ -14,4 +14,6 @@ docker create \
   -h sonar \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/sonar \
+  --log-driver="syslog" \
+  --log-opt='syslog-tag=sonar' \
   cesi/sonar

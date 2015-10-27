@@ -14,4 +14,6 @@ docker create \
   -h universeadm \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/universeadm \
+  --log-driver="syslog" \
+  --log-opt='syslog-tag=universeadm' \
   cesi/universeadm

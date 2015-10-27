@@ -18,4 +18,6 @@ docker create \
   -h cas \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/YOURAPPLICATION \
+  --log-driver="syslog" \
+  --log-opt='syslog-tag=YOURCONTAINERNAME' \
   YOURCONTAINERNAME
