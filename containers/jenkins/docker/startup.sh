@@ -1,4 +1,11 @@
 #!/bin/bash
+source /etc/ces/functions.sh
+
+# create environment for templates
+FQDN=$(get_fqdn)
+
+# render template
+render_template "/config.xml.tpl" > "/var/lib/jenkins/config.xml"
 
 # Checking if /var/lib/jenkins/cas-plugin exists
 if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
