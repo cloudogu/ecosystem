@@ -20,7 +20,7 @@ RUN /usr/sbin/useradd --home-dir /opt/apache-tomcat --shell /bin/bash tomcat
 
 # install tomcat
 RUN curl --fail --silent --location --retry 3 \
-			http://mirror.arcor-online.net/www.apache.org/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
+			http://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
 		| gunzip \
 		| tar x -C /opt \
 		&& mv /opt/apache-tomcat-* /opt/apache-tomcat \
