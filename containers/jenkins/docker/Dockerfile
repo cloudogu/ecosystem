@@ -22,8 +22,20 @@ ENV JENKINS_VERSION 1.609.2
 # see https://github.com/docker/docker/issues/8331
 RUN curl -L http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war -o /jenkins.war
 
+# add cas-plugin
+RUN curl -L http://updates.jenkins-ci.org/latest/cas-plugin.hpi -o /cas-plugin.hpi
+RUN chown jenkins:jenkins /cas-plugin.hpi
+RUN chmod 755 /cas-plugin.hpi
+
+# add jenkins config file template, including changes for cas plugin
+ADD ./resources/var/lib/jenkins/config.xml.tpl /config.xml.tpl
+
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
+
+# startscript
+ADD ./startup.sh /startup.sh
+RUN chmod +x /startup.sh
 
 # for main web interface:
 EXPOSE 8080
@@ -31,8 +43,4 @@ EXPOSE 8080
 USER jenkins
 
 # start jenkins
-CMD java -Djava.awt.headless=true \
-  -Djava.net.preferIPv4Stack=true \
-  -Djavax.net.ssl.trustStore=/etc/ces/ssl/truststore.jks \
-  -Djavax.net.ssl.trustStorePassword=changeit \
-  -jar /jenkins.war --prefix=/jenkins
+CMD /startup.sh
