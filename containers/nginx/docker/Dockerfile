@@ -4,13 +4,15 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
 
+ENV NGINX_VERSION 1.9.7-1~wheezy
+
 ENV CONFD_VERSION 0.10.0
 ADD resources/repo.list /etc/apt/sources.list.d/nginx.list
 
 # Install Nginx.
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 \
   && apt-get update \
-  && apt-get install -y nginx \
+  && apt-get install -y ca-certificates nginx=${NGINX_VERSION} \
   && apt-get autoremove \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
