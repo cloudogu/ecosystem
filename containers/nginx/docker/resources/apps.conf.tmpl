@@ -13,6 +13,13 @@ server {
 
   include /etc/nginx/include.d/warp.conf;
 
+  {{if exists "/services/universeadm/registrator:universeadm:8080"}}
+  # redirect to /universeadm
+  location / {
+    return 301 https://$host/universeadm;
+  }
+  {{end}}
+
   # static stuff
   location /_static {
     root /var/www/html;
