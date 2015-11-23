@@ -7,6 +7,9 @@ function move_sonar_dir(){
   if [ ! -d "/var/lib/sonar/$DIR" ]; then
     mv /opt/sonar/$DIR /var/lib/sonar
     ln -s /var/lib/sonar/$DIR /opt/sonar/$DIR
+  elif [ ! -L "/opt/sonar/$DIR" -a -d "/opt/sonar/$DIR" ]; then
+    rm -rf /opt/sonar/$DIR
+    ln -s /var/lib/sonar/$DIR /opt/sonar/$DIR
   fi
 }
 
@@ -42,7 +45,6 @@ MYSQL_DB="sonar"
 
 # prepare config
 render_template "/opt/sonar/conf/sonar.properties"
-render_template "/opt/sonar/conf/wrapper.conf"
 
 # move cas plugin to right folder
 mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
@@ -55,4 +57,5 @@ else
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "CREATE DATABASE ${MYSQL_DB} DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" "${MYSQL_DB}" -e "grant all on ${MYSQL_DB}.* to \"${MYSQL_USER}\"@\"172.17.%\" identified by \"${MYSQL_USER_PASSWORD}\";FLUSH PRIVILEGES;"
 fi
-exec su - sonar -c "/opt/sonar/bin/linux-x86-64/sonar.sh console"
+
+exec su - sonar -c "exec java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar"
