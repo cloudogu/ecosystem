@@ -16,4 +16,5 @@ docker create \
   -v "$DATADIR/data":/var/lib/scm \
   --log-driver="syslog" \
   --log-opt='syslog-tag=scm' \
+ --net=cesnet1 \
   cesi/scm

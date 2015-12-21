@@ -17,4 +17,5 @@ docker create \
 	-v $dbDir/data:/var/lib/mysql \
 	--log-driver="syslog" \
 	--log-opt='syslog-tag=mysql' \
+	--net=cesnet1 \
 	cesi/mysql

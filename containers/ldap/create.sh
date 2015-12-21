@@ -20,4 +20,5 @@ docker create \
 	-v /etc/ces:/etc/ces \
 	--log-driver="syslog" \
 	--log-opt='syslog-tag=ldap' \
+	--net=cesnet1 \
 	cesi/ldap
