@@ -30,3 +30,6 @@ if [ -f "/etc/sudoers" ]; then
 else
   echo 'ERR: sudoers file does not exists'
 fi
+
+# install docker overlay network
+docker network create --driver overlay cesnet1
