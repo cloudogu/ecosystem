@@ -6,8 +6,8 @@ FQDN=$(get_fqdn)
 DOMAIN=$(get_domain)
 
 LDAP_SERVICE=$(get_service ldap 389)
-LDAP_HOST=$(echo $LDAP_SERVICE | awk -F':' '{print $1}')
-LDAP_PORT=$(echo $LDAP_SERVICE | awk -F':' '{print $2}')
+LDAP_HOST=ldap
+LDAP_PORT=389
 LDAP_BASE_DN="o=${DOMAIN},dc=cloudogu,dc=com"
 LDAP_BIND_DN="cn=admin,dc=cloudogu,dc=com"
 LDAP_BIND_PASSWORD=$(/opt/apache-tomcat/webapps/universeadm/WEB-INF/cipher.sh encrypt $(get_ces_pass ldap_root) | tail -1)
