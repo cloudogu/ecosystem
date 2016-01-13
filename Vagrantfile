@@ -5,6 +5,7 @@ Vagrant.configure(2) do |config|
 
   # https://atlas.hashicorp.com/cloudogu/boxes/ecosystem-basebox
   config.vm.box = "cloudogu/ecosystem-basebox"
+  config.vm.hostname = "ces"
 
   # use bridged netword
   # to get the ip use vagrant ssh -c ifconfig
