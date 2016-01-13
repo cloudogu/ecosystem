@@ -42,3 +42,10 @@ $INSTALL_HOME/install/ssl.sh
 # build containers
 echo "build app container"
 $INSTALL_HOME/containers/install-containers.sh "app-containers"
+
+# start etcd, create overlay network cesnet1 and reboot
+docker start etcd
+sleep 5
+docker network create --driver overlay cesnet1
+sleep 5
+reboot
