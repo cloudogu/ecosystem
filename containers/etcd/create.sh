@@ -13,11 +13,11 @@ fi
 docker rm etcd
 docker create \
   --name etcd \
-  -h etcd \
   -p 4001:4001 \
   -v /etc/ces:/etc/ces \
   -v "$DATADIR/data":/var/lib/etcd \
   --log-driver="syslog" \
   --log-opt='syslog-tag=etcd' \
+  --net=host \
   cesi/etcd \
   -addr=$(get_ip):4001
