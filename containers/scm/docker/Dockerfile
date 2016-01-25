@@ -28,9 +28,21 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
 
+# startscript
+ADD ./startup.sh /startup.sh
+RUN chmod +x /startup.sh
+
+# cas plugin
+ADD resources/cas_plugin.xml /opt/scm-server/conf/cas_plugin.xml.tpl
+#RUN chmod 777 /var/lib/temp/cas_plugin.xml.tpl
+
 # run scm-manager
 WORKDIR /var/lib/scm
 VOLUME /var/lib/scm
 EXPOSE 8080
 USER scm
-CMD ["/opt/scm-server/bin/scm-server"]
+
+
+# start scm
+CMD /startup.sh
+#CMD /opt/scm-server/bin/scm-server
