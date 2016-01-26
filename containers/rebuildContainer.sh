@@ -9,7 +9,7 @@ fi
 
 echo "$NAME container is going to be recreated now."
 docker rm -f $NAME
-docker rmi cesi/$NAME
+#docker rmi cesi/$NAME
 $DIR/$NAME/build.sh
 $DIR/$NAME/create.sh
 
