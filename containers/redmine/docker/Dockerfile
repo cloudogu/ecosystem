@@ -17,7 +17,16 @@ RUN apt-get update \
 		libyaml-dev \
 		procps \
 		zlib1g-dev \
-	&& rm -rf /var/lib/apt/lists/*
+		imagemagick \
+		libmysqlclient18 \
+		libpq5 \
+		libsqlite3-0 \
+		bzr \
+		git \
+		mercurial \
+		openssh-client \
+		subversion
+	#&& rm -rf /var/lib/apt/lists/*
 
 ENV RUBY_MAJOR 2.2
 ENV RUBY_VERSION 2.2.4
@@ -42,9 +51,15 @@ RUN buildDeps=' \
 		libxslt-dev \
 		make \
 		ruby \
+		libmagickcore-dev \
+		libmagickwand-dev \
+		libmysqlclient-dev \
+		libpq-dev \
+		libsqlite3-dev \
+		patch \
 	' \
 	&& set -x \
-	&& apt-get update \
+	#&& apt-get update \
 	&& apt-get install -y --no-install-recommends $buildDeps \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& mkdir -p /usr/src/ruby \
@@ -58,8 +73,8 @@ RUN buildDeps=' \
 	&& make -j"$(nproc)" \
 	&& make install \
 	&& gem update --system $RUBYGEMS_VERSION \
-	&& rm -r /usr/src/ruby \
-	&& apt-get purge -y --auto-remove $buildDeps
+	&& rm -r /usr/src/ruby
+	#&& apt-get purge -y --auto-remove $buildDeps
 
 # install things globally, for great justice
 ENV GEM_HOME /usr/local/bundle
@@ -93,19 +108,6 @@ RUN set -x \
 	&& chmod +x /usr/local/bin/tini \
 	&& tini -h
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		imagemagick \
-		libmysqlclient18 \
-		libpq5 \
-		libsqlite3-0 \
-		\
-		bzr \
-		git \
-		mercurial \
-		openssh-client \
-		subversion \
-	&& rm -rf /var/lib/apt/lists/*
-
 ENV RAILS_ENV production
 WORKDIR /usr/src/redmine
 
@@ -119,18 +121,7 @@ RUN curl -fSL "http://www.redmine.org/releases/redmine-${REDMINE_VERSION}.tar.gz
 	&& mkdir -p tmp/pdf public/plugin_assets \
 	&& chown -R redmine:redmine ./
 
-RUN buildDeps='\
-		gcc \
-		libmagickcore-dev \
-		libmagickwand-dev \
-		libmysqlclient-dev \
-		libpq-dev \
-		libsqlite3-dev \
-		make \
-		patch \
-	' \
-	&& set -ex \
-	&& apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+RUN set -ex \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& bundle install --without development test \
 	&& for adapter in mysql2 postgresql sqlite3; do \
@@ -153,15 +144,14 @@ EXPOSE 3000
 ADD ./usr/src/redmine/config/database.yml /usr/src/redmine/config/database.yml
 RUN chmod 664 /usr/src/redmine/config/database.yml
 
-
 RUN chmod 777 /usr/src/redmine/Gemfile.lock
 
 
 # startscript
-#ADD ./startup.sh /startup.sh
-#RUN chmod +x /startup.sh
+ADD ./startup.sh /startup.sh
+RUN chmod +x /startup.sh
 
-USER redmine
-CMD ["rails", "server", "-b", "0.0.0.0"]
+#USER redmine
+#CMD ["rails", "server", "-b", "0.0.0.0"]
 # start jenkins
-#CMD /startup.sh
+CMD /startup.sh
