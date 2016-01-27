@@ -151,6 +151,9 @@ RUN chmod 777 /usr/src/redmine/Gemfile.lock
 ADD ./startup.sh /startup.sh
 RUN chmod +x /startup.sh
 
+# mark as webapp for nginx
+ENV SERVICE_TAGS webapp
+
 #USER redmine
 #CMD ["rails", "server", "-b", "0.0.0.0"]
 # start jenkins
