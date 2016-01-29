@@ -1,5 +1,5 @@
 # cesi/base
-FROM debian:wheezy
+FROM debian:jessie
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # fix some apt installation problems
