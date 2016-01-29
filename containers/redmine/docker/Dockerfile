@@ -13,6 +13,7 @@ RUN apt-get update \
 		curl \
 		libffi-dev \
 		libgdbm3 \
+		libopenssl-ruby1.8 \
 		libssl-dev \
 		libyaml-dev \
 		procps \
@@ -142,7 +143,9 @@ EXPOSE 3000
 
 
 ADD ./usr/src/redmine/config/database.yml /usr/src/redmine/config/database.yml
+ADD ./usr/src/redmine/config/secrets.yml /usr/src/redmine/config/secrets.yml
 RUN chmod 664 /usr/src/redmine/config/database.yml
+RUN chmod 664 /usr/src/redmine/config/secrets.yml
 
 RUN chmod 777 /usr/src/redmine/Gemfile.lock
 
