@@ -44,4 +44,3 @@ USER scm
 
 # start scm
 CMD /startup.sh
-#CMD /opt/scm-server/bin/scm-server

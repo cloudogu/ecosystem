@@ -4,7 +4,6 @@ if ! [ -d /var/lib/scm/plugins/de/triology/scm/plugins/scm-cas-plugin ]
 	then
 		echo "no cas-plugin installed"
 		/opt/scm-server/bin/scm-server &
-		START_TIME=$SECONDS
 		tries=0
 		while ! [ $(curl -sL -w "%{http_code}" "http://localhost:8080/scm/api/rest/plugins/installed" -u scmadmin:scmadmin -o /dev/null) -eq 200 ]
 		do
