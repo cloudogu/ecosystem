@@ -34,7 +34,6 @@ RUN chmod +x /startup.sh
 
 # cas plugin
 ADD resources/cas_plugin.xml /opt/scm-server/conf/cas_plugin.xml.tpl
-#RUN chmod 777 /var/lib/temp/cas_plugin.xml.tpl
 
 # run scm-manager
 WORKDIR /var/lib/scm
