@@ -9,9 +9,10 @@ if Dir.glob(File.join(vendor_plugins_dir, "*")).any?
     "Redmine directory (#{File.join(Rails.root, "plugins")})"
   exit 1
 end
+
 RedmineApp::Application.routes.default_scope = '/redmine'
+
 # Initialize the Rails application
 Rails.application.initialize!
-#ActionController::AbstractRequest.relative_url_root = "/redmine"
+
 Redmine::Utils::relative_url_root = "/redmine"
-ActionController::Base.relative_url_root = "/redmine"

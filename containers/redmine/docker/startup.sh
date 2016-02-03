@@ -40,27 +40,27 @@ echo "creating database structure..."
 RAILS_ENV=production bundle exec rake db:migrate
 
 # Insert default configuration data in database
-# TODO: set correct language at REDMINE_LANG parameter
+# Adjust to your language at REDMINE_LANG parameter
 echo "inserting default configuration data into database"
 RAILS_ENV=production REDMINE_LANG=en bundle exec rake redmine:load_default_data
 
+# set links
 if [ ! -e /usr/src/redmine/public/redmine ]
   then
-  echo "Creating link to /usr/src/redmine/ in /usr/src/redmine/public/"
   ln -s /usr/src/redmine/ /usr/src/redmine/public/
 fi
-
 if [ ! -e /usr/src/redmine/javascripts ]
   then
-  echo "Creating link to /usr/src/redmine/public/javascripts in /usr/src/redmine/"
-  ln -s /usr/src/redmine/public/javascripts /usr/src/redmine/
+  ln -s /usr/src/redmine/public/* /usr/src/redmine/
 fi
-
-if [ ! -e /usr/src/redmine/stylesheets ]
-  then
-  echo "Creating link to /usr/src/redmine/public/stylesheets in /usr/src/redmine/"
-  ln -s /usr/src/redmine/public/stylesheets /usr/src/redmine/
-fi
+# if [ ! -e /usr/src/redmine/javascripts ]
+#   then
+#   ln -s /usr/src/redmine/public/javascripts /usr/src/redmine/
+# fi
+# if [ ! -e /usr/src/redmine/stylesheets ]
+#   then
+#   ln -s /usr/src/redmine/public/stylesheets /usr/src/redmine/
+# fi
 
 # start redmine
 rails server -b 0.0.0.0

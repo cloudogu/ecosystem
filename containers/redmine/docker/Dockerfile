@@ -134,23 +134,19 @@ RUN set -ex \
 	&& apt-get purge -y --auto-remove $buildDeps
 
 
-#VOLUME /usr/src/redmine/files
-
-#COPY docker-entrypoint.sh /
-#ENTRYPOINT ["/docker-entrypoint.sh"]
 
 EXPOSE 3000
 
-
 ADD ./usr/src/redmine/config/database.yml /usr/src/redmine/config/database.yml
 ADD ./usr/src/redmine/config/secrets.yml /usr/src/redmine/config/secrets.yml
+ADD ./usr/src/redmine/config/environment.rb /usr/src/redmine/config/environment.rb
 
 RUN chmod 664 /usr/src/redmine/config/database.yml
 RUN chmod 664 /usr/src/redmine/config/secrets.yml
-
+RUN chmod 664 /usr/src/redmine/config/environment.rb
+RUN chown redmine:redmine /usr/src/redmine/config/*
 
 RUN chmod 777 /usr/src/redmine/Gemfile.lock
-
 
 # startscript
 ADD ./startup.sh /startup.sh
@@ -159,11 +155,5 @@ RUN chmod +x /startup.sh
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
 
-ADD ./usr/src/redmine/config/environment.rb /usr/src/redmine/config/environment.rb
-RUN chmod 664 /usr/src/redmine/config/environment.rb
-RUN chown redmine:redmine /usr/src/redmine/config/*
-
-#USER redmine
-#CMD ["rails", "server", "-b", "0.0.0.0"]
 # start jenkins
 CMD /startup.sh
