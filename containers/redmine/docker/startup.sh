@@ -6,7 +6,7 @@ source /etc/ces/functions.sh
 
 # wait for mysql database to initialize
 #TODO: do not sleep, but check if mysql is available instead
-sleep 60
+sleep 30
 
 # get variables for templates
 FQDN=$(get_fqdn)
@@ -27,7 +27,7 @@ else
 fi
 
 # adjust redmine database.yml
-sed -i "s/\"\"/${MYSQL_USER_PASSWORD}/g" /usr/src/redmine/config/database.yml
+sed -i s/\"\"/${MYSQL_USER_PASSWORD}/g /usr/src/redmine/config/database.yml
 
 # generate secret session token
 bundle exec rake generate_secret_token
@@ -43,6 +43,24 @@ RAILS_ENV=production bundle exec rake db:migrate
 # TODO: set correct language at REDMINE_LANG parameter
 echo "inserting default configuration data into database"
 RAILS_ENV=production REDMINE_LANG=en bundle exec rake redmine:load_default_data
+
+if [ ! -e /usr/src/redmine/public/redmine ]
+  then
+  echo "Creating link to /usr/src/redmine/ in /usr/src/redmine/public/"
+  ln -s /usr/src/redmine/ /usr/src/redmine/public/
+fi
+
+if [ ! -e /usr/src/redmine/javascripts ]
+  then
+  echo "Creating link to /usr/src/redmine/public/javascripts in /usr/src/redmine/"
+  ln -s /usr/src/redmine/public/javascripts /usr/src/redmine/
+fi
+
+if [ ! -e /usr/src/redmine/stylesheets ]
+  then
+  echo "Creating link to /usr/src/redmine/public/stylesheets in /usr/src/redmine/"
+  ln -s /usr/src/redmine/public/stylesheets /usr/src/redmine/
+fi
 
 # start redmine
 rails server -b 0.0.0.0
