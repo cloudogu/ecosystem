@@ -2,16 +2,19 @@
 FROM cesi/java
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
-ENV SONAR_VERSION 5.2
+ENV SONAR_VERSION 5.3
 ENV SONARQUBE_HOME /opt/sonar
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
 
+# there seems to be an ssl problem with curl and bintray.com, that is why the
+# --insecure flag was passed to curl. we should keep this in mind and try to
+# remove it in the future
 RUN apt-get update -y \
     && apt-get -y install procps mysql-client \
     && cd /tmp \
-    && curl -L -O https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip \
+    && curl --insecure -L -O https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip \
     && unzip sonarqube-${SONAR_VERSION}.zip \
     && mv sonarqube-${SONAR_VERSION} ${SONARQUBE_HOME} \
     && apt-get autoremove \
