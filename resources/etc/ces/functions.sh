@@ -10,7 +10,7 @@ function get_ip(){
     if [ $TYPE = "vagrant" ]; then
       VIP=$(echo $IPS | awk '{print $1}')
       for IP in $IPS; do
-        echo $IP | grep 192\.168\.115\. > /dev/null
+        echo $IP | grep 192\.168\. > /dev/null
         if [ $? -eq 0 ]; then
           VIP="$IP"
         fi
