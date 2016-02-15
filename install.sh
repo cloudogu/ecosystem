@@ -11,6 +11,10 @@ fi
 echo "creating btrfs subvolumes"
 $INSTALL_HOME/install/create-subvolumes.sh
 
+# install etcd
+echo "install etcd"
+$INSTALL_HOME/install/install-etcd.sh
+
 # snyc resources
 echo "sync files"
 $INSTALL_HOME/install/sync-files.sh
@@ -23,13 +27,13 @@ $INSTALL_HOME/install/apt-keys.sh
 echo "install missing packages"
 $INSTALL_HOME/install/apt-packages.sh
 
-# install etcd
-echo "install etcd"
-$INSTALL_HOME/install/install-etcd.sh
-
 # prepare environment
 echo "prepare environment"
 $INSTALL_HOME/install/prepare-environment.sh
+
+# create overlay network
+echo "create network"
+$INSTALL_HOME/install/create-network.sh
 
 # build base containers
 echo "build base container"
@@ -41,11 +45,4 @@ $INSTALL_HOME/install/ssl.sh
 
 # build containers
 echo "build app container"
-$INSTALL_HOME/containers/install-containers.sh "app-containers"
-
-# start etcd, create overlay network cesnet1 and reboot
-docker start etcd
-sleep 5
-docker network create --driver overlay cesnet1
-sleep 5
-reboot
+$INSTALL_HOME/containers/install-containers.sh "app-containers" "start"
