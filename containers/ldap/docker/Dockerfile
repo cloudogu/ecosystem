@@ -3,7 +3,7 @@ FROM cesi/base
 MAINTAINER stephan christann <stephan.christann@christann.net>
 
 # INSTALL SOFTWARE
-RUN apk add --update openldap openldap-clients openldap-back-hdb openldap-back-bdb
+RUN apk add --update openldap openldap-clients openldap-back-hdb
 RUN rm -rf /var/cache/apk/*
 
 # ADD resources
@@ -20,5 +20,4 @@ VOLUME ["/var/lib/ldap", "/etc/cesldap"]
 EXPOSE 389
 
 # FIRE IT UP
-CMD ping 127.0.0.1
-# CMD ["/bin/bash", "/startup.sh"]
+CMD ["/bin/bash", "/startup.sh"]

@@ -80,7 +80,7 @@ olcDatabase: frontend
 dn: olcDatabase=mdb,cn=config
 objectClass: olcDatabaseConfig
 objectClass: olcMdbConfig
-olcDatabase: mdb
+olcDatabase: hdb
 olcSuffix: ${SUFFIX}
 olcRootDN: ${ROOTDN}
 # Cleartext passwords, especially for the rootdn, should

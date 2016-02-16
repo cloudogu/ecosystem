@@ -15,8 +15,8 @@ argsfile	/var/run/openldap/slapd.args
 
 # Load dynamic backend modules:
 # modulepath	/usr/lib/openldap
-moduleload	back_bdb.so
-# moduleload	back_hdb.so
+# moduleload	back_bdb.so
+moduleload	back_hdb.so
 # moduleload	back_ldap.so
 
 # Sample security restrictions
@@ -50,7 +50,7 @@ moduleload	back_bdb.so
 # BDB database definitions
 #######################################################################
 
-database	bdb
+database	hdb
 suffix ${SUFFIX}
 rootdn \"${ROOTDN}\"
 # Cleartext passwords, especially for the rootdn, should

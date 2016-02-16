@@ -2,20 +2,20 @@
 
 source /etc/ces/functions.sh
 
-LOGLEVEL=256
+LOGLEVEL=255
 CONFDIR=/etc/cesldap
 
 # LDAP ALREADY INITIALIZED?
 if [ ! -f "$CONFDIR/ldap.conf"  ]; then
   mv /etc/openldap/* "$CONFDIR"
-	rmdir /etc/openldap
-	ln -s "$CONFDIR" /etc/openldap
+  rmdir /etc/openldap
+  ln -s "$CONFDIR" /etc/openldap
 
   # get domain and root password
-	LDAP_ROOTPASS=$(create_or_get_ces_pass ldap_root)
+  LDAP_ROOTPASS=$(create_or_get_ces_pass ldap_root)
   LDAP_ROOTPASS_ENC=$(slappasswd -s $LDAP_ROOTPASS)
   LDAP_BASE_DOMAIN=$(get_domain)
-	LDAP_DOMAIN=$(get_domain)
+  LDAP_DOMAIN=$(get_domain)
   # TODO passwords should not be like this
   ADMIN_USERNAME="admin"
   ADMIN_PASSWORD="$(slappasswd -s admin)"
@@ -28,8 +28,14 @@ if [ ! -f "$CONFDIR/ldap.conf"  ]; then
   render_template "/resources/slapd.conf.tpl" > "/etc/openldap/slapd.conf"
   render_template "/resources/slapd.ldif.tpl" > "/etc/openldap/slapd.ldif"
 
-  # START LDAP IN BACKGROUND
-	/usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u ldap -g ldap -d $LOGLEVEL &
+  # START LDAP IN BACKGROUND AFTER CREATING FOLDERS
+  mkdir -p /var/lib/openldap/openldap-data
+  chmod -R 700 /var/lib/openldap
+  chown ldap.ldap /var/lib/openldap
+  chown ldap.ldap /var/lib/openldap/openldap-data
+  cp /etc/openldap/DB_CONFIG.example /var/lib/openldap/openldap-data/DB_CONFIG
+  chown ldap.ldap /var/lib/openldap/openldap-data/DB_CONFIG
+  /usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u ldap -g ldap -d $LOGLEVEL &
   sleep 2
 
   # ENABLE MEMBEROF
@@ -47,7 +53,7 @@ if [ ! -f "$CONFDIR/ldap.conf"  ]; then
 
   # ADD STRUCTURE
   render_template "/resources/domain.ldif.tpl" > "/resources/domain.ldif"
-	ldapadd -D"$ROOTDN" -x -w"${LDAP_ROOTPASS}" -f "/resources/domain.ldif"
+  ldapadd -D"$ROOTDN" -x -w"${LDAP_ROOTPASS}" -f "/resources/domain.ldif"
   wait
   # WILL THERE BE USERS?
 else

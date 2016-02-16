@@ -1,4 +1,4 @@
-dn: olcDatabase={1}bdb,cn=config
+dn: olcDatabase={1}hdb,cn=config
 changetype: modify
 replace: olcDbIndex
 olcDbIndex: objectClass pres,eq
