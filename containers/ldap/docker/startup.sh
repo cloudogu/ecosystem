@@ -7,64 +7,50 @@ CONFDIR=/etc/cesldap
 
 # LDAP ALREADY INITIALIZED?
 if [ ! -f "$CONFDIR/ldap.conf"  ]; then
-  mv /etc/ldap/* "$CONFDIR"
-	rmdir /etc/ldap
-	ln -s "$CONFDIR" /etc/ldap
+  mv /etc/openldap/* "$CONFDIR"
+	rmdir /etc/openldap
+	ln -s "$CONFDIR" /etc/openldap
 
   # get domain and root password
 	LDAP_ROOTPASS=$(create_or_get_ces_pass ldap_root)
-	LDAP_BASE_DOMAIN="cloudogu.com"
+  LDAP_ROOTPASS_ENC=$(slappasswd -s $LDAP_ROOTPASS)
+  LDAP_BASE_DOMAIN=$(get_domain)
 	LDAP_DOMAIN=$(get_domain)
+  # TODO passwords should not be like this
   ADMIN_USERNAME="admin"
-  # TODO change admin password
   ADMIN_PASSWORD="$(slappasswd -s admin)"
   SYSTEM_USERNAME="system"
-  # TODO change system password
   SYSTEM_PASSWORD="$(slappasswd -s system)"
+  ROOTDN="cn=admin,dc=cloudogu,dc=com"
+  SUFFIX="dc=cloudogu,dc=com"
 
-	# set domain and root password
-	cat <<EOF | debconf-set-selections
-slapd slapd/internal/generated_adminpw password ${LDAP_ROOTPASS}
-slapd slapd/internal/adminpw password ${LDAP_ROOTPASS}
-slapd slapd/password2 password ${LDAP_ROOTPASS}
-slapd slapd/password1 password ${LDAP_ROOTPASS}
-slapd slapd/dump_database_destdir string /var/backups/slapd-VERSION
-slapd slapd/domain string ${LDAP_BASE_DOMAIN}
-slapd shared/organization string ${LDAP_BASE_DOMAIN}
-slapd slapd/backend string HDB
-slapd slapd/purge_database boolean true
-slapd slapd/move_old_database boolean true
-slapd slapd/allow_ldap_v2 boolean false
-slapd slapd/no_configuration boolean false
-slapd slapd/dump_database select when needed
-EOF
+  # GENERATE SLAPD.LDIF AND SLAPD.CONF
+  render_template "/resources/slapd.conf.tpl" > "/etc/openldap/slapd.conf"
+  render_template "/resources/slapd.ldif.tpl" > "/etc/openldap/slapd.ldif"
 
-  # reconfigure slapd
-  dpkg-reconfigure -f noninteractive slapd
-
-	# start ldap
-	/usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u openldap -g openldap -d $LOGLEVEL &
+  # START LDAP IN BACKGROUND
+	/usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u ldap -g ldap -d $LOGLEVEL &
   sleep 2
 
-  # enable memberOf
+  # ENABLE MEMBEROF
   ldapadd -Q -Y EXTERNAL -H ldapi:/// -f /resources/memberof-overlay.ldif
   ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /resources/refint.ldif
 
-  # index attributes
+  # INDEX ATTRIBUTES
   ldapmodify -Q -Y EXTERNAL -H ldapi:/// -f /resources/index.ldif
 
   # restart
   kill -INT $!
   sleep 1
-  /usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u openldap -g openldap -d $LOGLEVEL &
+  /usr/sbin/slapd -h "ldap:/// ldapi:///" -4 -u ldap -g ldap -d $LOGLEVEL &
   sleep 2
 
-  # add structure
+  # ADD STRUCTURE
   render_template "/resources/domain.ldif.tpl" > "/resources/domain.ldif"
-	ldapadd -D"cn=admin,dc=cloudogu,dc=com" -x -w"${LDAP_ROOTPASS}" -f "/resources/domain.ldif"
-	# bring slapd back to foreground
-	wait
+	ldapadd -D"$ROOTDN" -x -w"${LDAP_ROOTPASS}" -f "/resources/domain.ldif"
+  wait
+  # WILL THERE BE USERS?
 else
-	# START LDAP
-	/usr/sbin/slapd -h "ldap:///" -4 -u openldap -g openldap -d $LOGLEVEL
+  # START LDAP
+  /usr/sbin/slapd -h "ldap:///" -4 -u ldap -g ldap -d $LOGLEVEL
 fi

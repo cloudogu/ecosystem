@@ -3,11 +3,8 @@ FROM cesi/base
 MAINTAINER stephan christann <stephan.christann@christann.net>
 
 # INSTALL SOFTWARE
-RUN apt-get -y update \
-    && apt-get -y install slapd ldap-utils \
-    && apt-get autoremove \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apk add --update openldap openldap-clients openldap-back-hdb openldap-back-bdb
+RUN rm -rf /var/cache/apk/*
 
 # ADD resources
 ADD resources /resources
@@ -23,4 +20,5 @@ VOLUME ["/var/lib/ldap", "/etc/cesldap"]
 EXPOSE 389
 
 # FIRE IT UP
-CMD ["/bin/bash", "/startup.sh"]
+CMD ping 127.0.0.1
+# CMD ["/bin/bash", "/startup.sh"]
