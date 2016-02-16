@@ -1,8 +1,8 @@
 #!/bin/bash
+mkdir -p /var/run/mysqld
+chown -R mysql: /var/run/mysqld
 if [ ! -f /var/lib/mysql/ibdata1 ]; then
-
-    mysql_install_db
-
+    mysql_install_db --user=mysql --datadir="/var/lib/mysql"
     /usr/bin/mysqld_safe &
     sleep 10s
     source /etc/ces/functions.sh
@@ -17,4 +17,5 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
     sleep 10s
 fi
 
-/usr/bin/mysqld_safe
+/usr/bin/mysqld_safe --user=mysql
+while true; do sleep 10; done

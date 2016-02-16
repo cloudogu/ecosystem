@@ -3,8 +3,7 @@ FROM cesi/base
 MAINTAINER stephan christann <stephan.christann@christann.net>
 
 # INSTALL SOFTWARE
-RUN apk add --update openldap openldap-clients openldap-back-hdb
-RUN rm -rf /var/cache/apk/*
+RUN apk add --update openldap openldap-clients openldap-back-hdb && rm -rf /var/cache/apk/*
 
 # ADD resources
 ADD resources /resources
