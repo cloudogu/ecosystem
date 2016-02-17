@@ -15,7 +15,7 @@ RUN mkdir -p /opt/sonatype/nexus \
   && mv /tmp/nexus-${NEXUS_VERSION}/* /opt/sonatype/nexus/ \
   && rm -rf /tmp/nexus-${NEXUS_VERSION}
 
-RUN useradd -r -u 1000 -m -c "nexus role account" -d /var/lib/nexus -s /bin/false nexus
+RUN addgroup -S -g 1000 nexus && adduser -S -h /var/lib/nexus -s /bin/false -G nexus -u 1000 nexus
 
 VOLUME /var/lib/nexus
 
