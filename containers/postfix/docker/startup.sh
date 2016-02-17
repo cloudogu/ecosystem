@@ -7,7 +7,7 @@ if [ ! -f /etc/postfix/main.cf ]; then
     # DEPLOY DEFAULT CONFIG
     cd / && tar xvfz postfix.tgz
     # POSTFIX CONFIG
-    postconf -e myhostname=cloudogu.com
+    postconf -e myhostname="cloudogu.com"
     postconf -e mydestination="cloudogu.com, example.com, localhost.localdomain, localhost"
     postconf -e mynetworks="127.0.0.0/8 $net/$mask [::ffff:127.0.0.0]/104 [::1]/128"
 
