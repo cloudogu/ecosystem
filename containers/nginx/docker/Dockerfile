@@ -19,6 +19,7 @@ RUN wget https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VER
 #RUN rm -v /etc/nginx/conf.d/*
 
 ADD resources/nginx.conf /etc/nginx/nginx.conf
+ADD resources/mime.types /etc/nginx/conf/mime.types
 ADD resources/default.conf /etc/nginx/conf.d/default.conf
 ADD resources/nginx.toml /etc/confd/conf.d/nginx.toml
 ADD resources/apps.conf.tmpl /etc/confd/templates/apps.conf.tmpl
