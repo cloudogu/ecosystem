@@ -21,4 +21,4 @@ s@%LDAP_BIND_PASSWORD%@$LDAP_BIND_PASSWORD@g"\
  /resources/cas.properties.tpl > /opt/apache-tomcat/webapps/cas/WEB-INF/cas.properties
 
 # startup tomcat
-exec su - cas -c "${CATALINA_SH} run"
+exec su - cas -c "export JAVA_HOME="/opt/jdk" && ${CATALINA_SH} run"

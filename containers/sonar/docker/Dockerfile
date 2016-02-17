@@ -11,15 +11,12 @@ ENV SERVICE_TAGS webapp
 # there seems to be an ssl problem with curl and bintray.com, that is why the
 # --insecure flag was passed to curl. we should keep this in mind and try to
 # remove it in the future
-RUN apt-get update -y \
-    && apt-get -y install procps mysql-client \
+RUN apk add --update procps mysql-client \
     && cd /tmp \
     && curl --insecure -L -O https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip \
     && unzip sonarqube-${SONAR_VERSION}.zip \
     && mv sonarqube-${SONAR_VERSION} ${SONARQUBE_HOME} \
-    && apt-get autoremove \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf /var/cache/apk/*
 
 # copy templates
 ADD conf/sonar.properties ${SONARQUBE_HOME}/conf/sonar.properties.tpl
@@ -29,7 +26,8 @@ ADD conf/sonar.properties ${SONARQUBE_HOME}/conf/sonar.properties.tpl
 COPY sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar ${SONARQUBE_HOME}/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar
 
 # create user
-RUN useradd -d "$SONARQUBE_HOME" -u 1000 -m -s /bin/bash sonar
+RUN addgroup -S -g 1000 sonar && adduser -S -h "$SONARQUBE_HOME" -s /bin/bash -G sonar -u 1000 sonar
+#RUN useradd -d "$SONARQUBE_HOME" -u 1000 -m -s /bin/bash sonar
 RUN chown -R sonar:sonar ${SONARQUBE_HOME}
 
 # add startscript

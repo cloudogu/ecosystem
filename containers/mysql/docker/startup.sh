@@ -18,4 +18,3 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
 fi
 
 /usr/bin/mysqld_safe --user=mysql
-while true; do sleep 10; done

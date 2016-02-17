@@ -9,8 +9,7 @@ ENV JENKINS_HOME /var/lib/jenkins
 # Jenkins is ran with user `jenkins`, uid = 1000
 # If you bind mount a volume from host/vloume from a data container,
 # ensure you use same uid
-RUN useradd -d "$JENKINS_HOME" -u 1000 -m -s /bin/bash jenkins
-
+RUN addgroup -S -g 1000 jenkins && adduser -S -h "$JENKINS_HOME" -s /bin/bash -G jenkins -u 1000 jenkins
 # Jenkins home directoy is a volume, so configuration and build history
 # can be persisted and survive image upgrades
 VOLUME /var/lib/jenkins
