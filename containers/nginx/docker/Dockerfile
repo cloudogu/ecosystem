@@ -4,42 +4,14 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
 
-ENV NGINX_VERSION nginx-1.9.11
-
 ENV CONFD_VERSION 0.10.0
-ADD resources/repo.list /etc/apt/sources.list.d/nginx.list
+COPY dist/nginx /usr/sbin/nginx
 
-# Install Nginx.
-#RUN apk add --update nginx && rm -rf /var/cache/apk/*
-RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base && \
-    mkdir -p /tmp/src && \
-    cd /tmp/src && \
-    wget http://nginx.org/download/${NGINX_VERSION}.tar.gz && \
-    tar -zxvf ${NGINX_VERSION}.tar.gz && \
-    cd /tmp/src/${NGINX_VERSION} && \
-    ./configure \
-        --with-http_ssl_module \
-        --with-http_gzip_static_module \
-        --with-http_sub_module \
-        --with-http_v2_module \
-        --prefix=/etc/nginx \
-        --http-log-path=/var/log/nginx/access.log \
-        --error-log-path=/var/log/nginx/error.log \
-        --sbin-path=/usr/sbin/nginx && \
-    make && \
-    make install && \
-    apk del build-base && \
-    rm -rf /tmp/src && \
-    rm -rf /var/cache/apk/*
+# install runtime dependencies
+RUN apk --update add openssl pcre zlib \
+ && rm -rf /var/cache/apk/*
 
 RUN adduser nginx -D
-
-#RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62 \
-  #&& apt-get update \
-  #&& apt-get install -y ca-certificates nginx=${NGINX_VERSION} \
-  #&& apt-get autoremove \
-  #&& apt-get clean \
-  #&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # install confd, use wget because of add is not cached
 RUN wget https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /bin/confd
@@ -60,11 +32,12 @@ ADD warp /var/www/html/warp
 ADD _static /var/www/html/_static
 
 ADD startup.sh /startup.sh
-RUN chmod +x /startup.sh /bin/confd
 
-# force log to stdout and stderr
-RUN ln -sf /dev/stdout /var/log/nginx/access.log
-RUN ln -sf /dev/stderr /var/log/nginx/error.log
+# make confd executable and force log to stdout and stderr
+RUN chmod +x /startup.sh /bin/confd \
+ && mkdir -p /var/log/nginx \
+ && ln -sf /dev/stdout /var/log/nginx/access.log \
+ && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Define mountable directories.
 VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
