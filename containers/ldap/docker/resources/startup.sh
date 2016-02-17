@@ -37,6 +37,7 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   SYSTEM_USERNAME="system"
   SYSTEM_PASSWORD="$(slappasswd -s system)"
 
+  # TODO: PLEASE CHECK IF NECCESSARY
   ROOTDN="cn=admin,dc=cloudogu,dc=com"
   SUFFIX="dc=cloudogu,dc=com"
 

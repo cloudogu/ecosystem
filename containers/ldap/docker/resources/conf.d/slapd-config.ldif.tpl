@@ -132,6 +132,7 @@ olcDbIndex: o pres,eq
 olcDbIndex: mail pres,eq,approx,sub
 olcDbIndex: sn pres,eq,approx,sub
 # BACKEND ACCESS
+## TODO - correct ADMIN USER!
 olcAccess: to * by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth manage by * break
 olcAccess: to attrs=userPassword,shadowLastChange
   by self write
