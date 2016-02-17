@@ -43,7 +43,6 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   mkdir -p ${OPENLDAP_CONFIG_DIR}
 
   if [[ ! -s ${OPENLDAP_ETC_DIR}/ldap.conf ]]; then
-    echo "render remplate for LDAP.CONF"
     render_template /srv/openldap/conf.d/ldap.conf.tpl > ${OPENLDAP_ETC_DIR}/ldap.conf
   fi
 
@@ -59,7 +58,6 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
 
   if [[ -d /srv/openldap/ldif.d ]]; then
     for f in $(find /srv/openldap/ldif.d -type f -name "*.tpl"); do
-      echo "render_template $f"
       render_template $f > $(echo $f | sed 's/\.tpl//g')
     done
 
