@@ -10,7 +10,8 @@ ENV CATALINA_PID /var/run/tomcat7.pid
 ENV CATALINA_SH ${CATALINA_BASE}/bin/catalina.sh
 
 # create cas user
-RUN useradd -r -u 1000 -m -c "cas role account" -d /var/lib/cas -s /bin/bash cas
+#RUN useradd -r -u 1000 -m -c "cas role account" -d /var/lib/cas -s /bin/bash cas
+RUN addgroup -S -g 1000 cas && adduser -S -h /var/lib/cas -s /bin/bash -G cas -u 1000 cas
 
 # install tomcat
 RUN curl --fail --silent --location --retry 3 \
@@ -31,7 +32,7 @@ RUN mkdir ${CATALINA_BASE}/webapps/cas/ \
     && curl --fail --silent --location --retry 3 -o ${CATALINA_BASE}/webapps/cas/cas.war \
 		https://universe.triology.de/nexus/content/repositories/releases/de/triology/scm/universe/scmm-universe-cas/4.0.2-SCMMU/scmm-universe-cas-4.0.2-SCMMU.war \
     && cd ${CATALINA_BASE}/webapps/cas/ \
-    && jar xvf cas.war \
+    && unzip cas.war \
     && rm -f cas.war
 
 #customize cas.properties
