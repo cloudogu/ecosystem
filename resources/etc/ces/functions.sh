@@ -47,7 +47,7 @@ export -f get_fqdn
 function render_template(){
   FILE="$1"
   if [ ! -f "$FILE" ]; then
-    echo "could not find template $FILE"
+    echo >&2 "could not find template $FILE"
     exit 1
   fi
 
