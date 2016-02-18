@@ -28,7 +28,7 @@ server {
   # services
 {{range $topkey := lsdir "/services"}}{{$topdir := printf "/services/%s/*" $topkey}}{{range $dir := getvs $topdir}}{{$service := json $dir}}{{range $tag := $service.tags}}{{if eq $tag "webapp"}}
   location /{{$service.name}} {
-    proxy_pass http://{{$service.service}};
+    proxy_pass http://{{$service.name}}:{{$service.port}};
   }
 {{end}}{{end}}{{end}}{{end}}
   # end of services

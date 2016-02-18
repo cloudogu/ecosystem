@@ -110,7 +110,7 @@ host.name=cas.%DOMAIN%
 #========================================
 # General properties
 #========================================
-ldap.url=ldap:\/\/%LDAP_HOST%:%LDAP_PORT%
+ldap.url=ldap://%LDAP_HOST%:%LDAP_PORT%
 
 # LDAP connection timeout in milliseconds
 ldap.connectTimeout=3000
@@ -160,7 +160,7 @@ ldap.authn.searchFilter=(&(objectClass=person)(uid={user}))
 
 # Search filter used for configurations that require searching for DNs
 #ldap.authn.format=uid=%s,ou=Users,dc=example,dc=org
-ldap.authn.format=uid=%s,%LDAP_BIND_DN%
+ldap.authn.format=uid=%s,ou=People,%LDAP_BASE_DN%
 
 #Ldap mapping of result attributes
 ldap.authn.attribute.username=uid

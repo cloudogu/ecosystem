@@ -16,4 +16,5 @@ docker create \
   -v "$DATADIR/data":/var/lib/jenkins \
   --log-driver="syslog" \
   --log-opt='syslog-tag=jenkins' \
+  --net=cesnet1 \
   cesi/jenkins

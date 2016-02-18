@@ -10,7 +10,7 @@ function get_ip(){
     if [ $TYPE = "vagrant" ]; then
       VIP=$(echo $IPS | awk '{print $1}')
       for IP in $IPS; do
-        echo $IP | grep 192\.168\.115\. > /dev/null
+        echo $IP | grep 192\.168\. > /dev/null
         if [ $? -eq 0 ]; then
           VIP="$IP"
         fi
@@ -47,7 +47,7 @@ export -f get_fqdn
 function render_template(){
   FILE="$1"
   if [ ! -f "$FILE" ]; then
-    echo "could not find template $FILE"
+    echo >&2 "could not find template $FILE"
     exit 1
   fi
 

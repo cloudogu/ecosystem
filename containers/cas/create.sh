@@ -16,4 +16,5 @@ docker create \
   -v "$DATADIR/data":/var/lib/cas \
   --log-driver="syslog" \
   --log-opt='syslog-tag=cas' \
+  --net=cesnet1 \
   cesi/cas

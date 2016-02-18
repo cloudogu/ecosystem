@@ -1,3 +1,0 @@
-dn: cn=module{1},cn=config
-add: olcmoduleload
-olcmoduleload: refint

@@ -16,4 +16,5 @@ docker create \
   -v "$DATADIR/data":/var/lib/nexus \
   --log-driver="syslog" \
   --log-opt='syslog-tag=nexus' \
+  --net=cesnet1 \
   cesi/nexus

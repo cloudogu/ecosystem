@@ -16,14 +16,16 @@ ENV UNIVERSEADM_VERSION 1.2.0
 ENV UNIVERSEADM_HOME /var/lib/universeadm/conf
 
 # create user
-RUN /usr/sbin/useradd --home-dir /opt/apache-tomcat --shell /bin/bash tomcat
+RUN addgroup -S -g 1000 tomcat && adduser -S -h /opt/apache-tomcat -s /bin/bash -G tomcat -u 1000 tomcat
+
 
 # install tomcat
-RUN curl --fail --silent --location --retry 3 \
-			http://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
+#RUN curl --fail --silent --location --retry 3 \
+RUN curl --fail --location --retry 3 \
+		http://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
 		| gunzip \
 		| tar x -C /opt \
-		&& mv /opt/apache-tomcat-* /opt/apache-tomcat \
+		&& mv /opt/apache-tomcat-${TOMCAT_VERSION}/* /opt/apache-tomcat \
 		&& chown -R tomcat:tomcat /opt/apache-tomcat \
 		&& rm -rf /opt/apache-tomcat/logs \
 		&& ln -s /var/lib/universeadm/logs /opt/apache-tomcat/logs \
@@ -35,10 +37,10 @@ ADD resources/setenv.sh /opt/apache-tomcat/bin/setenv.sh
 RUN chmod +x /opt/apache-tomcat/bin/setenv.sh
 
 # install universeadm
-RUN mkdir /opt/apache-tomcat/webapps/universeadm \
+RUN mkdir -p /opt/apache-tomcat/webapps/universeadm \
     && cd /opt/apache-tomcat/webapps/universeadm \
     && wget https://universe.triology.de/nexus/content/repositories/releases/de/triology/scm/universe/universeadm/${UNIVERSEADM_VERSION}/universeadm-${UNIVERSEADM_VERSION}.war \
-		&& jar xvf universeadm-${UNIVERSEADM_VERSION}.war \
+		&& unzip universeadm-${UNIVERSEADM_VERSION}.war \
 		&& rm -f universeadm-${UNIVERSEADM_VERSION}.war \
 		&& chmod +x WEB-INF/cipher.sh
 

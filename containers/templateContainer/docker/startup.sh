@@ -11,7 +11,7 @@ source /etc/ces/functions.sh
 # general variables for templates
 DOMAIN=$(get_domain)
 FQDN=$(get_fqdn)
-MYSQL_IP=$(get_service mysql 3306 | awk -F':' '{print $1}')
+MYSQL_IP=mysql
 MYSQL_ADMIN="root"
 MYSQL_ADMIN_PASSWORD=$(get_ces_pass mysql_root)
 MYSQL_USER="applicationMySqlUser"

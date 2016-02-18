@@ -5,6 +5,11 @@ source /etc/ces/functions.sh
 get_ip > /etc/ces/ip_addr
 get_ip > /etc/ces/fqdn
 
+# prepare syslog and restart
+mkdir /var/log/docker
+chown syslog /var/log/docker
+service rsyslog restart
+
 # modify sudoers save path
 echo "modify sudoers"
 if [ -f "/etc/sudoers" ]; then

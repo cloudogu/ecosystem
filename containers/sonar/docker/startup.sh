@@ -36,7 +36,7 @@ move_sonar_dir logs
 
 # get variables for templates
 FQDN=$(get_fqdn)
-MYSQL_IP=$(get_service mysql 3306 | awk -F':' '{print $1}')
+MYSQL_IP=mysql
 MYSQL_ADMIN="root"
 MYSQL_ADMIN_PASSWORD=$(get_ces_pass mysql_root)
 MYSQL_USER="sonar"
@@ -57,7 +57,7 @@ if [ $(mysql -N -s -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWOR
 else
   echo "install sonar database"
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "CREATE DATABASE ${MYSQL_DB} DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
-  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" "${MYSQL_DB}" -e "grant all on ${MYSQL_DB}.* to \"${MYSQL_USER}\"@\"172.17.%\" identified by \"${MYSQL_USER_PASSWORD}\";FLUSH PRIVILEGES;"
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" "${MYSQL_DB}" -e "grant all on ${MYSQL_DB}.* to \"${MYSQL_USER}\"@\"%\" identified by \"${MYSQL_USER_PASSWORD}\";FLUSH PRIVILEGES;"
 fi
 
-exec su - sonar -c "exec java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar"
+exec su - sonar -c "exec /opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar"

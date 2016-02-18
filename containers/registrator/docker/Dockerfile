@@ -3,7 +3,7 @@
 FROM cesi/base
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
-ADD registrator_0.4.0_patched.tgz /bin
+ADD registrator_0.6.0_patched.tgz /bin
 RUN chmod +x /bin/registrator
 
 ENV DOCKER_HOST unix:///var/run/docker.sock
