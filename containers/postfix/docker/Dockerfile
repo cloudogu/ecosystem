@@ -1,5 +1,4 @@
 FROM cesi/base
-
 MAINTAINER	stephan christann	<stephan.christann@christann.net>
 
 # INSTALL POSTFIX
