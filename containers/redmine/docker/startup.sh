@@ -60,9 +60,6 @@ su - redmine -c "RAILS_ENV=$RAILS_ENV rake redmine:load_default_data"
 echo "adjusting redmine database.yml"
 su - redmine -c 'sed -i s/\"\"/${MYSQL_USER_PASSWORD}/g /usr/src/redmine/config/database.yml'
 
-#echo "installing io-console"
-#gem install io-console
-
 # generate secret session token
 #echo "generating secret session token"
 #bundle exec rake generate_secret_token

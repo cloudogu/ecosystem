@@ -16,11 +16,13 @@ FROM cesi/base
 
 RUN apk add --update redmine ruby-sqlite ruby-io-console
 RUN apk add --update build-base ruby-dev imagemagick-dev ruby-irb
-#RUN apk add --update 
 
 RUN rm -rf /tmp/* /var/cache/apk/*
 
+RUN chown -R redmine:root /usr/share/webapps/redmine
+
 RUN gem uninstall rmagick && gem install rmagick -v 2.13.4
+
 
 ADD ./usr/src/redmine/config/database.yml /usr/src/redmine/config/database.yml
 RUN chmod 664 /usr/src/redmine/config/database.yml
