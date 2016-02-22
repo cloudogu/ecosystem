@@ -26,6 +26,8 @@ RUN gem uninstall rmagick && gem install rmagick -v 2.13.4
 
 ADD ./usr/src/redmine/config/database.yml /usr/src/redmine/config/database.yml
 RUN chmod 664 /usr/src/redmine/config/database.yml
+ADD ./usr/share/webapps/redmine/lib/tasks/load_default_data.rake /usr/share/webapps/redmine/lib/tasks/load_default_data.rake
+RUN chmod 664 /usr/share/webapps/redmine/lib/tasks/load_default_data.rake
 
 
 
