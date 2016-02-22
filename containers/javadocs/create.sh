@@ -9,8 +9,7 @@ docker rm javadocs
 docker create \
   --name javadocs \
   -h javadocs \
-  -p 80:80 \
-  -p 443:443 \
   --log-driver="syslog" \
   --log-opt='syslog-tag=javadocs' \
+  --net=cesnet1 \
   cesi/javadocs

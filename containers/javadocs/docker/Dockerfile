@@ -8,18 +8,12 @@ ENV JAVADOCS_VERSION 8u73
 ENV JAVADOCS_URL http://download.oracle.com/otn-pub/java/jdk/${JAVADOCS_VERSION}-b02/jdk-8u73-docs-all.zip
 
 # Install nginx.
-RUN apt-get update \
-  && apt-get -y install nginx \
-	&& apt-get autoremove \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apk add --update nginx \
+  && rm -rf /var/cache/apk/*
 
 ADD startup.sh /startup.sh
 RUN chmod +x /startup.sh
-
-# force log to stdout and stderr
-RUN ln -sf /dev/stdout /var/log/nginx/access.log
-RUN ln -sf /dev/stderr /var/log/nginx/error.log
+RUN chmod 755 /startup.sh
 
 # Get Java SE8 documentation from Oracle
 RUN wget --no-cookies --no-check-certificate --header \
@@ -27,14 +21,13 @@ RUN wget --no-cookies --no-check-certificate --header \
 		${JAVADOCS_URL}
 
 # Unzip documentation
-RUN unzip jdk-${JAVADOCS_VERSION}-docs-all.zip -d /var/www/html
+RUN unzip jdk-${JAVADOCS_VERSION}-docs-all.zip -d /var/www/localhost/htdocs
 
 # Delete zip file
 RUN rm jdk-${JAVADOCS_VERSION}-docs-all.zip
 
 # Replace default index file
-RUN rm /var/www/html/index*.html
-ADD resources/index.html /var/www/html/index.html
+ADD resources/index.html /var/www/localhost/htdocs/index.html
 
 ENV SERVICE_TAGS webapp
 
@@ -43,4 +36,3 @@ CMD ["/startup.sh"]
 
 # Expose ports.
 EXPOSE 80
-EXPOSE 443
