@@ -24,9 +24,19 @@ RUN apk add --update mercurial \
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
 
+# startscript
+ADD ./startup.sh /startup.sh
+RUN chmod +x /startup.sh
+
+# cas plugin
+ADD resources/cas_plugin.xml /opt/scm-server/conf/cas_plugin.xml.tpl
+
 # run scm-manager
 WORKDIR ${SCM_HOME}
 VOLUME ${SCM_HOME}
 EXPOSE 8080
 USER scm
-CMD ["/opt/scm-server/bin/scm-server"]
+
+
+# start scm
+CMD /startup.sh
