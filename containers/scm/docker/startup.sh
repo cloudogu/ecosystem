@@ -4,6 +4,9 @@ source /etc/ces/functions.sh
 admusr="scmadmin"
 admpw="scmadmin"
 autoupdate="1"
+FQDN=$(get_fqdn)
+MAILFROM="cloudoguscm@cloudogu.com"
+RELAYHOST="postfix"
 /opt/scm-server/bin/scm-server &
 tries=0
 while ! [ $(curl -sL -w "%{http_code}" "http://localhost:8080/scm/api/rest/plugins/overview.json" -u "$admusr":"$admpw" -o /dev/null) -eq 200 ]
@@ -53,9 +56,10 @@ done
 if ! [ -d "/var/lib/scm/config" ];  then
 	mkdir -p "/var/lib/scm/config"
 fi
-FQDN=$(get_fqdn)
 # configure scm-cas-plugin
 render_template "/opt/scm-server/conf/cas_plugin.xml.tpl" > "/var/lib/scm/config/cas_plugin.xml"
+# configure scm-mail-plugin
+render_template "/opt/scm-server/conf/mail.xml.tpl" > "/var/lib/scm/config/mail.xml"
 # Plugin installation end
 kill $!
 
