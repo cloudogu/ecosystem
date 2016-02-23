@@ -21,13 +21,16 @@ RUN wget --no-cookies --no-check-certificate --header \
 		${JAVADOCS_URL}
 
 # Unzip documentation
-RUN unzip jdk-${JAVADOCS_VERSION}-docs-all.zip -d /var/www/localhost/htdocs
+RUN mkdir /usr/share/nginx/html/javadocs
+RUN unzip jdk-${JAVADOCS_VERSION}-docs-all.zip -d /usr/share/nginx/html/javadocs
 
 # Delete zip file
 RUN rm jdk-${JAVADOCS_VERSION}-docs-all.zip
 
 # Replace default index file
-ADD resources/index.html /var/www/localhost/htdocs/index.html
+RUN rm /usr/share/nginx/html/index.html
+RUN rm /usr/share/nginx/html/50x.html
+ADD resources/index.html /usr/share/nginx/html/javadocs/index.html
 
 ENV SERVICE_TAGS webapp
 
