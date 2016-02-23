@@ -15,10 +15,8 @@ REDMINE_LANG=en
 
 #TODO: check if mysql is available already
 
-# echo "su - redmine -c touch /var/lib/redmine/secret_token.rb..."
-# chown redmine:root /var/lib/redmine
-# chmod 755 /var/lib/redmine
-# su - redmine -c "touch /var/lib/redmine/secret_token.rb"
+echo "cd $WORKDIR..."
+cd $WORKDIR
 
 # generate secret session token
 #echo "generating secret session token"
@@ -41,28 +39,39 @@ else
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "CREATE DATABASE ${MYSQL_DB} CHARACTER SET utf8;"
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "CREATE USER '${MYSQL_USER}'@'${MYSQL_IP}' IDENTIFIED BY '${MYSQL_USER_PASSWORD}';"
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "GRANT ALL ON ${MYSQL_DB}.* TO \"${MYSQL_USER}\"@\"%\" identified by \"${MYSQL_USER_PASSWORD}\"; FLUSH PRIVILEGES;" #  "${MYSQL_DB}" -e
+
+  echo "chown -R redmine:root $WORKDIR..."
+  chown -R redmine:root $WORKDIR
+  echo "chown -R redmine:root /var/lib/redmine/..."
+  chown -R redmine:root /var/lib/redmine/
+
+  # Create the database structure
+  #echo "creating database structure..."
+  echo "su - redmine -c RAILS_ENV=$RAILS_ENV rake db:migrate --trace..."
+  su - redmine -c "RAILS_ENV=$RAILS_ENV rake db:migrate --trace"
+
+  # Insert default configuration data in database
+  # Adjust to your language at REDMINE_LANG parameter
+  echo "su - redmine -c RAILS_ENV=$RAILS_ENV REDMINE_LANG=$REDMINE_LANG rake redmine:load_default_data --trace"
+  su - redmine -c "RAILS_ENV=$RAILS_ENV REDMINE_LANG="$REDMINE_LANG" rake redmine:load_default_data --trace"
+
 fi
 
-echo "cd $WORKDIR..."
-cd $WORKDIR
-echo "chown -R redmine:root $WORKDIR..."
-chown -R redmine:root $WORKDIR
-echo "chown -R redmine:root /var/lib/redmine/..."
-chown -R redmine:root /var/lib/redmine/
+echo "creating links..."
+if [ ! -e $WORKDIR/public/redmine ]; then
+  echo "Creating link to $WORKDIR in $WORKDIR/public/"
+  ln -s $WORKDIR $WORKDIR/public/
+fi
 
+# if [ ! -e $WORKDIR/javascripts ]; then
+#   echo "Creating link to $WORKDIR/public/javascripts in $WORKDIR"
+#   ln -s $WORKDIR/public/javascripts $WORKDIR
+# fi
 
-# echo "su - redmine -c mkdir -p /var/lib/redmine/db/ && touch /var/lib/redmine/db/schema.rb..."
-# su - redmine -c "mkdir -p /var/lib/redmine/db/ && touch /var/lib/redmine/db/schema.rb"
-
-# Create the database structure
-#echo "creating database structure..."
-echo "su - redmine -c RAILS_ENV=$RAILS_ENV rake db:migrate --trace..."
-su - redmine -c "RAILS_ENV=$RAILS_ENV rake db:migrate --trace"
-
-# Insert default configuration data in database
-# Adjust to your language at REDMINE_LANG parameter
-echo "su - redmine -c RAILS_ENV=$RAILS_ENV REDMINE_LANG=$REDMINE_LANG rake redmine:load_default_data --trace"
-su - redmine -c "RAILS_ENV=$RAILS_ENV REDMINE_LANG="$REDMINE_LANG" rake redmine:load_default_data --trace"
+if [ ! -e $WORKDIR/stylesheets ]; then
+  echo "Creating link to $WORKDIR/public/* in $WORKDIR"
+  ln -s $WORKDIR/public/* $WORKDIR
+fi
 
 
 # start redmine
