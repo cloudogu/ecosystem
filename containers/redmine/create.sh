@@ -13,7 +13,7 @@ docker create \
   --name redmine \
   -h redmine \
   -v /etc/ces:/etc/ces \
-  -v "$DATADIR/data":/var/lib/redmine \
+  -v "$DATADIR/data":/var/lib/redmine/files \
   --log-driver="syslog" \
   --log-opt='syslog-tag=redmine' \
   --net=cesnet1 \

@@ -15,10 +15,10 @@ REDMINE_LANG=en
 
 #TODO: check if mysql is available already
 
-echo "su - redmine -c touch /var/lib/redmine/secret_token.rb..."
-chown redmine:root /var/lib/redmine
-chmod 755 /var/lib/redmine
-su - redmine -c "touch /var/lib/redmine/secret_token.rb"
+# echo "su - redmine -c touch /var/lib/redmine/secret_token.rb..."
+# chown redmine:root /var/lib/redmine
+# chmod 755 /var/lib/redmine
+# su - redmine -c "touch /var/lib/redmine/secret_token.rb"
 
 # generate secret session token
 #echo "generating secret session token"
@@ -51,8 +51,8 @@ echo "chown -R redmine:root /var/lib/redmine/..."
 chown -R redmine:root /var/lib/redmine/
 
 
-echo "su - redmine -c mkdir -p /var/lib/redmine/db/ && touch /var/lib/redmine/db/schema.rb..."
-su - redmine -c "mkdir -p /var/lib/redmine/db/ && touch /var/lib/redmine/db/schema.rb"
+# echo "su - redmine -c mkdir -p /var/lib/redmine/db/ && touch /var/lib/redmine/db/schema.rb..."
+# su - redmine -c "mkdir -p /var/lib/redmine/db/ && touch /var/lib/redmine/db/schema.rb"
 
 # Create the database structure
 #echo "creating database structure..."
