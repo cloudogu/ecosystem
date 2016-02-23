@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source /etc/ces/functions.sh
+MAILRELAY="192.168.115.24"
 
 name=$(hostname)
 domain=$(get_domain)
@@ -12,7 +13,7 @@ if [ ! -f /etc/postfix/configured ]; then
     postconf -e mydestination="${name}.${domain}, ${domain}, localhost.localdomain, localhost"
     postconf -e mynetworks="127.0.0.1 ${net}"
     postconf -e smtputf8_enable=no
-    postconf -e smarthost=192.168.115.24
+    postconf -e relayhost=$MAILRELAY
     touch /etc/postfix/configured
 fi
 
