@@ -1,6 +1,5 @@
-# cesi/nexus
-
-FROM cesi/java
+# registry.cloudogu.com/official/nexus
+FROM registry.cloudogu.com/official/java:8u73-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # dockerfile based on https://registry.hub.docker.com/u/sonatype/nexus/dockerfile/

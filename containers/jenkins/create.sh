@@ -17,4 +17,4 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=jenkins' \
   --net=cesnet1 \
-  cesi/jenkins
+  registry.cloudogu.com/official/jenkins:1.609.2-1

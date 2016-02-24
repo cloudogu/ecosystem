@@ -1,4 +1,5 @@
 #!/bin/bash
+VERSION=4.0.2-1
 
 DATADIR="/var/lib/ces/cas"
 if [ ! -d "$DATADIR" ]; then
@@ -17,4 +18,4 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=cas' \
   --net=cesnet1 \
-  cesi/cas
+  registry.cloudogu.com/official/cas:4.0.2-1 

@@ -17,4 +17,4 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=universeadm' \
   --net=cesnet1 \
-  cesi/universeadm
+  registry.cloudogu.com/official/universeadm:1.2.0-1

@@ -21,4 +21,4 @@ docker create \
 	--log-driver="syslog" \
 	--log-opt='syslog-tag=ldap' \
 	--net=cesnet1 \
-	cesi/ldap
+	registry.cloudogu.com/official/ldap:2.4.43-1

@@ -17,4 +17,4 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=sonar' \
   --net=cesnet1 \
-  cesi/sonar
+  registry.cloudogu.com/official/java/sonar:5.3-1

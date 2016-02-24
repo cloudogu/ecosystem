@@ -17,4 +17,4 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=nexus' \
   --net=cesnet1 \
-  cesi/nexus
+  registry.cloudogu.com/official/nexus:2.11.4-1

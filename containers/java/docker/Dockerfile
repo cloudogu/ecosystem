@@ -1,5 +1,5 @@
-# cesi/java
-FROM cesi/base
+# registry.cloudogu.com/official/java
+FROM registry.cloudogu.com/official/base:3.3-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # based on https://github.com/anapsix/docker-alpine-java/blob/master/8/jre/Dockerfile

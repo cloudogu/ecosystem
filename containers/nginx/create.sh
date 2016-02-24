@@ -9,4 +9,4 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=nginx' \
   --net=cesnet1 \
-  cesi/nginx
+  registry.cloudogu.com/official/nginx:1.9.11-1

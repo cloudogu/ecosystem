@@ -1,5 +1,5 @@
-# cesi/universeadm
-FROM cesi/java
+# registry.cloudogu.com/official/universeadm
+FROM registry.cloudogu.com/official/java:8u73-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # mark as webapp for nginx

@@ -1,5 +1,5 @@
 # cesi/nginx
-FROM cesi/base
+FROM registry.cloudogu.com/official/base:3.3-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer

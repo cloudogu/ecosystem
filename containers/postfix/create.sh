@@ -6,4 +6,4 @@ docker create \
 	-v /etc/ces:/etc/ces \
 	--log-driver="syslog" \
 	--log-opt='syslog-tag=postfix' \
-	cesi/postfix
+	registry.cloudogu.com/official/postfix:3.0.4-1

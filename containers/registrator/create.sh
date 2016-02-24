@@ -15,6 +15,6 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=registrator' \
   --net=cesnet1 \
-  cesi/registrator \
+  registry.cloudogu.com/official/registrator:0.6.0 \
   -internal \
   etcd://$(get_ip):4001/services

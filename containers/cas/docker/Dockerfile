@@ -1,5 +1,5 @@
 # cesi/cas
-FROM cesi/java
+FROM registry.cloudogu.com/official/java:8u73-1
 MAINTAINER triology <cloudogu@triology.de>
 
 ENV CAS_VERSION 4.0.2

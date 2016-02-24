@@ -1,5 +1,5 @@
 # cesi/scm
-FROM cesi/java
+FROM registry.cloudogu.com/official/java:8u73-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 

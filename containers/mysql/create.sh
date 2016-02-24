@@ -18,4 +18,4 @@ docker create \
 	--log-driver="syslog" \
 	--log-opt='syslog-tag=mysql' \
 	--net=cesnet1 \
-	cesi/mysql
+	registry.cloudogu.com/official/mysql:10.1.11-1
