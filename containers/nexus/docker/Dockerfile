@@ -6,7 +6,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 # dockerfile based on https://registry.hub.docker.com/u/sonatype/nexus/dockerfile/
 
 # The version of nexus to install
-ENV NEXUS_VERSION 2.11.4-01
+ENV NEXUS_VERSION 2.11.1-01
 
 RUN mkdir -p /opt/sonatype/nexus \
   && curl --fail --silent --location --retry 3 \
@@ -22,14 +22,15 @@ VOLUME /var/lib/nexus
 
 ENV SERVICE_TAGS webapp
 
+# startscript
+ADD ./startup.sh /startup.sh
+RUN chmod +x /startup.sh
+
+# cas plugin
+ADD resources/nexus-cas-plugin-1.2.2-SNAPSHOT /opt/sonatype/nexus/resources/nexus-cas-plugin-1.2.2-SNAPSHOT/
+ADD resources/cas-plugin.xml.tpl /opt/sonatype/nexus/resources/cas-plugin.xml.tpl
+
 EXPOSE 8081
 USER nexus
 WORKDIR /opt/sonatype/nexus
-CMD java \
-  -server -XX:MaxPermSize=192m -Djava.net.preferIPv4Stack=true -Xms256m -Xmx1g \
-  -Djavax.net.ssl.trustStore=/etc/ces/ssl/truststore.jks \
-  -Djavax.net.ssl.trustStorePassword=changeit \
-  -Djava.awt.headless=true \
-  -Dnexus-work=/var/lib/nexus -Dnexus-webapp-context-path=/nexus \
-  -cp conf/:`(echo lib/*.jar) | sed -e "s/ /:/g"` \
-  org.sonatype.nexus.bootstrap.Launcher ./conf/jetty.xml ./conf/jetty-requestlog.xml
+CMD /startup.sh
