@@ -15,7 +15,7 @@ server {
 
   {{if exists "/services/universeadm/registrator:universeadm:8080"}}
   # redirect to /universeadm
-  location / {
+  location = / {
     return 301 https://$host/universeadm;
   }
   {{end}}
@@ -28,7 +28,9 @@ server {
   # services
 {{range $topkey := lsdir "/services"}}{{$topdir := printf "/services/%s/*" $topkey}}{{range $dir := getvs $topdir}}{{$service := json $dir}}{{range $tag := $service.tags}}{{if eq $tag "webapp"}}
   location /{{$service.name}} {
-    proxy_pass http://{{$service.name}}:{{$service.port}};
+    {{range lookupIP $service.name}}
+    proxy_pass http://{{.}}:{{$service.port}};
+    {{end}}
   }
 {{end}}{{end}}{{end}}{{end}}
   # end of services

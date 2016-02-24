@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATADIR="/var/lib/ces/scm"
+DATADIR="/var/lib/ces/redmine"
 if [ ! -d "$DATADIR" ]; then
   btrfs subvolume create "$DATADIR"
   mkdir "$DATADIR/data"
@@ -8,13 +8,13 @@ if [ ! -d "$DATADIR" ]; then
   chmod -R 755 "$DATADIR"
 fi
 
-docker rm -f scm
+docker rm redmine
 docker create \
-  --name scm \
-  -h scm \
+  --name redmine \
+  -h redmine \
   -v /etc/ces:/etc/ces \
-  -v "$DATADIR/data":/var/lib/scm \
+  -v "$DATADIR/data":/var/lib/redmine/files \
   --log-driver="syslog" \
-  --log-opt='syslog-tag=scm' \
- --net=cesnet1 \
-  cesi/scm
+  --log-opt='syslog-tag=redmine' \
+  --net=cesnet1 \
+  cesi/redmine

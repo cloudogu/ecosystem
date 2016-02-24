@@ -4,41 +4,24 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
 
-ENV CONFD_VERSION 0.10.0
-COPY dist/nginx /usr/sbin/nginx
+ENV CONFD_VERSION 0.12.0-alpha3
 
-# install runtime dependencies
 RUN apk --update add openssl pcre zlib \
- && rm -rf /var/cache/apk/*
-
-RUN adduser nginx -D
-
-# install confd, use wget because of add is not cached
-RUN wget https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /bin/confd
-
-#RUN rm -v /etc/nginx/conf.d/*
-
-ADD resources/nginx.conf /etc/nginx/nginx.conf
-ADD resources/mime.types /etc/nginx/conf/mime.types
-ADD resources/default.conf /etc/nginx/conf.d/default.conf
-ADD resources/nginx.toml /etc/confd/conf.d/nginx.toml
-ADD resources/apps.conf.tmpl /etc/confd/templates/apps.conf.tmpl
-ADD resources/warp.conf /etc/nginx/include.d/warp.conf
-ADD resources/ssl.conf.tpl /etc/nginx/include.d/ssl.conf.tpl
-
-# add warp
-ADD warp /var/www/html/warp
-
-# add static resources
-ADD _static /var/www/html/_static
-
-ADD startup.sh /startup.sh
-
-# make confd executable and force log to stdout and stderr
-RUN chmod +x /startup.sh /bin/confd \
+ && adduser nginx -D \
+ && wget https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /bin/confd \
+ && chmod +x /bin/confd \
  && mkdir -p /var/log/nginx \
  && ln -sf /dev/stdout /var/log/nginx/access.log \
- && ln -sf /dev/stderr /var/log/nginx/error.log
+ && ln -sf /dev/stderr /var/log/nginx/error.log \
+ && rm -rf /var/cache/apk/*
+
+# copy files
+COPY dist/nginx /usr/sbin/nginx
+COPY etc/nginx /etc/nginx
+COPY etc/confd /etc/confd
+COPY html /var/www/html
+COPY startup.sh /startup.sh
+
 
 # Define mountable directories.
 VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]

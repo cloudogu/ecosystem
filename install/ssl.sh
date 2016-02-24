@@ -19,7 +19,7 @@ rm -f "$SSL_CONF"
 
 # copy jdk truststore
 docker run --rm -v /etc/ces/ssl:/etc/ces/ssl cesi/java \
-  cp /usr/lib/jvm/java-8-oracle/jre/lib/security/cacerts /etc/ces/ssl/truststore.jks
+  cp  /opt/jdk/jre/lib/security/cacerts /etc/ces/ssl/truststore.jks
 
 # add generated certificate to truststore
 docker run --rm -v /etc/ces/ssl:/etc/ces/ssl cesi/java \

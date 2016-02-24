@@ -9,3 +9,5 @@ jenkins
 nexus
 sonar
 javadocs
+redmine
+postfix

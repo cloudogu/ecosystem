@@ -1,7 +1,7 @@
 # cesi/base
 FROM alpine:3.3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
-RUN apk add --update bash curl openssl wget curl zip unzip mysql-client ca-certificates && \
+RUN apk add --update bash curl openssl wget curl zip unzip mysql-client ca-certificates jq && \
 rm -rf /var/cache/apk/*
 
 # etcd version
