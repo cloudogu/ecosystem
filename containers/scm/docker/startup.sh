@@ -11,7 +11,7 @@ CURLPARAM="-s"
 
 /opt/scm-server/bin/scm-server &
 tries=0
-while ! [ $(curl "$CURLPARAM2 -L -w "%{http_code}" "http://localhost:8080/scm/api/rest/plugins/overview.json" -u "$ADMUSR":"$ADMPW" -o /dev/null) -eq 200 ]
+while ! [ $(curl "$CURLPARAM" -L -w "%{http_code}" "http://localhost:8080/scm/api/rest/plugins/overview.json" -u "$ADMUSR":"$ADMPW" -o /dev/null) -eq 200 ]
 do
 	((tries++))
 	echo "wait for scm"
