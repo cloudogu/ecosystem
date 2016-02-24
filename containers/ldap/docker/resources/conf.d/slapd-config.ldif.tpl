@@ -149,13 +149,14 @@ olcAccess: to *
 
 # BACKEND MEMBEROF OVERLAY
 dn: olcOverlay={0}memberof,olcDatabase={1}hdb,cn=config
+objectClass: olcConfig
 objectClass: olcOverlayConfig
 objectClass: olcMemberOf
 olcOverlay: {0}memberof
 olcMemberOfDangling: ignore
 olcMemberOfRefInt: TRUE
-olcMemberOfGroupOC: groupOfUniqueNames
-olcMemberOfMemberAD: uniqueMember
+olcMemberOfGroupOC: groupOfNames
+olcMemberOfMemberAD: member
 olcMemberOfMemberOfAD: memberOf
 
 # BACKEND REFINT OVERLAY
