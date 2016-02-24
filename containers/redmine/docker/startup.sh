@@ -31,11 +31,10 @@ else
 
   # Create the database structure
   echo "Creating database structure..."
-  #echo "su - redmine -c RAILS_ENV=$RAILS_ENV rake db:migrate --trace..."
   su - redmine -c "RAILS_ENV=$RAILS_ENV rake db:migrate --trace"
 
   # Insert default configuration data into database
-  # Adjust to your language at REDMINE_LANG parameter
+  # Adjust to your language at REDMINE_LANG parameter above
   echo "Inserting default configuration data into database..."
   su - redmine -c "RAILS_ENV=$RAILS_ENV REDMINE_LANG="$REDMINE_LANG" rake redmine:load_default_data --trace"
 fi
@@ -50,4 +49,4 @@ fi
 
 # Start redmine
 echo "Starting redmine..."
-bundle exec ruby bin/rails server webrick -e production -b 0.0.0.0
+exec bundle exec ruby bin/rails server webrick -e production -b 0.0.0.0
