@@ -1,16 +1,21 @@
 #!/bin/bash
-if [ ! -f /etc/postfix/main.cf ]; then
-    net=$(ip addr | grep eth0 | grep inet | sed s/"\/"/" "/g | awk '{print $2}' | sed s/"\."/" "/g | awk '{print $1"."$2"."$3"."0}')
-    mask=$(ip addr | grep eth0 | grep inet | sed s/"\/"/" "/g | awk '{print $3}')
-	echo $net
-	echo $mask
-    # DEPLOY DEFAULT CONFIG
-    cd / && tar xvfz postfix.tgz
-    # POSTFIX CONFIG
-    postconf -e myhostname="cloudogu.com"
-    postconf -e mydestination="cloudogu.com, example.com, localhost.localdomain, localhost"
-    postconf -e mynetworks="127.0.0.0/8 $net/$mask [::ffff:127.0.0.0]/104 [::1]/128"
 
+source /etc/ces/functions.sh
+MAILRELAY="192.168.115.24"
+
+name=$(hostname)
+domain=$(get_domain)
+
+if [ ! -f /etc/postfix/configured ]; then
+    net=$(ip route | awk '{print $1}' | grep -v default | xargs)
+    # POSTFIX CONFIG
+    postconf -e myhostname="${name}.${domain}"
+    postconf -e mydestination="${name}.${domain}, ${domain}, localhost.localdomain, localhost"
+    postconf -e mynetworks="127.0.0.1 ${net}"
+    postconf -e smtputf8_enable=no
+    postconf -e relayhost=$MAILRELAY
+    postconf -e smtpd_recipient_restrictions="permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination"
+    touch /etc/postfix/configured
 fi
 
 # START POSTFIX

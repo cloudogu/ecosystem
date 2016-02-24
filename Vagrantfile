@@ -1,6 +1,9 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# use at least version 1.5, because of atlas support
+Vagrant.require_version ">= 1.5.0"
+
 Vagrant.configure(2) do |config|
 
   # https://atlas.hashicorp.com/cloudogu/boxes/ecosystem-basebox
@@ -20,6 +23,11 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |v|
     v.memory = 3072
     # v.cpus = 2
+  end
+
+  # load custom configurations
+  if File.file?(".vagrant.rb")
+    eval File.read(".vagrant.rb")
   end
 
 end
