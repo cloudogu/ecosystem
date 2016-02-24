@@ -8,4 +8,5 @@ scm
 jenkins
 nexus
 sonar
+redmine
 postfix

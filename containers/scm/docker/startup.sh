@@ -8,6 +8,8 @@ ADMPW="scmadmin"
 ADMINGROUP="universalAdmin"
 AUTOUPDATE="1"
 CURLPARAM="-s"
+MAILFROM="cloudoguscm@cloudogu.com"
+RELAYHOST="postfix"
 
 /opt/scm-server/bin/scm-server &
 tries=0
@@ -57,8 +59,10 @@ done
 if ! [ -d "/var/lib/scm/config" ];  then
 	mkdir -p "/var/lib/scm/config"
 fi
+
 # configure scm-cas-plugin
 render_template "/opt/scm-server/conf/cas_plugin.xml.tpl" > "/var/lib/scm/config/cas_plugin.xml"
+
 # configure admin group using api rest calls and json
 configState=$(/usr/bin/curl "$CURLPARAM" "http://127.0.0.1:8080/scm/api/rest/config.json" -u "$ADMUSR":"$ADMPW")
 ## add group in case it is missing e.g. "admin-groups": "universalAdmin"
@@ -67,6 +71,9 @@ if [ "$adminGroups" == "null" ]; then
 	newConfigState=$(echo "$configState" | jq ".+= {\"admin-groups\": \"$ADMINGROUP\"}" | jq ".+= {\"base-url\": \"http://$FQDN/scm\"}")
 	curl "$CURLPARAM" -H "Content-Type: application/json" -X POST -d "$newConfigState" "http://127.0.0.1:8080/scm/api/rest/config.json" -u "$ADMUSR":"$ADMPW"
 fi
+
+# configure scm-mail-plugin
+render_template "/opt/scm-server/conf/mail.xml.tpl" > "/var/lib/scm/config/mail.xml"
 
 # Plugin installation end
 kill $!

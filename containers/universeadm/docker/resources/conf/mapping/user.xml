@@ -22,7 +22,10 @@
       in-search="false">
       password
     </attribute>
-    <attribute ldap-name="memberOf" is-multi-value="true">memberOf</attribute>
+    <attribute ldap-name="memberOf" is-multi-value="true" in-modify="false"
+      in-create="false"
+               decoder="de.triology.universeadm.mapping.MemberOfMappingConverter"
+               encoder="de.triology.universeadm.mapping.MemberOfMappingConverter">memberOf</attribute>
   </attributes>
 
 </mapping>
