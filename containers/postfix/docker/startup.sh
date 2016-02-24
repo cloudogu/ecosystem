@@ -7,7 +7,7 @@ name=$(hostname)
 domain=$(get_domain)
 
 if [ ! -f /etc/postfix/configured ]; then
-    net=$(ip route | awk '{print $1}' | grep -v default | xargs)
+    net=$(etcdctl -C "$(cat /etc/ces/ip_addr):4001" get $(etcdctl -C "$(cat /etc/ces/ip_addr):4001" ls /docker/network/v1.0/overlay/network/) | jq '.[]' | jq '.SubnetIP' -r)
     # POSTFIX CONFIG
     postconf -e myhostname="${name}.${domain}"
     postconf -e mydestination="${name}.${domain}, ${domain}, localhost.localdomain, localhost"
@@ -19,4 +19,4 @@ if [ ! -f /etc/postfix/configured ]; then
 fi
 
 # START POSTFIX
-/usr/lib/postfix/master -d -c /etc/postfix >>/var/log/postfix.log 2>&1
+exec /usr/lib/postfix/master -d -c /etc/postfix >>/var/log/postfix.log 2>&1
