@@ -17,4 +17,4 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=redmine' \
   --net=cesnet1 \
-  cesi/redmine
+  registry.cloudogu.com/official/redmine:3.0.5-1

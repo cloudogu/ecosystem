@@ -12,4 +12,4 @@ docker create \
   --log-driver="syslog" \
   --log-opt='syslog-tag=javadocs' \
   --net=cesnet1 \
-  cesi/javadocs
+  registry.cloudogu.com/official/javadocs:8u73-1

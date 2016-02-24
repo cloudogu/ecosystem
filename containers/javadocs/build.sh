@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t cesi/javadocs $(cd "$( dirname "${BASH_SOURCE[0]}" )/docker" && pwd)
+docker build -t registry.cloudogu.com/official/javadocs:8u73-1 $(cd "$( dirname "${BASH_SOURCE[0]}" )/docker" && pwd)
