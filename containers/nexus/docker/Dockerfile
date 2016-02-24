@@ -7,6 +7,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # The version of nexus to install
 ENV NEXUS_VERSION 2.11.1-01
+ENV CAS_PLUGIN_VERSION 1.2.2-SNAPSHOT
 
 RUN mkdir -p /opt/sonatype/nexus \
   && curl --fail --silent --location --retry 3 \
@@ -27,7 +28,7 @@ ADD ./startup.sh /startup.sh
 RUN chmod +x /startup.sh
 
 # cas plugin
-ADD resources/nexus-cas-plugin-1.2.2-SNAPSHOT /opt/sonatype/nexus/resources/nexus-cas-plugin-1.2.2-SNAPSHOT/
+ADD resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION} /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/
 ADD resources/cas-plugin.xml.tpl /opt/sonatype/nexus/resources/cas-plugin.xml.tpl
 
 EXPOSE 8081
