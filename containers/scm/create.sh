@@ -8,7 +8,7 @@ if [ ! -d "$DATADIR" ]; then
   chmod -R 755 "$DATADIR"
 fi
 
-docker rm scm
+docker rm -f scm
 docker create \
   --name scm \
   -h scm \
