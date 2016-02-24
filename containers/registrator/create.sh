@@ -11,10 +11,9 @@ docker rm registrator
 docker create \
   --name registrator \
   -h registrator \
+  -v /etc/ces:/etc/ces \
   -v /var/run/docker.sock:/var/run/docker.sock \
   --log-driver="syslog" \
   --log-opt='syslog-tag=registrator' \
   --net=cesnet1 \
-  registry.cloudogu.com/official/registrator:0.6.0 \
-  -internal \
-  etcd://$(get_ip):4001/services
+  registry.cloudogu.com/official/registrator:0.6.0

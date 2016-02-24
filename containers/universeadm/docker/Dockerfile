@@ -10,7 +10,8 @@ ENV TOMCAT_MAJOR_VERSION 8
 ENV TOMCAT_VERSION 8.0.28
 
 # universeam version
-ENV UNIVERSEADM_VERSION 1.2.0
+ENV UNIVERSEADM_VERSION 1.3.0
+ENV VERSION_POSTFIX -20160224.082650-1
 
 # home directory
 ENV UNIVERSEADM_HOME /var/lib/universeadm/conf
@@ -39,9 +40,9 @@ RUN chmod +x /opt/apache-tomcat/bin/setenv.sh
 # install universeadm
 RUN mkdir -p /opt/apache-tomcat/webapps/universeadm \
     && cd /opt/apache-tomcat/webapps/universeadm \
-    && wget https://universe.triology.de/nexus/content/repositories/releases/de/triology/scm/universe/universeadm/${UNIVERSEADM_VERSION}/universeadm-${UNIVERSEADM_VERSION}.war \
-		&& unzip universeadm-${UNIVERSEADM_VERSION}.war \
-		&& rm -f universeadm-${UNIVERSEADM_VERSION}.war \
+    && wget https://universe.triology.de/nexus/content/repositories/snapshots/de/triology/scm/universe/universeadm/${UNIVERSEADM_VERSION}-SNAPSHOT/universeadm-${UNIVERSEADM_VERSION}${VERSION_POSTFIX}.war \
+		&& unzip universeadm-${UNIVERSEADM_VERSION}${VERSION_POSTFIX}.war \
+		&& rm -f universeadm-${UNIVERSEADM_VERSION}${VERSION_POSTFIX}.war \
 		&& chmod +x WEB-INF/cipher.sh
 
 # fix permissions

@@ -29,7 +29,8 @@ ADD ./startup.sh /startup.sh
 RUN chmod +x /startup.sh
 
 # cas plugin
-ADD resources/cas_plugin.xml /opt/scm-server/conf/cas_plugin.xml.tpl
+ADD resources/cas_plugin.xml.tpl /opt/scm-server/conf/cas_plugin.xml.tpl
+ADD resources/mail.xml.tpl /opt/scm-server/conf/mail.xml.tpl
 ADD resources/pluginlist /opt/scm-server/conf/pluginlist
 
 # run scm-manager
