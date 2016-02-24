@@ -1,6 +1,6 @@
 # cesi/redmine
 FROM cesi/base
-#MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
+MAINTAINER Robert Auer <robert.auer@triology.de>
 
 ENV WORKDIR /usr/share/webapps/redmine
 
