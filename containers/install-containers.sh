@@ -11,19 +11,19 @@ CONTAINERS=$(cat $CONTAINERFILE)
 for C in $CONTAINERS; do
   DIR="$BASEDIR/$C"
 
-  if [ -f "$DIR/docker/dogu.json" ]; then
+  if [ -f "$DIR/dogu.json" ]; then
 
-    /opt/ces/bin/cesapp build "$DIR/docker"
+    /opt/ces/bin/cesapp build "$DIR"
 
     if [ "$2" = "start" ]; then
       echo "starting service for container $C"
       service "ces-$C" start
     fi
 
-  elif [ -f "$DIR/docker/Dockerfile" ]; then
+  elif [ -f "$DIR/Dockerfile" ]; then
 
-    IMAGE=$(head -1 "$DIR/docker/Dockerfile" | sed 's/#//g' | sed 's/\s*//g')
-    docker build -t "${IMAGE}" "$DIR/docker"
+    IMAGE=$(head -1 "$DIR/Dockerfile" | sed 's/#//g' | sed 's/\s*//g')
+    docker build -t "${IMAGE}" "$DIR"
 
   fi
 

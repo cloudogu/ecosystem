@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+
+  <objectClasses>
+    <objectClass>top</objectClass>
+    <objectClass>groupOfNames</objectClass>
+  </objectClasses>
+
+  <attributes>
+    <attribute ldap-name="cn" is-rdn="true" in-modify="false">name</attribute>
+    <attribute>description</attribute>
+    <attribute ldap-name="member" is-multi-value="true"
+               decoder="de.triology.universeadm.mapping.MemberMappingConverter"
+               encoder="de.triology.universeadm.mapping.MemberMappingConverter">members</attribute>
+  </attributes>
+
+</mapping>

@@ -1,0 +1,18 @@
+{
+  "Name": "jenkins",
+  "Version": "1.609.2-1",
+  "DisplayName": "Jenkins CI",
+  "Description": "Jenkins Continious Integration Server",
+  "Url": "https://jenkins-ci.org",
+  "Image": "registry.cloudogu.com/official/jenkins",
+  "Volumes": [{
+    "Name": "data",
+    "Path": "/var/lib/jenkins",
+    "Owner": "1000",
+    "Group": "1000"
+  }],
+  "HealthCheck": {
+    "Type": "tcp",
+    "Port": 3306
+  }
+}

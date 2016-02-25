@@ -1,8 +1,15 @@
-#!/bin/bash
-DOCKER_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/docker" && pwd)
-docker build -t registry.cloudogu.com/official/nginx-build:1.9.11-1 -f ${DOCKER_DIR}/Dockerfile.build ${DOCKER_DIR}
+#!/bin/bash -e
+./configure \
+    --with-http_ssl_module \
+    --with-http_gzip_static_module \
+    --with-http_sub_module \
+    --with-http_v2_module \
+    --prefix=/etc/nginx \
+    --http-log-path=/var/log/nginx/access.log \
+    --error-log-path=/var/log/nginx/error.log \
+    --sbin-path=/usr/sbin/nginx
+make
+make install
 
-mkdir ${DOCKER_DIR}/dist
-docker run --rm -t -v ${DOCKER_DIR}/dist:/dist registry.cloudogu.com/official/nginx-build:1.9.11-1
-
-docker build -t registry.cloudogu.com/official/nginx:1.9.11-1 $(cd "$(dirname "${BASH_SOURCE[0]}")/docker" && pwd)
+# move binary
+mv /usr/sbin/nginx /dist
