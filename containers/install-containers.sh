@@ -15,29 +15,16 @@ for C in $CONTAINERS; do
 
     /opt/ces/bin/cesapp build "$DIR/docker"
 
-  else
-
-    if [ ! -f "$DIR/build.sh" ]; then
-      echo "could not find build script for container $C"
-      exit 1
+    if [ "$2" = "start" ]; then
+      echo "starting service for container $C"
+      service "ces-$C" start
     fi
 
-    echo "execute build script for container $C"
-    $DIR/build.sh
-    if [ -f "$DIR/create.sh" ]; then
-      echo "create container $C"
-      $DIR/create.sh
-    fi
+  elif [ -f "$DIR/docker/Dockerfile" ]; then
 
-    if [ -d "$DIR/resources" ]; then
-      echo "copy container required resources to host system"
-      rsync -rav $DIR/resources/* /
-    fi
+    IMAGE=$(head -1 "$DIR/docker/Dockerfile" | sed 's/#//g' | sed 's/\s*//g')
+    docker build -t "${IMAGE}" "$DIR/docker"
 
   fi
 
-  if [ "$2" = "start" ]; then
-    echo "starting service for container $C"
-    service "ces-$C" start
-  fi
 done

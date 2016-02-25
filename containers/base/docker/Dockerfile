@@ -1,4 +1,4 @@
-# registry.cloudogu.com/official/base
+# registry.cloudogu.com/official/base:3.3-1
 FROM alpine:3.3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
