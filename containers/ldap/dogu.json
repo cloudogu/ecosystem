@@ -1,0 +1,24 @@
+{
+  "Name": "ldap",
+  "Version": "2.4.43-1",
+  "DisplayName": "OpenLDAP",
+  "Description": "OpenLDAP server for user and group management.",
+  "Url": "http://www.openldap.org",
+  "Logo": "http://www.openldap.org/images/headers/LDAPworm.gif",
+  "Image": "registry.cloudogu.com/official/ldap",
+  "Volumes": [{
+    "Name": "config",
+    "Path": "/etc/ceslap",
+    "Owner": "102",
+    "Group": "102"
+  },{
+		"Name": "db",
+    "Path": "/var/lib/openldap",
+    "Owner": "102",
+    "Group": "102"
+	}],
+  "HealthCheck": {
+    "Type": "tcp",
+    "Port": 389
+  }
+}

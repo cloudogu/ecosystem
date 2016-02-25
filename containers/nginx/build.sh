@@ -1,9 +1,15 @@
-#!/bin/bash
-DOCKER_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/docker" && pwd)
+#!/bin/bash -e
+./configure \
+    --with-http_ssl_module \
+    --with-http_gzip_static_module \
+    --with-http_sub_module \
+    --with-http_v2_module \
+    --prefix=/etc/nginx \
+    --http-log-path=/var/log/nginx/access.log \
+    --error-log-path=/var/log/nginx/error.log \
+    --sbin-path=/usr/sbin/nginx
+make
+make install
 
-docker build -t cesi/nginx-build -f ${DOCKER_DIR}/Dockerfile.build ${DOCKER_DIR}
-
-mkdir ${DOCKER_DIR}/dist
-docker run --rm -t -v ${DOCKER_DIR}/dist:/dist cesi/nginx-build
-
-docker build -t cesi/nginx $(cd "$(dirname "${BASH_SOURCE[0]}")/docker" && pwd)
+# move binary
+mv /usr/sbin/nginx /dist

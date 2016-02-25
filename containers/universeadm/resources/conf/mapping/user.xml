@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+
+  <objectClasses>
+    <objectClass>top</objectClass>
+    <objectClass>person</objectClass>
+    <objectClass>inetorgperson</objectClass>
+    <objectClass>organizationalperson</objectClass>
+  </objectClasses>
+
+  <attributes>
+    <attribute ldap-name="uid" is-rdn="true" in-modify="false">username</attribute>
+    <attribute ldap-name="cn" sibling="displayName">displayName</attribute>
+    <attribute ldap-name="sn">surname</attribute>
+    <attribute>givenname</attribute>
+    <attribute>mail</attribute>
+    <attribute
+      ldap-name="userPassword"
+      in-read="false"
+      in-modify="fals"
+      in-create="false"
+      in-search="false">
+      password
+    </attribute>
+    <attribute ldap-name="memberOf" is-multi-value="true" in-modify="false"
+      in-create="false"
+               decoder="de.triology.universeadm.mapping.MemberOfMappingConverter"
+               encoder="de.triology.universeadm.mapping.MemberOfMappingConverter">memberOf</attribute>
+  </attributes>
+
+</mapping>
