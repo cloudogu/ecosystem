@@ -64,11 +64,13 @@ function get_domain(){
 export -f get_domain
 
 function get_fqdn(){
-  if [ -f '/etc/ces/fqdn' ]; then
-    cat /etc/ces/fqdn
-  else
-    get_ip
+  VALUE=$(get_config "fqdn")
+  if [ "$VALUE" == "" ]; then
+    echo $(cat /etc/ces/ip_addr)
+    else
+      echo $VALUE
   fi
+
 }
 
 export -f get_fqdn

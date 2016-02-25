@@ -3,7 +3,7 @@ source /etc/ces/functions.sh
 
 # write current ip
 get_ip > /etc/ces/ip_addr
-get_ip > /etc/ces/fqdn
+set_config_global fqdn $(get_ip)
 
 # prepare syslog and restart
 mkdir /var/log/docker
