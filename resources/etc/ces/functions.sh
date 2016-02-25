@@ -58,7 +58,7 @@ function get_ip(){
 export -f get_ip
 
 function get_domain(){
-  cat /etc/ces/domain
+  echo $(get_config domain)
 }
 
 export -f get_domain
