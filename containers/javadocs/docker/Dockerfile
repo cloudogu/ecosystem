@@ -1,6 +1,6 @@
 #this dockerfile installs the jdk documentation from the Oracle website
-#It uses cesi/base as base container
-FROM cesi/base
+#It uses registry.cloudogu.com/official/base as base container
+FROM registry.cloudogu.com/official/base:3.3-1
 MAINTAINER Thomas Grosser <thomas.grosser@triology.de>
 
 # Documentation version
