@@ -4,6 +4,7 @@ source /etc/ces/functions.sh
 # write current ip
 get_ip > /etc/ces/node_master
 set_config_global fqdn $(get_ip)
+set_config_global admin_group "universalAdmin"
 
 # prepare syslog and restart
 mkdir /var/log/docker
