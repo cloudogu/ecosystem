@@ -1,5 +1,36 @@
 #!/bin/bash
 
+function get_config(){
+  KEY=$1
+  VALUE=$(eval echo \$CONFIG_${KEY^^})
+  if [ "$VALUE" == "" ]; then
+    VALUE=$(etcdctl --peers $(cat /etc/ces/ip_addr):4001 get "/config/$(hostname)/$1")
+    if [ "$VALUE" == "" ]; then
+      VALUE=$(etcdctl --peers $(cat /etc/ces/ip_addr):4001 get "/config/_global/$1")
+    fi
+  fi
+  echo $VALUE
+}
+
+export -f get_config
+
+function set_config(){
+  KEY=$1
+  VALUE=$2
+  SERVICE_NAME=$(hostname)
+  etcdctl --peers $(cat /etc/ces/ip_addr):4001 set "/config/$(hostname)/$1" "$2"
+}
+
+export -f set_config
+
+function set_config_global(){
+  KEY=$1
+  VALUE=$2
+  etcdctl --peers $(cat /etc/ces/ip_addr):4001 set "/config/_global/$1" "$2"
+}
+
+export -f set_config_global
+
 # fqdn functions
 
 function get_ip(){
@@ -33,11 +64,13 @@ function get_domain(){
 export -f get_domain
 
 function get_fqdn(){
-  if [ -f '/etc/ces/fqdn' ]; then
-    cat /etc/ces/fqdn
-  else
-    get_ip
+  VALUE=$(get_config "fqdn")
+  if [ "$VALUE" == "" ]; then
+    echo $(cat /etc/ces/ip_addr)
+    else
+      echo $VALUE
   fi
+
 }
 
 export -f get_fqdn
