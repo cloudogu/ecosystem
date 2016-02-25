@@ -15,6 +15,10 @@ $INSTALL_HOME/install/create-subvolumes.sh
 echo "install etcd"
 $INSTALL_HOME/install/install-etcd.sh
 
+# install cesapp
+echo "install cesapp"
+$INSTALL_HOME/install/install-cesapp.sh
+
 # snyc resources
 echo "sync files"
 $INSTALL_HOME/install/sync-files.sh
