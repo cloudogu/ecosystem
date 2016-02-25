@@ -8,7 +8,7 @@ if [ ! -d "$DATADIR" ]; then
   chmod -R 755 "$DATADIR"
 fi
 
-docker rm sonar
+docker rm -f sonar
 docker create \
   --name sonar \
   -h sonar \

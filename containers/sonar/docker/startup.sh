@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source /etc/ces/functions.sh
+ADMINGROUP="universalAdmin"
 
 function move_sonar_dir(){
   DIR="$1"
@@ -43,14 +44,6 @@ MYSQL_USER="sonar"
 MYSQL_USER_PASSWORD=$(create_or_get_ces_pass mysql_sonar)
 MYSQL_DB="sonar"
 
-# prepare config
-render_template "/opt/sonar/conf/sonar.properties"
-
-# move cas plugin to right folder
-if [ -f "/opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar" ]; then
-	mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
-fi
-
 # prepare database
 if [ $(mysql -N -s -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "select count(*) from information_schema.tables where table_schema='${MYSQL_DB}' and table_name='projects';") -eq 1 ]; then
   echo "sonar database is already installed"
@@ -60,4 +53,24 @@ else
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" "${MYSQL_DB}" -e "grant all on ${MYSQL_DB}.* to \"${MYSQL_USER}\"@\"%\" identified by \"${MYSQL_USER_PASSWORD}\";FLUSH PRIVILEGES;"
 fi
 
+# pre cas authentication configuration
+if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == "sonar.security.realm=cas" ]; then
+	# prepare config
+	REALM=""
+	render_template "/opt/sonar/conf/sonar.properties"
+	# start in background
+	su - sonar -c "exec /opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar" &
+	# create and populate adminGroup
+	/sonaradmingroup.sh "$ADMINGROUP"
+	kill $!
+	# move cas plugin to right folder
+	if [ -f "/opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar" ]; then
+		mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
+	fi
+	# prepare config
+	REALM="cas"
+	render_template "/opt/sonar/conf/sonar.properties"
+fi
+
+# fire it up
 exec su - sonar -c "exec /opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar"

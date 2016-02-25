@@ -34,5 +34,9 @@ RUN chown -R sonar:sonar ${SONARQUBE_HOME}
 ADD ./startup.sh /startup.sh
 RUN chmod +x /startup.sh
 
+# add user script
+ADD ./resources/sonaradmingroup.sh /sonaradmingroup.sh
+RUN chmod +x /sonaradmingroup.sh
+
 EXPOSE 9000
 CMD /startup.sh
