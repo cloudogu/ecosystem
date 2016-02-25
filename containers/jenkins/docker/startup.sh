@@ -17,6 +17,7 @@ fi
 
 # starting jenkins
 java -Djava.awt.headless=true \
+	-Dhudson.model.UpdateCenter.never=true \
   -Djava.net.preferIPv4Stack=true \
   -Djavax.net.ssl.trustStore=/etc/ces/ssl/truststore.jks \
   -Djavax.net.ssl.trustStorePassword=changeit \
