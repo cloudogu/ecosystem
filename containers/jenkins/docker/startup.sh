@@ -3,6 +3,8 @@ source /etc/ces/functions.sh
 
 # create environment for templates
 FQDN=$(get_fqdn)
+ADMINGROUP="universalAdmin"
+
 
 # render template
 render_template "/config.xml.tpl" > "/var/lib/jenkins/config.xml"
