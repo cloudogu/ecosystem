@@ -12,7 +12,8 @@ if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
 	# Making directory, if not already existing
 	mkdir -p /var/lib/jenkins/plugins
 	# Copy plugin
-        cp /cas-plugin.hpi /var/lib/jenkins/plugins/
+  cp /cas-plugin.hpi /var/lib/jenkins/plugins/
+
 fi
 
 # starting jenkins

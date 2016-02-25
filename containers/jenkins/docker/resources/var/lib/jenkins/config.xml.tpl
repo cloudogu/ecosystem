@@ -5,7 +5,38 @@
   <numExecutors>2</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
-  <authorizationStrategy class=\"hudson.security.AuthorizationStrategy\$Unsecured\"/>
+  <authorizationStrategy class=\"hudson.security.ProjectMatrixAuthorizationStrategy\">
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Create:universalAdmin</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Delete:universalAdmin</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.ManageDomains:universalAdmin</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.Update:universalAdmin</permission>
+    <permission>com.cloudbees.plugins.credentials.CredentialsProvider.View:universalAdmin</permission>
+    <permission>hudson.model.Computer.Build:universalAdmin</permission>
+    <permission>hudson.model.Computer.Configure:universalAdmin</permission>
+    <permission>hudson.model.Computer.Connect:universalAdmin</permission>
+    <permission>hudson.model.Computer.Create:universalAdmin</permission>
+    <permission>hudson.model.Computer.Delete:universalAdmin</permission>
+    <permission>hudson.model.Computer.Disconnect:universalAdmin</permission>
+    <permission>hudson.model.Hudson.Administer:universalAdmin</permission>
+    <permission>hudson.model.Hudson.ConfigureUpdateCenter:universalAdmin</permission>
+    <permission>hudson.model.Hudson.Read:universalAdmin</permission>
+    <permission>hudson.model.Hudson.RunScripts:universalAdmin</permission>
+    <permission>hudson.model.Hudson.UploadPlugins:universalAdmin</permission>
+    <permission>hudson.model.Item.Build:universalAdmin</permission>
+    <permission>hudson.model.Item.Cancel:universalAdmin</permission>
+    <permission>hudson.model.Item.Configure:universalAdmin</permission>
+    <permission>hudson.model.Item.Create:universalAdmin</permission>
+    <permission>hudson.model.Item.Delete:universalAdmin</permission>
+    <permission>hudson.model.Item.Discover:universalAdmin</permission>
+    <permission>hudson.model.Item.Read:universalAdmin</permission>
+    <permission>hudson.model.Item.Workspace:universalAdmin</permission>
+    <permission>hudson.model.Run.Delete:universalAdmin</permission>
+    <permission>hudson.model.Run.Update:universalAdmin</permission>
+    <permission>hudson.model.View.Configure:universalAdmin</permission>
+    <permission>hudson.model.View.Create:universalAdmin</permission>
+    <permission>hudson.model.View.Delete:universalAdmin</permission>
+    <permission>hudson.model.View.Read:universalAdmin</permission>
+  </authorizationStrategy>
   <securityRealm class=\"org.jenkinsci.plugins.cas.CasSecurityRealm\" plugin=\"cas-plugin@1.2.0\">
     <casServerUrl>https://${FQDN}/cas/</casServerUrl>
     <casProtocol class=\"org.jenkinsci.plugins.cas.protocols.Saml11Protocol\">
