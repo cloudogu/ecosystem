@@ -2,7 +2,7 @@
 source /etc/ces/functions.sh
 ADMUSR="admin"
 ADMPW="admin123"
-ADMINGROUP="universalAdmin"
+ADMINGROUP=$(get_config admin_group)
 
 START_NEXUS="java \
   -server -XX:MaxPermSize=192m -Djava.net.preferIPv4Stack=true -Xms256m -Xmx1g \
