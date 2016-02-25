@@ -4,9 +4,9 @@ function get_config(){
   KEY=$1
   VALUE=$(eval echo \$CONFIG_${KEY^^})
   if [ "$VALUE" == "" ]; then
-    VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$1")
+    VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
     if [ "$VALUE" == "" ]; then
-      VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$1")
+      VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
     fi
   fi
   echo $VALUE
@@ -18,7 +18,7 @@ function set_config(){
   KEY=$1
   VALUE=$2
   SERVICE_NAME=$(hostname)
-  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/$(hostname)/$1" "$2"
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/$(hostname)/$KEY" "$VALUE"
 }
 
 export -f set_config
@@ -26,7 +26,7 @@ export -f set_config
 function set_config_global(){
   KEY=$1
   VALUE=$2
-  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/$1" "$2"
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/$KEY" "$VALUE"
 }
 
 export -f set_config_global
