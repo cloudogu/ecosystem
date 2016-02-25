@@ -20,7 +20,7 @@ respawn
 
 script
   mkdir -p /var/lib/ces/etcd/data
-  /opt/ces/etcd/etcd  --data-dir /var/lib/ces/etcd/data -addr=$(cat /etc/ces/ip_addr):4001
+  /opt/ces/etcd/etcd  --data-dir /var/lib/ces/etcd/data -addr=$(cat /etc/ces/node_master):4001
 end script
 
 post-start script

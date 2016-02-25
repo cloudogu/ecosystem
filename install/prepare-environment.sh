@@ -2,7 +2,7 @@
 source /etc/ces/functions.sh
 
 # write current ip
-get_ip > /etc/ces/ip_addr
+get_ip > /etc/ces/node_master
 set_config_global fqdn $(get_ip)
 
 # prepare syslog and restart

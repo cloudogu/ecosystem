@@ -1,7 +1,7 @@
 #!/bin/bash
 source /etc/ces/functions.sh
 
-ETCD=http://$(cat /etc/ces/ip_addr):4001
+ETCD=http://$(cat /etc/ces/node_master):4001
 FQDN=$(get_fqdn)
 
 # include fqdn in ssl.conf

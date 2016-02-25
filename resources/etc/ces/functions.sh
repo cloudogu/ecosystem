@@ -4,9 +4,9 @@ function get_config(){
   KEY=$1
   VALUE=$(eval echo \$CONFIG_${KEY^^})
   if [ "$VALUE" == "" ]; then
-    VALUE=$(etcdctl --peers $(cat /etc/ces/ip_addr):4001 get "/config/$(hostname)/$1")
+    VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$1")
     if [ "$VALUE" == "" ]; then
-      VALUE=$(etcdctl --peers $(cat /etc/ces/ip_addr):4001 get "/config/_global/$1")
+      VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$1")
     fi
   fi
   echo $VALUE
@@ -18,7 +18,7 @@ function set_config(){
   KEY=$1
   VALUE=$2
   SERVICE_NAME=$(hostname)
-  etcdctl --peers $(cat /etc/ces/ip_addr):4001 set "/config/$(hostname)/$1" "$2"
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/$(hostname)/$1" "$2"
 }
 
 export -f set_config
@@ -26,7 +26,7 @@ export -f set_config
 function set_config_global(){
   KEY=$1
   VALUE=$2
-  etcdctl --peers $(cat /etc/ces/ip_addr):4001 set "/config/_global/$1" "$2"
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/$1" "$2"
 }
 
 export -f set_config_global
@@ -66,7 +66,7 @@ export -f get_domain
 function get_fqdn(){
   VALUE=$(get_config "fqdn")
   if [ "$VALUE" == "" ]; then
-    echo $(cat /etc/ces/ip_addr)
+    echo $(cat /etc/ces/node_master)
     else
       echo $VALUE
   fi
@@ -176,7 +176,7 @@ function get_service(){
   NAME=$1
   PORT=$2
 
-  etcdctl --peers $(cat /etc/ces/ip_addr):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
+  etcdctl --peers $(cat /etc/ces/node_master):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
 }
 
 export -f get_service
