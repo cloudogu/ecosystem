@@ -33,6 +33,7 @@ if ! [ -d /var/lib/nexus/plugin-repository/nexus-cas-plugin-${CAS_PLUGIN_VERSION
   	  done
       # add CasAuthenticatingRealm
       sed -i s,'</realms>','   <realm>CasAuthenticatingRealm</realm> \n </realms>',g /var/lib/nexus/conf/security-configuration.xml
+      sed -i s,'<anonymousAccessEnabled>true</anonymousAccessEnabled>','',g /var/lib/nexus/conf/security-configuration.xml
       mv /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/ /var/lib/nexus/plugin-repository/
       kill $!
 fi
