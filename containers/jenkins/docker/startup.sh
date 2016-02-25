@@ -3,6 +3,8 @@ source /etc/ces/functions.sh
 
 # create environment for templates
 FQDN=$(get_fqdn)
+ADMINGROUP="universalAdmin"
+
 
 # render template
 render_template "/config.xml.tpl" > "/var/lib/jenkins/config.xml"
@@ -12,8 +14,7 @@ if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
 	# Making directory, if not already existing
 	mkdir -p /var/lib/jenkins/plugins
 	# Copy plugin
-  cp /cas-plugin.hpi /var/lib/jenkins/plugins/
-
+        cp /cas-plugin.hpi /var/lib/jenkins/plugins/
 fi
 
 # starting jenkins
