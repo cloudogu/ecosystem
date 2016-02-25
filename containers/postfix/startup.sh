@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source /etc/ces/functions.sh
-MAILRELAY="192.168.115.24"
+MAILRELAY=$(get_config relayhost)
 
 name=$(hostname)
 domain=$(get_domain)

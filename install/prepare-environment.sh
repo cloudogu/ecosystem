@@ -6,6 +6,7 @@ get_ip > /etc/ces/node_master
 set_config_global domain $(cat /etc/ces/domain)
 set_config_global fqdn $(get_ip)
 set_config_global admin_group "universalAdmin"
+etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/postfix/relayhost" "192.168.115.24"
 
 # prepare syslog and restart
 mkdir /var/log/docker
