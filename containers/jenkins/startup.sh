@@ -3,7 +3,7 @@ source /etc/ces/functions.sh
 
 # create environment for templates
 FQDN=$(get_fqdn)
-ADMINGROUP=$(get_config admin_group)
+ADMINGROUP="$(get_config admin_group)"
 
 
 # render template

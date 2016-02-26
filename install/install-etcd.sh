@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ETCD_VERSION=v2.1.3
 
 function install_etcd(){
@@ -19,14 +18,14 @@ stop on (runlevel [!2345] and stopped docker)
 respawn
 
 script
+  IP=$(bash -c "source /etc/ces/functions.sh; get_ip")
   mkdir -p /var/lib/ces/etcd/data
-  /opt/ces/etcd/etcd  --data-dir /var/lib/ces/etcd/data -addr=$(cat /etc/ces/node_master):4001
+  /opt/ces/etcd/etcd  --data-dir /var/lib/ces/etcd/data -addr="$IP":4001
 end script
 
 post-start script
-  CIP=$(docker inspect --format '{{.NetworkSettings.IPAddress}}' etcd)
   for C in $(seq 1 30); do
-    if $(nc -z "$CIP" 4001); then
+    if $(nc -z "127.0.0.1" 4001); then
       continue
     else
       sleep 0.1

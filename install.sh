@@ -11,6 +11,10 @@ fi
 echo "creating btrfs subvolumes"
 $INSTALL_HOME/install/create-subvolumes.sh
 
+# snyc resources
+echo "sync files"
+$INSTALL_HOME/install/sync-files.sh
+
 # install etcd
 echo "install etcd"
 $INSTALL_HOME/install/install-etcd.sh
@@ -19,9 +23,6 @@ $INSTALL_HOME/install/install-etcd.sh
 echo "install cesapp"
 $INSTALL_HOME/install/install-cesapp.sh
 
-# snyc resources
-echo "sync files"
-$INSTALL_HOME/install/sync-files.sh
 
 # install repository keys
 echo "install repository keys"
@@ -31,13 +32,13 @@ $INSTALL_HOME/install/apt-keys.sh
 echo "install missing packages"
 $INSTALL_HOME/install/apt-packages.sh
 
-# prepare environment
-echo "prepare environment"
-$INSTALL_HOME/install/prepare-environment.sh
-
 # create overlay network
 echo "create network"
 $INSTALL_HOME/install/create-network.sh
+
+# prepare environment
+echo "prepare environment"
+$INSTALL_HOME/install/prepare-environment.sh
 
 # build base containers
 echo "build base container"
