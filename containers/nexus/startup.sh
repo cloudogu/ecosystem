@@ -5,6 +5,7 @@ ADMPW="admin123"
 ADMINGROUP="universalAdmin"
 DOMAIN=$(get_config domain)
 
+
 START_NEXUS="java \
   -server -XX:MaxPermSize=192m -Djava.net.preferIPv4Stack=true -Xms256m -Xmx1g \
   -Djavax.net.ssl.trustStore=/etc/ces/ssl/truststore.jks \
@@ -32,13 +33,14 @@ if ! [ -d /var/lib/nexus/plugin-repository/nexus-cas-plugin-${CAS_PLUGIN_VERSION
   					exit 1
   			fi
   	  done
-      # add CasAuthenticatingRealm
-      sed -i s,'</realms>','   <realm>CasAuthenticatingRealm</realm> \n </realms>',g /var/lib/nexus/conf/security-configuration.xml
-      sed -i s,'<anonymousAccessEnabled>true</anonymousAccessEnabled>','',g /var/lib/nexus/conf/security-configuration.xml
-      mv /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/ /var/lib/nexus/plugin-repository/
+      # add Cas Pluin
+      cp -a /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/ /var/lib/nexus/plugin-repository/
       # add mailconfig
-      mailConfiguration=$(curl -H 'content-type:application/json' -H 'accept:application/json' 'http://127.0.0.1:8081/nexus/service/local/global_settings/current' -u "$ADMUSR":"$ADMPW" | jq ".data.smtpSettings+={\"host\": \"postfix\"}" | jq ".data.smtpSettings+={\"username\": \"\"}" | jq ".data.smtpSettings+={\"password\": \"\"}" | jq ".data.smtpSettings+={\"systemEmailAddress\": \"nexus@$DOMAIN\"}")
+      mailConfiguration=$(curl -H 'content-type:application/json' -H 'accept:application/json' 'http://127.0.0.1:8081/nexus/service/local/global_settings/current' -u "$ADMUSR":"$ADMPW" | jq ".data.smtpSettings+={\"host\": \"postfix\"}" | jq ".data.smtpSettings+={\"username\": \"\"}" | jq ".data.smtpSettings+={\"password\": \"\"}" | jq ".data.smtpSettings+={\"systemEmailAddress\": \"nexus@$DOMAIN\"}" | jq ".data+={\"securityAnonymousAccessEnabled\": false}" | jq ".data+={\"securityRealms\": [\"CasAuthenticatingRealm\",\"XmlAuthenticatingRealm\",\"XmlAuthorizingRealm\"]}")
+      echo "============ CONFIG INFO ============"
+      echo $mailConfiguration | jq .
       curl -H "Content-Type: application/json" -X PUT -d "$mailConfiguration" "http://127.0.0.1:8081/nexus/service/local/global_settings/current" -u "$ADMUSR":"$ADMPW"
+      echo "========== CONFIG INFO END =========="
       kill $!
 fi
 FQDN=$(get_fqdn)
