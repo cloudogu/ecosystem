@@ -7,7 +7,7 @@ ENV RMCASPLUGINVERSION 1.2.1
 ENV RUBYCASVERSION 2.3.9
 
 RUN apk add --update redmine ruby-io-console build-base ruby-dev \
-  imagemagick-dev ruby-irb ruby-mysql2 sed \
+  imagemagick-dev ruby-irb ruby-mysql2 ruby-sqlite \
   && rm -rf /tmp/* /var/cache/apk/*
 
 # Reinstall RMagick to make it work
@@ -21,7 +21,7 @@ RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/ninech/
   && rm /casplugin${RMCASPLUGINVERSION}.tar.gz
 
 # Install (available) rubycas-client version
-RUN sed -i s/2.3.10.rc1/${RUBYCASVERSION}/g ${WORKDIR}/plugins/redmine_cas/Gemfile
+RUN echo "gem 'rubycas-client', '~> 2.3.9'" > ${WORKDIR}/plugins/redmine_cas/Gemfile
 RUN gem install rubycas-client -v ${RUBYCASVERSION}
 
 # startscript

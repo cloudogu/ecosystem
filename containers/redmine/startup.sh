@@ -16,9 +16,10 @@ REDMINE_LANG=en
 cd ${WORKDIR}
 su - redmine -c "rake generate_secret_token --trace"
 # adjust redmine database.yml
-sed -i s~\"\"~${MYSQL_USER_PASSWORD}~g ${WORKDIR}/config/database.yml
+render_template "${WORKDIR}/config/database.yml.tpl" > "${WORKDIR}/config/database.yml"
 # insert secret_key_base into secrets.yml
-sed -i s/X/$(grep secret_key_base ${WORKDIR}/config/initializers/secret_token.rb | awk -F \' '{print $2}' )/g ${WORKDIR}/config/secrets.yml
+SECRETKEYBASE=$(grep secret_key_base ${WORKDIR}/config/initializers/secret_token.rb | awk -F \' '{print $2}' )
+render_template "${WORKDIR}/config/secrets.yml.tpl" > "${WORKDIR}/config/secrets.yml"
 
 # Check if Redmine has been installed already
 if [ $(mysql -N -s -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "select count(*) from information_schema.schemata where schema_name='${MYSQL_DB}';") -eq 1 ]; then
