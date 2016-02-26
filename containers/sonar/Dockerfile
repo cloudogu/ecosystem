@@ -38,5 +38,9 @@ RUN chmod +x /startup.sh
 ADD ./resources/sonaradmingroup.sh /sonaradmingroup.sh
 RUN chmod +x /sonaradmingroup.sh
 
+# add mailconfig
+ADD ./resources/sonarmailconfig.sh /sonarmailconfig.sh
+RUN chmod +x /sonarmailconfig.sh
+
 EXPOSE 9000
 CMD /startup.sh
