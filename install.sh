@@ -15,6 +15,9 @@ $INSTALL_HOME/install/create-subvolumes.sh
 echo "sync files"
 $INSTALL_HOME/install/sync-files.sh
 
+source /etc/environment
+export PATH
+
 # install etcd
 echo "install etcd"
 $INSTALL_HOME/install/install-etcd.sh
