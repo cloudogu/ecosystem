@@ -5,7 +5,7 @@ source /etc/ces/functions.sh
 FQDN=$(get_fqdn)
 ADMUSR="scmadmin"
 ADMPW="scmadmin"
-ADMINGROUP="universalAdmin"
+ADMINGROUP=$(get_config admin_group)
 AUTOUPDATE="1"
 CURLPARAM="-s"
 MAILFROM="cloudoguscm@cloudogu.com"

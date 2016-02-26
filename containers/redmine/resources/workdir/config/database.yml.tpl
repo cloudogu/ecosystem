@@ -7,7 +7,7 @@ production:
   database: redmine
   host: mysql
   username: redmine
-  password: ""
+  password: ${MYSQL_USER_PASSWORD}
   encoding: utf8
 
 #development:

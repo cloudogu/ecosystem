@@ -5,4 +5,4 @@ test:
   secret_key_base:
 
 production:
-  secret_key_base: X
+  secret_key_base: ${SECRETKEYBASE}

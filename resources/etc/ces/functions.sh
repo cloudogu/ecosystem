@@ -28,6 +28,39 @@ function github_download(){
 
 export -f github_download
 
+# configuration helper functions
+
+function get_config(){
+  KEY=$1
+  VALUE=$(eval echo \$CONFIG_${KEY^^})
+  if [ "$VALUE" == "" ]; then
+    VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
+    if [ "$VALUE" == "" ]; then
+      VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
+    fi
+  fi
+  echo $VALUE
+}
+
+export -f get_config
+
+function set_config(){
+  KEY=$1
+  VALUE=$2
+  SERVICE_NAME=$(hostname)
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/$(hostname)/$KEY" "$VALUE"
+}
+
+export -f set_config
+
+function set_config_global(){
+  KEY=$1
+  VALUE=$2
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/$KEY" "$VALUE"
+}
+
+export -f set_config_global
+
 # fqdn functions
 
 function get_ip(){
@@ -55,17 +88,19 @@ function get_ip(){
 export -f get_ip
 
 function get_domain(){
-  cat /etc/ces/domain
+  echo $(get_config domain)
 }
 
 export -f get_domain
 
 function get_fqdn(){
-  if [ -f '/etc/ces/fqdn' ]; then
-    cat /etc/ces/fqdn
-  else
-    get_ip
+  VALUE=$(get_config "fqdn")
+  if [ "$VALUE" == "" ]; then
+    echo $(cat /etc/ces/node_master)
+    else
+      echo $VALUE
   fi
+
 }
 
 export -f get_fqdn
@@ -171,7 +206,7 @@ function get_service(){
   NAME=$1
   PORT=$2
 
-  etcdctl --peers $(cat /etc/ces/ip_addr):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
+  etcdctl --peers $(cat /etc/ces/node_master):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
 }
 
 export -f get_service

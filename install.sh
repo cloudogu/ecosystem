@@ -11,13 +11,17 @@ fi
 echo "creating btrfs subvolumes"
 $INSTALL_HOME/install/create-subvolumes.sh
 
-# install etcd
-echo "install etcd"
-$INSTALL_HOME/install/install-etcd.sh
-
 # snyc resources
 echo "sync files"
 $INSTALL_HOME/install/sync-files.sh
+
+# source new path environment, to fix missing etcdctl
+source /etc/environment
+export PATH
+
+# install etcd
+echo "install etcd"
+$INSTALL_HOME/install/install-etcd.sh
 
 # install repository keys
 echo "install repository keys"
@@ -27,13 +31,13 @@ $INSTALL_HOME/install/apt-keys.sh
 echo "install missing packages"
 $INSTALL_HOME/install/apt-packages.sh
 
-# prepare environment
-echo "prepare environment"
-$INSTALL_HOME/install/prepare-environment.sh
-
 # create overlay network
 echo "create network"
 $INSTALL_HOME/install/create-network.sh
+
+# prepare environment
+echo "prepare environment"
+$INSTALL_HOME/install/prepare-environment.sh
 
 # install cesapp
 echo "install cesapp"
