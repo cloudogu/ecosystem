@@ -1,0 +1,21 @@
+{
+  "Name": "nexus",
+  "Version": "2.11.4-1",
+  "DisplayName": "Sonatype Nexus",
+  "Description": "The Nexus Repository is like the local warehouse where all of the parts and finished goods used in your software supply chain are stored and distributed.",
+  "Url": "http://www.sonatype.org/nexus",
+  "Image": "registry.cloudogu.com/official/nexus",
+  "Dependencies": [
+    "cas"
+  ],
+  "Volumes": [{
+    "Name": "data",
+    "Path": "/var/lib/nexus",
+    "Owner": "1000",
+    "Group": "1000"
+  }],
+  "HealthCheck": {
+    "Type": "tcp",
+    "Port": 8081
+  }
+}

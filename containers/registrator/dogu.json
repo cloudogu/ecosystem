@@ -1,0 +1,9 @@
+{
+  "Name": "registrator",
+  "Version": "0.6.0-1",
+  "DisplayName": "Registrator",
+  "Description": "Service registry bridge for Docker with pluggable adapters",
+  "Url": "http://gliderlabs.com/registrator/latest/",
+  "Image": "registry.cloudogu.com/official/registrator",
+	"Privileged": true
+}

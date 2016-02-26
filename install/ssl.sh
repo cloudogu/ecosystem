@@ -18,10 +18,10 @@ openssl req -x509 -days 3650 -nodes -newkey rsa:2048 -sha256 -keyout /etc/ces/ss
 rm -f "$SSL_CONF"
 
 # copy jdk truststore
-docker run --rm -v /etc/ces/ssl:/etc/ces/ssl cesi/java \
+docker run --rm -v /etc/ces/ssl:/etc/ces/ssl registry.cloudogu.com/official/java:8u73-1 \
   cp  /opt/jdk/jre/lib/security/cacerts /etc/ces/ssl/truststore.jks
 
 # add generated certificate to truststore
-docker run --rm -v /etc/ces/ssl:/etc/ces/ssl cesi/java \
+docker run --rm -v /etc/ces/ssl:/etc/ces/ssl registry.cloudogu.com/official/java:8u73-1 \
   keytool -keystore /etc/ces/ssl/truststore.jks -storepass changeit -alias ces \
   -import -file /etc/ces/ssl/server.crt -noprompt

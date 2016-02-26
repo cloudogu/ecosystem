@@ -1,0 +1,21 @@
+{
+  "Name": "nginx",
+  "Version": "1.9.11-1",
+  "DisplayName": "Nginx",
+  "Description": "Nginx WebServer.",
+  "Url": "http://nginx.org/",
+  "Image": "registry.cloudogu.com/official/nginx",
+	"ExposedPorts": [{
+    "Type": "tcp",
+    "Host": 80,
+    "Container": 80
+  },{
+    "Type": "tcp",
+    "Host": 443,
+    "Container": 443
+  }],
+  "HealthCheck": {
+    "Type": "tcp",
+    "Port": 443
+  }
+}
