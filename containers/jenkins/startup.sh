@@ -5,9 +5,13 @@ source /etc/ces/functions.sh
 FQDN=$(get_fqdn)
 ADMINGROUP="universalAdmin"
 
-
-# render template
-render_template "/config.xml.tpl" > "/var/lib/jenkins/config.xml"
+if [ ! -f ${JENKINS_HOME}/config.xml ]; then
+	# render template
+	render_template "/config.xml.tpl" > /var/lib/jenkins/config.xml
+else
+	# refresh cas IP
+	sed -i "s~<casServerUrl>.*</casServerUrl>~<casServerUrl>https://${FQDN}/cas/</casServerUrl>~" /var/lib/jenkins/config.xml
+fi
 
 # Checking if /var/lib/jenkins/cas-plugin exists
 if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
