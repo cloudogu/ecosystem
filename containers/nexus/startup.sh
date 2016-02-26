@@ -2,7 +2,7 @@
 source /etc/ces/functions.sh
 ADMUSR="admin"
 ADMPW="admin123"
-ADMINGROUP="universalAdmin"
+ADMINGROUP=$(get_config admin_group)
 DOMAIN=$(get_config domain)
 
 
