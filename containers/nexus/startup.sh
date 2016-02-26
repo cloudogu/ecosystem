@@ -5,7 +5,6 @@ ADMPW="admin123"
 ADMINGROUP=$(get_config admin_group)
 DOMAIN=$(get_config domain)
 
-
 START_NEXUS="java \
   -server -XX:MaxPermSize=192m -Djava.net.preferIPv4Stack=true -Xms256m -Xmx1g \
   -Djavax.net.ssl.trustStore=/etc/ces/ssl/truststore.jks \

@@ -1,13 +1,13 @@
 #!/bin/bash
 
 source /etc/ces/functions.sh
-MAILRELAY="192.168.115.24"
+MAILRELAY=$(get_config relayhost)
 
 name=$(hostname)
 domain=$(get_domain)
 
 if [ ! -f /etc/postfix/configured ]; then
-    net=$(etcdctl -C "$(cat /etc/ces/ip_addr):4001" get $(etcdctl -C "$(cat /etc/ces/ip_addr):4001" ls /docker/network/v1.0/overlay/network/) | jq '.[]' | jq '.SubnetIP' -r)
+    net=$(etcdctl -C "$(cat /etc/ces/node_master):4001" get $(etcdctl -C "$(cat /etc/ces/node_master):4001" ls /docker/network/v1.0/overlay/network/) | jq '.[]' | jq '.SubnetIP' -r)
     # POSTFIX CONFIG
     postconf -e myhostname="${name}.${domain}"
     postconf -e mydestination="${name}.${domain}, ${domain}, localhost.localdomain, localhost"

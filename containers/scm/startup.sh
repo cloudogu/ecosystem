@@ -5,11 +5,18 @@ source /etc/ces/functions.sh
 FQDN=$(get_fqdn)
 ADMUSR="scmadmin"
 ADMPW="scmadmin"
-ADMINGROUP="universalAdmin"
+ADMINGROUP=$(get_config admin_group)
 AUTOUPDATE="1"
 CURLPARAM="-s"
 MAILFROM="cloudoguscm@cloudogu.com"
 RELAYHOST="postfix"
+EXTRAPLUGINS=""
+
+# Install Redmine plugin if Redmine has started already
+REDMINEKEY=$(etcdctl --peers $(cat /etc/ces/ip_addr):4001 ls /dogu/redmine |wc -l)
+if [ "$REDMINEKEY" == "1" ]; then
+	EXTRAPLUGINS=$EXTRAPLUGINS$'\nscm-redmine-plugin'
+fi
 
 /opt/scm-server/bin/scm-server &
 tries=0
@@ -31,7 +38,7 @@ done
 pluginState=$(/usr/bin/curl "$CURLPARAM" "http://localhost:8080/scm/api/rest/plugins/overview.json" -u "$ADMUSR":"$ADMPW")
 pluginAvail=$(/usr/bin/curl "$CURLPARAM" "http://localhost:8080/scm/api/rest/plugins/available.json" -u "$ADMUSR":"$ADMPW")
 echo "================ plugin installation loop ================"
-for i in $(cat /opt/scm-server/conf/pluginlist); do
+for i in $(cat /opt/scm-server/conf/pluginlist)$EXTRAPLUGINS; do
 	echo "================== installing $i plugin =================="
 	version=$(echo "$pluginState" | jq ".[] | select (.name==\"$i\") | .version" --raw-output)
 	groupId=$(echo "$pluginState" | jq ".[] | select (.name==\"$i\") | .groupId" --raw-output)

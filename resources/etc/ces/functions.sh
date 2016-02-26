@@ -1,5 +1,66 @@
 #!/bin/bash
 
+# github helper
+
+function github_download(){
+  # cesmarvin access token
+  AUTH_TOKEN="5dfbee7fba188abb6f9c28ccbf32fc0e7c8bd8a8"
+
+  # parameters
+  URL="$1"
+  TARGET="$2"
+
+  # get required parts from the browser download url
+  USER=$(echo $URL | awk -F'/' '{print $4}')
+  REPO=$(echo $URL | awk -F'/' '{print $5}')
+  TAG=$(echo $URL | awk -F'/' '{print $8}')
+  ASSET=$(echo $URL | awk -F'/' '{print $9}')
+
+  # get asset url
+  DOWNLOAD_URL=$(curl -s -H "Authorization: token ${AUTH_TOKEN}" "https://api.github.com/repos/${USER}/${REPO}/releases" | jq ".[] | select(.name==\"${TAG}\") | .assets[] | select(.name==\"${ASSET}\") | .url" --raw-output)
+  # download asset
+  if [ "$TARGET" != "" ]; then
+    curl -H "Accept: application/octet-stream" -L "${DOWNLOAD_URL}?access_token=${AUTH_TOKEN}" -o "${TARGET}"
+  else
+    curl -H "Accept: application/octet-stream" -L "${DOWNLOAD_URL}?access_token=${AUTH_TOKEN}"
+  fi
+}
+
+export -f github_download
+
+# configuration helper functions
+
+function get_config(){
+  KEY=$1
+  VALUE=$(eval echo \$CONFIG_${KEY^^})
+  if [ "$VALUE" == "" ]; then
+    VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
+    if [ "$VALUE" == "" ]; then
+      VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
+    fi
+  fi
+  echo $VALUE
+}
+
+export -f get_config
+
+function set_config(){
+  KEY=$1
+  VALUE=$2
+  SERVICE_NAME=$(hostname)
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/$(hostname)/$KEY" "$VALUE"
+}
+
+export -f set_config
+
+function set_config_global(){
+  KEY=$1
+  VALUE=$2
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/$KEY" "$VALUE"
+}
+
+export -f set_config_global
+
 # fqdn functions
 
 function get_ip(){
@@ -27,17 +88,19 @@ function get_ip(){
 export -f get_ip
 
 function get_domain(){
-  cat /etc/ces/domain
+  echo $(get_config domain)
 }
 
 export -f get_domain
 
 function get_fqdn(){
-  if [ -f '/etc/ces/fqdn' ]; then
-    cat /etc/ces/fqdn
-  else
-    get_ip
+  VALUE=$(get_config "fqdn")
+  if [ "$VALUE" == "" ]; then
+    echo $(cat /etc/ces/node_master)
+    else
+      echo $VALUE
   fi
+
 }
 
 export -f get_fqdn
@@ -143,7 +206,7 @@ function get_service(){
   NAME=$1
   PORT=$2
 
-  etcdctl --peers $(cat /etc/ces/ip_addr):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
+  etcdctl --peers $(cat /etc/ces/node_master):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
 }
 
 export -f get_service

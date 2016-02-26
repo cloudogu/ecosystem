@@ -62,6 +62,7 @@ if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == 
 	su - sonar -c "exec /opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar" &
 	# create and populate adminGroup
 	/sonaradmingroup.sh "$ADMINGROUP"
+	/sonarmailconfig.sh
 	kill $!
 	# move cas plugin to right folder
 	if [ -f "/opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar" ]; then
