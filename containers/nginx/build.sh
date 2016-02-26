@@ -10,6 +10,3 @@
     --sbin-path=/usr/sbin/nginx
 make
 make install
-
-# move binary
-mv /usr/sbin/nginx /dist
