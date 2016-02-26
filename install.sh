@@ -15,10 +15,6 @@ $INSTALL_HOME/install/create-subvolumes.sh
 echo "install etcd"
 $INSTALL_HOME/install/install-etcd.sh
 
-# install cesapp
-echo "install cesapp"
-$INSTALL_HOME/install/install-cesapp.sh
-
 # snyc resources
 echo "sync files"
 $INSTALL_HOME/install/sync-files.sh
@@ -38,6 +34,10 @@ $INSTALL_HOME/install/prepare-environment.sh
 # create overlay network
 echo "create network"
 $INSTALL_HOME/install/create-network.sh
+
+# install cesapp
+echo "install cesapp"
+$INSTALL_HOME/install/install-cesapp.sh
 
 # build base containers
 echo "build base container"
