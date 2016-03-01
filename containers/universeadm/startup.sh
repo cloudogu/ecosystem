@@ -25,8 +25,12 @@ if [ ! -d "/var/lib/universeadm/logs" ]; then
 fi
 
 # render templates
-render_template "/var/lib/universeadm/conf/cas.xml.tpl" > "/var/lib/universeadm/conf/cas.xml"
-render_template "/var/lib/universeadm/conf/ldap.xml.tpl" > "/var/lib/universeadm/conf/ldap.xml"
+if [ ! -s /var/lib/universeadm/conf/cas.xml ]; then
+	render_template "/var/lib/universeadm/conf/cas.xml.tpl" > "/var/lib/universeadm/conf/cas.xml"
+fi
+if [ ! -s /var/lib/universeadm/conf/ldap.xml ]; then
+	render_template "/var/lib/universeadm/conf/ldap.xml.tpl" > "/var/lib/universeadm/conf/ldap.xml"
+fi
 
 # start tomcat as user tomcat
 su - tomcat -c "export JAVA_HOME="/opt/jdk" && /opt/apache-tomcat/bin/catalina.sh run"
