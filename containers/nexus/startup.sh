@@ -43,7 +43,13 @@ if ! [ -d /var/lib/nexus/plugin-repository/nexus-cas-plugin-${CAS_PLUGIN_VERSION
       kill $!
 fi
 FQDN=$(get_fqdn)
-echo "render_template"
-render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
+
+if [ ! -s /var/lib/nexus/conf/cas-plugin.xml ]; then
+  echo "render_template"
+  render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
+else
+  echo "cas plugin xml exists, won't render"
+fi
+
 /groupMapping.sh $ADMUSR $ADMPW $ADMINGROUP &
 exec $START_NEXUS
