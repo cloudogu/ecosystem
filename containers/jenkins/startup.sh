@@ -4,10 +4,11 @@ source /etc/ces/functions.sh
 # create environment for templates
 FQDN=$(get_fqdn)
 ADMINGROUP="$(get_config admin_group)"
-
+RELAYHOST="postfix"
 
 # render template
 render_template "/config.xml.tpl" > "/var/lib/jenkins/config.xml"
+render_template "/hudson.tasks.Mailer.xml.tpl" > "/var/lib/jenkins/hudson.tasks.Mailer.xml"
 
 # Checking if /var/lib/jenkins/cas-plugin exists
 if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
