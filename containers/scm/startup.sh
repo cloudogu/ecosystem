@@ -68,7 +68,9 @@ if ! [ -d "/var/lib/scm/config" ];  then
 fi
 
 # configure scm-cas-plugin
-render_template "/opt/scm-server/conf/cas_plugin.xml.tpl" > "/var/lib/scm/config/cas_plugin.xml"
+if [ ! -s /var/lib/scm/config/cas_plugin.xml ]; then
+	render_template "/opt/scm-server/conf/cas_plugin.xml.tpl" > "/var/lib/scm/config/cas_plugin.xml"
+fi
 
 # configure admin group using api rest calls and json
 configState=$(/usr/bin/curl "$CURLPARAM" "http://127.0.0.1:8080/scm/api/rest/config.json" -u "$ADMUSR":"$ADMPW")
@@ -80,7 +82,9 @@ if [ "$adminGroups" == "null" ]; then
 fi
 
 # configure scm-mail-plugin
-render_template "/opt/scm-server/conf/mail.xml.tpl" > "/var/lib/scm/config/mail.xml"
+if [ ! -s /var/lib/scm/config/mail.xml ]; then
+	render_template "/opt/scm-server/conf/mail.xml.tpl" > "/var/lib/scm/config/mail.xml"
+fi
 
 # Plugin installation end
 kill $!
