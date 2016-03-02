@@ -11,6 +11,8 @@ MYSQL_USER_PASSWORD=$(create_or_get_ces_pass mysql_redmine)
 MYSQL_DB="redmine"
 RAILS_ENV=production
 REDMINE_LANG=en
+DOMAIN=$(get_config domain)
+RELAYHOST="postfix"
 
 # Generate secret session token
 cd ${WORKDIR}
@@ -51,6 +53,9 @@ fi
 if [ ! -e ${WORKDIR}/stylesheets ]; then
   ln -s ${WORKDIR}/public/* ${WORKDIR}
 fi
+
+# Generate configuration.yml from template (e.g. for config of mail transport)
+render_template "${WORKDIR}/config/configuration.yml.tpl" > "/etc/redmine/configuration.yml"
 
 # Start redmine
 echo "Starting redmine..."
