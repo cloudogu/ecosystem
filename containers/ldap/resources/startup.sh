@@ -15,6 +15,8 @@ OPENLDAP_BACKEND_DIR="/var/lib/openldap"
 OPENLDAP_BACKEND_DATABASE="hdb"
 OPENLDAP_BACKEND_OBJECTCLASS="olcHdbConfig"
 OPENLDAP_ULIMIT="2048"
+# proposal: use get_config openldap_suffix in future
+OPENLDAP_SUFFIX="dc=cloudogu,dc=com"
 
 ulimit -n ${OPENLDAP_ULIMIT}
 
@@ -36,10 +38,6 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
 
   SYSTEM_USERNAME="system"
   SYSTEM_PASSWORD="$(slappasswd -s system)"
-
-  # TODO: PLEASE CHECK IF NECCESSARY
-  ROOTDN="cn=admin,dc=cloudogu,dc=com"
-  SUFFIX="dc=cloudogu,dc=com"
 
   mkdir -p ${OPENLDAP_CONFIG_DIR}
 
