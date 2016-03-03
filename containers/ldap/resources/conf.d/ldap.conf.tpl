@@ -5,7 +5,7 @@
 # See ldap.conf(5) for details
 # This file should be world readable but not world writable.
 
-#BASE   ${SUFFIX}
+#BASE   ${OPENLDAP_SUFFIX}
 URI    ldapi://
 
 #SIZELIMIT  12

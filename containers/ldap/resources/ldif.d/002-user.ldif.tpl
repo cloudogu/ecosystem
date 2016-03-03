@@ -2,7 +2,7 @@
 #
 version: 1
 
-dn: uid=${ADMIN_USERNAME},ou=People,o=${LDAP_DOMAIN},${SUFFIX}
+dn: uid=${ADMIN_USERNAME},ou=People,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
 uid: ${ADMIN_USERNAME}
 description: Universe Administrator
 givenName: Universe
@@ -15,7 +15,7 @@ cn: Universe Administrator
 mail: ${ADMIN_USERNAME}@${LDAP_DOMAIN}
 userPassword: ${ADMIN_PASSWORD}
 
-dn: uid=${SYSTEM_USERNAME},ou=People,o=${LDAP_DOMAIN},${SUFFIX}
+dn: uid=${SYSTEM_USERNAME},ou=People,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
 uid: ${SYSTEM_USERNAME}
 description: Universe system account
 givenName: Universe
