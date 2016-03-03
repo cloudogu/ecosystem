@@ -27,7 +27,10 @@ RUN chown jenkins:jenkins /cas-plugin.hpi
 RUN chmod 755 /cas-plugin.hpi
 
 # add jenkins config file template, including changes for cas plugin
+# CAS & FQDN
 ADD ./resources/var/lib/jenkins/config.xml.tpl /config.xml.tpl
+# MAIL
+ADD ./resources/var/lib/jenkins/hudson.tasks.Mailer.xml.tpl /hudson.tasks.Mailer.xml.tpl
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp

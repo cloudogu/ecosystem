@@ -4,10 +4,12 @@ source /etc/ces/functions.sh
 # create environment for templates
 FQDN=$(get_fqdn)
 ADMINGROUP="$(get_config admin_group)"
+RELAYHOST="postfix"
 
 if [ ! -f ${JENKINS_HOME}/config.xml ]; then
 	# render template
 	render_template "/config.xml.tpl" > /var/lib/jenkins/config.xml
+	render_template "/hudson.tasks.Mailer.xml.tpl" > "/var/lib/jenkins/hudson.tasks.Mailer.xml"
 else
 	# refresh cas IP
 	sed -i "s~<casServerUrl>.*</casServerUrl>~<casServerUrl>https://${FQDN}/cas/</casServerUrl>~" /var/lib/jenkins/config.xml
