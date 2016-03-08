@@ -3,7 +3,7 @@ FROM registry.cloudogu.com/official/base:3.3-1
 MAINTAINER Robert Auer <robert.auer@triology.de>
 
 ENV WORKDIR /usr/share/webapps/redmine
-ENV RMCASPLUGINVERSION 1.2.1
+ENV RMCASPLUGINVERSION 1.2.3
 ENV RUBYCASVERSION 2.3.9
 
 RUN apk add --update redmine ruby-io-console build-base ruby-dev \
@@ -16,13 +16,12 @@ RUN gem uninstall rmagick && gem install rmagick -v 2.13.4
 ADD ./resources/workdir/config ${WORKDIR}/config
 
 # Install Redmine CAS plugin
-RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/ninech/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
+RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/robertauer/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
   && tar -xzf /casplugin${RMCASPLUGINVERSION}.tar.gz && mv /redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
   && rm /casplugin${RMCASPLUGINVERSION}.tar.gz
 ADD ./resources/workdir/plugins/redmine_cas/lib/redmine_cas.rb ${WORKDIR}/plugins/redmine_cas/lib/redmine_cas.rb
 
 # Install (available) rubycas-client version
-RUN echo "gem 'rubycas-client', '~> 2.3.9'" > ${WORKDIR}/plugins/redmine_cas/Gemfile
 RUN gem install rubycas-client -v ${RUBYCASVERSION}
 
 # startscript
