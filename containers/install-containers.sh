@@ -13,7 +13,7 @@ for C in $CONTAINERS; do
 
   if [ -f "$DIR/dogu.json" ]; then
 
-    /opt/ces/bin/cesapp build "$DIR"
+    /opt/ces/bin/cesapp install "$C"
 
     if [ "$2" = "start" ]; then
       echo "starting service for container $C"
@@ -23,7 +23,7 @@ for C in $CONTAINERS; do
   elif [ -f "$DIR/Dockerfile" ]; then
 
     IMAGE=$(head -1 "$DIR/Dockerfile" | sed 's/#//g' | sed 's/\s*//g')
-    docker build -t "${IMAGE}" "$DIR"
+    docker pull "${IMAGE}"
 
   fi
 
