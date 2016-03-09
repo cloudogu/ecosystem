@@ -16,6 +16,7 @@ source /etc/environment
 export PATH
 
 # create overlay network
+# errormessages of test may be confusing to read ... perhaps this could be fixed later
 echo "create network"
 $INSTALL_HOME/install/create-network.sh
 
