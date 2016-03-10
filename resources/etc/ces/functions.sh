@@ -34,9 +34,17 @@ function get_config(){
   KEY=$1
   VALUE=$(eval echo \$CONFIG_${KEY^^})
   if [ "$VALUE" == "" ]; then
-    VALUE=$(/opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
+    if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config" | grep $(hostname) | wc -l) -eq 1 ]; then
+      if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/$(hostname)" | grep $KEY | wc -l) -eq 1 ]; then
+    	  VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
+      fi
+    fi
     if [ "$VALUE" == "" ]; then
-      VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
+      if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/_global" | grep $KEY | wc -l) -eq 1 ]; then
+        VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
+      else
+        echo "ERROR KEY $KEY not found in /config/$(hostname) or /config/_global"
+      fi
     fi
   fi
   echo $VALUE
