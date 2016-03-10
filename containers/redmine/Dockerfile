@@ -19,6 +19,7 @@ ADD ./resources/workdir/config ${WORKDIR}/config
 RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/ninech/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
   && tar -xzf /casplugin${RMCASPLUGINVERSION}.tar.gz && mv /redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
   && rm /casplugin${RMCASPLUGINVERSION}.tar.gz
+ADD ./resources/workdir/plugins/redmine_cas/lib/redmine_cas.rb ${WORKDIR}/plugins/redmine_cas/lib/redmine_cas.rb
 
 # Install (available) rubycas-client version
 RUN echo "gem 'rubycas-client', '~> 2.3.9'" > ${WORKDIR}/plugins/redmine_cas/Gemfile
