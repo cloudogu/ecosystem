@@ -34,7 +34,7 @@ function get_config(){
   KEY=$1
   VALUE=$(eval echo \$CONFIG_${KEY^^})
   if [ "$VALUE" == "" ]; then
-    VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
+    VALUE=$(/opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
     if [ "$VALUE" == "" ]; then
       VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
     fi
