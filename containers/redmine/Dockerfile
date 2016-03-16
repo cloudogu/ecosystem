@@ -16,7 +16,6 @@ RUN gem uninstall rmagick && gem install rmagick -v 2.13.4
 ADD ./resources/workdir/config ${WORKDIR}/config
 
 # Install (available) rubycas-client version
-#RUN gem install rubycas-client -v ${RUBYCASVERSION}
 RUN git clone https://github.com/robertauer/rubycas-client.git && cd /rubycas-client \
   && gem build rubycas-client.gemspec && gem install rubycas-client-${RUBYCASVERSION}.gem
 
@@ -24,8 +23,6 @@ RUN git clone https://github.com/robertauer/rubycas-client.git && cd /rubycas-cl
 RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/robertauer/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
   && tar -xzf /casplugin${RMCASPLUGINVERSION}.tar.gz && mv /redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
   && rm /casplugin${RMCASPLUGINVERSION}.tar.gz
-
-#RUN echo "gem 'rubycas-client', '~> ${RUBYCASVERSION}'" > /usr/share/webapps/redmine/plugins/redmine_cas/Gemfile
 
 # startscript
 ADD ./startup.sh /startup.sh
