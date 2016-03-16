@@ -6,6 +6,10 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 ENV JENKINS_HOME /var/lib/jenkins
 
+# Install openssh-client
+RUN apk add --update openssh-client \
+	&& rm -rf /var/cache/apk/*
+
 # Jenkins is ran with user `jenkins`, uid = 1000
 # If you bind mount a volume from host/vloume from a data container,
 # ensure you use same uid

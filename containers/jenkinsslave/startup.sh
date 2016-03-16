@@ -12,7 +12,12 @@ for key in ${keys}; do
 done
 
 # IMPORT JENKINS PUBLIC KEY FROM ETCD [ /config/jenkins/pubkey ]
-echo "ASK ETC FOR PUBLIC KEY OF JENKINS MASTER - TBD "
+echo "INFO - retrieving public key of jenkins master from etcd"
+if ! [ -d "/home/jenkins/.ssh" ]; then
+	su - jenkins -c "mkdir -p /home/jenkins/.ssh"
+fi
+su - jenkins -c "etcdctl --peers $(cat /etc/ces/node_master):4001 get /config/jenkins/pubkey > /home/jenkins/.ssh/authorized_keys"
+
 
 # IDC CONFIGURE JENKINS MASTER TO USE THIS SLAVE [ NODECONFIG, JAVAPATH ... ]
 echo "CONFIGURE JENKINS MASTER TI USE THIS SLAVE - TBD"
