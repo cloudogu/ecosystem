@@ -23,6 +23,14 @@ if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
         cp /cas-plugin.hpi /var/lib/jenkins/plugins/
 fi
 
+# generating ssh key for usage in slaves and deployment in etcd
+if ! [ -f "/var/lib/jenkins/.ssh/id_rsa" ]; then
+	echo "INFO - no keys found in jenkins home /var/lib/jenkins/.ssh/ - keys will be generated"
+	ssh-keygen -t rsa -f /var/lib/jenkins/.ssh/id_rsa -N ''
+fi
+echo "INFO - writing key to ETCD"
+set_config pubkey "$(cat /var/lib/jenkins/.ssh/id_rsa.pub)"
+
 # starting jenkins
 java -Djava.awt.headless=true \
 	-Dhudson.model.UpdateCenter.never=true \
