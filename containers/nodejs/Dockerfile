@@ -1,4 +1,4 @@
-FROM registry.cloudogu.com/official/java:8u73-1
+FROM registry.cloudogu.com/official/base:3.3-1
 MAINTAINER christoph wolfes <christoph.wolfes@triology.de>
 
 #install newest nodejs version
