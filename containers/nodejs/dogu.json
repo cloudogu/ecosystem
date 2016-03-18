@@ -4,11 +4,5 @@
   "DisplayName": "nodejs",
   "Description": "basic nodejs installation",
   "Url": "https://nodejs.org",
-  "Image": "registry.cloudogu.com/official/nodejs",
-  "Volumes": [{
-    "Name": "home",
-    "Path": "/home/nodejs",
-    "Owner": "1000",
-    "Group": "1000"
-  }]
+  "Image": "registry.cloudogu.com/official/nodejs"
 }
