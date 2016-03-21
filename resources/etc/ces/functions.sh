@@ -34,17 +34,9 @@ function get_config(){
   KEY=$1
   VALUE=$(eval echo \$CONFIG_${KEY^^})
   if [ "$VALUE" == "" ]; then
-    if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config" | grep $(hostname) | wc -l) -eq 1 ]; then
-      if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/$(hostname)" | grep $KEY | wc -l) -eq 1 ]; then
-    	  VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
-      fi
-    fi
+    VALUE=$(get_config_local $KEY)
     if [ "$VALUE" == "" ]; then
-      if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/_global" | grep $KEY | wc -l) -eq 1 ]; then
-        VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
-      else
-        echo "ERROR KEY $KEY not found in /config/$(hostname) or /config/_global"
-      fi
+      VALUE=$(get_config_global $KEY)
     fi
   fi
   echo $VALUE
@@ -52,9 +44,31 @@ function get_config(){
 
 export -f get_config
 
+function get_config_local(){
+    if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config" | grep $(hostname) | wc -l) -eq 1 ]; then
+      if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/$(hostname)" | grep $1 | wc -l) -eq 1 ]; then
+    	  VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$1")
+      fi
+    fi
+  echo $VALUE
+}
+
+export -f get_config_local
+
+function get_config_global(){
+      if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/_global" | grep $1 | wc -l) -eq 1 ]; then
+        VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$1")
+      else
+        echo "ERROR KEY $1 not found in /config/$(hostname) or /config/_global"
+      fi
+  echo $VALUE
+}
+
+export -f get_config_global
+
 function get_enc_config(){
   KEY=$1
-  VALUE_ENC=$(get_config $KEY)
+  VALUE_ENC=$(get_config_local $KEY)
   VALUE=$(decrypt $VALUE_ENC)
   echo $VALUE
 }
@@ -87,14 +101,6 @@ function set_config_global(){
 
 export -f set_config_global
 
-function set_enc_config_global(){
-  KEY=$1
-  VALUE=$2
-  VALUE_ENC=$(encrypt $VALUE)
-  set_config_global $KEY $VALUE_ENC
-}
-
-export -f set_enc_config_global
 
 # fqdn functions
 
@@ -168,7 +174,7 @@ function get_secret_key(){
   if [ ! -f '/private/secret' ]; then
     mkdir '/private'
     touch '/private/secret'
-    openssl rand -base64 32 > '/private/secret'
+    openssl rand -base64 32 | cut -c1-32 > '/private/secret'
   fi
   cat '/private/secret'
 }
