@@ -3,6 +3,8 @@
   "Version": "8u73-1",
   "DisplayName": "Javadoc",
   "Description": "Javadoc for Java 8",
+  "Category": "Documentation",
+  "Logo": "http://dogu.cloudogu.com/images/logos/java.png",
   "Url": "https://docs.oracle.com/javase/8/docs/api/",
   "Image": "registry.cloudogu.com/official/javadocs",
   "HealthCheck": {

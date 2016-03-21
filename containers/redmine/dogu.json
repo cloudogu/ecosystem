@@ -3,6 +3,8 @@
   "Version": "3.0.5-1",
   "DisplayName": "Redmine",
   "Description": "Redmine is a flexible project management web application",
+  "Category": "Project Management",
+  "Logo": "http://dogu.cloudogu.com/images/logos/redmine.png",
   "Url": "http://www.redmine.org",
   "Image": "registry.cloudogu.com/official/redmine",
   "HealthCheck": {

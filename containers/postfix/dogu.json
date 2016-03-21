@@ -3,6 +3,7 @@
   "Version": "3.0.4-1",
   "DisplayName": "Postfix",
   "Description": "Postfix - Mail Transfer Agent",
+  "Category": "Base",
   "Url": "http://www.postfix.org/",
   "Image": "registry.cloudogu.com/official/postfix"
 }

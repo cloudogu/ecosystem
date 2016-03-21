@@ -3,6 +3,7 @@
   "Version": "1.2.0-1",
   "DisplayName": "UniverseADM",
   "Description": "User and Group Management.",
+  "Category": "Administration",
   "Url": "https://github.com/cloudogu",
   "Image": "registry.cloudogu.com/official/universeadm",
   "Dependencies": [

@@ -3,7 +3,8 @@
   "Version": "1.46-1",
   "DisplayName": "SCM-Manager",
   "Description": "The easiest way to share and manage your Git, Mercurial and Subversion repositories over http.",
-  "Logo": "https://download.scm-manager.org/images/logo/scm-manager-120x120.jpg",
+  "Category": "Development",
+  "Logo": "http://dogu.cloudogu.com/images/logos/scm-manager.png",
   "Url": "https://www.scm-manager.org",
   "Image": "registry.cloudogu.com/official/scm",
   "Dependencies": [
