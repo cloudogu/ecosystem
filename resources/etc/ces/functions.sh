@@ -52,14 +52,32 @@ function get_config(){
 
 export -f get_config
 
+function get_enc_config(){
+  KEY=$1
+  VALUE_ENC=$(get_config $KEY)
+  VALUE=$(decrypt $VALUE_ENC)
+  echo $VALUE
+}
+
+export -f get_enc_config
+
 function set_config(){
   KEY=$1
   VALUE=$2
   SERVICE_NAME=$(hostname)
-  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/$(hostname)/$KEY" "$VALUE"
+  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/$SERVICE_NAME/$KEY" "$VALUE"
 }
 
 export -f set_config
+
+function set_enc_config(){
+  KEY=$1
+  VALUE=$2
+  VALUE_ENC=$(encrypt $VALUE)
+  set_config $KEY $VALUE_ENC
+}
+
+export -f set_enc_config
 
 function set_config_global(){
   KEY=$1
@@ -68,6 +86,15 @@ function set_config_global(){
 }
 
 export -f set_config_global
+
+function set_enc_config_global(){
+  KEY=$1
+  VALUE=$2
+  VALUE_ENC=$(encrypt $VALUE)
+  set_config_global $KEY $VALUE_ENC
+}
+
+export -f set_enc_config_global
 
 # fqdn functions
 
@@ -138,10 +165,12 @@ export -f render_template_clean
 # encryption & decryption
 
 function get_secret_key(){
-  if [ ! -f '/etc/ces/.secretkey' ]; then
-    uuidgen | shasum | awk '{print $1}' > '/etc/ces/.secretkey'
+  if [ ! -f '/private/secret' ]; then
+    mkdir '/private'
+    touch '/private/secret'
+    openssl rand -base64 32 > '/private/secret'
   fi
-  cat '/etc/ces/.secretkey'
+  cat '/private/secret'
 }
 
 export -f get_secret_key
