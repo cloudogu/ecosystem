@@ -3,6 +3,7 @@
   "Version": "1.9.11-1",
   "DisplayName": "Nginx",
   "Description": "Nginx WebServer.",
+  "Logo": "http://dogu.cloudogu.com/images/logos/nginx.png",
   "Category": "Base",
   "Url": "http://nginx.org/",
   "Image": "registry.cloudogu.com/official/nginx",

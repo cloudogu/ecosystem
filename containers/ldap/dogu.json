@@ -5,7 +5,7 @@
   "Description": "OpenLDAP server for user and group management.",
   "Url": "http://www.openldap.org",
   "Category": "Base",
-  "Logo": "http://www.openldap.org/images/headers/LDAPworm.gif",
+  "Logo": "http://dogu.cloudogu.com/images/logos/openldap.png",
   "Image": "registry.cloudogu.com/official/ldap",
   "Volumes": [{
     "Name": "config",
