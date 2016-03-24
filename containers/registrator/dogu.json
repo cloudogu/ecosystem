@@ -4,6 +4,9 @@
   "DisplayName": "Registrator",
   "Description": "Service registry bridge for Docker with pluggable adapters",
   "Category": "Base",
+  "Tags": [
+    "register", "container"
+  ],
   "Url": "http://gliderlabs.com/registrator/latest/",
   "Image": "registry.cloudogu.com/official/registrator",
 	"Privileged": true

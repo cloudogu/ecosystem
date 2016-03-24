@@ -5,6 +5,9 @@
   "Description": "MySQL/MariaDB Database.",
   "Url": "https://mariadb.com/",
   "Category": "Base",
+  "Tags": [
+    "database", "db"
+  ],
   "Logo": "http://dogu.cloudogu.com/images/logos/mysql.png",
   "Image": "registry.cloudogu.com/official/mysql",
   "Volumes": [{
