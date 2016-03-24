@@ -2,14 +2,12 @@
 FROM registry.cloudogu.com/official/base:3.3-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
-# dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
-
-ENV CONFD_VERSION 0.12.0-alpha3
+ENV CES_CONFD_VERSION=0.1.1
 
 RUN apk --update add openssl pcre zlib \
  && adduser nginx -D \
- && wget https://github.com/kelseyhightower/confd/releases/download/v${CONFD_VERSION}/confd-${CONFD_VERSION}-linux-amd64 -O /bin/confd \
- && chmod +x /bin/confd \
+ && github_download https://github.com/cloudogu/ces-confd/releases/download/v${CES_CONFD_VERSION}/ces-confd-v${CES_CONFD_VERSION}.tar.gz | gunzip | tar -x -O > /usr/bin/ces-confd \
+ && chmod +x /usr/bin/ces-confd \
  && mkdir -p /var/log/nginx \
  && ln -sf /dev/stdout /var/log/nginx/access.log \
  && ln -sf /dev/stderr /var/log/nginx/error.log \
@@ -18,7 +16,7 @@ RUN apk --update add openssl pcre zlib \
 # copy files
 COPY dist/nginx /usr/sbin/nginx
 COPY etc/nginx /etc/nginx
-COPY etc/confd /etc/confd
+COPY etc/ces-confd /etc/ces-confd
 COPY html /var/www/html
 COPY startup.sh /startup.sh
 
