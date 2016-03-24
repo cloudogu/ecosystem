@@ -13,10 +13,12 @@ server {
 
   include /etc/nginx/include.d/warp.conf;
 
-  # static stuff
-  location /_static {
-    root /var/www/html;
+{{range .}}{{if (eq .Name "universeadm")}}
+  # redirect to /universeadm
+  location = / {
+    return 301 https://$host/universeadm;
   }
+{{end}}{{end}}
 
   # services
 {{range .}}
