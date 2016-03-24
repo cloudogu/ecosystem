@@ -5,6 +5,9 @@
   "Description": "Nginx WebServer.",
   "Logo": "http://dogu.cloudogu.com/images/logos/nginx.png",
   "Category": "Base",
+  "Tags": [
+    "webserver", "proxy", "reverse-proxy"
+  ],
   "Url": "http://nginx.org/",
   "Image": "registry.cloudogu.com/official/nginx",
 	"ExposedPorts": [{

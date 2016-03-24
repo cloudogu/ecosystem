@@ -1,10 +1,13 @@
 {
   "Name": "cas",
-  "Version": "4.0.7.2",
+  "Version": "4.0.7.3",
   "DisplayName": "Central Authentication Service",
   "Description": "The Central Authentication Service (CAS) is a single sign-on protocol for the web.",
   "Url": "http://jasig.github.io/cas",
   "Category": "Base",
+  "Tags": [
+    "authentication", "sso", "cas"
+  ],
   "Logo": "http://dogu.cloudogu.com/images/logos/cas.png",
   "Image": "registry.cloudogu.com/official/cas",
   "Dependencies": [

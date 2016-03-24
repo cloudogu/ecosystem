@@ -3,7 +3,10 @@
   "Version": "5.3-1",
   "DisplayName": "SonarQube",
   "Description": "SonarQube is an open source quality management platform, dedicated to continuously analyze and measure source code quality",
-  "Category": "Quality",
+  "Category": "Development Apps",
+  "Tags": [
+    "warp", "code", "quality", "analysis"
+  ],
   "Logo": "http://dogu.cloudogu.com/images/logos/sonarqube.png",
   "Url": "http://www.sonarqube.org/",
   "Image": "registry.cloudogu.com/official/sonar",

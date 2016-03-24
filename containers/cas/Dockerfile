@@ -2,7 +2,7 @@
 FROM registry.cloudogu.com/official/java:8u73-1
 MAINTAINER triology <cloudogu@triology.de>
 
-ENV CAS_VERSION 4.0.7.2
+ENV CAS_VERSION 4.0.7.3
 ENV TOMCAT_MAJOR_VERSION 8
 ENV TOMCAT_VERSION 8.0.28
 ENV CATALINA_BASE /opt/apache-tomcat
@@ -29,8 +29,7 @@ ADD resources/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
 
 # install cas webapp
 RUN mkdir ${CATALINA_BASE}/webapps/cas/ \
-    && curl --fail --silent --location --retry 3 -o ${CATALINA_BASE}/webapps/cas/cas.war \
-		https://universe.triology.de/nexus/content/repositories/releases/com/cloudogu/ces/cas/${CAS_VERSION}/cas-${CAS_VERSION}.war \
+    && github_download https://github.com/cloudogu/cas/releases/download/v${CAS_VERSION}/cas-${CAS_VERSION}.war ${CATALINA_BASE}/webapps/cas/cas.war \
 	  && cd ${CATALINA_BASE}/webapps/cas/ \
     && unzip cas.war \
     && rm -f cas.war

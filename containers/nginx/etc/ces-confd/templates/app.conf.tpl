@@ -13,25 +13,18 @@ server {
 
   include /etc/nginx/include.d/warp.conf;
 
-  {{if exists "/services/universeadm/registrator:universeadm:8080"}}
+{{range .}}{{if (eq .Name "universeadm")}}
   # redirect to /universeadm
   location = / {
     return 301 https://$host/universeadm;
   }
-  {{end}}
-
-  # static stuff
-  location /_static {
-    root /var/www/html;
-  }
+{{end}}{{end}}
 
   # services
-{{range $topkey := lsdir "/services"}}{{$topdir := printf "/services/%s/*" $topkey}}{{range $dir := getvs $topdir}}{{$service := json $dir}}{{range $tag := $service.tags}}{{if eq $tag "webapp"}}
-  location /{{$service.name}} {
-    {{range lookupIP $service.name}}
-    proxy_pass http://{{.}}:{{$service.port}};
-    {{end}}
+{{range .}}
+  location /{{.Name}} {
+    proxy_pass {{.URL}};
   }
-{{end}}{{end}}{{end}}{{end}}
+{{end}}
   # end of services
 }

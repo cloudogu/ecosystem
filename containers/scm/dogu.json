@@ -3,7 +3,10 @@
   "Version": "1.46-1",
   "DisplayName": "SCM-Manager",
   "Description": "The easiest way to share and manage your Git, Mercurial and Subversion repositories over http.",
-  "Category": "Development",
+  "Category": "Development Apps",
+  "Tags": [
+    "warp", "code", "scm", "git", "mercurial", "subversion"
+  ],
   "Logo": "http://dogu.cloudogu.com/images/logos/scm-manager.png",
   "Url": "https://www.scm-manager.org",
   "Image": "registry.cloudogu.com/official/scm",
