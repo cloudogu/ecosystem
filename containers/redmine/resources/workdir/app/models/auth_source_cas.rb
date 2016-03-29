@@ -5,11 +5,11 @@ require 'net/http'
 require 'net/https'
 
 class AuthSourceCas < AuthSource
-  # NETWORK_EXCEPTIONS = [
-  #   Errno::ECONNABORTED, Errno::ECONNREFUSED, Errno::ECONNRESET,
-  #   Errno::EHOSTDOWN, Errno::EHOSTUNREACH,
-  #   SocketError
-  # ]
+  NETWORK_EXCEPTIONS = [
+    Errno::ECONNABORTED, Errno::ECONNREFUSED, Errno::ECONNRESET,
+    Errno::EHOSTDOWN, Errno::EHOSTUNREACH,
+    SocketError
+  ]
 
   # validates_presence_of :host, :port, :attr_login
   # validates_length_of :name, :host, :maximum => 60, :allow_nil => true
@@ -29,7 +29,6 @@ class AuthSourceCas < AuthSource
   def authenticate(login, password)
     return nil if login.blank? || password.blank?
 
-    # TODO: implement cas authentication here
     # TODO: include creation of user if not existing in redmine
     # authentication is successful if return value is not nil
 
@@ -48,33 +47,57 @@ class AuthSourceCas < AuthSource
       sub2=forms.index('method')
       tgticket = forms.to_s[sub,sub2-sub-2]
       # request a service ticket
-      st_uri = URI.parse(tgticket)
-      http2 = Net::HTTP.new(st_uri.host,st_uri.port)
-      http2.use_ssl = true
-      http2.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      request2 = Net::HTTP::Post.new(st_uri.path, initheader = {'Content-Type' =>'application/json'})
-      request2.set_form_data({"service" => "https://192.168.115.89/redmine"})
-      response2 = http2.request(request2)
-      if response2.code == "200"
-        return 1
+      serviceTicket_uri = URI.parse(tgticket)
+      serviceTicket_http = Net::HTTP.new(serviceTicket_uri.host,serviceTicket_uri.port)
+      serviceTicket_http.use_ssl = true
+      serviceTicket_http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      serviceTicket_request = Net::HTTP::Post.new(serviceTicket_uri.path, initheader = {'Content-Type' =>'application/json'})
+      serviceTicket_request.set_form_data({"service" => "https://192.168.115.89/redmine"})
+      serviceTicket = serviceTicket_http.request(serviceTicket_request)
+      if serviceTicket.code == "200"
+        # TODO: get user information from cas and parse it to retVal
+        serviceVali_uri = URI.parse('https://192.168.115.89/cas/p3/serviceValidate')
+        serviceVali_http = Net::HTTP.new(serviceVali_uri.host,serviceVali_uri.port)
+        serviceVali_http.use_ssl = true
+        serviceVali_http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        serviceVali_request = Net::HTTP::Post.new(serviceVali_uri.path, initheader = {'Content-Type' =>'application/json'})
+        serviceVali_request.set_form_data({"service" => "https://192.168.115.89/redmine", "ticket" => serviceTicket.body})
+        serviceVali = serviceVali_http.request(serviceVali_request)
+        # TODO: check if validation was successful
+        userAttributes = Nokogiri::XML(serviceVali.body)
+        user_name = userAttributes.at_xpath("//cas:authenticationSuccess//cas:user").content.to_s
+        user_mail = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:mail").content.to_s
+        user_surname = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:surname").content.to_s
+        user_displayName = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:displayName").content.to_s
+        user_givenName = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:givenName").content.to_s
+        user_cn = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:cn").content.to_s
+        user_username = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:username").content.to_s
+        user_groups = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:groups").content.to_s
+        # raise "DEBUG: userAttributes mail: "+user_groups
+        # raise "DEBUG: serviceVali user: "+serviceVali.user
+
+
+
+        retVal =
+          {
+            :firstname => user_givenName,
+            :lastname => user_surname,
+            :mail => user_mail,
+            :auth_source_id => self.id
+          } if(onthefly_register?)
+        return retVal
       else
-        raise "No Service ticket granted.\n response2.body: "+response2.body
+        raise "No Service ticket granted."
         return nil
       end
     else
       raise "Authentication data not accepted"
     end
 
-
     return nil
-    # with_timeout do
-      # attrs = get_user_dn(login, password)
-      # if attrs && attrs[:dn] && authenticate_dn(attrs[:dn], password)
-      #   logger.debug "Authentication successful for '#{login}'" if logger && logger.debug?
-      #   return attrs.except(:dn)
-  #     # end
-  # rescue *NETWORK_EXCEPTIONS => e
-  #   raise AuthSourceException.new(e.message)
+
+  rescue *NETWORK_EXCEPTIONS => e
+    raise AuthSourceException.new(e.message)
   end
 
   # # Test the connection to the LDAP

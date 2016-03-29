@@ -51,7 +51,7 @@ else
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (NULL,\"rest_api_enabled\",1,4);"
 
   # Insert auth_sources record for AuthSourceCas authentication source
-  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.auth_sources VALUES (NULL, 'AuthSourceCas', 'Cas', 'cas.example.com', 1234, 'myDbUser', 'myDbPass', 'dbAdapter:dbName', 'name', 'firstName', 'lastName', 'email', 0, 0, null, null);"
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.auth_sources VALUES (NULL, 'AuthSourceCas', 'Cas', 'cas.example.com', 1234, 'myDbUser', 'myDbPass', 'dbAdapter:dbName', 'name', 'firstName', 'lastName', 'email', 1, 0, null, null);"
 fi
 
 # Create links
