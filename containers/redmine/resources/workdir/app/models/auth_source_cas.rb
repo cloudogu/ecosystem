@@ -26,20 +26,26 @@ class AuthSourceCas < AuthSource
   #   self.port = 389 if self.port == 0
   # end
 
+  def api_request(uri, form_data)
+    http_uri = URI.parse(uri)
+    http = Net::HTTP.new(http_uri.host,http_uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    request = Net::HTTP::Post.new(http_uri.path, initheader = {'Content-Type' =>'application/json'})
+    request.set_form_data(form_data)
+    return http.request(request)
+  end
+
   def authenticate(login, password)
     return nil if login.blank? || password.blank?
 
-    # TODO: include creation of user if not existing in redmine
     # authentication is successful if return value is not nil
 
     # request a ticket granting ticket
-    tgt_uri = URI.parse('https://192.168.115.89/cas/v1/tickets')
-    http = Net::HTTP.new(tgt_uri.host,tgt_uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    request1 = Net::HTTP::Post.new(tgt_uri.path, initheader = {'Content-Type' =>'application/json'})
-    request1.set_form_data({"username" => login, "password" => password})
-    response1 = http.request(request1)
+    tgt_uri = 'https://192.168.115.89/cas/v1/tickets'
+    tgt_form_data = {"username" => login, "password" => password}
+    response1 = api_request(tgt_uri, tgt_form_data)
+
     if response1.code == "201"
       # get ticket granting ticket from response
       forms = Nokogiri::HTML(response1.body).xpath("//form").to_s
@@ -47,36 +53,30 @@ class AuthSourceCas < AuthSource
       sub2=forms.index('method')
       tgticket = forms.to_s[sub,sub2-sub-2]
       # request a service ticket
-      serviceTicket_uri = URI.parse(tgticket)
-      serviceTicket_http = Net::HTTP.new(serviceTicket_uri.host,serviceTicket_uri.port)
-      serviceTicket_http.use_ssl = true
-      serviceTicket_http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      serviceTicket_request = Net::HTTP::Post.new(serviceTicket_uri.path, initheader = {'Content-Type' =>'application/json'})
-      serviceTicket_request.set_form_data({"service" => "https://192.168.115.89/redmine"})
-      serviceTicket = serviceTicket_http.request(serviceTicket_request)
+      st_uri = tgticket
+      st_form_data = {"service" => "https://192.168.115.89/redmine"}
+      serviceTicket = api_request(st_uri, st_form_data)
+
       if serviceTicket.code == "200"
-        # TODO: get user information from cas and parse it to retVal
-        serviceVali_uri = URI.parse('https://192.168.115.89/cas/p3/serviceValidate')
-        serviceVali_http = Net::HTTP.new(serviceVali_uri.host,serviceVali_uri.port)
-        serviceVali_http.use_ssl = true
-        serviceVali_http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        serviceVali_request = Net::HTTP::Post.new(serviceVali_uri.path, initheader = {'Content-Type' =>'application/json'})
-        serviceVali_request.set_form_data({"service" => "https://192.168.115.89/redmine", "ticket" => serviceTicket.body})
-        serviceVali = serviceVali_http.request(serviceVali_request)
+        # get user information from cas and parse it to retVal
+        sv_uri = 'https://192.168.115.89/cas/p3/serviceValidate'
+        sv_form_data = {"service" => "https://192.168.115.89/redmine", "ticket" => serviceTicket.body}
+        serviceVali = api_request(sv_uri, sv_form_data)
+
         # TODO: check if validation was successful
         userAttributes = Nokogiri::XML(serviceVali.body)
-        user_name = userAttributes.at_xpath("//cas:authenticationSuccess//cas:user").content.to_s
+        # user_name = userAttributes.at_xpath("//cas:authenticationSuccess//cas:user").content.to_s
         user_mail = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:mail").content.to_s
         user_surname = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:surname").content.to_s
-        user_displayName = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:displayName").content.to_s
+        # user_displayName = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:displayName").content.to_s
         user_givenName = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:givenName").content.to_s
-        user_cn = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:cn").content.to_s
-        user_username = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:username").content.to_s
-        user_groups = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:groups").content.to_s
-        # raise "DEBUG: userAttributes mail: "+user_groups
-        # raise "DEBUG: serviceVali user: "+serviceVali.user
+        # user_cn = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:cn").content.to_s
+        # user_username = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:username").content.to_s
 
-
+        user_groups = userAttributes.xpath("//cas:authenticationSuccess//cas:attributes//cas:groups")
+        for i in user_groups
+          # TODO: create group / add user to group
+        end
 
         retVal =
           {
@@ -93,9 +93,7 @@ class AuthSourceCas < AuthSource
     else
       raise "Authentication data not accepted"
     end
-
     return nil
-
   rescue *NETWORK_EXCEPTIONS => e
     raise AuthSourceException.new(e.message)
   end
