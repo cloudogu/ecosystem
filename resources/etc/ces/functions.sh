@@ -188,7 +188,7 @@ function get_private_secret(){
   if [ ! -f '/private/secret' ]; then
     mkdir '/private'
     touch '/private/secret'
-    $(generate_secret) > '/private/secret'
+    generate_secret > '/private/secret'
   fi
   cat '/private/secret'
 }
@@ -197,7 +197,7 @@ export -f get_private_secret
 
 function get_secret_key(){
   if [ ! -f '/etc/ces/.secretkey' ]; then
-    $(generate_secret) > '/etc/ces/.secretkey'
+    generate_secret > '/etc/ces/.secretkey'
   fi
   cat '/etc/ces/.secretkey'
 }
