@@ -65,7 +65,7 @@ export -f del_config_local
 
 function get_config_global(){
   KEY=$1
-  if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/_global" | "/config/_global/$KEY$" | wc -l) -eq 1 ]; then
+  if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/_global" | grep "/config/_global/$KEY$" | wc -l) -eq 1 ]; then
     VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
   else
     echo "ERROR KEY $1 not found in /config/$(hostname) or /config/_global"
@@ -179,11 +179,16 @@ export -f render_template_clean
 
 # encryption & decryption
 
+function generate_secret(){
+  openssl rand -base64 32 | cut -c1-32
+}
+export -f generate_secret
+
 function get_private_secret(){
   if [ ! -f '/private/secret' ]; then
     mkdir '/private'
     touch '/private/secret'
-    openssl rand -base64 32 | cut -c1-32 > '/private/secret'
+    $(generate_secret) > '/private/secret'
   fi
   cat '/private/secret'
 }
@@ -192,7 +197,7 @@ export -f get_private_secret
 
 function get_secret_key(){
   if [ ! -f '/etc/ces/.secretkey' ]; then
-    uuidgen | shasum | awk '{print $1}' > '/etc/ces/.secretkey'
+    $(generate_secret) > '/etc/ces/.secretkey'
   fi
   cat '/etc/ces/.secretkey'
 }
