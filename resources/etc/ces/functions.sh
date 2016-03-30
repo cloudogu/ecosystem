@@ -45,22 +45,31 @@ function get_config(){
 export -f get_config
 
 function get_config_local(){
-    if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config" | grep $(hostname) | wc -l) -eq 1 ]; then
-      if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/$(hostname)" | grep $1 | wc -l) -eq 1 ]; then
-    	  VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$1")
-      fi
+  KEY=$1
+  if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config" | grep "/config/$(hostname)$" | wc -l) -eq 1 ]; then
+    if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/$(hostname)" | grep "/config/$(hostname)/$KEY$" | wc -l) -eq 1 ]; then
+  	  VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
     fi
+  fi
   echo $VALUE
 }
 
 export -f get_config_local
 
+function del_config_local(){
+  KEY=$1
+  $(etcdctl --peers $(cat /etc/ces/node_master):4001 rm "/config/$(hostname)/$KEY")
+}
+
+export -f del_config_local
+
 function get_config_global(){
-      if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/_global" | grep $1 | wc -l) -eq 1 ]; then
-        VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$1")
-      else
-        echo "ERROR KEY $1 not found in /config/$(hostname) or /config/_global"
-      fi
+  KEY=$1
+  if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/_global" | "/config/_global/$KEY$" | wc -l) -eq 1 ]; then
+    VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
+  else
+    echo "ERROR KEY $1 not found in /config/$(hostname) or /config/_global"
+  fi
   echo $VALUE
 }
 
@@ -69,7 +78,7 @@ export -f get_config_global
 function get_enc_config(){
   KEY=$1
   VALUE_ENC=$(get_config_local $KEY)
-  VALUE=$(decrypt $VALUE_ENC)
+  VALUE=$(decrypt $VALUE_ENC $(get_private_secret))
   echo $VALUE
 }
 
@@ -87,7 +96,7 @@ export -f set_config
 function set_enc_config(){
   KEY=$1
   VALUE=$2
-  VALUE_ENC=$(encrypt $VALUE)
+  VALUE_ENC=$(encrypt $VALUE $(get_private_secret))
   set_config $KEY $VALUE_ENC
 }
 
@@ -170,7 +179,7 @@ export -f render_template_clean
 
 # encryption & decryption
 
-function get_secret_key(){
+function get_private_secret(){
   if [ ! -f '/private/secret' ]; then
     mkdir '/private'
     touch '/private/secret'
@@ -179,11 +188,22 @@ function get_secret_key(){
   cat '/private/secret'
 }
 
+export -f get_private_secret
+
+function get_secret_key(){
+  if [ ! -f '/etc/ces/.secretkey' ]; then
+    uuidgen | shasum | awk '{print $1}' > '/etc/ces/.secretkey'
+  fi
+  cat '/etc/ces/.secretkey'
+}
 export -f get_secret_key
 
 function encrypt(){
   VALUE="$1"
-  KEY=$(get_secret_key)
+  KEY="$2"
+  if [ $KEY == "" ];then
+    KEY=$(get_secret_key)
+  fi
   echo $VALUE | openssl enc -aes-128-cbc -a -salt -pass "pass:$KEY"
 }
 
@@ -191,7 +211,10 @@ export -f encrypt
 
 function decrypt(){
   VALUE="$1"
-  KEY=$(get_secret_key)
+  KEY="$2"
+  if [ $KEY == "" ];then
+    KEY=$(get_secret_key)
+  fi
   echo $VALUE | openssl enc -aes-128-cbc -a -d -salt -pass "pass:$KEY"
 }
 
