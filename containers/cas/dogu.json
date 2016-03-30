@@ -11,7 +11,7 @@
   "Logo": "http://dogu.cloudogu.com/images/logos/cas.png",
   "Image": "registry.cloudogu.com/official/cas",
   "Dependencies": [
-    "ldap"
+    "ldap", "nginx"
   ],
   "Volumes": [{
     "Name": "data",

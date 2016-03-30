@@ -10,7 +10,7 @@
   "Url": "https://github.com/cloudogu",
   "Image": "registry.cloudogu.com/official/universeadm",
   "Dependencies": [
-    "cas", "ldap"
+    "cas", "ldap", "nginx"
   ],
   "Volumes": [{
     "Name": "data",

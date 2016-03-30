@@ -10,6 +10,9 @@
   "Logo": "http://dogu.cloudogu.com/images/logos/jenkins.png",
   "Url": "https://jenkins-ci.org",
   "Image": "registry.cloudogu.com/official/jenkins",
+  "Dependencies": [
+    "cas", "nginx", "postfix"
+  ],
   "Volumes": [{
     "Name": "data",
     "Path": "/var/lib/jenkins",

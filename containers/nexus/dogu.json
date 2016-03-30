@@ -11,7 +11,7 @@
   ],
   "Image": "registry.cloudogu.com/official/nexus",
   "Dependencies": [
-    "cas"
+    "cas", "nginx", "postfix"
   ],
   "Volumes": [{
     "Name": "data",

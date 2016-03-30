@@ -10,6 +10,9 @@
   "Logo": "http://dogu.cloudogu.com/images/logos/redmine.png",
   "Url": "http://www.redmine.org",
   "Image": "registry.cloudogu.com/official/redmine",
+  "Dependencies": [
+    "mysql", "cas", "nginx", "postfix"
+  ],
   "HealthCheck": {
     "Type": "tcp",
     "Port": 3000

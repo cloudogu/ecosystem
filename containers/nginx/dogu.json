@@ -10,6 +10,9 @@
   ],
   "Url": "http://nginx.org/",
   "Image": "registry.cloudogu.com/official/nginx",
+  "Dependencies": [
+    "registrator"
+  ],
 	"ExposedPorts": [{
     "Type": "tcp",
     "Host": 80,
