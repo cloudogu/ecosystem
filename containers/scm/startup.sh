@@ -75,7 +75,7 @@ configState=$(/usr/bin/curl "$CURLPARAM" "http://127.0.0.1:8080/scm/api/rest/con
 ## add group in case it is missing e.g. "admin-groups": "universalAdmin"
 adminGroups=`echo "$configState" | jq -r '.["admin-groups"]'`
 if [ "$adminGroups" == "null" ]; then
-	newConfigState=$(echo "$configState" | jq ".+= {\"admin-groups\": \"$ADMINGROUP\"}" | jq ".+= {\"base-url\": \"http://$FQDN/scm\"}")
+	newConfigState=$(echo "$configState" | jq ".+= {\"admin-groups\": \"$ADMINGROUP\"}" | jq ".+= {\"base-url\": \"https://$FQDN/scm\"}")
 	curl "$CURLPARAM" -H "Content-Type: application/json" -X POST -d "$newConfigState" "http://127.0.0.1:8080/scm/api/rest/config.json" -u "$ADMUSR":"$ADMPW"
 fi
 
