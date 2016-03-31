@@ -1,12 +1,14 @@
 #!/bin/bash
 source /etc/ces/functions.sh
+
+# variables
 ADMUSR="admin"
 ADMPW="admin123"
 ADMINGROUP=$(get_config admin_group)
 DOMAIN=$(get_config domain)
 
 # create truststore
-TRUSTSTORE="/var/lib/nexus/conf/truststore.jks"
+TRUSTSTORE="/var/lib/nexus/truststore.jks"
 create_truststore.sh "${TRUSTSTORE}" > /dev/null
 
 START_NEXUS="java \
