@@ -1,10 +1,10 @@
 # cesi/cas
-FROM registry.cloudogu.com/official/java:8u73-1
+FROM registry.cloudogu.com/official/java:8u77-1
 MAINTAINER triology <cloudogu@triology.de>
 
 ENV CAS_VERSION 4.0.7.3
 ENV TOMCAT_MAJOR_VERSION 8
-ENV TOMCAT_VERSION 8.0.28
+ENV TOMCAT_VERSION 8.0.33
 ENV CATALINA_BASE /opt/apache-tomcat
 ENV CATALINA_PID /var/run/tomcat7.pid
 ENV CATALINA_SH ${CATALINA_BASE}/bin/catalina.sh

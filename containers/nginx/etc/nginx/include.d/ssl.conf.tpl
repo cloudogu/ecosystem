@@ -1,8 +1,8 @@
 listen 443 ssl http2;
 server_name ${FQDN};
 
-ssl_certificate /etc/ces/ssl/server.crt;
-ssl_certificate_key /etc/ces/ssl/server.key;
+ssl_certificate /etc/ssl/server.crt;
+ssl_certificate_key /etc/ssl/server.key;
 
 ssl_session_cache shared:SSL:50m;
 ssl_session_timeout 5m;

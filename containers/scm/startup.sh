@@ -12,6 +12,9 @@ MAILFROM="cloudoguscm@cloudogu.com"
 RELAYHOST="postfix"
 EXTRAPLUGINS=""
 
+# create truststore, which is used in the default file
+create_truststore.sh /opt/scm-server/conf/truststore.jks > /dev/null
+
 # Install Redmine plugin if Redmine has started already
 REDMINEKEY=$(etcdctl --peers $(cat /etc/ces/ip_addr):4001 ls /dogu/redmine |wc -l)
 if [ "$REDMINEKEY" == "1" ]; then

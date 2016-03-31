@@ -1,15 +1,20 @@
 #!/bin/bash
 source /etc/ces/functions.sh
+
+# variables
 ADMUSR="admin"
 ADMPW="admin123"
 ADMINGROUP=$(get_config admin_group)
 DOMAIN=$(get_config domain)
 
+# create truststore
+TRUSTSTORE="/var/lib/nexus/truststore.jks"
+create_truststore.sh "${TRUSTSTORE}" > /dev/null
+
 START_NEXUS="java \
   -server -XX:MaxPermSize=192m -Djava.net.preferIPv4Stack=true -Xms256m -Xmx1g \
-  -Djavax.net.ssl.trustStore=/etc/ces/ssl/truststore.jks \
-  -Djavax.net.ssl.trustStorePassword=changeit \
-  -Djava.awt.headless=true \
+  -Djavax.net.ssl.trustStore=${TRUSTSTORE} \
+	-Djavax.net.ssl.trustStorePassword=changeit \
   -Dnexus-work=/var/lib/nexus -Dnexus-webapp-context-path=/nexus \
   -cp conf/:`(echo lib/*.jar) | sed -e "s/ /:/g"` \
   org.sonatype.nexus.bootstrap.Launcher ./conf/jetty.xml ./conf/jetty-requestlog.xml"

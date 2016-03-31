@@ -1,4 +1,4 @@
-# registry.cloudogu.com/official/java:8u73-1
+# registry.cloudogu.com/official/java:8u77-1
 FROM registry.cloudogu.com/official/base:3.3-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
@@ -6,8 +6,8 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=8 \
-    JAVA_VERSION_MINOR=73 \
-    JAVA_VERSION_BUILD=02 \
+    JAVA_VERSION_MINOR=77 \
+    JAVA_VERSION_BUILD=03 \
     JAVA_PACKAGE=jdk \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
@@ -59,3 +59,6 @@ RUN apk upgrade --update && \
            /opt/jdk/jre/lib/plugin.jar \
            /tmp/* /var/cache/apk/* && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+
+# add helper scripts
+ADD create_truststore.sh /usr/bin/create_truststore.sh

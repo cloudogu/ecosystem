@@ -6,7 +6,7 @@
   "Url": "https://jenkins-ci.org/",
   "Category": "Development Apps",
   "Tags": [
-    "warp", "build", "ci", "cd"
+    "build", "ci", "cd"
   ],
   "Logo": "http://dogu.cloudogu.com/images/logos/jenkins.png",
   "Image": "registry.cloudogu.com/official/jenkinsslave",
