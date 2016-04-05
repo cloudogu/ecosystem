@@ -4,6 +4,11 @@
   "DisplayName": "Jenkinsslave",
   "Description": "Jenkinsslave - slavebase",
   "Url": "https://jenkins-ci.org/",
+  "Category": "Development Apps",
+  "Tags": [
+    "build", "ci", "cd"
+  ],
+  "Logo": "http://dogu.cloudogu.com/images/logos/jenkins.png",
   "Image": "registry.cloudogu.com/official/jenkinsslave",
   "Dependencies": [
     "jenkins"

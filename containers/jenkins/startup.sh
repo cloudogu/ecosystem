@@ -31,10 +31,14 @@ fi
 echo "INFO - writing key to ETCD"
 set_config pubkey "$(cat /var/lib/jenkins/.ssh/id_rsa.pub)"
 
+# create truststore
+TRUSTSTORE="/var/lib/jenkins/truststore.jks"
+create_truststore.sh "${TRUSTSTORE}" > /dev/null
+
 # starting jenkins
 java -Djava.awt.headless=true \
 	-Dhudson.model.UpdateCenter.never=true \
   -Djava.net.preferIPv4Stack=true \
-  -Djavax.net.ssl.trustStore=/etc/ces/ssl/truststore.jks \
-  -Djavax.net.ssl.trustStorePassword=changeit \
+  -Djavax.net.ssl.trustStore="${TRUSTSTORE}" \
+	-Djavax.net.ssl.trustStorePassword=changeit \
   -jar /jenkins.war --prefix=/jenkins

@@ -1,0 +1,24 @@
+#!/bin/bash
+# TODO remove code duplication from functions.sh
+
+# cesmarvin access token
+AUTH_TOKEN="5dfbee7fba188abb6f9c28ccbf32fc0e7c8bd8a8"
+
+# parameters
+URL="$1"
+TARGET="$2"
+
+# get required parts from the browser download url
+USER=$(echo $URL | awk -F'/' '{print $4}')
+REPO=$(echo $URL | awk -F'/' '{print $5}')
+TAG=$(echo $URL | awk -F'/' '{print $8}')
+ASSET=$(echo $URL | awk -F'/' '{print $9}')
+
+# get asset url
+DOWNLOAD_URL=$(curl -s -H "Authorization: token ${AUTH_TOKEN}" "https://api.github.com/repos/${USER}/${REPO}/releases" | jq ".[] | select(.name==\"${TAG}\") | .assets[] | select(.name==\"${ASSET}\") | .url" --raw-output)
+# download asset
+if [ "$TARGET" != "" ]; then
+  curl -H "Accept: application/octet-stream" -L "${DOWNLOAD_URL}?access_token=${AUTH_TOKEN}" -o "${TARGET}"
+else
+  curl -H "Accept: application/octet-stream" -L "${DOWNLOAD_URL}?access_token=${AUTH_TOKEN}"
+fi
