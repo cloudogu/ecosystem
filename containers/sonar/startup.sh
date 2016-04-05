@@ -44,6 +44,9 @@ MYSQL_USER="sonar"
 MYSQL_USER_PASSWORD=$(create_or_get_ces_pass mysql_sonar)
 MYSQL_DB="sonar"
 
+# create truststore, which is used in the sonar.properties file
+create_truststore.sh > /dev/null
+
 # prepare database
 if [ $(mysql -N -s -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "select count(*) from information_schema.tables where table_schema='${MYSQL_DB}' and table_name='projects';") -eq 1 ]; then
   echo "sonar database is already installed"

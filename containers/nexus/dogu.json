@@ -4,9 +4,14 @@
   "DisplayName": "Sonatype Nexus",
   "Description": "The Nexus Repository is like the local warehouse where all of the parts and finished goods used in your software supply chain are stored and distributed.",
   "Url": "http://www.sonatype.org/nexus",
+  "Logo": "http://dogu.cloudogu.com/images/logos/nexus.png",
+  "Category": "Development Apps",
+  "Tags": [
+    "warp", "build", "artifact", "maven"
+  ],
   "Image": "registry.cloudogu.com/official/nexus",
   "Dependencies": [
-    "cas"
+    "cas", "nginx", "postfix"
   ],
   "Volumes": [{
     "Name": "data",

@@ -1,10 +1,18 @@
 {
   "Name": "nginx",
-  "Version": "1.9.11-1",
+  "Version": "1.9.12-1",
   "DisplayName": "Nginx",
   "Description": "Nginx WebServer.",
+  "Logo": "http://dogu.cloudogu.com/images/logos/nginx.png",
+  "Category": "Base",
+  "Tags": [
+    "webserver", "proxy", "reverse-proxy"
+  ],
   "Url": "http://nginx.org/",
   "Image": "registry.cloudogu.com/official/nginx",
+  "Dependencies": [
+    "registrator"
+  ],
 	"ExposedPorts": [{
     "Type": "tcp",
     "Host": 80,
