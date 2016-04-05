@@ -42,7 +42,8 @@ class AuthSourceCas < AuthSource
     # authentication is successful if return value is not nil
 
     # request a ticket granting ticket
-    tgt_uri = 'https://192.168.115.89/cas/v1/tickets'
+    # TODO: change hardcoded URL
+    tgt_uri = 'https://192.168.115.142/cas/v1/tickets'
     tgt_form_data = {"username" => login, "password" => password}
     response1 = api_request(tgt_uri, tgt_form_data)
 
@@ -54,13 +55,15 @@ class AuthSourceCas < AuthSource
       tgticket = forms.to_s[sub,sub2-sub-2]
       # request a service ticket
       st_uri = tgticket
-      st_form_data = {"service" => "https://192.168.115.89/redmine"}
+      # TODO: change hardcoded URL
+      st_form_data = {"service" => "https://192.168.115.142/redmine"}
       serviceTicket = api_request(st_uri, st_form_data)
 
       if serviceTicket.code == "200"
         # get user information from cas and parse it to retVal
-        sv_uri = 'https://192.168.115.89/cas/p3/serviceValidate'
-        sv_form_data = {"service" => "https://192.168.115.89/redmine", "ticket" => serviceTicket.body}
+        # TODO: change hardcoded URL
+        sv_uri = 'https://192.168.115.142/cas/p3/serviceValidate'
+        sv_form_data = {"service" => "https://192.168.115.142/redmine", "ticket" => serviceTicket.body}
         serviceVali = api_request(sv_uri, sv_form_data)
 
         # TODO: check if validation was successful
@@ -74,21 +77,27 @@ class AuthSourceCas < AuthSource
         # user_username = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:username").content.to_s
 
         user_groups = userAttributes.xpath("//cas:authenticationSuccess//cas:attributes//cas:groups")
+        user = User.new
+        user.login = login
+        user.firstname = user_givenName
+        user.lastname = user_surname
+        user.mail = user_mail
+        user.auth_source_id = self.id
         for i in user_groups
           # create group / add user to group
           begin
-            group = Group.find_by(lastname: i.to_s.downcase)
+            group = Group.find_by(lastname: i.content.to_s.downcase)
             if group.to_s == ""
               # group does not exist
               # create group and add user
-              @newgroup = Group.new(:lastname => i.to_s, :firstname => "cas")
+              @newgroup = Group.new(:lastname => i.content.to_s, :firstname => "cas")
               @newgroup.users << user
-              @newgroup.save
+              @newgroup.save!
             else
               # if not already: add user to existing group
               @groupusers = User.active.in_group(group).all()
-              if not(@groupusers.include?(login))
-                group.users << login
+              if not(@groupusers.include?(user))
+                group.users << user
               end
             end
           rescue Exception => e
@@ -102,7 +111,7 @@ class AuthSourceCas < AuthSource
             :lastname => user_surname,
             :mail => user_mail,
             :auth_source_id => self.id
-          } if(onthefly_register?)
+          }
         return retVal
       else
         raise "No Service ticket granted."
