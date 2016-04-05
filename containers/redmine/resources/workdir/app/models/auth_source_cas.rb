@@ -75,7 +75,25 @@ class AuthSourceCas < AuthSource
 
         user_groups = userAttributes.xpath("//cas:authenticationSuccess//cas:attributes//cas:groups")
         for i in user_groups
-          # TODO: create group / add user to group
+          # create group / add user to group
+          begin
+            group = Group.find_by(lastname: i.to_s.downcase)
+            if group.to_s == ""
+              # group does not exist
+              # create group and add user
+              @newgroup = Group.new(:lastname => i.to_s, :firstname => "cas")
+              @newgroup.users << user
+              @newgroup.save
+            else
+              # if not already: add user to existing group
+              @groupusers = User.active.in_group(group).all()
+              if not(@groupusers.include?(login))
+                group.users << login
+              end
+            end
+          rescue Exception => e
+            logger.info e.message
+          end
         end
 
         retVal =
