@@ -35,6 +35,7 @@ RUN chmod 755 /cas-plugin.hpi
 ADD ./resources/var/lib/jenkins/config.xml.tpl /config.xml.tpl
 # MAIL
 ADD ./resources/var/lib/jenkins/hudson.tasks.Mailer.xml.tpl /hudson.tasks.Mailer.xml.tpl
+ADD ./resources/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml.tpl /jenkins.model.JenkinsLocationConfiguration.xml.tpl
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp

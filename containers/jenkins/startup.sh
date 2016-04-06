@@ -10,6 +10,8 @@ if [ ! -f ${JENKINS_HOME}/config.xml ]; then
 	# render template
 	render_template "/config.xml.tpl" > /var/lib/jenkins/config.xml
 	render_template "/hudson.tasks.Mailer.xml.tpl" > "/var/lib/jenkins/hudson.tasks.Mailer.xml"
+	render_template "/jenkins.model.JenkinsLocationConfiguration.xml.tpl" > "/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml"
+
 else
 	# refresh cas IP
 	sed -i "s~<casServerUrl>.*</casServerUrl>~<casServerUrl>https://${FQDN}/cas/</casServerUrl>~" /var/lib/jenkins/config.xml
