@@ -49,12 +49,8 @@ class AuthSourceCas < AuthSource
         serviceVali = api_request(sv_uri, sv_form_data)
 
         # check if validation was successful
-        if (Nokogiri::XML(serviceVali.body).xpath("//cas:serviceResponse").to_s).include? "Failure"
-          raise "Service ticket validation failure"
-        elsif (Nokogiri::XML(serviceVali.body).xpath("//cas:serviceResponse").to_s).include? "Success"
-
+        if (Nokogiri::XML(serviceVali.body).xpath("//cas:serviceResponse").to_s).include? "Success"
           userAttributes = Nokogiri::XML(serviceVali.body)
-
           user_mail = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:mail").content.to_s
           user_surname = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:surname").content.to_s
           user_givenName = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:givenName").content.to_s
@@ -76,43 +72,14 @@ class AuthSourceCas < AuthSource
 
             for i in user_groups
               # create group / add user to group
-              begin
-                group = Group.find_by(lastname: i.content.to_s.downcase)
-                if group.to_s == "" # group does not exist
-                  # create group and add user
-                  @newgroup = Group.new(:lastname => i.content.to_s, :firstname => "cas")
-                  @newgroup.users << user
-                  @newgroup.save!
-                else
-                  # add user to existing group
-                  group.users << user
-                end
-              rescue Exception => e
-                logger.info e.message
-              end
+              add_user_to_group(i.content.to_s, user)
             end
           else # user already in redmine
             @usergroups = Array.new
             for i in user_groups
               @usergroups << i.content.to_s
               # create group / add user to group
-              begin
-                group = Group.find_by(lastname: i.content.to_s.downcase)
-                if group.to_s == ""  # group does not exist
-                  # create group and add user
-                  @newgroup = Group.new(:lastname => i.content.to_s, :firstname => "cas")
-                  @newgroup.users << user
-                  @newgroup.save!
-                else
-                  # if not already: add user to existing group
-                  @groupusers = User.active.in_group(group).all()
-                  if not(@groupusers.include?(user))
-                    group.users << user
-                  end
-                end
-              rescue Exception => e
-                logger.info e.message
-              end
+              add_user_to_group(i.content.to_s, user)
             end
             # remove user from groups he is not in any more
             @casgroups = Group.where(firstname: "cas")
@@ -135,6 +102,8 @@ class AuthSourceCas < AuthSource
             :auth_source_id => self.id
           }
           return retVal
+        else
+          raise "Service ticket validation failure"
         end
       else
         raise "No Service ticket granted"
@@ -150,6 +119,31 @@ class AuthSourceCas < AuthSource
 
   def auth_method_name
     "CAS"
+  end
+
+  def create_group_with_user(group, user)
+    # create group and add user
+    @newgroup = Group.new(:lastname => group, :firstname => "cas")
+    @newgroup.users << user
+    @newgroup.save!
+  end
+
+  def add_user_to_group(groupname, user)
+    begin
+      @group = Group.find_by(lastname: groupname.downcase)
+      if @group.to_s == ""  # group does not exist
+        # create group and add user
+        create_group_with_user(groupname, user)
+      else
+        # if not already: add user to existing group
+        @groupusers = User.active.in_group(@group).all()
+        if not(@groupusers.include?(user))
+          @group.users << user
+        end
+      end
+    rescue Exception => e
+      logger.info e.message
+    end
   end
 
 end
