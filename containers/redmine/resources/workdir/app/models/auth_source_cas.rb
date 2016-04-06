@@ -77,31 +77,68 @@ class AuthSourceCas < AuthSource
         # user_username = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:username").content.to_s
 
         user_groups = userAttributes.xpath("//cas:authenticationSuccess//cas:attributes//cas:groups")
-        user = User.new
-        user.login = login
-        user.firstname = user_givenName
-        user.lastname = user_surname
-        user.mail = user_mail
-        user.auth_source_id = self.id
-        for i in user_groups
-          # create group / add user to group
-          begin
-            group = Group.find_by(lastname: i.content.to_s.downcase)
-            if group.to_s == ""
-              # group does not exist
-              # create group and add user
-              @newgroup = Group.new(:lastname => i.content.to_s, :firstname => "cas")
-              @newgroup.users << user
-              @newgroup.save!
-            else
-              # if not already: add user to existing group
-              @groupusers = User.active.in_group(group).all()
-              if not(@groupusers.include?(user))
+        user = User.find_by_login(login)
+        if user == nil
+          # user not in redmine yet
+          user = User.new
+          user.login = login
+          user.firstname = user_givenName
+          user.lastname = user_surname
+          user.mail = user_mail
+          user.auth_source_id = self.id
+
+          for i in user_groups
+            # create group / add user to group
+            begin
+              group = Group.find_by(lastname: i.content.to_s.downcase)
+              if group.to_s == ""
+                # group does not exist
+                # create group and add user
+                @newgroup = Group.new(:lastname => i.content.to_s, :firstname => "cas")
+                @newgroup.users << user
+                @newgroup.save!
+              else
+                # add user to existing group
                 group.users << user
               end
+            rescue Exception => e
+              logger.info e.message
             end
-          rescue Exception => e
-            logger.info e.message
+          end
+        else
+          # user already in redmine
+          @usergroups = Array.new
+          for i in user_groups
+            @usergroups << i.content.to_s
+            # create group / add user to group
+            begin
+              group = Group.find_by(lastname: i.content.to_s.downcase)
+              if group.to_s == ""  # group does not exist
+                # create group and add user
+                @newgroup = Group.new(:lastname => i.content.to_s, :firstname => "cas")
+                @newgroup.users << user
+                @newgroup.save!
+              else
+                # if not already: add user to existing group
+                @groupusers = User.active.in_group(group).all()
+                if not(@groupusers.include?(user))
+                  group.users << user
+                end
+              end
+            rescue Exception => e
+              logger.info e.message
+            end
+          end
+          # remove user from groups he is not in any more
+          @casgroups = Group.where(firstname: "cas")
+          for l in @casgroups
+            @casgroup = Group.find_by(lastname: l.to_s)
+            @casgroupusers = User.active.in_group(@casgroup).all()
+            for m in @casgroupusers
+              if (m.login == login) and not(@usergroups.include?(l.to_s))
+                @casgroup.users.delete(user)
+              end
+            end
           end
         end
 
