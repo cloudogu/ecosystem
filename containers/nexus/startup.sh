@@ -45,11 +45,14 @@ if ! [ -d /var/lib/nexus/plugin-repository/nexus-cas-plugin-${CAS_PLUGIN_VERSION
       echo "============ CONFIG INFO ============"
       echo $mailConfiguration | jq .
       curl -H "Content-Type: application/json" -X PUT -d "$mailConfiguration" "http://127.0.0.1:8081/nexus/service/local/global_settings/current" -u "$ADMUSR":"$ADMPW"
+      # disable new version info
+      curl -H "Content-Type: application/json" -X PUT -d "{"data":{"enabled":false}}" "http://127.0.0.1:8081/nexus/service/local/lvo_config" -u "$ADMUSR":"$ADMPW"
       echo "========== CONFIG INFO END =========="
       kill $!
 fi
 FQDN=$(get_fqdn)
 echo "render_template"
+# update cas url
 render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
-/groupMapping.sh $ADMUSR $ADMPW $ADMINGROUP &
+/configuration.sh $ADMUSR $ADMPW $ADMINGROUP &
 exec $START_NEXUS
