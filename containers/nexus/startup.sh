@@ -52,6 +52,7 @@ if ! [ -d /var/lib/nexus/plugin-repository/nexus-cas-plugin-${CAS_PLUGIN_VERSION
 fi
 FQDN=$(get_fqdn)
 echo "render_template"
+# update cas url
 render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
-/groupMapping.sh $ADMUSR $ADMPW $ADMINGROUP &
+/configuration.sh $ADMUSR $ADMPW $ADMINGROUP &
 exec $START_NEXUS
