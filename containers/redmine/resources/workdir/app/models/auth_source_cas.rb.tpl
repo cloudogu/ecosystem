@@ -11,7 +11,25 @@ class AuthSourceCas < AuthSource
     SocketError
   ]
 
-  FQDN = "192.168.115.142"
+  FQDN = '${FQDN}'
+
+  def add_user_to_group(groupname, user)
+    begin
+      @group = Group.find_by(lastname: groupname.downcase)
+      if @group.to_s == ''  # group does not exist
+        # create group and add user
+        create_group_with_user(groupname, user)
+      else
+        # if not already: add user to existing group
+        @groupusers = User.active.in_group(@group).all()
+        if not(@groupusers.include?(user))
+          @group.users << user
+        end
+      end
+    rescue Exception => e
+      logger.info e.message
+    end
+  end
 
   def api_request(uri, form_data)
     http_uri = URI.parse(uri)
@@ -28,41 +46,36 @@ class AuthSourceCas < AuthSource
 
     # request a ticket granting ticket
     tgt_uri = 'https://'+FQDN+'/cas/v1/tickets'
-    tgt_form_data = {"username" => login, "password" => password}
+    tgt_form_data = {'username' => login, 'password' => password}
     tgt = api_request(tgt_uri, tgt_form_data)
 
-    if tgt.code == "201"
+    if tgt.code == '201'
       # get ticket granting ticket from response
-      forms = Nokogiri::HTML(tgt.body).xpath("//form").to_s
+      forms = Nokogiri::HTML(tgt.body).xpath('//form').to_s
       sub=forms.index('https')
       sub2=forms.index('method')
       tgticket = forms.to_s[sub,sub2-sub-2]
       # request a service ticket
       st_uri = tgticket
-      st_form_data = {"service" => "https://"+FQDN+"/redmine"}
+      st_form_data = {'service' => 'https://'+FQDN+'/redmine'}
       serviceTicket = api_request(st_uri, st_form_data)
 
-      if serviceTicket.code == "200"
+      if serviceTicket.code == '200'
         # get user information from cas and parse it to retVal
         sv_uri = 'https://'+FQDN+'/cas/p3/serviceValidate'
-        sv_form_data = {"service" => "https://"+FQDN+"/redmine", "ticket" => serviceTicket.body}
+        sv_form_data = {'service' => 'https://'+FQDN+'/redmine', 'ticket' => serviceTicket.body}
         serviceVali = api_request(sv_uri, sv_form_data)
 
         # check if validation was successful
-        if (Nokogiri::XML(serviceVali.body).xpath("//cas:serviceResponse").to_s).include? "Success"
+        if (Nokogiri::XML(serviceVali.body).xpath('//cas:serviceResponse').to_s).include? 'Success'
           userAttributes = Nokogiri::XML(serviceVali.body)
-          user_mail = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:mail").content.to_s
-          user_surname = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:surname").content.to_s
-          user_givenName = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:givenName").content.to_s
-          user_groups = userAttributes.xpath("//cas:authenticationSuccess//cas:attributes//cas:groups")
-          # user_displayName = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:displayName").content.to_s
-          # user_name = userAttributes.at_xpath("//cas:authenticationSuccess//cas:user").content.to_s
-          # user_cn = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:cn").content.to_s
-          # user_username = userAttributes.at_xpath("//cas:authenticationSuccess//cas:attributes//cas:username").content.to_s
+          user_mail = userAttributes.at_xpath('//cas:authenticationSuccess//cas:attributes//cas:mail').content.to_s
+          user_surname = userAttributes.at_xpath('//cas:authenticationSuccess//cas:attributes//cas:surname').content.to_s
+          user_givenName = userAttributes.at_xpath('//cas:authenticationSuccess//cas:attributes//cas:givenName').content.to_s
+          user_groups = userAttributes.xpath('//cas:authenticationSuccess//cas:attributes//cas:groups')
 
           user = User.find_by_login(login)
           if user == nil # user not in redmine yet
-
             user = User.new
             user.login = login
             user.firstname = user_givenName
@@ -82,7 +95,7 @@ class AuthSourceCas < AuthSource
               add_user_to_group(i.content.to_s, user)
             end
             # remove user from groups he is not in any more
-            @casgroups = Group.where(firstname: "cas")
+            @casgroups = Group.where(firstname: 'cas')
             for l in @casgroups
               @casgroup = Group.find_by(lastname: l.to_s)
               @casgroupusers = User.active.in_group(@casgroup).all()
@@ -103,14 +116,14 @@ class AuthSourceCas < AuthSource
           }
           return retVal
         else
-          raise "Service ticket validation failure"
+          raise 'Service ticket validation failure'
         end
       else
-        raise "No Service ticket granted"
+        raise 'No Service ticket granted'
         return nil
       end
     else
-      raise "Authentication data not accepted"
+      raise 'Authentication data not accepted'
     end
     return nil
   rescue *NETWORK_EXCEPTIONS => e
@@ -118,32 +131,14 @@ class AuthSourceCas < AuthSource
   end
 
   def auth_method_name
-    "CAS"
+    'CAS'
   end
 
   def create_group_with_user(group, user)
     # create group and add user
-    @newgroup = Group.new(:lastname => group, :firstname => "cas")
+    @newgroup = Group.new(:lastname => group, :firstname => 'cas')
     @newgroup.users << user
     @newgroup.save!
-  end
-
-  def add_user_to_group(groupname, user)
-    begin
-      @group = Group.find_by(lastname: groupname.downcase)
-      if @group.to_s == ""  # group does not exist
-        # create group and add user
-        create_group_with_user(groupname, user)
-      else
-        # if not already: add user to existing group
-        @groupusers = User.active.in_group(@group).all()
-        if not(@groupusers.include?(user))
-          @group.users << user
-        end
-      end
-    rescue Exception => e
-      logger.info e.message
-    end
   end
 
 end
