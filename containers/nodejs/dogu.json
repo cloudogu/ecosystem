@@ -1,8 +1,0 @@
-{
-  "Name": "nodejs",
-  "Version": "4.3.0-1",
-  "DisplayName": "nodejs",
-  "Description": "basic nodejs installation",
-  "Url": "https://nodejs.org",
-  "Image": "registry.cloudogu.com/official/nodejs"
-}
