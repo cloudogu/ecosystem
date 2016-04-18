@@ -43,7 +43,7 @@ else
   echo "Inserting default configuration data into database..."
   su - redmine -c "RAILS_ENV=$RAILS_ENV REDMINE_LANG="$REDMINE_LANG" rake redmine:load_default_data --trace"
   # remove default admin user
-  # mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "DELETE FROM ${MYSQL_DB}.users WHERE firstname=\"Redmine\" AND lastname=\"Admin\";"
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "DELETE FROM ${MYSQL_DB}.users WHERE firstname=\"Redmine\" AND lastname=\"Admin\";"
 
   echo "Writing cas plugin settings to database..."
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (NULL,\"plugin_redmine_cas\",\"--- !ruby/hash:ActionController::Parameters \nenabled: 1 \ncas_url: https://${FQDN}/cas \nattributes_mapping: firstname=givenName&lastname=surname&mail=mail \nautocreate_users: 1\",4);"

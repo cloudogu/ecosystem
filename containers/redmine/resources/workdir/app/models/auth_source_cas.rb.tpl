@@ -74,6 +74,13 @@ class AuthSourceCas < AuthSource
           user_givenName = userAttributes.at_xpath('//cas:authenticationSuccess//cas:attributes//cas:givenName').content.to_s
           user_groups = userAttributes.xpath('//cas:authenticationSuccess//cas:attributes//cas:groups')
 
+          # Get ces admin group
+          admingroup_exists = false
+          ces_admin_group = (%x(etcdctl --peers $(cat /etc/ces/node_master):4001 get '/config/_global/admin_group')).to_s
+          if ces_admin_group != nil
+            admingroup_exists = true
+          end
+
           user = User.find_by_login(login)
           if user == nil # user not in redmine yet
             user = User.new
@@ -82,6 +89,11 @@ class AuthSourceCas < AuthSource
             user.lastname = user_surname
             user.mail = user_mail
             user.auth_source_id = self.id
+            if admingroup_exists
+              if user_groups.to_s.include?(ces_admin_group.gsub(\"\n\",\"\"))
+                user.admin = 1
+              end
+            end
 
             for i in user_groups
               # create group / add user to group
