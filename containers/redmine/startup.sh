@@ -54,6 +54,9 @@ else
 
   # Insert auth_sources record for AuthSourceCas authentication source
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.auth_sources VALUES (NULL, 'AuthSourceCas', 'Cas', 'cas.example.com', 1234, 'myDbUser', 'myDbPass', 'dbAdapter:dbName', 'name', 'firstName', 'lastName', 'email', 1, 0, null, null);"
+
+  echo "Writing base url to database..."
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (NULL,\"host_name\",\"https://$FQDN/redmine/\",4);"
 fi
 
 # Create links
