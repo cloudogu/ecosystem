@@ -11,7 +11,7 @@ RUN apk add --update openssh-client \
 	&& rm -rf /var/cache/apk/*
 
 # Jenkins is ran with user `jenkins`, uid = 1000
-# If you bind mount a volume from host/vloume from a data container,
+# If you bind mount a volume from host/volume from a data container,
 # ensure you use same uid
 RUN addgroup -S -g 1000 jenkins && adduser -S -h "$JENKINS_HOME" -s /bin/bash -G jenkins -u 1000 jenkins
 # Jenkins home directoy is a volume, so configuration and build history
@@ -26,16 +26,13 @@ ENV JENKINS_VERSION 1.609.2
 RUN curl -L http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war -o /jenkins.war
 
 # add cas-plugin
-RUN curl -L http://updates.jenkins-ci.org/latest/cas-plugin.hpi -o /cas-plugin.hpi
-RUN chown jenkins:jenkins /cas-plugin.hpi
-RUN chmod 755 /cas-plugin.hpi
+RUN curl -L http://updates.jenkins-ci.org/latest/cas-plugin.hpi -o /var/tmp/cas-plugin.hpi
+RUN chown jenkins:jenkins /var/tmp/cas-plugin.hpi
+RUN chmod 755 /var/tmp/cas-plugin.hpi
 
-# add jenkins config file template, including changes for cas plugin
-# CAS & FQDN
-ADD ./resources/var/lib/jenkins/config.xml.tpl /config.xml.tpl
-# MAIL
-ADD ./resources/var/lib/jenkins/hudson.tasks.Mailer.xml.tpl /hudson.tasks.Mailer.xml.tpl
-ADD ./resources/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml.tpl /jenkins.model.JenkinsLocationConfiguration.xml.tpl
+# add jenkins config file template, including changes for cas plugin and mailConfiguration
+ADD ./resources /var/tmp/resources
+RUN chown jenkins:jenkins /var/tmp/resources
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
