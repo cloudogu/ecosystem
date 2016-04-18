@@ -22,7 +22,10 @@ if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
 	# Making directory, if not already existing
 	mkdir -p /var/lib/jenkins/plugins
 	# Copy plugin
-        mv /var/tmp/cas-plugin.hpi /var/lib/jenkins/plugins/
+	for plugin in $(cat /var/tmp/resources/pluginlist); do
+		mv /var/tmp/$plugin.hpi /var/lib/jenkins/plugins/
+	done
+
 fi
 
 # generating ssh key for usage in slaves and deployment in etcd

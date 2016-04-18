@@ -1,0 +1,19 @@
+cas-plugin
+simple-theme-plugin
+  workflow-api
+  workflow-durable-task-step
+  workflow-cps-global-lib
+  workflow-job
+  pipeline-build-step
+  workflow-multibranch
+  workflow-cps
+  workflow-scm-step
+  pipeline-stage-step
+  workflow-basic-steps
+  pipeline-input-step
+  workflow-support
+  workflow-step-api
+workflow-aggregator
+  scm-api
+  git-client
+git
