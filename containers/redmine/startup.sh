@@ -22,6 +22,8 @@ render_template "${WORKDIR}/config/database.yml.tpl" > "${WORKDIR}/config/databa
 # insert secret_key_base into secrets.yml
 SECRETKEYBASE=$(grep secret_key_base ${WORKDIR}/config/initializers/secret_token.rb | awk -F \' '{print $2}' )
 render_template "${WORKDIR}/config/secrets.yml.tpl" > "${WORKDIR}/config/secrets.yml"
+# insert fqdn into cas auth source template
+render_template "${WORKDIR}/app/models/auth_source_cas.rb.tpl" > ${WORKDIR}/app/models/auth_source_cas.rb
 
 # Check if Redmine has been installed already
 if [ $(mysql -N -s -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "select count(*) from information_schema.schemata where schema_name='${MYSQL_DB}';") -eq 1 ]; then
@@ -40,10 +42,18 @@ else
   # Adjust to your language at REDMINE_LANG parameter above
   echo "Inserting default configuration data into database..."
   su - redmine -c "RAILS_ENV=$RAILS_ENV REDMINE_LANG="$REDMINE_LANG" rake redmine:load_default_data --trace"
+  # remove default admin user
+  # mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "DELETE FROM ${MYSQL_DB}.users WHERE firstname=\"Redmine\" AND lastname=\"Admin\";"
 
   echo "Writing cas plugin settings to database..."
-  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (1,\"plugin_redmine_cas\",\"--- !ruby/hash:ActionController::Parameters \nenabled: 1 \ncas_url: https://${FQDN}/cas \nattributes_mapping: firstname=givenName&lastname=surname&mail=mail \nautocreate_users: 1\",4);"
-  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (2,\"login_required\",1,4);"
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (NULL,\"plugin_redmine_cas\",\"--- !ruby/hash:ActionController::Parameters \nenabled: 1 \ncas_url: https://${FQDN}/cas \nattributes_mapping: firstname=givenName&lastname=surname&mail=mail \nautocreate_users: 1\",4);"
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (NULL,\"login_required\",1,4);"
+
+  # Enabling REST API
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (NULL,\"rest_api_enabled\",1,4);"
+
+  # Insert auth_sources record for AuthSourceCas authentication source
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.auth_sources VALUES (NULL, 'AuthSourceCas', 'Cas', 'cas.example.com', 1234, 'myDbUser', 'myDbPass', 'dbAdapter:dbName', 'name', 'firstName', 'lastName', 'email', 1, 0, null, null);"
 
   echo "Writing base url to database..."
   mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (NULL,\"host_name\",\"https://$FQDN/redmine/\",4);"

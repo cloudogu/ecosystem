@@ -7,13 +7,13 @@ RUN apk add --update redmine ruby-io-console build-base ruby-dev \
   && rm -rf /tmp/* /var/cache/apk/*
 
 ENV WORKDIR /usr/share/webapps/redmine
-ENV RMCASPLUGINVERSION 1.2.4
+ENV RMCASPLUGINVERSION 1.2.5
 ENV RUBYCASVERSION 2.3.10
 
 # Reinstall RMagick to make it work
 RUN gem uninstall rmagick && gem install rmagick -v 2.13.4
 
-ADD ./resources/workdir/config ${WORKDIR}/config
+COPY ./resources/workdir/ ${WORKDIR}/
 
 # Install (available) rubycas-client version
 RUN git clone https://github.com/robertauer/rubycas-client.git && cd /rubycas-client \
@@ -25,7 +25,7 @@ RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/roberta
   && rm /casplugin${RMCASPLUGINVERSION}.tar.gz
 
 # startscript
-ADD ./startup.sh /startup.sh
+COPY ./startup.sh /startup.sh
 RUN chmod +x /startup.sh
 
 # mark as webapp for nginx
