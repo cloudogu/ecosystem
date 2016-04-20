@@ -7,7 +7,7 @@ RUN apk add --update redmine ruby-io-console build-base ruby-dev \
   && rm -rf /tmp/* /var/cache/apk/*
 
 ENV WORKDIR /usr/share/webapps/redmine
-ENV RMCASPLUGINVERSION 1.2.5
+ENV RMCASPLUGINVERSION 1.2.7
 ENV RUBYCASVERSION 2.3.10
 
 # Reinstall RMagick to make it work
