@@ -1,8 +1,0 @@
-[template]
-keys        = [ "services" ]
-owner       = "nginx"
-mode        = "0644"
-src         = "apps.conf.tmpl"
-dest        = "/etc/nginx/conf.d/app.conf"
-check_cmd   = "/usr/sbin/nginx -t -c /etc/nginx/nginx.conf"
-reload_cmd  = "/usr/sbin/nginx -s reload -c /etc/nginx/nginx.conf"

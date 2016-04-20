@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/nexus
-FROM registry.cloudogu.com/official/java:8u73-1
+FROM registry.cloudogu.com/official/java:8u77-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # dockerfile based on https://registry.hub.docker.com/u/sonatype/nexus/dockerfile/
@@ -24,9 +24,9 @@ ENV SERVICE_TAGS webapp
 
 # startscript
 ADD ./startup.sh /startup.sh
-ADD ./groupMapping.sh /groupMapping.sh
+ADD ./configuration.sh /configuration.sh
 RUN chmod +x /startup.sh
-RUN chmod +x /groupMapping.sh
+RUN chmod +x /configuration.sh
 
 # cas plugin
 ADD resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION} /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/

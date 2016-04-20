@@ -1,7 +1,7 @@
 #!/bin/bash
 source /etc/ces/functions.sh
 
-CESAPP_VERSION="0.3.1"
+CESAPP_VERSION="0.3.3"
 
 echo "install cesapp v${CESAPP_VERSION}"
 mkdir -p /opt/ces/cesapp/bin

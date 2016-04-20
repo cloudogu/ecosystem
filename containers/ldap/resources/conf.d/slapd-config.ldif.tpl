@@ -119,9 +119,9 @@ olcDbConfig: set_lk_max_objects 1500
 olcDbConfig: set_lk_max_locks 1500
 olcDbConfig: set_lk_max_lockers 1500
 olcLastMod: TRUE
-olcSuffix: ${SUFFIX}
+olcSuffix: ${OPENLDAP_SUFFIX}
 olcDbDirectory: ${OPENLDAP_BACKEND_DIR}
-olcRootDN: cn=admin,${SUFFIX}
+olcRootDN: cn=admin,${OPENLDAP_SUFFIX}
 olcRootPW: ${LDAP_ROOTPASS_ENC}
 olcDbIndex: objectClass eq
 olcDbIndex: cn pres,eq,approx,sub
@@ -137,14 +137,14 @@ olcAccess: to * by dn.exact=gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=a
 olcAccess: to attrs=userPassword,shadowLastChange
   by self write
   by anonymous auth
-  by dn="cn=admin,${SUFFIX}" write
-  by group/organizationalRole/roleOccupant="cn=admin,${SUFFIX}" write
+  by dn="cn=admin,${OPENLDAP_SUFFIX}" write
+  by group/organizationalRole/roleOccupant="cn=admin,${OPENLDAP_SUFFIX}" write
   by * none
 olcAccess: to dn.base="" by * read
 olcAccess: to *
   by self write
-  by dn="cn=admin,${SUFFIX}" write
-  by group/organizationalRole/roleOccupant="cn=admin,${SUFFIX}" write
+  by dn="cn=admin,${OPENLDAP_SUFFIX}" write
+  by group/organizationalRole/roleOccupant="cn=admin,${OPENLDAP_SUFFIX}" write
   by * read
 
 # BACKEND MEMBEROF OVERLAY

@@ -1,5 +1,5 @@
 # cesi/sonar
-FROM registry.cloudogu.com/official/java:8u73-1
+FROM registry.cloudogu.com/official/java:8u77-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 ENV SONAR_VERSION 5.3
@@ -41,6 +41,10 @@ RUN chmod +x /sonaradmingroup.sh
 # add mailconfig
 ADD ./resources/sonarmailconfig.sh /sonarmailconfig.sh
 RUN chmod +x /sonarmailconfig.sh
+
+# add baseUrl
+ADD ./resources/sonarbaseurl.sh /sonarbaseurl.sh
+RUN chmod +x /sonarbaseurl.sh
 
 EXPOSE 9000
 CMD /startup.sh

@@ -1,0 +1,26 @@
+{
+  "Name": "jenkinsslave",
+  "Version": "0.0.1-1",
+  "DisplayName": "Jenkinsslave",
+  "Description": "Jenkinsslave - slavebase",
+  "Url": "https://jenkins-ci.org/",
+  "Category": "Development Apps",
+  "Tags": [
+    "build", "ci", "cd"
+  ],
+  "Logo": "http://dogu.cloudogu.com/images/logos/jenkins.png",
+  "Image": "registry.cloudogu.com/official/jenkinsslave",
+  "Dependencies": [
+    "jenkins"
+  ],
+  "Volumes": [{
+    "Name": "home",
+    "Path": "/home/jenkins",
+    "Owner": "1000",
+    "Group": "1000"
+  }],
+  "HealthCheck": {
+    "Type": "tcp",
+    "Port": 22
+  }
+}

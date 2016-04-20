@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/universeadm
-FROM registry.cloudogu.com/official/java:8u73-1
+FROM registry.cloudogu.com/official/java:8u77-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 # mark as webapp for nginx
@@ -7,7 +7,7 @@ ENV SERVICE_TAGS webapp
 
 # tomcat version
 ENV TOMCAT_MAJOR_VERSION 8
-ENV TOMCAT_VERSION 8.0.28
+ENV TOMCAT_VERSION 8.0.33
 
 # universeam version
 ENV UNIVERSEADM_VERSION 1.3.0

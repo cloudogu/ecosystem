@@ -32,5 +32,8 @@ if [ ! -s /var/lib/universeadm/conf/ldap.xml ]; then
 	render_template "/var/lib/universeadm/conf/ldap.xml.tpl" > "/var/lib/universeadm/conf/ldap.xml"
 fi
 
+# create truststore, which is used in the setenv.sh
+create_truststore.sh > /dev/null
+
 # start tomcat as user tomcat
-su - tomcat -c "export JAVA_HOME="/opt/jdk" && /opt/apache-tomcat/bin/catalina.sh run"
+su - tomcat -c "export JAVA_HOME='/opt/jdk' && /opt/apache-tomcat/bin/catalina.sh run"
