@@ -16,10 +16,28 @@ RUN apk add --update mercurial jq \
     && adduser -S -h /opt/scm-server -s /bin/bash -G scm -u 1000 scm \
     && gunzip /tmp/scm-server.tar.gz \
     && tar -C /opt -xf /tmp/scm-server.tar \
+    && cd /tmp \
+
+    # install scm-script-plugin
+    && mkdir -p WEB-INF/lib \
+    && curl -Lks http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.6/groovy-all-2.4.6.jar -o /tmp/WEB-INF/lib/groovy-all-2.4.6.jar \
+    && curl -Lks http://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/plugins/scm-script-plugin/1.5/scm-script-plugin-1.5.jar -o /tmp/WEB-INF/lib/scm-script-plugin-1.5.jar \
+    && zip -u /opt/scm-server/var/webapp/scm-webapp.war WEB-INF/lib/* \
+
+    # set permissions
     && chown -R scm:scm /opt/scm-server \
     && mkdir -p ${SCM_HOME} \
     && chown scm:scm ${SCM_HOME} \
+
+    # cleanup
     && rm -rf /tmp/* /var/cache/apk/*
+
+# enable jetty restart hook
+COPY resources/WebAppRestartHook.class /opt/scm-server/conf/sonia/scm/ces/WebAppRestartHook.class
+
+# modify server configuration
+COPY resources/logging.xml /opt/scm-server/conf/logging.xml
+COPY resources/server-config.xml /opt/scm-server/conf/server-config.xml
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
