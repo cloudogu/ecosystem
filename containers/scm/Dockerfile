@@ -32,24 +32,16 @@ RUN apk add --update mercurial jq \
     # cleanup
     && rm -rf /tmp/* /var/cache/apk/*
 
-# enable jetty restart hook
-COPY resources/WebAppRestartHook.class /opt/scm-server/conf/sonia/scm/ces/WebAppRestartHook.class
-
 # modify server configuration
-COPY resources/logging.xml /opt/scm-server/conf/logging.xml
-COPY resources/server-config.xml /opt/scm-server/conf/server-config.xml
+COPY resources/conf/* /opt/scm-server/conf/
+COPY resources/utils/*.class /opt/scm-server/conf/sonia/scm/ces/
+COPY resources/init.script.d /opt/scm-server/init.script.d
+
+# startscript
+COPY ./startup.sh /startup.sh
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
-
-# startscript
-ADD ./startup.sh /startup.sh
-RUN chmod +x /startup.sh
-
-# cas plugin
-ADD resources/cas_plugin.xml.tpl /opt/scm-server/conf/cas_plugin.xml.tpl
-ADD resources/mail.xml.tpl /opt/scm-server/conf/mail.xml.tpl
-ADD resources/pluginlist /opt/scm-server/conf/pluginlist
 
 # run scm-manager
 WORKDIR ${SCM_HOME}
