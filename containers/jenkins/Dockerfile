@@ -25,14 +25,14 @@ ENV JENKINS_VERSION 1.609.2
 # see https://github.com/docker/docker/issues/8331
 RUN curl -L http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war -o /jenkins.war
 
+# add jenkins config file template, including changes for cas plugin and mailConfiguration
+ADD ./resources /var/tmp/resources
+RUN chown -R jenkins:jenkins /var/tmp/resources
+
 # add cas-plugin
 RUN curl -L http://updates.jenkins-ci.org/latest/cas-plugin.hpi -o /var/tmp/cas-plugin.hpi
 RUN chown jenkins:jenkins /var/tmp/cas-plugin.hpi
 RUN chmod 755 /var/tmp/cas-plugin.hpi
-
-# add jenkins config file template, including changes for cas plugin and mailConfiguration
-ADD ./resources /var/tmp/resources
-RUN chown jenkins:jenkins /var/tmp/resources
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
