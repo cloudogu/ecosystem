@@ -14,6 +14,7 @@ $INSTALL_HOME/install/sync-files.sh
 # source new path environment, to fix missing etcdctl
 source /etc/environment
 export PATH
+echo "INSTALL_HOME=\"$INSTALL_HOME\"" >> /etc/environment
 
 # create overlay network
 # errormessages of test may be confusing to read ... perhaps this could be fixed later
@@ -39,6 +40,8 @@ $INSTALL_HOME/install/ssl.sh
 # restart docker
 echo "restart docker with new config"
 service docker restart
+
+source /etc/ces/functions.sh; get_ip > /etc/lastIP
 
 # build containers
 echo "build app container"
