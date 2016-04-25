@@ -1,22 +1,26 @@
 import hudson.model.*;
 import jenkins.model.*;
 
-try {
-    println "Install plugins"
-    def j = Jenkins.instance;
-    def p = j.pluginManager;
-    def uc = j.updateCenter;
 
-    p.doCheckUpdatesServer();
-    ['git','mercurial','workflow-aggregator','simple-theme-plugin'].each { n ->
-      j.updateCenter.getById('default').getPlugin(n).deploy(false).get();
-    }
+// configuration
+def plugins = ['git','mercurial','workflow-aggregator','simple-theme-plugin'];
 
-    p.doCheckUpdatesServer();
+// action
+def jenkins = Jenkins.instance;
+def pluginManager = jenkins.pluginManager;
+def updateCenter = jenkins.updateCenter;
 
-    System.exit(0);
-} catch (Throwable t) {
-    println "Error while installing plugins"
-    t.printStackTrace();
-    System.exit(1);
+pluginManager.doCheckUpdatesServer();
+def available = updateCenter.getAvailables();
+
+for (def shortName : plugins){
+  def plugin = updateCenter.getById('default').getPlugin(shortName);
+  if (available.contains(plugin)){
+      println "install missing plugin " + shortName;
+      plugin.deploy(false).get();
+  }
+}
+
+if (updateCenter.isRestartRequiredForCompletion()) {
+  jenkins.restart();
 }

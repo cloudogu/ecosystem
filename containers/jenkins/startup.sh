@@ -42,10 +42,6 @@ if [ -f "/var/tmp/resources/init.groovy" ]; then
 
 	cp /var/tmp/resources/init.groovy /var/lib/jenkins/
 
-elif [ -f "/var/lib/jenkins/init.groovy" ]; then
-
-	rm /var/lib/jenkins/init.groovy
-
 fi
 
 # remove resources
