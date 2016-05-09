@@ -73,6 +73,10 @@ fi
 # configure scm-cas-plugin
 render_template "/opt/scm-server/conf/cas_plugin.xml.tpl" > "/var/lib/scm/config/cas_plugin.xml"
 
+# refresh FQDN
+sed -i "s~<base-url>.*</base-url>~<base-url>http://${FQDN}/scm</base-url>~" /var/lib/scm/config/config.xml
+
+
 # configure admin group using api rest calls and json
 configState=$(/usr/bin/curl "$CURLPARAM" "http://127.0.0.1:8080/scm/api/rest/config.json" -u "$ADMUSR":"$ADMPW")
 ## add group in case it is missing e.g. "admin-groups": "universalAdmin"
