@@ -41,8 +41,6 @@ $INSTALL_HOME/install/ssl.sh
 echo "restart docker with new config"
 service docker restart
 
-source /etc/ces/functions.sh; get_ip > /etc/lastIP
-
 # build containers
 echo "build app container"
 $INSTALL_HOME/containers/install-containers.sh "app-containers" "start"

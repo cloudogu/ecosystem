@@ -206,7 +206,7 @@ export -f get_secret_key
 function encrypt(){
   VALUE="$1"
   KEY="$2"
-  if [ $KEY == "" ];then
+  if [ "$KEY" == "" ]; then
     KEY=$(get_secret_key)
   fi
   echo $VALUE | openssl enc -aes-128-cbc -a -salt -pass "pass:$KEY"
@@ -217,7 +217,7 @@ export -f encrypt
 function decrypt(){
   VALUE="$1"
   KEY="$2"
-  if [ $KEY == "" ];then
+  if [ "$KEY" == "" ]; then
     KEY=$(get_secret_key)
   fi
   echo $VALUE | openssl enc -aes-128-cbc -a -d -salt -pass "pass:$KEY"

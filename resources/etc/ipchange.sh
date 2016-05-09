@@ -2,7 +2,8 @@
 source /etc/ces/functions.sh
 
 CURRIP=$(get_ip)
-LASTIP=$(cat /etc/lastIP)
+echo ${CURRIP} > /etc/ces/node_master
+LASTIP=$(get_fqdn)
 
 function valid_ip()
 {
@@ -24,7 +25,6 @@ function valid_ip()
 # Check if system has got a new IP after reboot
 if [ "${LASTIP}" != "${CURRIP}" ]; then
   # IP changed
-  echo ${CURRIP} > /etc/ces/node_master
   if $(valid_ip ${CURRIP}) ; then
     /opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
     ETCDCTL_EXIT=$?
@@ -34,8 +34,11 @@ if [ "${LASTIP}" != "${CURRIP}" ]; then
       ETCDCTL_EXIT=$?
     done
   fi
-  # Reinstall certificates
-  source /etc/environment; ${INSTALL_HOME}/install/ssl.sh
+  # Reinstall certificates if self-signed
+  CERT_TYPE=$(/opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 get /config/_global/certificate/type)
+  if [ "$CERT_TYPE" == "selfsigned" ]; then
+    source /etc/environment; ${INSTALL_HOME}/install/ssl.sh
+  fi
   # Save current IP address
-  echo $CURRIP > /etc/lastIP
+  # echo $CURRIP > /etc/lastIP
 fi
