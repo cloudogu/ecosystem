@@ -75,6 +75,12 @@ if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == 
 	# prepare config
 	REALM="cas"
 	render_template "/opt/sonar/conf/sonar.properties"
+else
+  # refresh FQDN
+	sed -i "/sonar.cas.casServerLoginUrl=.*/c\sonar.cas.casServerLoginUrl=https://${FQDN}/cas/login" /opt/sonar/conf/sonar.properties
+  sed -i "/sonar.cas.casServerUrlPrefix=.*/c\sonar.cas.casServerUrlPrefix=https://${FQDN}/cas" /opt/sonar/conf/sonar.properties
+  sed -i "/sonar.cas.sonarServerUrl=.*/c\sonar.cas.sonarServerUrl=https://${FQDN}/sonar" /opt/sonar/conf/sonar.properties
+  sed -i "/sonar.cas.casServerLogoutUrl=.*/c\sonar.cas.casServerLogoutUrl=https://${FQDN}/cas/logout" /opt/sonar/conf/sonar.properties
 fi
 
 # fire it up
