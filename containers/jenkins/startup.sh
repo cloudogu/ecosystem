@@ -13,8 +13,9 @@ if [ ! -f ${JENKINS_HOME}/config.xml ]; then
 	render_template "/var/tmp/resources/jenkins.model.JenkinsLocationConfiguration.xml.tpl" > "/var/lib/jenkins/jenkins.model.JenkinsLocationConfiguration.xml"
 
 else
-	# refresh cas IP
-	sed -i "s~<casServerUrl>.*</casServerUrl>~<casServerUrl>https://${FQDN}/cas/</casServerUrl>~" /var/lib/jenkins/config.xml
+	# refresh IPs
+	sed -i "s~<casServerUrl>.*</casServerUrl>~<casServerUrl>https://${FQDN}/cas/</casServerUrl>~" ${JENKINS_HOME}/config.xml
+	sed -i "s~<jenkinsUrl>.*</jenkinsUrl>~<jenkinsUrl>https://${FQDN}/jenkins/</jenkinsUrl>~" ${JENKINS_HOME}/jenkins.model.JenkinsLocationConfiguration.xml
 fi
 
 # Checking if /var/lib/jenkins/cas-plugin exists
