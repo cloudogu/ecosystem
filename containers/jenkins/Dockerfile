@@ -19,7 +19,7 @@ RUN addgroup -S -g 1000 jenkins && adduser -S -h "$JENKINS_HOME" -s /bin/bash -G
 VOLUME /var/lib/jenkins
 
 # jenkins version
-ENV JENKINS_VERSION 1.609.2
+ENV JENKINS_VERSION 1.651.2
 
 # could use ADD but this one does not check Last-Modified header
 # see https://github.com/docker/docker/issues/8331
