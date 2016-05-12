@@ -37,7 +37,7 @@
     <permission>hudson.model.View.Delete:${ADMINGROUP}</permission>
     <permission>hudson.model.View.Read:${ADMINGROUP}</permission>
   </authorizationStrategy>
-  <securityRealm class=\"org.jenkinsci.plugins.cas.CasSecurityRealm\" plugin=\"cas-plugin@1.2.0\">
+  <securityRealm class=\"org.jenkinsci.plugins.cas.CasSecurityRealm\" plugin=\"cas-plugin@1.3.0-CES-1\">
     <casServerUrl>https://${FQDN}/cas/</casServerUrl>
     <casProtocol class=\"org.jenkinsci.plugins.cas.protocols.Saml11Protocol\">
       <authoritiesAttribute>groups,roles</authoritiesAttribute>
@@ -46,9 +46,10 @@
       <tolerance>5000</tolerance>
     </casProtocol>
     <forceRenewal>false</forceRenewal>
+    <enableRestApi>true</enableRestApi>
     <enableSingleSignOut>true</enableSingleSignOut>
   </securityRealm>
-  <disableRememberMe>false</disableRememberMe>
+  <disableRememberMe>true</disableRememberMe>
   <projectNamingStrategy class=\"jenkins.model.ProjectNamingStrategy\$DefaultProjectNamingStrategy\"/>
   <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
   <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>

@@ -30,7 +30,7 @@ ADD ./resources /var/tmp/resources
 RUN chown -R jenkins:jenkins /var/tmp/resources
 
 # add cas-plugin
-RUN curl -L http://updates.jenkins-ci.org/latest/cas-plugin.hpi -o /var/tmp/cas-plugin.hpi
+RUN curl -L https://github.com/sdorra/jenkins-cas-plugin/releases/download/cas-plugin-1.3.0-CES-1/cas-plugin.hpi -o /var/tmp/cas-plugin.hpi
 RUN chown jenkins:jenkins /var/tmp/cas-plugin.hpi
 RUN chmod 755 /var/tmp/cas-plugin.hpi
 
