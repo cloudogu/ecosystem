@@ -19,7 +19,7 @@ RUN addgroup -S -g 1000 jenkins && adduser -S -h "$JENKINS_HOME" -s /bin/bash -G
 VOLUME /var/lib/jenkins
 
 # jenkins version
-ENV JENKINS_VERSION 1.609.2
+ENV JENKINS_VERSION 1.651.2
 
 # could use ADD but this one does not check Last-Modified header
 # see https://github.com/docker/docker/issues/8331
@@ -30,7 +30,7 @@ ADD ./resources /var/tmp/resources
 RUN chown -R jenkins:jenkins /var/tmp/resources
 
 # add cas-plugin
-RUN curl -L http://updates.jenkins-ci.org/latest/cas-plugin.hpi -o /var/tmp/cas-plugin.hpi
+RUN curl -L https://github.com/sdorra/jenkins-cas-plugin/releases/download/cas-plugin-1.3.0-CES-1/cas-plugin.hpi -o /var/tmp/cas-plugin.hpi
 RUN chown jenkins:jenkins /var/tmp/cas-plugin.hpi
 RUN chmod 755 /var/tmp/cas-plugin.hpi
 
