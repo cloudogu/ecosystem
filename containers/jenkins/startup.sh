@@ -22,8 +22,7 @@ if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
 	# Making directory, if not already existing
 	mkdir -p /var/lib/jenkins/plugins
 	# Copy plugin
-  mv /var/tmp/cas-plugin.hpi /var/lib/jenkins/plugins/
-
+  cp /var/tmp/cas-plugin.hpi /var/lib/jenkins/plugins/
 fi
 
 # generating ssh key for usage in slaves and deployment in etcd
@@ -39,14 +38,8 @@ TRUSTSTORE="/var/lib/jenkins/truststore.jks"
 create_truststore.sh "${TRUSTSTORE}" > /dev/null
 
 if [ -f "/var/tmp/resources/init.groovy" ]; then
-
 	cp /var/tmp/resources/init.groovy /var/lib/jenkins/
-
 fi
-
-# remove resources
-rm -rf /var/tmp/resources
-
 
 # starting jenkins
 java -Djava.awt.headless=true \
