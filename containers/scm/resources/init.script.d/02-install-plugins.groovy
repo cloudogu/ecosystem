@@ -6,7 +6,8 @@ def plugins = [
     "sonia.scm.plugins:scm-support-plugin",
     "de.triology.scm.plugins:scm-cas-plugin",
     "sonia.scm.plugins:scm-mail-plugin",
-    "sonia.scm.plugins:scm-gravatar-plugin"
+    "sonia.scm.plugins:scm-gravatar-plugin",
+    "sonia.scm.plugins:scm-statistic-plugin"
 ];
 
 // methods
