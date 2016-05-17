@@ -32,9 +32,26 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   LDAP_BASE_DOMAIN=$(get_domain)
   LDAP_DOMAIN=$(get_domain)
 
-  # TODO passwords should not be like this
-  ADMIN_USERNAME="admin"
-  ADMIN_PASSWORD="$(slappasswd -s admin)"
+  CONFIG_USERNAME=$(get_config "admin_username")
+  ADMIN_USERNAME=${CONFIG_USERNAME:-admin}
+
+  ADMIN_MAIL=$(get_config "admin_mail")
+  if [ "$ADMIN_MAIL" = "" ]; then
+    ADMIN_MAIL="${ADMIN_USERNAME}@${DOMAIN}"
+  fi
+
+  CONFIG_GIVENNAME=$(get_config "admin_givenname")
+  ADMIN_GIVENNAME=${CONFIG_GIVENNAME:-CES}
+
+  CONFIG_SURNAME=$(get_config "admin_surname")
+  ADMIN_SURNAME=${CONFIG_SURNAME:-Administrator}
+
+  CONFIG_DISPLAYNAME=$(get_config "admin_displayname")
+  ADMIN_DISPLAYNAME=${CONFIG_DISPLAYNAME:-CES Administrator}
+
+  CONFIG_PASSWORD=$(get_config "admin_password")
+  ADMIN_PASSWORD=${CONFIG_PASSWORD:-admin}
+  ADMIN_PASSWORD_ENC="$(slappasswd -s $ADMIN_PASSWORD)"
 
   SYSTEM_USERNAME="system"
   SYSTEM_PASSWORD="$(slappasswd -s system)"
