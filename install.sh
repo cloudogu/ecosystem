@@ -28,18 +28,10 @@ $INSTALL_HOME/install/prepare-environment.sh
 echo "install cesapp"
 $INSTALL_HOME/install/install-cesapp.sh
 
-# build base containers
-echo "build base container"
-$INSTALL_HOME/containers/install-containers.sh "base-containers"
-
-## generate ssl certificates
-echo "generate ssl certificates"
-$INSTALL_HOME/install/ssl.sh
+# install cesapp
+echo "install ces-setup"
+$INSTALL_HOME/install/install-ces-setup.sh
 
 # restart docker
 echo "restart docker with new config"
 service docker restart
-
-# build containers
-echo "build app container"
-$INSTALL_HOME/containers/install-containers.sh "app-containers" "start"
