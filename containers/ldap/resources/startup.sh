@@ -49,6 +49,7 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   CONFIG_DISPLAYNAME=$(get_config "admin_displayname")
   ADMIN_DISPLAYNAME=${CONFIG_DISPLAYNAME:-CES Administrator}
 
+  # TODO remove from etcd ???
   CONFIG_PASSWORD=$(get_config "admin_password")
   ADMIN_PASSWORD=${CONFIG_PASSWORD:-admin}
   ADMIN_PASSWORD_ENC="$(slappasswd -s $ADMIN_PASSWORD)"
