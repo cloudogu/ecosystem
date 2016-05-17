@@ -3,7 +3,14 @@ source /etc/ces/functions.sh
 
 CURRIP=$(get_ip)
 echo ${CURRIP} > /etc/ces/node_master
-LASTIP=$(get_fqdn)
+end=$((SECONDS+20))
+echo "$(date +%T): SECONDS+20=$end"
+LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
+while [ $SECONDS -lt $end ] && [ -z $LASTIP ]; do
+  echo "$(date +%T): etcd unavailable, trying again. SECONDS=$SECONDS"
+  sleep 1
+  LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
+done
 
 function valid_ip()
 {
@@ -23,22 +30,39 @@ function valid_ip()
 }
 
 # Check if system has got a new IP after reboot
-if [ "${LASTIP}" != "${CURRIP}" ]; then
+if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
+  echo "$(date +%T): IP has changed from >${LASTIP}< to >${CURRIP}<"
   # IP changed
   if $(valid_ip ${CURRIP}) ; then
+    echo "$(date +%T): ${CURRIP} is a valid IP; setting fqdn"
     /opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
     ETCDCTL_EXIT=$?
     while [ "${ETCDCTL_EXIT}" -ne "0" ]; do # etcd is not ready yet
-      sleep 2
+      echo "$(date +%T): Redo setting fqdn"
+      sleep 1
       /opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
       ETCDCTL_EXIT=$?
     done
+  else
+    echo "$(date +%T): ${CURRIP} is no valid IP!"
   fi
   # Reinstall certificates if self-signed
   CERT_TYPE=$(/opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 get /config/_global/certificate/type)
+  echo "$(date +%T): CERT_TYPE=${CERT_TYPE}"
   if [ "$CERT_TYPE" == "selfsigned" ]; then
-    source /etc/environment; ${INSTALL_HOME}/install/ssl.sh
+    echo "$(date +%T): CERT_TYPE is selfsigned"
+    source /etc/environment;
+    echo "$(date +%T): source environment? $?"
+    if [ $(cat /etc/ces/type) == "vagrant" ]; then
+      while [ ! -f ${INSTALL_HOME}/install/ssl.sh ]
+      do
+        sleep 0.5
+      done
+    fi
+    ${INSTALL_HOME}/install/ssl.sh
+  else
+    echo "$(date +%T): CERT_TYPE is not selfsigned"
   fi
-  # Save current IP address
-  # echo $CURRIP > /etc/lastIP
+else
+  echo "$(date +%T): IP has not changed or last IP (${LASTIP}) is empty. CURRIP=$CURRIP"
 fi
