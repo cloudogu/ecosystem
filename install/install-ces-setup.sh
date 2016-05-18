@@ -1,7 +1,7 @@
 #!/bin/bash
 source /etc/ces/functions.sh
 
-CESSETUP_VERSION="0.0.1"
+CESSETUP_VERSION="0.0.2"
 
 echo "install ces-setup v${CESSETUP_VERSION}"
 URL="https://github.com/cloudogu/ces-setup/releases/download/v${CESSETUP_VERSION}/ces-setup_${CESSETUP_VERSION}.deb"
