@@ -24,13 +24,9 @@ $INSTALL_HOME/install/create-network.sh
 echo "prepare environment"
 $INSTALL_HOME/install/prepare-environment.sh
 
-# install cesapp
-echo "install cesapp"
-$INSTALL_HOME/install/install-cesapp.sh
-
-# install cesapp
-echo "install ces-setup"
-$INSTALL_HOME/install/install-ces-setup.sh
+# install ces packages
+echo "install ces packages"
+$INSTALL_HOME/install/install-ces-packages.sh
 
 # restart docker
 echo "restart docker with new config"
