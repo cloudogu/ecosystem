@@ -6,14 +6,15 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
 ENV JENKINS_HOME /var/lib/jenkins
 
-# Install openssh-client
-RUN apk add --update openssh-client \
-	&& rm -rf /var/cache/apk/*
-
 # Jenkins is ran with user `jenkins`, uid = 1000
 # If you bind mount a volume from host/volume from a data container,
 # ensure you use same uid
 RUN addgroup -S -g 1000 jenkins && adduser -S -h "$JENKINS_HOME" -s /bin/bash -G jenkins -u 1000 jenkins
+
+# Install openssh-client
+RUN apk add --update openssh-client git subversion mercurial \
+	&& rm -rf /var/cache/apk/*
+
 # Jenkins home directoy is a volume, so configuration and build history
 # can be persisted and survive image upgrades
 VOLUME /var/lib/jenkins
