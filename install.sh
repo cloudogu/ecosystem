@@ -35,3 +35,6 @@ $INSTALL_HOME/install/install-ces-setup.sh
 # restart docker
 echo "restart docker with new config"
 service docker restart
+
+# print setup message
+$INSTALL_HOME/install/setup-message.sh
