@@ -4,26 +4,26 @@ version: 1
 
 dn: uid=${ADMIN_USERNAME},ou=People,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
 uid: ${ADMIN_USERNAME}
-description: Universe Administrator
-givenName: Universe
+description: CES Administrator
+givenName: ${ADMIN_GIVENNAME}
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
-sn: Administrator
-cn: Universe Administrator
-mail: ${ADMIN_USERNAME}@${LDAP_DOMAIN}
-userPassword: ${ADMIN_PASSWORD}
+sn: ${ADMIN_SURNAME}
+cn: ${ADMIN_DISPLAYNAME}
+mail: ${ADMIN_MAIL}
+userPassword: ${ADMIN_PASSWORD_ENC}
 
 dn: uid=${SYSTEM_USERNAME},ou=People,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
 uid: ${SYSTEM_USERNAME}
-description: Universe system account
-givenName: Universe
+description: CES system account
+givenName: CES
 objectClass: top
 objectClass: person
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
 sn: System
-cn: Universe System
+cn: CES System
 mail: ${SYSTEM_USERNAME}@${LDAP_DOMAIN}
 userPassword: ${SYSTEM_PASSWORD}
