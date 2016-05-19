@@ -1,4 +1,4 @@
-# registry.cloudogu.com/official/universeadm
+# registry.cloudogu.com/official/usermgt
 FROM registry.cloudogu.com/official/java:8u77-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
 
@@ -9,12 +9,12 @@ ENV SERVICE_TAGS webapp
 ENV TOMCAT_MAJOR_VERSION 8
 ENV TOMCAT_VERSION 8.0.33
 
-# universeam version
-ENV UNIVERSEADM_VERSION 1.3.0
-ENV VERSION_POSTFIX -20160224.082650-1
+# usermgt version
+ENV USERMGT_VERSION 1.3.0
+ENV VERSION_POSTFIX -20160512.095335-1
 
 # home directory
-ENV UNIVERSEADM_HOME /var/lib/universeadm/conf
+ENV UNIVERSEADM_HOME /var/lib/usermgt/conf
 
 # create user
 RUN addgroup -S -g 1000 tomcat && adduser -S -h /opt/apache-tomcat -s /bin/bash -G tomcat -u 1000 tomcat
@@ -29,7 +29,8 @@ RUN curl --fail --location --retry 3 \
 		&& mv /opt/apache-tomcat-${TOMCAT_VERSION}/* /opt/apache-tomcat \
 		&& chown -R tomcat:tomcat /opt/apache-tomcat \
 		&& rm -rf /opt/apache-tomcat/logs \
-		&& ln -s /var/lib/universeadm/logs /opt/apache-tomcat/logs \
+		&& mkdir /var/lib/usermgt \
+		&& ln -s /var/lib/usermgt/logs /opt/apache-tomcat/logs \
 		&& rm -rf /opt/apache-tomcat/webapps/*
 
 
@@ -37,12 +38,13 @@ RUN curl --fail --location --retry 3 \
 ADD resources/setenv.sh /opt/apache-tomcat/bin/setenv.sh
 RUN chmod +x /opt/apache-tomcat/bin/setenv.sh
 
-# install universeadm
-RUN mkdir -p /opt/apache-tomcat/webapps/universeadm \
-    && cd /opt/apache-tomcat/webapps/universeadm \
-    && wget https://universe.triology.de/nexus/content/repositories/snapshots/de/triology/scm/universe/universeadm/${UNIVERSEADM_VERSION}-SNAPSHOT/universeadm-${UNIVERSEADM_VERSION}${VERSION_POSTFIX}.war \
-		&& unzip universeadm-${UNIVERSEADM_VERSION}${VERSION_POSTFIX}.war \
-		&& rm -f universeadm-${UNIVERSEADM_VERSION}${VERSION_POSTFIX}.war \
+# install usermgt
+RUN mkdir -p /opt/apache-tomcat/webapps/usermgt \
+    && cd /opt/apache-tomcat/webapps/usermgt \
+		# TODO release on github
+    && wget https://universe.triology.de/nexus/content/repositories/snapshots/com/cloudogu/ces/usermgt/${USERMGT_VERSION}-SNAPSHOT/usermgt-${USERMGT_VERSION}${VERSION_POSTFIX}.war \
+		&& unzip usermgt-${USERMGT_VERSION}${VERSION_POSTFIX}.war \
+		&& rm -f usermgt-${USERMGT_VERSION}${VERSION_POSTFIX}.war \
 		&& chmod +x WEB-INF/cipher.sh
 
 # fix permissions
