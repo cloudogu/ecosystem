@@ -1,7 +1,11 @@
+// this script configures some basic settings for scm-manager to work with the
+// ecosystem.
+
 import sonia.scm.config.ScmConfiguration;
 import sonia.scm.util.ScmConfigurationUtil;
 import groovy.json.JsonSlurper;
 
+// TODO sharing ???
 def getValueFromEtcd(String key){
 	String ip = new File("/etc/ces/node_master").getText("UTF-8").trim();
 	URL url = new URL("http://${ip}:4001/v2/keys/${key}");

@@ -1,3 +1,5 @@
+// this script installs required plugins for scm-manager
+
 import sonia.scm.plugin.PluginManager;
 import sonia.scm.ces.WebAppRestartHook;
 
@@ -59,4 +61,5 @@ for (def id : plugins){
 if (restart){
     println "restarting scm-manager";
     WebAppRestartHook.restart("scm", "0");
+    sleep(3000);
 }
