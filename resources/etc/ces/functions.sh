@@ -46,12 +46,12 @@ export -f get_config
 
 function get_config_local(){
   KEY=$1
-  if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config" | grep "/config/$(hostname)$" | wc -l) -eq 1 ]; then
-    if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/$(hostname)" | grep "/config/$(hostname)/$KEY$" | wc -l) -eq 1 ]; then
-  	  VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY")
-    fi
+  RV=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY" 2>/dev/null)
+  if [ $? -eq 0 ]; then
+    echo "$RV"
+  else
+    echo ""
   fi
-  echo $VALUE
 }
 
 export -f get_config_local
@@ -65,12 +65,12 @@ export -f del_config_local
 
 function get_config_global(){
   KEY=$1
-  if [ $(etcdctl --peers $(cat /etc/ces/node_master):4001 ls "/config/_global" | grep "/config/_global/$KEY$" | wc -l) -eq 1 ]; then
-    VALUE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY")
+  RV=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY" 2>/dev/null)
+  if [ $? -eq 0 ]; then
+    echo "$RV"
   else
-    echo "ERROR KEY $1 not found in /config/$(hostname) or /config/_global"
+    echo ""
   fi
-  echo $VALUE
 }
 
 export -f get_config_global

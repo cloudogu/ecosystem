@@ -5,6 +5,9 @@ source /etc/ces/functions.sh
 set -eo pipefail
 IFS=$'\n\t'
 
+source /etc/environment
+export PATH
+
 echo "create certificate"
 
 # variables

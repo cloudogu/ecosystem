@@ -25,22 +25,13 @@ $INSTALL_HOME/install/create-network.sh
 echo "prepare environment"
 $INSTALL_HOME/install/prepare-environment.sh
 
-# install cesapp
-echo "install cesapp"
-$INSTALL_HOME/install/install-cesapp.sh
-
-# build base containers
-echo "build base container"
-$INSTALL_HOME/containers/install-containers.sh "base-containers"
-
-## generate ssl certificates
-echo "generate ssl certificates"
-$INSTALL_HOME/install/ssl.sh
+# install ces packages
+echo "install ces packages"
+$INSTALL_HOME/install/install-ces-packages.sh
 
 # restart docker
 echo "restart docker with new config"
 service docker restart
 
-# build containers
-echo "build app container"
-$INSTALL_HOME/containers/install-containers.sh "app-containers" "start"
+# print setup message
+$INSTALL_HOME/install/setup-message.sh
