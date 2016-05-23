@@ -3,7 +3,7 @@ source /etc/ces/functions.sh
 
 CURRIP=$(get_ip)
 echo ${CURRIP} > /etc/ces/node_master
-end=$((SECONDS+20))
+end=$((SECONDS+20)) # wait for max. 20 seconds
 echo "$(date +%T): SECONDS+20=$end"
 LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
 while [ $SECONDS -lt $end ] && [ -z $LASTIP ]; do
@@ -53,12 +53,11 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
     source /etc/environment;
     echo "$(date +%T): source environment? $?"
     if [ $(cat /etc/ces/type) == "vagrant" ]; then
-      COUNT=30; # wait for max. 30 seconds
-      while [ ! -f ${INSTALL_HOME}/install/ssl.sh ] && [ $COUNT -gt 0 ]
+      end=$((SECONDS+20)) # wait for max. 20 seconds
+      while [ ! -f ${INSTALL_HOME}/install/ssl.sh ] && [ $SECONDS -lt $end ]
       do
         sleep 1
         echo "$(date +%T): waiting for ${INSTALL_HOME}/install/ssl.sh to become available..."
-        COUNT=$((COUNT-1))
       done
     fi
     if [ -f ${INSTALL_HOME}/install/ssl.sh ]; then
