@@ -48,18 +48,25 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
   fi
   # Reinstall certificates if self-signed
   CERT_TYPE=$(/opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 get /config/_global/certificate/type)
-  echo "$(date +%T): CERT_TYPE=${CERT_TYPE}"
   if [ "$CERT_TYPE" == "selfsigned" ]; then
     echo "$(date +%T): CERT_TYPE is selfsigned"
     source /etc/environment;
     echo "$(date +%T): source environment? $?"
     if [ $(cat /etc/ces/type) == "vagrant" ]; then
-      while [ ! -f ${INSTALL_HOME}/install/ssl.sh ]
+      COUNT=30; # wait for max. 30 seconds
+      while [ ! -f ${INSTALL_HOME}/install/ssl.sh ] && [ $COUNT -gt 0 ]
       do
-        sleep 0.5
+        sleep 1
+        echo "$(date +%T): waiting for ${INSTALL_HOME}/install/ssl.sh to become available..."
+        COUNT=$((COUNT-1))
       done
     fi
-    ${INSTALL_HOME}/install/ssl.sh
+    if [ -f ${INSTALL_HOME}/install/ssl.sh ]; then
+      ${INSTALL_HOME}/install/ssl.sh
+      echo "$(date +%T): Executing ${INSTALL_HOME}/install/ssl.sh successful? $?"
+    else
+      echo "$(date +%T): ${INSTALL_HOME}/install/ssl.sh does not exist"
+    fi
   else
     echo "$(date +%T): CERT_TYPE is not selfsigned"
   fi
