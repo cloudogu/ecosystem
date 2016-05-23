@@ -4,10 +4,9 @@ source /etc/ces/functions.sh
 CURRIP=$(get_ip)
 echo ${CURRIP} > /etc/ces/node_master
 end=$((SECONDS+20)) # wait for max. 20 seconds
-echo "$(date +%T): SECONDS+20=$end"
 LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
 while [ $SECONDS -lt $end ] && [ -z $LASTIP ]; do
-  echo "$(date +%T): etcd unavailable, trying again. SECONDS=$SECONDS"
+  echo "$(date +%T): etcd unavailable, trying again..."
   sleep 1
   LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
 done
@@ -34,7 +33,7 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
   echo "$(date +%T): IP has changed from >${LASTIP}< to >${CURRIP}<"
   # IP changed
   if $(valid_ip ${CURRIP}) ; then
-    echo "$(date +%T): ${CURRIP} is a valid IP; setting fqdn"
+    echo "$(date +%T): ${CURRIP} is a valid IP; setting fqdn (node_master=$(cat /etc/ces/node_master))"
     /opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
     ETCDCTL_EXIT=$?
     while [ "${ETCDCTL_EXIT}" -ne "0" ]; do # etcd is not ready yet
@@ -49,9 +48,8 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
   # Reinstall certificates if self-signed
   CERT_TYPE=$(/opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 get /config/_global/certificate/type)
   if [ "$CERT_TYPE" == "selfsigned" ]; then
-    echo "$(date +%T): CERT_TYPE is selfsigned"
+    echo "$(date +%T): certificate type is selfsigned"
     source /etc/environment;
-    echo "$(date +%T): source environment? $?"
     if [ $(cat /etc/ces/type) == "vagrant" ]; then
       end=$((SECONDS+20)) # wait for max. 20 seconds
       while [ ! -f ${INSTALL_HOME}/install/ssl.sh ] && [ $SECONDS -lt $end ]
@@ -62,13 +60,12 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
     fi
     if [ -f ${INSTALL_HOME}/install/ssl.sh ]; then
       ${INSTALL_HOME}/install/ssl.sh
-      echo "$(date +%T): Executing ${INSTALL_HOME}/install/ssl.sh successful? $?"
     else
       echo "$(date +%T): ${INSTALL_HOME}/install/ssl.sh does not exist"
     fi
   else
-    echo "$(date +%T): CERT_TYPE is not selfsigned"
+    echo "$(date +%T): certificate type is not selfsigned"
   fi
 else
-  echo "$(date +%T): IP has not changed or last IP (${LASTIP}) is empty. CURRIP=$CURRIP"
+  echo "$(date +%T): IP has not changed or last IP (${LASTIP}) is empty. Current IP = $CURRIP"
 fi
