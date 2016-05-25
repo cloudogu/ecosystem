@@ -7,7 +7,7 @@ end=$((SECONDS+20)) # wait for max. 20 seconds
 LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
 while [ $SECONDS -lt $end ] && [ -z $LASTIP ]; do
   echo "$(date +%T): etcd unavailable, trying again..."
-  sleep 1
+  sleep 0.25
   LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
 done
 
@@ -33,12 +33,13 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
   echo "$(date +%T): IP has changed from >${LASTIP}< to >${CURRIP}<"
   # IP changed
   if $(valid_ip ${CURRIP}) ; then
-    echo "$(date +%T): ${CURRIP} is a valid IP; setting fqdn (node_master=$(cat /etc/ces/node_master))"
+    echo "$(date +%T): ${CURRIP} is a valid IP; setting fqdn"
     /opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
     ETCDCTL_EXIT=$?
-    while [ "${ETCDCTL_EXIT}" -ne "0" ]; do # etcd is not ready yet
+    end=$((SECONDS+20)) # wait for max. 20 seconds
+    while [ "${ETCDCTL_EXIT}" -ne "0" ] && [ $SECONDS -lt $end ]; do # etcd is not ready yet
       echo "$(date +%T): Redo setting fqdn"
-      sleep 1
+      sleep 0.25
       /opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
       ETCDCTL_EXIT=$?
     done
@@ -54,7 +55,7 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
       end=$((SECONDS+20)) # wait for max. 20 seconds
       while [ ! -f ${INSTALL_HOME}/install/ssl.sh ] && [ $SECONDS -lt $end ]
       do
-        sleep 1
+        sleep 0.25
         echo "$(date +%T): waiting for ${INSTALL_HOME}/install/ssl.sh to become available..."
       done
     fi
