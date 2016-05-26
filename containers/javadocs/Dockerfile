@@ -1,7 +1,7 @@
-#this dockerfile installs the jdk documentation from the Oracle website
-#It uses registry.cloudogu.com/official/base as base container
+# this dockerfile installs the jdk documentation from the Oracle website
+# It uses registry.cloudogu.com/official/base as base container
 FROM registry.cloudogu.com/official/base:3.3-1
-MAINTAINER Thomas Grosser <thomas.grosser@triology.de>
+MAINTAINER Thomas Grosser <thomas.grosser@cloudogu.com>
 
 # Documentation version
 ENV JAVADOCS_VERSION 8u73
