@@ -7,11 +7,13 @@ MAINTAINER Thomas Grosser <thomas.grosser@cloudogu.com>
 RUN apk add --update nginx && rm -rf /var/cache/apk/*
 
 # Replace default index file
-RUN rm /usr/share/nginx/html/index.html
-RUN rm /usr/share/nginx/html/50x.html
-ADD resources/index.html /usr/share/nginx/html/index.html
+RUN rm -f /usr/share/nginx/html/*.html \
+ && mkdir -p /usr/share/nginx/html/icoordinator
+
+ADD resources/index.html /usr/share/nginx/html/icoordinator/index.html
 
 ENV SERVICE_TAGS webapp
+ADD startup.sh /startup.sh
 
 # Define default command.
 CMD ["/startup.sh"]

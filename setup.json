@@ -24,8 +24,7 @@
     "scm",
     "sonar",
     "nexus",
-    "usermgt",
-    "icoordinator"
+    "usermgt"
   ],
   "admin": {
     "username": "admin",
