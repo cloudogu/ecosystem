@@ -1,0 +1,20 @@
+{
+  "Name": "icoordinator",
+  "Version": "1.0-1",
+  "DisplayName": "icoordinator",
+  "Description": "iCoordinator",
+  "Category": "Documentation",
+  "Tags": [
+    "doc"
+  ],
+  "Logo": "http://www.icoordinator.com/sites/all/themes/aurum/aurum_sub/logo.png",
+  "Url": "https://www.icoordinator.com",
+  "Image": "registry.cloudogu.com/official/icoordinator",
+  "Dependencies": [
+    "nginx"
+  ],
+  "HealthCheck": {
+    "Type": "tcp",
+    "Port": 80
+  }
+}
