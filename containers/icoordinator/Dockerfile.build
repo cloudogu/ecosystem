@@ -1,0 +1,23 @@
+FROM golang:1.6.2-alpine
+MAINTAINER Thomas Grosser <thomas.grosser@cloudogu.com>
+
+COPY copybin.sh /copybin.sh
+
+# Install git
+RUN apk --update add git && rm -rf /var/cache/apk/*
+
+# Setup go environment
+ENV GOPATH /go
+ENV PATH /usr/local/go/bin:$PATH
+RUN mkdir -p "$GOPATH/src" && chmod -R 777 "$GOPATH"
+WORKDIR $GOPATH
+
+# Build icoordinator app
+RUN mkdir -p "$GOPATH/src/icoordinator"
+COPY src/icoordinator.go "$GOPATH/src/icoordinator"
+RUN go get github.com/gin-gonic/gin
+RUN go build icoordinator
+
+# Copy binary
+VOLUME "/dist"
+CMD /copybin.sh

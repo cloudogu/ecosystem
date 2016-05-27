@@ -1,6 +1,6 @@
 {
   "Name": "icoordinator",
-  "Version": "1.0-1",
+  "Version": "0.1.0-1",
   "DisplayName": "iCoordinator",
   "Description": "iCoordinator",
   "Category": "Documentation",
@@ -10,11 +10,13 @@
   "Logo": "http://www.icoordinator.com/sites/all/themes/aurum/aurum_sub/logo.png",
   "Url": "https://www.icoordinator.com",
   "Image": "registry.cloudogu.com/official/icoordinator",
-  "Dependencies": [
-    "nginx"
-  ],
+  "ExposedPorts": [{
+    "Type": "tcp",
+    "Host": 8080,
+    "Container": 8080
+  }],
   "HealthCheck": {
     "Type": "tcp",
-    "Port": 80
+    "Port": 8080
   }
 }

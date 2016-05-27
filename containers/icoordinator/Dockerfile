@@ -3,20 +3,11 @@
 FROM registry.cloudogu.com/official/base:3.3-1
 MAINTAINER Thomas Grosser <thomas.grosser@cloudogu.com>
 
-# Install nginx
-RUN apk add --update nginx && rm -rf /var/cache/apk/*
+# Install icoordinator app
+COPY dist/icoordinator /usr/sbin/icoordinator
 
-# Replace default index file
-RUN rm -f /usr/share/nginx/html/*.html \
- && mkdir -p /usr/share/nginx/html/icoordinator
-
-ADD resources/index.html /usr/share/nginx/html/icoordinator/index.html
-
-ENV SERVICE_TAGS webapp
-ADD startup.sh /startup.sh
-
-# Define default command.
-CMD ["/startup.sh"]
+# Start icoordinator app
+CMD /usr/sbin/icoordinator
 
 # Expose ports.
-EXPOSE 80
+EXPOSE 8080
