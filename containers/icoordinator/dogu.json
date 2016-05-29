@@ -10,6 +10,9 @@
   "Logo": "http://www.icoordinator.com/sites/all/themes/aurum/aurum_sub/logo.png",
   "Url": "https://www.icoordinator.com",
   "Image": "registry.cloudogu.com/official/icoordinator",
+  "Dependencies": [
+    "cas", "nginx"
+  ],
   "ExposedPorts": [{
     "Type": "tcp",
     "Host": 8080,
