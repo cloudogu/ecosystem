@@ -1,14 +1,15 @@
-FROM golang:1.6.2-alpine
+# don't use golang:1.6.2-alpine, won't work
+FROM golang:1.6.2-wheezy
 MAINTAINER Thomas Grosser <thomas.grosser@cloudogu.com>
 
 COPY copybin.sh /copybin.sh
+RUN chmod +x /copybin.sh
 
 # Install git
-RUN apk --update add git && rm -rf /var/cache/apk/*
+RUN apt-get install git-core
 
 # Setup go environment
 ENV GOPATH /go
-ENV PATH /usr/local/go/bin:$PATH
 RUN mkdir -p "$GOPATH/src" && chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
 
@@ -16,7 +17,7 @@ WORKDIR $GOPATH
 RUN mkdir -p "$GOPATH/src/icoordinator"
 COPY src/icoordinator.go "$GOPATH/src/icoordinator"
 RUN go get github.com/gin-gonic/gin
-RUN go build icoordinator
+RUN go build -v -a icoordinator
 
 # Copy binary
 VOLUME "/dist"
