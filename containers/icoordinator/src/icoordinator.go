@@ -8,5 +8,5 @@ func main() {
     r.GET("/icoordinator", func(c *gin.Context) {
       c.Redirect(http.StatusMovedPermanently, "https://apps.icoordinator.com/")
     })
-    r.Run()
+    r.Run(":80")
 }

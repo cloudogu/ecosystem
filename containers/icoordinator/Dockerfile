@@ -5,9 +5,10 @@ MAINTAINER Thomas Grosser <thomas.grosser@cloudogu.com>
 
 # Install icoordinator app
 COPY dist/icoordinator /usr/sbin/icoordinator
+COPY startup.sh /startup.sh
 
 # Start icoordinator app
-CMD /usr/sbin/icoordinator
+CMD ["/startup.sh"]
 
-# Expose ports.
-EXPOSE 8080
+# Expose ports
+EXPOSE 80

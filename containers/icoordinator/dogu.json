@@ -13,13 +13,8 @@
   "Dependencies": [
     "cas", "nginx"
   ],
-  "ExposedPorts": [{
-    "Type": "tcp",
-    "Host": 8080,
-    "Container": 8080
-  }],
   "HealthCheck": {
     "Type": "tcp",
-    "Port": 8080
+    "Port": 80
   }
 }

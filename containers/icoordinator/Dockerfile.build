@@ -3,7 +3,6 @@ FROM golang:1.6.2-wheezy
 MAINTAINER Thomas Grosser <thomas.grosser@cloudogu.com>
 
 COPY copybin.sh /copybin.sh
-RUN chmod +x /copybin.sh
 
 # Install git
 RUN apt-get install git-core
