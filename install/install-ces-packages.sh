@@ -5,5 +5,6 @@ source /etc/ces/functions.sh
 apt-get update -o Dir::Etc::sourcelist="sources.list.d/ces.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 apt-get install -y --force-yes cesapp ces-setup
 
-# start service manually for the first time
-service ces-setup start
+# service start automatically on docker restart
+# docker restart is called after the overlay network configuration
+# service ces-setup start
