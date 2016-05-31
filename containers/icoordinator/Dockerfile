@@ -7,6 +7,9 @@ MAINTAINER Thomas Grosser <thomas.grosser@cloudogu.com>
 COPY dist/icoordinator /usr/sbin/icoordinator
 COPY startup.sh /startup.sh
 
+# mark as webapp for nginx
+ENV SERVICE_TAGS webapp
+
 # Start icoordinator app
 CMD ["/startup.sh"]
 
