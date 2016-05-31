@@ -1,6 +1,6 @@
 {
   "Name": "icoordinator",
-  "Version": "1.0-1",
+  "Version": "0.1.0-1",
   "DisplayName": "iCoordinator",
   "Description": "iCoordinator",
   "Category": "Documentation",
@@ -11,7 +11,7 @@
   "Url": "https://www.icoordinator.com",
   "Image": "registry.cloudogu.com/official/icoordinator",
   "Dependencies": [
-    "nginx"
+    "cas", "nginx"
   ],
   "HealthCheck": {
     "Type": "tcp",
