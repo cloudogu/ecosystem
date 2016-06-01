@@ -1,0 +1,3 @@
+[submodule "containers/cockpit"]
+	path = containers/cockpit
+	url = git@github.com:cloudogu/cockpit.git
