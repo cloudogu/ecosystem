@@ -7,11 +7,16 @@ RUN apk add --update redmine ruby-io-console build-base ruby-dev \
   && rm -rf /tmp/* /var/cache/apk/*
 
 ENV WORKDIR /usr/share/webapps/redmine
-ENV RMCASPLUGINVERSION 1.2.7
-ENV RUBYCASVERSION 2.3.10
+ENV RMCASPLUGINVERSION 1.2.8
+ENV RUBYCASVERSION 2.3.13
 
 # Reinstall RMagick to make it work
 RUN gem uninstall rmagick && gem install rmagick -v 2.13.4
+
+RUN gem install activerecord-session_store
+RUN echo 'gem "activerecord-session_store"' >> /usr/share/webapps/redmine/Gemfile
+RUN gem install activerecord-deprecated_finders
+RUN echo 'gem "activerecord-deprecated_finders", require: "active_record/deprecated_finders"' >> /usr/share/webapps/redmine/Gemfile
 
 COPY ./resources/workdir/ ${WORKDIR}/
 
@@ -23,6 +28,11 @@ RUN git clone https://github.com/robertauer/rubycas-client.git && cd /rubycas-cl
 RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/robertauer/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
   && tar -xzf /casplugin${RMCASPLUGINVERSION}.tar.gz && mv /redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
   && rm /casplugin${RMCASPLUGINVERSION}.tar.gz
+
+# Install redmine_activerecord_session_store plugin to make Single Sign-Out work
+RUN curl -L -o /redmine_AR_session_store.tar.gz https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz \
+  && tar -xzf /redmine_AR_session_store.tar.gz && mv /redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
+  && rm /redmine_AR_session_store.tar.gz
 
 # startscript
 COPY ./startup.sh /startup.sh
