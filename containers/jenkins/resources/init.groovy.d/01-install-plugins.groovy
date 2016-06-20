@@ -1,9 +1,24 @@
 import hudson.model.*;
 import jenkins.model.*;
+import groovy.json.JsonSlurper;
 
+def getValueFromEtcd(String key){
+	String ip = new File("/etc/ces/node_master").getText("UTF-8").trim();
+	URL url = new URL("http://${ip}:4001/v2/keys/${key}");
+	def json = new JsonSlurper().parseText(url.text)
+	return json.node.value
+}
 
 // configuration
 def plugins = ['git','mercurial','workflow-aggregator','simple-theme-plugin'];
+
+// add sonar plugin to Jenkins if SonarQube is installed
+try {
+  String sonar = getValueFromEtcd("dogu/sonar/current");
+  plugins.add('sonar');
+} catch (FileNotFoundException) {
+  // sonar is not installed
+}
 
 // action
 def jenkins = Jenkins.instance;
