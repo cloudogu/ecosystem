@@ -14,7 +14,7 @@ def plugins = ['git','mercurial','workflow-aggregator','simple-theme-plugin'];
 
 // add sonar plugin to Jenkins if SonarQube is installed
 try {
-  String sonar = getValueFromEtcd("dogu/sonar/current");
+  getValueFromEtcd("dogu/sonar/current");
   plugins.add('sonar');
 } catch (FileNotFoundException) {
   // sonar is not installed
