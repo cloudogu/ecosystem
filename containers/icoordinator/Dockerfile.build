@@ -9,12 +9,14 @@ RUN apt-get install git-core
 
 # Setup go environment
 ENV GOPATH /go
-RUN mkdir -p "$GOPATH/src" && chmod -R 777 "$GOPATH"
+RUN mkdir -p "$GOPATH/src" \
+&& mkdir -p "$GOPATH/src/icoordinator" \
+&& chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
 
 # Build icoordinator app
-RUN mkdir -p "$GOPATH/src/icoordinator"
 COPY src/icoordinator.go "$GOPATH/src/icoordinator"
+
 RUN go get github.com/gin-gonic/gin
 RUN go build -v -a -ldflags "-linkmode external -extldflags -static" icoordinator
 

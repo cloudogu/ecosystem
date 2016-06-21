@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>{{ .title }}</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/icoordinator/assets/js/iframeResizer.min.js"></script>
+    <link rel="stylesheet" href="/icoordinator/assets/css/ces.min.css" media="screen">
+  </head>
+  <body style="border:0px;margin:0px;">
+    <nav class="navbar navbar-default" style="margin-bottom:0px">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">
+            <img class="img-responsive" alt="Cloudogu" src="/icoordinator/assets/img/blib-white-30px.png">
+          </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">iCoordinator<span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Settings</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container" style="padding:0px;width:100%;height:100%">
+      <style>iframe{width:80%;height:80%;}</style>
+      <iframe src="https://apps.icoordinator.com" frameborder="0" scrolling="no" />
+      <script type="text/javascript">iFrameResize({log:true});</script>
+    </div>
+  </body>
+</html>
