@@ -21,8 +21,6 @@ if (keyExists("dogu/sonar/current")) {
   plugins.add('sonar');
 }
 
-
-
 // action
 def jenkins = Jenkins.instance;
 def pluginManager = jenkins.pluginManager;
