@@ -19,6 +19,9 @@
     "Owner": "1000",
     "Group": "1000"
   }],
+  "ServiceAccounts": [{
+    "Type": "mysql"
+  }],
   "HealthCheck": {
     "Type": "tcp",
     "Port": 9000
