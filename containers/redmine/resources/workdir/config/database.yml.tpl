@@ -4,9 +4,9 @@
 
 production:
   adapter: mysql2
-  database: redmine
-  host: mysql
-  username: redmine
+  database: ${MYSQL_DB}
+  host: ${MYSQL_IP}
+  username: ${MYSQL_USER}
   password: ${MYSQL_USER_PASSWORD}
   encoding: utf8
 
