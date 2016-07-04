@@ -36,7 +36,6 @@ RUN curl -L -o /redmine_AR_session_store.tar.gz https://github.com/pencil/redmin
 
 # startscript
 COPY ./startup.sh /startup.sh
-RUN chmod +x /startup.sh
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp

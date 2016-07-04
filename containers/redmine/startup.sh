@@ -2,14 +2,14 @@
 source /etc/ces/functions.sh
 
 # get variables for templates
-FQDN=$(get_fqdn)
+FQDN=$(doguctl config --global fqdn)
 MYSQL_IP=mysql
 MYSQL_USER=$(doguctl config -e sa-mysql/username)
 MYSQL_USER_PASSWORD=$(doguctl config -e sa-mysql/password)
 MYSQL_DB=$(doguctl config -e sa-mysql/database)
 RAILS_ENV=production
 REDMINE_LANG=en
-DOMAIN=$(get_config domain)
+DOMAIN=$(doguctl config --global domain)
 RELAYHOST="postfix"
 
 # Generate secret session token
