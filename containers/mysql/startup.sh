@@ -17,7 +17,7 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
     MYSQL_ROOT_PASSWORD=$(doguctl random)
 
     # store the password encrypted
-    doguctl config password -e "${MYSQL_ROOT_PASSWORD}"
+    doguctl config -e password "${MYSQL_ROOT_PASSWORD}"
 
     # wait until mysql is ready to accept connections
     doguctl wait --port 3306
