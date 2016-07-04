@@ -2,7 +2,6 @@
 
 import groovy.json.JsonSlurper;
 import javax.xml.bind.*;
-import sonia.scm.redmine.config.RedmineGlobalConfiguration
 
 // TODO sharing ?
 def getValueFromEtcd(String key){
@@ -27,7 +26,7 @@ try {
        "<url>https://${fqdn}/redmine</url>" +
      "</redmine>";
     StringReader configReader = new StringReader(configXml);
-    RedmineGlobalConfiguration newConfig = (RedmineGlobalConfiguration) unmarshaller.unmarshal(configReader);
+    sonia.scm.redmine.config.RedmineGlobalConfiguration newConfig = (sonia.scm.redmine.config.RedmineGlobalConfiguration) unmarshaller.unmarshal(configReader);
     redmine.setGlobalConfiguration(newConfig);
 } catch( JAXBException | ClassNotFoundException e ) {
     println "redmine plugin seems not to be installed"
