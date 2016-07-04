@@ -1,6 +1,8 @@
 #!/bin/bash
 
 source /etc/ces/functions.sh
+
+# TODO get admin group from etcd
 ADMINGROUP="universalAdmin"
 
 function move_sonar_dir(){
@@ -36,25 +38,14 @@ move_sonar_dir extensions
 move_sonar_dir logs
 
 # get variables for templates
-FQDN=$(get_fqdn)
+FQDN=$(doguctl config --global fqdn)
 MYSQL_IP=mysql
-MYSQL_ADMIN="root"
-MYSQL_ADMIN_PASSWORD=$(get_ces_pass mysql_root)
-MYSQL_USER="sonar"
-MYSQL_USER_PASSWORD=$(create_or_get_ces_pass mysql_sonar)
-MYSQL_DB="sonar"
+MYSQL_USER=$(doguctl config -e sa-mysql/username)
+MYSQL_USER_PASSWORD=$(doguctl config -e sa-mysql/password)
+MYSQL_DB=$(doguctl config -e sa-mysql/database)
 
 # create truststore, which is used in the sonar.properties file
 create_truststore.sh > /dev/null
-
-# prepare database
-if [ $(mysql -N -s -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "select count(*) from information_schema.tables where table_schema='${MYSQL_DB}' and table_name='projects';") -eq 1 ]; then
-  echo "sonar database is already installed"
-else
-  echo "install sonar database"
-  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" -e "CREATE DATABASE ${MYSQL_DB} DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
-  mysql -h "${MYSQL_IP}" -u "${MYSQL_ADMIN}" "-p${MYSQL_ADMIN_PASSWORD}" "${MYSQL_DB}" -e "grant all on ${MYSQL_DB}.* to \"${MYSQL_USER}\"@\"%\" identified by \"${MYSQL_USER_PASSWORD}\";FLUSH PRIVILEGES;"
-fi
 
 # pre cas authentication configuration
 if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == "sonar.security.realm=cas" ]; then

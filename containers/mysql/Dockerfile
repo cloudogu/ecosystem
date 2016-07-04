@@ -9,8 +9,8 @@ RUN apk add --update mysql mysql-client && rm -rf /var/cache/apk/*
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
 
 # Add MySQL RUN
-ADD startup.sh /startup.sh
-RUN chmod 755 /startup.sh
+COPY startup.sh /startup.sh
+COPY create-sa.sh /create-sa.sh
 
 # VOLUMES
 VOLUME "/var/lib/mysql"
