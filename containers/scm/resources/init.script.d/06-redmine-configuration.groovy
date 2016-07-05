@@ -26,7 +26,7 @@ try {
        "<url>https://${fqdn}/redmine</url>" +
      "</redmine>";
     StringReader configReader = new StringReader(configXml);
-    sonia.scm.redmine.config.RedmineGlobalConfiguration newConfig = (sonia.scm.redmine.config.RedmineGlobalConfiguration) unmarshaller.unmarshal(configReader);
+    def newConfig = unmarshaller.unmarshal(configReader);
     redmine.setGlobalConfiguration(newConfig);
 } catch( JAXBException | ClassNotFoundException e ) {
     println "redmine plugin seems not to be installed"
