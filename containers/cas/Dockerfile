@@ -2,7 +2,7 @@
 FROM registry.cloudogu.com/official/java:8u77-1
 MAINTAINER triology <cloudogu@triology.de>
 
-ENV CAS_VERSION 4.0.7.4
+ENV CAS_VERSION 4.0.7.5
 ENV TOMCAT_MAJOR_VERSION 8
 ENV TOMCAT_VERSION 8.0.36
 ENV CATALINA_BASE /opt/apache-tomcat
