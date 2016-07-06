@@ -11,7 +11,6 @@ ENV TOMCAT_VERSION 8.0.33
 
 # usermgt version
 ENV USERMGT_VERSION 1.3.0
-ENV VERSION_POSTFIX -20160512.095335-1
 
 # home directory
 ENV UNIVERSEADM_HOME /var/lib/usermgt/conf
@@ -42,9 +41,9 @@ RUN chmod +x /opt/apache-tomcat/bin/setenv.sh
 RUN mkdir -p /opt/apache-tomcat/webapps/usermgt \
     && cd /opt/apache-tomcat/webapps/usermgt \
 		# TODO release on github
-    && wget https://universe.triology.de/nexus/content/repositories/snapshots/com/cloudogu/ces/usermgt/${USERMGT_VERSION}-SNAPSHOT/usermgt-${USERMGT_VERSION}${VERSION_POSTFIX}.war \
-		&& unzip usermgt-${USERMGT_VERSION}${VERSION_POSTFIX}.war \
-		&& rm -f usermgt-${USERMGT_VERSION}${VERSION_POSTFIX}.war \
+    && github_download https://github.com/cloudogu/usermgt/releases/download/v${USERMGT_VERSION}/usermgt-${USERMGT_VERSION}.war usermgt-${USERMGT_VERSION}.war \
+		&& unzip usermgt-${USERMGT_VERSION}.war \
+		&& rm -f usermgt-${USERMGT_VERSION}.war \
 		&& chmod +x WEB-INF/cipher.sh
 
 # fix permissions
