@@ -1,6 +1,6 @@
 # registry.cloudogu.com/official/usermgt
 FROM registry.cloudogu.com/official/java:8u77-1
-MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
+MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp

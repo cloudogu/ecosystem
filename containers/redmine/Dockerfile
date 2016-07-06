@@ -1,6 +1,6 @@
 # registry.cloudogu.com/official/redmine
 FROM registry.cloudogu.com/official/base:3.3-1
-MAINTAINER Robert Auer <robert.auer@triology.de>
+MAINTAINER Robert Auer <robert.auer@cloudogu.com>
 
 RUN apk add --update redmine ruby-io-console build-base ruby-dev \
   imagemagick-dev ruby-irb ruby-mysql2 ruby-sqlite git \
