@@ -1,6 +1,6 @@
 # cesi/cas
 FROM registry.cloudogu.com/official/java:8u77-1
-MAINTAINER triology <cloudogu@triology.de>
+MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 ENV CAS_VERSION 4.0.7.5
 ENV TOMCAT_MAJOR_VERSION 8

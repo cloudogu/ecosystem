@@ -1,6 +1,6 @@
 # registry.cloudogu.com/official/base:3.3-1
 FROM alpine:3.3
-MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
+MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # etcd version
 ENV CES_ETCD_VERSION 2.1.3
