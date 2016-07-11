@@ -146,6 +146,7 @@ olcAccess: to *
   by dn="cn=admin,${OPENLDAP_SUFFIX}" write
   by group/organizationalRole/roleOccupant="cn=admin,${OPENLDAP_SUFFIX}" write
   by * read
+#olcAccess: to * by dn=".*,ou=Bind Users,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}" read
 
 # BACKEND MEMBEROF OVERLAY
 dn: olcOverlay={0}memberof,olcDatabase={1}hdb,cn=config

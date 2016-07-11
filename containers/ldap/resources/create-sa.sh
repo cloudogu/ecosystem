@@ -21,9 +21,10 @@ OPENLDAP_SUFFIX="dc=cloudogu,dc=com"
 # create random schema suffix and password
 USERNAME="${SERVICE}_$(doguctl random -l 6)"
 PASSWORD=$(doguctl random)
+ENC_PASSWORD=$(slappasswd -s ${PASSWORD})
 render_template /srv/openldap/new-user.ldif.tpl > /srv/openldap/new-user.ldif
-ldapadd -f "/srv/openldap/new-user.ldif"
+2>/dev/null 1>&2 ldapadd -f "/srv/openldap/new-user.ldif"
 
 # print details
-echo "username: uid=${USERNAME},ou=${OU},o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}"
+echo "username: cn=${USERNAME},ou=${OU},o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}"
 echo "password: ${PASSWORD}"

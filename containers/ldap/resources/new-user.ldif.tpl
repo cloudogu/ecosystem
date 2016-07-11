@@ -1,9 +1,5 @@
-dn: uid=${USERNAME},ou=${OU},o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
-uid: ${USERNAME}
-objectClass: top
-objectClass: person
-objectClass: organizationalPerson
-objectClass: inetOrgPerson
-sn: ${USERNAME}
+dn: cn=${USERNAME},ou=${OU},o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
 cn: ${USERNAME}
-userPassword: ${PASSWORD}
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+userPassword: ${ENC_PASSWORD}
