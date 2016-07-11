@@ -1,0 +1,9 @@
+dn: uid=${USERNAME},ou=${OU},o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
+uid: ${USERNAME}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+sn: ${USERNAME}
+cn: ${USERNAME}
+userPassword: ${PASSWORD}
