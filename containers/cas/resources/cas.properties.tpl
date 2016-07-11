@@ -170,3 +170,6 @@ ldap.authn.attribute.givenName=givenName
 ldap.authn.attribute.surname=sn
 ldap.authn.attribute.displayName=displayName
 ldap.authn.attribute.groups=memberOf
+
+# set deployment stage
+stage = production

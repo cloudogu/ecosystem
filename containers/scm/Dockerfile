@@ -1,10 +1,10 @@
 # cesi/scm
 FROM registry.cloudogu.com/official/java:8u77-1
-MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
+MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 
 # scm-server environment
-ENV SCM_VERSION 1.46
+ENV SCM_VERSION 1.48
 ENV SCM_PKG_URL https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 ENV SCM_HOME /var/lib/scm
 ADD default /etc/default/scm-server

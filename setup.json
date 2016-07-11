@@ -24,7 +24,8 @@
     "scm",
     "sonar",
     "nexus",
-    "usermgt"
+    "usermgt",
+    "cockpit"
   ],
   "admin": {
     "username": "admin",

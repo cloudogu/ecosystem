@@ -16,8 +16,15 @@
     "Owner": "1000",
     "Group": "1000"
   }],
-  "HealthCheck": {
+  "ExposedCommands": [{
+    "Name": "service-account-create",
+    "Description": "Creates a new service account",
+    "Command": "/create-sa.sh"
+  }],
+  "HealthChecks": [{
     "Type": "tcp",
     "Port": 3306
-  }
+  },{
+    "Type": "state"
+  }]
 }

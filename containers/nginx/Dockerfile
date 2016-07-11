@@ -1,6 +1,6 @@
 # cesi/nginx
 FROM registry.cloudogu.com/official/base:3.3-1
-MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
+MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 ENV CES_CONFD_VERSION=0.1.3
 ENV WARP_MENU_VERSION=0.1.0

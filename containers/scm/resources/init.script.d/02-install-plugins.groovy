@@ -16,7 +16,7 @@ def plugins = [
 
 def isDoguInstalled(name){
 	String ip = new File("/etc/ces/node_master").getText("UTF-8").trim();
-	URL url = new URL("http://${ip}:4001/v2/keys/dogu/" + name);
+	URL url = new URL("http://${ip}:4001/v2/keys/dogu/" + name + "/current");
 	return url.openConnection().getResponseCode() == 200;
 }
 
@@ -42,6 +42,10 @@ def getLatestIdWithVersion(available, id){
 
 if (isDoguInstalled("redmine")){
 	plugins.add("sonia.scm.plugins:scm-redmine-plugin")
+}
+
+if (isDoguInstalled("jenkins")){
+	plugins.add("sonia.scm.plugins:scm-jenkins-plugin")
 }
 
 def pluginManager = injector.getInstance(PluginManager.class);

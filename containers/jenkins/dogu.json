@@ -21,6 +21,6 @@
   }],
   "HealthCheck": {
     "Type": "tcp",
-    "Port": 3306
+    "Port": 8080
   }
 }

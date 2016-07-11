@@ -1,6 +1,6 @@
 # registry.cloudogu.com/official/java:8u77-1
 FROM registry.cloudogu.com/official/base:3.3-1
-MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
+MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # based on https://github.com/anapsix/docker-alpine-java/blob/master/8/jre/Dockerfile
 
@@ -11,15 +11,16 @@ ENV JAVA_VERSION_MAJOR=8 \
     JAVA_PACKAGE=jdk \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
-    LANG=C.UTF-8
+    LANG=C.UTF-8 \
+    GLIBC_VERSION=2.23-r3
 
 # do all in one step
 RUN apk upgrade --update && \
-    curl -L -o /tmp/glibc-2.21-r2.apk "https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-2.21-r2.apk" && \
-    apk add --allow-untrusted /tmp/glibc-2.21-r2.apk && \
-    curl -L -o /tmp/glibc-bin-2.21-r2.apk "https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64/glibc-bin-2.21-r2.apk" && \
-    apk add --allow-untrusted /tmp/glibc-bin-2.21-r2.apk && \
-    /usr/glibc/usr/bin/ldconfig /lib /usr/glibc/usr/lib && \
+    curl -Lo /tmp/glibc.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" && \
+    apk add --allow-untrusted /tmp/glibc.apk && \
+    curl -Lo /tmp/glibc-bin.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" && \
+    apk add --allow-untrusted /tmp/glibc-bin.apk && \
+    /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
     mkdir /opt && curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/java.tar.gz \
     http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
     gunzip /tmp/java.tar.gz && \

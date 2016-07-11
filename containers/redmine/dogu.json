@@ -13,6 +13,9 @@
   "Dependencies": [
     "mysql", "cas", "nginx", "postfix"
   ],
+  "ServiceAccounts": [{
+    "Type": "mysql"
+  }],
   "HealthCheck": {
     "Type": "tcp",
     "Port": 3000

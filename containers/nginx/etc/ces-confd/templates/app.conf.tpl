@@ -13,10 +13,10 @@ server {
 
   include /etc/nginx/include.d/warp.conf;
 
-{{range .}}{{if (eq .Name "usermgt")}}
-  # redirect to /usermgt
+{{range .}}{{if (eq .Name "cockpit")}}
+  # redirect to /cockpit
   location = / {
-    return 301 https://$host/usermgt;
+    return 301 https://$host/cockpit;
   }
 {{end}}{{end}}
 

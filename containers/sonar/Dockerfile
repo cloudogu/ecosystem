@@ -1,6 +1,6 @@
 # cesi/sonar
 FROM registry.cloudogu.com/official/java:8u77-1
-MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
+MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 ENV SONAR_VERSION 5.3
 ENV SONARQUBE_HOME /opt/sonar
