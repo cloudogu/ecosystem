@@ -1,4 +1,6 @@
 site_name: Ecosystem Documentation
 pages:
 - Home: index.md
+- User Guide:
+  - Integration-Tests: user-guide/integration-tests.md
 - About: about.md
