@@ -1,5 +1,5 @@
 {
-  "Name": "usermgt",
+  "Name": "official/usermgt",
   "Version": "1.3.0-1",
   "DisplayName": "User Management",
   "Description": "User and Group Management.",
@@ -7,7 +7,7 @@
   "Tags": [
     "warp", "users", "groups"
   ],
-  "Logo": "http://dogu.cloudogu.com/images/logos/usermanagement.png",
+  "Logo": "https://cloudogu.com/images/dogus/usermanagement.png",
   "Url": "https://github.com/cloudogu/usermgt",
   "Image": "registry.cloudogu.com/official/usermgt",
   "Dependencies": [

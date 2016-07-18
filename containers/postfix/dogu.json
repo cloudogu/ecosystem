@@ -1,9 +1,9 @@
 {
-  "Name": "postfix",
+  "Name": "official/postfix",
   "Version": "3.0.4-1",
   "DisplayName": "Postfix",
   "Description": "Postfix - Mail Transfer Agent",
-  "Logo": "http://dogu.cloudogu.com/images/logos/postfix.png",
+  "Logo": "https://cloudogu.com/images/dogus/postfix.png",
   "Category": "Base",
   "Tags": [
     "mail", "smtp"

@@ -1,5 +1,5 @@
 {
-  "Name": "mysql",
+  "Name": "official/mysql",
   "Version": "10.1.11-1",
   "DisplayName": "MySQL/MariaDB",
   "Description": "MySQL/MariaDB Database.",
@@ -8,7 +8,7 @@
   "Tags": [
     "database", "db"
   ],
-  "Logo": "http://dogu.cloudogu.com/images/logos/mysql.png",
+  "Logo": "https://cloudogu.com/images/dogus/mysql.png",
   "Image": "registry.cloudogu.com/official/mysql",
   "Volumes": [{
     "Name": "data",
