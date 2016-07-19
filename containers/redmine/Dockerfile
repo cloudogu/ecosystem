@@ -21,11 +21,11 @@ RUN echo 'gem "activerecord-deprecated_finders", require: "active_record/depreca
 COPY ./resources/workdir/ ${WORKDIR}/
 
 # Install (available) rubycas-client version
-RUN git clone https://github.com/robertauer/rubycas-client.git && cd /rubycas-client \
+RUN git clone https://github.com/cloudogu/rubycas-client.git && cd /rubycas-client \
   && gem build rubycas-client.gemspec && gem install rubycas-client-${RUBYCASVERSION}.gem
 
 # Install Redmine CAS plugin
-RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/robertauer/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
+RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
   && tar -xzf /casplugin${RMCASPLUGINVERSION}.tar.gz && mv /redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
   && rm /casplugin${RMCASPLUGINVERSION}.tar.gz
 
