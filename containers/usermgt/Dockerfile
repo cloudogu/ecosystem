@@ -41,7 +41,7 @@ RUN chmod +x /opt/apache-tomcat/bin/setenv.sh
 RUN mkdir -p /opt/apache-tomcat/webapps/usermgt \
     && cd /opt/apache-tomcat/webapps/usermgt \
 		# TODO release on github
-    && github_download https://github.com/cloudogu/usermgt/releases/download/v${USERMGT_VERSION}/usermgt-${USERMGT_VERSION}.war usermgt-${USERMGT_VERSION}.war \
+    && curl -L https://github.com/cloudogu/usermgt/releases/download/v${USERMGT_VERSION}/usermgt-${USERMGT_VERSION}.war -o usermgt-${USERMGT_VERSION}.war \
 		&& unzip usermgt-${USERMGT_VERSION}.war \
 		&& rm -f usermgt-${USERMGT_VERSION}.war \
 		&& chmod +x WEB-INF/cipher.sh
