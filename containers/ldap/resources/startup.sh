@@ -15,7 +15,7 @@ OPENLDAP_BACKEND_DIR="/var/lib/openldap"
 OPENLDAP_BACKEND_DATABASE="hdb"
 OPENLDAP_BACKEND_OBJECTCLASS="olcHdbConfig"
 OPENLDAP_ULIMIT="2048"
-# proposal: use get_config openldap_suffix in future
+# proposal: use doguctl config openldap_suffix in future
 OPENLDAP_SUFFIX="dc=cloudogu,dc=com"
 
 ulimit -n ${OPENLDAP_ULIMIT}
@@ -27,30 +27,28 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   rm -f ${OPENLDAP_ETC_DIR}/*.conf
 
   # get domain and root password
-  LDAP_ROOTPASS=$(create_or_get_ces_pass ldap_root)
+  LDAP_ROOTPASS=$(doguctl random)
+  doguctl config -e rootpwd ${LDAP_ROOTPASS}
   LDAP_ROOTPASS_ENC=$(slappasswd -s $LDAP_ROOTPASS)
-  LDAP_BASE_DOMAIN=$(get_domain)
-  LDAP_DOMAIN=$(get_domain)
+  LDAP_BASE_DOMAIN=$(doguctl config --global domain)
+  LDAP_DOMAIN=$(doguctl config --global domain)
 
-  CONFIG_USERNAME=$(get_config "admin_username")
+  CONFIG_USERNAME=$(doguctl config "admin_username")
   ADMIN_USERNAME=${CONFIG_USERNAME:-admin}
 
-  ADMIN_MAIL=$(get_config "admin_mail")
-  if [ "$ADMIN_MAIL" = "" ]; then
-    ADMIN_MAIL="${ADMIN_USERNAME}@${DOMAIN}"
-  fi
+  ADMIN_MAIL=$(doguctl config "admin_mail") ||  ADMIN_MAIL="${ADMIN_USERNAME}@${DOMAIN}"
 
-  CONFIG_GIVENNAME=$(get_config "admin_givenname")
+  CONFIG_GIVENNAME=$(doguctl config "admin_givenname") || CONFIG_GIVENNAME="admin"
   ADMIN_GIVENNAME=${CONFIG_GIVENNAME:-CES}
 
-  CONFIG_SURNAME=$(get_config "admin_surname")
+  CONFIG_SURNAME=$(doguctl config "admin_surname") || CONFIG_SURNAME="admin"
   ADMIN_SURNAME=${CONFIG_SURNAME:-Administrator}
 
-  CONFIG_DISPLAYNAME=$(get_config "admin_displayname")
+  CONFIG_DISPLAYNAME=$(doguctl config "admin_displayname") || CONFIG_DISPLAYNAME="admin"
   ADMIN_DISPLAYNAME=${CONFIG_DISPLAYNAME:-CES Administrator}
 
   # TODO remove from etcd ???
-  CONFIG_PASSWORD=$(get_config "admin_password")
+  CONFIG_PASSWORD=$(doguctl config "admin_password")
   ADMIN_PASSWORD=${CONFIG_PASSWORD:-admin}
   ADMIN_PASSWORD_ENC="$(slappasswd -s $ADMIN_PASSWORD)"
 

@@ -21,6 +21,11 @@
     "Owner": "102",
     "Group": "102"
 	}],
+  "ExposedCommands": [{
+    "Name": "service-account-create",
+    "Description": "Creates a new service account",
+    "Command": "/srv/openldap/create-sa.sh"
+  }],
   "HealthCheck": {
     "Type": "tcp",
     "Port": 389

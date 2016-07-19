@@ -19,6 +19,10 @@
     "Owner": "1000",
     "Group": "1000"
   }],
+  "ServiceAccounts": [{
+    "Type": "ldap",
+    "Params": ["rw"]
+  }],
   "HealthCheck": {
     "Type": "tcp",
     "Port": 8080

@@ -3,7 +3,7 @@
 source /etc/ces/functions.sh
 
 # TODO get admin group from etcd
-ADMINGROUP="universalAdmin"
+ADMINGROUP=$(doguctl config --global admin_group)
 
 function move_sonar_dir(){
   DIR="$1"

@@ -7,8 +7,8 @@ FQDN=$(get_fqdn)
 LDAP_HOST='ldap'
 LDAP_PORT=389
 LDAP_BASE_DN="ou=People,o=${DOMAIN},dc=cloudogu,dc=com"
-LDAP_BIND_DN="cn=admin,dc=cloudogu,dc=com"
-LDAP_BIND_PASSWORD=$(get_ces_pass ldap_root | sed 's@/@\\\\/@g')
+LDAP_BIND_DN=$(doguctl config -e sa-ldap/username)
+LDAP_BIND_PASSWORD=$(doguctl config -e sa-ldap/password | sed 's@/@\\\\/@g')
 
 # render templates
 sed "s@%DOMAIN%@$DOMAIN@g;\
