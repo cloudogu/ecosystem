@@ -138,6 +138,8 @@ olcAccess: to attrs=userPassword,shadowLastChange
   by self write
   by anonymous auth
   by dn="cn=admin,${OPENLDAP_SUFFIX}" write
+  by dn.one=\"ou=Bind Users,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}\" read
+  by dn.one=\"ou=Special Users,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}\" write
   by group/organizationalRole/roleOccupant="cn=admin,${OPENLDAP_SUFFIX}" write
   by * none
 olcAccess: to dn.base="" by * read
