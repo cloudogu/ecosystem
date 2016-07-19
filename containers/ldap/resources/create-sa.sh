@@ -1,8 +1,13 @@
 #!/bin/bash -e
 source /etc/ces/functions.sh
 
-SERVICE="$1"
-TYPE="$2"
+TYPE="$1"
+SERVICE="$2"
+
+if [ "${SERVICE}" == "" ]; then
+  SERVICE="${TYPE}"
+  TYPE=""
+fi
 
 if [ "${SERVICE}" == "" ]; then
   echo "usage create-sa.sh servicename"

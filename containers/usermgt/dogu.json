@@ -20,7 +20,8 @@
     "Group": "1000"
   }],
   "ServiceAccounts": [{
-    "Type": "ldap"
+    "Type": "ldap",
+    "Params": ["rw"]
   }],
   "HealthCheck": {
     "Type": "tcp",
