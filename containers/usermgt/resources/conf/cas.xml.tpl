@@ -6,5 +6,5 @@
   <login-url>https://${FQDN}/cas/login?service=https://${FQDN}/usermgt/login/cas</login-url>
   <logout-url>https://${FQDN}/cas/logout</logout-url>
   <role-attribute-names>groups</role-attribute-names>
-  <administrator-role>UniverseAdministrators</administrator-role>
+  <administrator-role>cesManager</administrator-role>
 </cas>
