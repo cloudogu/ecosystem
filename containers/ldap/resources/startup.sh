@@ -27,7 +27,8 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   rm -f ${OPENLDAP_ETC_DIR}/*.conf
 
   # get domain and root password
-  LDAP_ROOTPASS=$(create_or_get_ces_pass ldap_root)
+  LDAP_ROOTPASS=$(doguctl random)
+  doguctl config -e rootpwd ${LDAP_ROOTPASS}
   LDAP_ROOTPASS_ENC=$(slappasswd -s $LDAP_ROOTPASS)
   LDAP_BASE_DOMAIN=$(doguctl config --global domain)
   LDAP_DOMAIN=$(doguctl config --global domain)
