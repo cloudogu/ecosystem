@@ -29,7 +29,7 @@ ADD resources/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
 
 # install cas webapp
 RUN mkdir ${CATALINA_BASE}/webapps/cas/ \
-    && github_download https://github.com/cloudogu/cas/releases/download/v${CAS_VERSION}/cas-${CAS_VERSION}.war ${CATALINA_BASE}/webapps/cas/cas.war \
+    && curl -L https://github.com/cloudogu/cas/releases/download/v${CAS_VERSION}/cas-${CAS_VERSION}.war -o ${CATALINA_BASE}/webapps/cas/cas.war \
 	  && cd ${CATALINA_BASE}/webapps/cas/ \
     && unzip cas.war \
     && rm -f cas.war
