@@ -1,5 +1,5 @@
 {
-  "Name": "icoordinator",
+  "Name": "official/icoordinator",
   "Version": "0.1.0-1",
   "DisplayName": "iCoordinator",
   "Description": "iCoordinator",
@@ -7,7 +7,7 @@
   "Tags": [
     "doc", "warp"
   ],
-  "Logo": "http://dogu.cloudogu.com/images/logos/icoordinator.png",
+  "Logo": "https://cloudogu.com/images/dogus/icoordinator.png",
   "Url": "https://www.icoordinator.com",
   "Image": "registry.cloudogu.com/official/icoordinator",
   "Dependencies": [

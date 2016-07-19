@@ -2,6 +2,9 @@
 PACKAGES="cesapp ces-setup"
 APTINSTALL=""
 
+# import cloudogu key
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0249BCED
+
 for PKG in $PACKAGES; do
   DEBPKG=$(ls /vagrant/${PKG}*.deb 2> /dev/null)
   if [ $? = 0 ]; then

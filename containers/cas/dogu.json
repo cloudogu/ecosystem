@@ -1,5 +1,5 @@
 {
-  "Name": "cas",
+  "Name": "official/cas",
   "Version": "4.0.7.5",
   "DisplayName": "Central Authentication Service",
   "Description": "The Central Authentication Service (CAS) is a single sign-on protocol for the web.",
@@ -8,7 +8,7 @@
   "Tags": [
     "authentication", "sso", "cas"
   ],
-  "Logo": "http://dogu.cloudogu.com/images/logos/cas.png",
+  "Logo": "https://cloudogu.com/images/dogus/cas.png",
   "Image": "registry.cloudogu.com/official/cas",
   "Dependencies": [
     "ldap", "nginx"

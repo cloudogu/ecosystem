@@ -1,5 +1,5 @@
 {
-  "Name": "jenkinsslave",
+  "Name": "official/jenkinsslave",
   "Version": "0.0.1-1",
   "DisplayName": "Jenkinsslave",
   "Description": "Jenkinsslave - slavebase",
@@ -8,7 +8,7 @@
   "Tags": [
     "build", "ci", "cd"
   ],
-  "Logo": "http://dogu.cloudogu.com/images/logos/jenkins.png",
+  "Logo": "https://cloudogu.com/images/dogus/jenkins.png",
   "Image": "registry.cloudogu.com/official/jenkinsslave",
   "Dependencies": [
     "jenkins"

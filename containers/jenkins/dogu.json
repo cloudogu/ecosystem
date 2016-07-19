@@ -1,5 +1,5 @@
 {
-  "Name": "jenkins",
+  "Name": "official/jenkins",
   "Version": "1.651.2-1",
   "DisplayName": "Jenkins CI",
   "Description": "Jenkins Continious Integration Server",
@@ -7,7 +7,7 @@
   "Tags": [
     "warp", "build", "ci", "cd"
   ],
-  "Logo": "http://dogu.cloudogu.com/images/logos/jenkins.png",
+  "Logo": "https://cloudogu.com/images/dogus/jenkins.png",
   "Url": "https://jenkins-ci.org",
   "Image": "registry.cloudogu.com/official/jenkins",
   "Dependencies": [
