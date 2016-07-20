@@ -5,20 +5,11 @@ https://cloudogu.com
 This is the repository of the cloudogu ecosystem. It contains all docker containers, setup scripts and resources to install cloudogu on your machine and start it using vagrant.
 
 ### Quick start
-* Install [vagrant](https://www.vagrantup.com/docs/getting-started/) on your machine
-* Install [docker](https://www.docker.com/) too
-* Checkout ecosystem repository
-* Do one of the following steps:
-  - Option 1: `vagrant up` to run ecosystem in a virtual machine
-  - Option 2: `./install.sh` to deploy ecosystem on your machine
-* Now you can access cloudogu via the web browser
-
-### Development
-* Startup mechanism:
-  - Docker daemon is started on boot via the /etc/init/docker.conf Upstart script.
-  - All docker containers are started (based on their dependencies) via /etc/init/ces-<name>.conf scripts
-  - Containers which are marked as 'webapps' in their Dockerfile (via 'ENV SERVICE_TAGS webapp') are available via `http://<hostIP>/<containername>` after bootup.
-* Go inside your running machine using `vagrant ssh`  
+* Install [git](https://git-scm.com/)
+* Install [virtualbox](https://www.virtualbox.org/)
+* Install [vagrant](https://www.vagrantup.com/docs/getting-started/)
+* Checkout ecosystem repository `git clone https://github.com/cloudogu/ecosystem`
+* `vagrant up` to run ecosystem in a virtual machine
 
 ---
 ### What is Cloudogu?
