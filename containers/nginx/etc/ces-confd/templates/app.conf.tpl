@@ -12,13 +12,7 @@ server {
   proxy_set_header Accept-Encoding identity;
 
   include /etc/nginx/include.d/warp.conf;
-
-{{range .}}{{if (eq .Name "cockpit")}}
-  # redirect to /cockpit
-  location = / {
-    return 301 https://$host/cockpit;
-  }
-{{end}}{{end}}
+  include /etc/nginx/include.d/default-dogu.conf;
 
   # services
 {{range .}}

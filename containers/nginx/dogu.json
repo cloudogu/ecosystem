@@ -1,6 +1,6 @@
 {
   "Name": "official/nginx",
-  "Version": "1.9.15-2",
+  "Version": "1.9.15-3",
   "DisplayName": "Nginx",
   "Description": "Nginx WebServer.",
   "Logo": "https://cloudogu.com/images/dogus/nginx.png",
@@ -13,7 +13,7 @@
   "Dependencies": [
     "registrator"
   ],
-	"ExposedPorts": [{
+  "ExposedPorts": [{
     "Type": "tcp",
     "Host": 80,
     "Container": 80
