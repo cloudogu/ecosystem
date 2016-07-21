@@ -11,7 +11,7 @@ for PKG in $PACKAGES; do
     echo "install ${PKG} from development package ${DEBPKG}"
     dpkg -i ${DEBPKG}
   else
-    echo "install ${PKG} from apt repoistory"
+    echo "install ${PKG} from apt repository"
     APTINSTALL="${APTINSTALL} ${PKG}"
   fi
 done
