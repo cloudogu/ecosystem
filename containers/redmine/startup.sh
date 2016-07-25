@@ -52,6 +52,9 @@ else
   # Write base url to database
   mysql -h "${MYSQL_IP}" -u "${MYSQL_USER}" "-p${MYSQL_USER_PASSWORD}" -e "INSERT INTO ${MYSQL_DB}.settings VALUES (NULL,\"host_name\",\"https://$FQDN/redmine/\",4);"
 
+  # Remove default admin account
+  mysql -h "${MYSQL_IP}" -u "${MYSQL_USER}" "-p${MYSQL_USER_PASSWORD}" -e "DELETE FROM ${MYSQL_DB}.users WHERE login=\"admin\";"
+
   echo "Running plugins migrations..."
   su - redmine -c "rake redmine:plugins:migrate RAILS_ENV=$RAILS_ENV"
 fi
