@@ -117,6 +117,16 @@ class AuthSourceCas < AuthSource
                 end
               end
             end
+            # remove user's admin rights if he is not in admin group any more
+            if admingroup_exists
+              if user_groups.to_s.include?(ces_admin_group.gsub(\"\n\",\"\"))
+                user.admin = 1
+                user.save
+              else
+                user.admin = 0
+                user.save
+              end
+            end
           end
           # return new user information
           retVal =
