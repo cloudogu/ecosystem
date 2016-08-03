@@ -1,8 +1,7 @@
-import jenkins.model.*;
-import hudson.*
-import hudson.model.*
-import hudson.tasks.*
-import hudson.tools.*
+import hudson.model.JDK
+import hudson.tools.JDKInstaller
+import hudson.tools.InstallSourceProperty
+import jenkins.model.Jenkins
 
 def descriptor = new JDK.DescriptorImpl();
 
