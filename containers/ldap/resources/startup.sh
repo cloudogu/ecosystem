@@ -23,6 +23,9 @@ ulimit -n ${OPENLDAP_ULIMIT}
 # LDAP ALREADY INITIALIZED?
 if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
 
+  # set stage for health check
+  doguctl state installing
+
   # remove default configuration
   rm -f ${OPENLDAP_ETC_DIR}/*.conf
 
@@ -101,5 +104,8 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
     fi
   fi
 fi
+
+# set stage for health check
+doguctl state ready
 
 /usr/sbin/slapd -h "ldapi:/// ldap:///" -u ldap -g ldap -d $LOGLEVEL
