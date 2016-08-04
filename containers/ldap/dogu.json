@@ -26,8 +26,10 @@
     "Description": "Creates a new service account",
     "Command": "/srv/openldap/create-sa.sh"
   }],
-  "HealthCheck": {
-    "Type": "tcp",
-    "Port": 389
-  }
+  "HealthChecks": [{
+  "Type": "tcp",
+  "Port": 389
+},{
+  "Type": "state"
+}]
 }
