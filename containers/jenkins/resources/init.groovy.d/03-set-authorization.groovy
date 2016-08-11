@@ -13,7 +13,7 @@ def getValueFromEtcd(String key){
 
 // JVM did not like 'hypen' in the class name, it will crap out saying it is
 // illegal class name.
-class BuildPermission {
+class 03-set-authorization {
   static buildNewAccessList(userOrGroup, permissions) {
     def newPermissionsMap = [:]
     permissions.each {
@@ -58,7 +58,7 @@ if ( Jenkins.instance.pluginManager.activePlugins.find { it.shortName == "matrix
 	    "hudson.model.Item.Cancel"
     ]
 
-    authenticated = BuildPermission.buildNewAccessList("authenticated", authenticatedPermissions)
+    authenticated = 03-set-authorization.buildNewAccessList("authenticated", authenticatedPermissions)
     authenticated.each { p, u -> strategy.add(p, u) }
 
     //----------------- jenkins admin -----------------------------------------
@@ -92,7 +92,7 @@ if ( Jenkins.instance.pluginManager.activePlugins.find { it.shortName == "matrix
     ]
 
     String adminGroup = getValueFromEtcd("config/_global/admin_group");
-    jenkinsAdmin = BuildPermission.buildNewAccessList(adminGroup, jenkinsAdminPermissions)
+    jenkinsAdmin = 03-set-authorization.buildNewAccessList(adminGroup, jenkinsAdminPermissions)
     jenkinsAdmin.each { p, u -> strategy.add(p, u) }
 
     //-------------------------------------------------------------------------
