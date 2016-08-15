@@ -14,7 +14,7 @@ def keyExists(String key){
 }
 
 // configuration
-def plugins = ['git','mercurial','workflow-aggregator','simple-theme-plugin','maven-plugin'];
+def plugins = ['git','mercurial','workflow-aggregator','simple-theme-plugin','maven-plugin','subversion'];
 
 // add sonar plugin to Jenkins if SonarQube is installed
 if (keyExists("dogu/sonar/current")) {
