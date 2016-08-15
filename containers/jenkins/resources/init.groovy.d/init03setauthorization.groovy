@@ -11,17 +11,17 @@ def getValueFromEtcd(String key){
 	return json.node.value
 }
 
-// JVM did not like 'hypen' in the class name, it will crap out saying it is
+// JVM did not like 'hyphen' in the class name, it will crap out saying it is
 // illegal class name.
-class 03-set-authorization {
-  static buildNewAccessList(userOrGroup, permissions) {
-    def newPermissionsMap = [:]
-    permissions.each {
-      newPermissionsMap.put(Permission.fromId(it), userOrGroup)
-    }
-    return newPermissionsMap
-  }
+
+def buildNewAccessList(userOrGroup, permissions) {
+	def newPermissionsMap = [:]
+	permissions.each {
+		newPermissionsMap.put(Permission.fromId(it), userOrGroup)
+	}
+	return newPermissionsMap
 }
+
 
 if ( Jenkins.instance.pluginManager.activePlugins.find { it.shortName == "matrix-auth" } != null ) {
   if ( Jenkins.instance.isUseSecurity() ) {
@@ -58,7 +58,7 @@ if ( Jenkins.instance.pluginManager.activePlugins.find { it.shortName == "matrix
 	    "hudson.model.Item.Cancel"
     ]
 
-    authenticated = 03-set-authorization.buildNewAccessList("authenticated", authenticatedPermissions)
+    authenticated = buildNewAccessList("authenticated", authenticatedPermissions)
     authenticated.each { p, u -> strategy.add(p, u) }
 
     //----------------- jenkins admin -----------------------------------------
@@ -92,7 +92,7 @@ if ( Jenkins.instance.pluginManager.activePlugins.find { it.shortName == "matrix
     ]
 
     String adminGroup = getValueFromEtcd("config/_global/admin_group");
-    jenkinsAdmin = 03-set-authorization.buildNewAccessList(adminGroup, jenkinsAdminPermissions)
+    jenkinsAdmin = buildNewAccessList(adminGroup, jenkinsAdminPermissions)
     jenkinsAdmin.each { p, u -> strategy.add(p, u) }
 
     //-------------------------------------------------------------------------
