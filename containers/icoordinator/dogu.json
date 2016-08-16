@@ -1,8 +1,8 @@
 {
   "Name": "official/icoordinator",
-  "Version": "0.1.0-1",
+  "Version": "0.1.0-2",
   "DisplayName": "iCoordinator",
-  "Description": "iCoordinator",
+  "Description": "iCoordibator is a cloud-based Enterprise File Synchronization and Sharing (EFSS) solution for businesses to store, share and sync files securely across devices meeting the mobility and collaboration needs of all users.",
   "Category": "Documentation",
   "Tags": [
     "doc", "warp"
@@ -11,7 +11,7 @@
   "Url": "https://www.icoordinator.com",
   "Image": "registry.cloudogu.com/official/icoordinator",
   "Dependencies": [
-    "cas", "nginx"
+    "nginx"
   ],
   "HealthCheck": {
     "Type": "tcp",
