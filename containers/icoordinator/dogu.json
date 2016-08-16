@@ -2,7 +2,7 @@
   "Name": "official/icoordinator",
   "Version": "0.1.0-2",
   "DisplayName": "iCoordinator",
-  "Description": "iCoordibator is a cloud-based Enterprise File Synchronization and Sharing (EFSS) solution for businesses to store, share and sync files securely across devices meeting the mobility and collaboration needs of all users.",
+  "Description": "iCoordinator is a cloud-based Enterprise File Synchronization and Sharing (EFSS) solution for businesses to store, share and sync files securely across devices meeting the mobility and collaboration needs of all users.",
   "Category": "Documentation",
   "Tags": [
     "doc", "warp"
