@@ -1,13 +1,13 @@
-# registry.cloudogu.com/official/java:8u77-1
-FROM registry.cloudogu.com/official/base:3.3-1
+# registry.cloudogu.com/official/java:8u102-1
+FROM registry.cloudogu.com/official/base:3.3-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # based on https://github.com/anapsix/docker-alpine-java/blob/master/8/jre/Dockerfile
 
 # Java Version and other ENV
 ENV JAVA_VERSION_MAJOR=8 \
-    JAVA_VERSION_MINOR=77 \
-    JAVA_VERSION_BUILD=03 \
+    JAVA_VERSION_MINOR=102 \
+    JAVA_VERSION_BUILD=14 \
     JAVA_PACKAGE=jdk \
     JAVA_HOME=/opt/jdk \
     PATH=${PATH}:/opt/jdk/bin \
