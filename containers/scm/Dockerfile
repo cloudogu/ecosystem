@@ -1,12 +1,13 @@
 # cesi/scm
-FROM registry.cloudogu.com/official/java:8u77-1
+FROM registry.cloudogu.com/official/java:8u102-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 
 # scm-server environment
-ENV SCM_VERSION 1.48
+ENV SCM_VERSION=1.49
 ENV SCM_PKG_URL https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 ENV SCM_HOME /var/lib/scm
+ENV SSL_CERT_FILE /opt/scm-server/conf/ca-certificates.crt
 ADD default /etc/default/scm-server
 
 ## install scm-server
@@ -30,7 +31,12 @@ RUN apk add --update mercurial jq \
     && chown scm:scm ${SCM_HOME} \
 
     # cleanup
-    && rm -rf /tmp/* /var/cache/apk/*
+    && rm -rf /tmp/* /var/cache/apk/* \
+
+    # set mercurial system ca-certificates
+    # see https://github.com/cloudogu/ecosystem/issues/193
+    && mkdir /etc/mercurial \
+    && printf "[web]\ncacerts = /opt/scm-server/conf/ca-certificates.crt\n" > /etc/mercurial/hgrc
 
 # modify server configuration
 COPY resources/conf/* /opt/scm-server/conf/
