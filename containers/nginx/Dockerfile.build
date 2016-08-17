@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/base
-FROM registry.cloudogu.com/official/base:3.3-1
+FROM registry.cloudogu.com/official/base:3.3-2
 MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer

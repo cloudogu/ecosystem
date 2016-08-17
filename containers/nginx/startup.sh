@@ -1,13 +1,7 @@
 #!/bin/bash
 source /etc/ces/functions.sh
 
-echo "[nginx] booting container. ETCD: $ETCD"
-
-
-
-etcdctl
-
-# get certificates
+echo "[nginx] configure ssl and https ..."
 doguctl config --global certificate/server.crt > "/etc/ssl/server.crt"
 doguctl config --global certificate/server.key > "/etc/ssl/server.key"
 
@@ -15,6 +9,7 @@ doguctl config --global certificate/server.key > "/etc/ssl/server.key"
 FQDN=$(doguctl config --global fqdn)
 render_template "/etc/nginx/include.d/ssl.conf.tpl" > "/etc/nginx/include.d/ssl.conf"
 
+echo "[nginx] configure default redirect ..."
 # include default_dogu in default-dogu.conf
 DEFAULT_DOGU=$(doguctl config --global default_dogu)
 if [[ $? != 0 ]]; then
@@ -22,7 +17,6 @@ if [[ $? != 0 ]]; then
 fi
 render_template "/etc/nginx/include.d/default-dogu.conf.tpl" > "/etc/nginx/include.d/default-dogu.conf"
 
-# Loop until confd has updated the nginx config
 ces-confd -e "http://$(cat /etc/ces/node_master):4001" &
 echo "[nginx] ces-confd is listening for changes on etcd..."
 
