@@ -1,4 +1,4 @@
-# registry.cloudogu.com/official/base:3.3-1
+# registry.cloudogu.com/official/base:3.3-2
 FROM alpine:3.3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
@@ -13,6 +13,7 @@ RUN apk add --update bash curl openssl wget curl zip unzip mysql-client ca-certi
     && tar xzvf /tmp/etcd.tar.gz -C /tmp/etcd \
     && mv /tmp/etcd/etcd-v${CES_ETCD_VERSION}-linux-amd64/etcdctl /bin
 COPY ./resources/doguctl-${DOGUCTL_VERSION}.tar.gz /tmp/doguctl-${DOGUCTL_VERSION}.tar.gz
+COPY ./resources/create-ca-certificates.sh /usr/bin/create-ca-certificates.sh
 RUN cat /tmp/doguctl-${DOGUCTL_VERSION}.tar.gz | gunzip | tar -x -O > /usr/bin/doguctl \
     && chmod +x /usr/bin/doguctl && rm -rf /tmp/etcd* /var/cache/apk/* \
     && rm /tmp/doguctl-${DOGUCTL_VERSION}.tar.gz
