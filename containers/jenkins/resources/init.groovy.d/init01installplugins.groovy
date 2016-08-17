@@ -14,7 +14,15 @@ def keyExists(String key){
 }
 
 // configuration
-def plugins = ['git','mercurial','subversion','workflow-aggregator','simple-theme-plugin'];
+def plugins = [
+  'git',
+  'mercurial',
+  'subversion',
+  'workflow-aggregator',
+  'simple-theme-plugin',
+  'matrix-auth',
+  'maven'
+];
 
 // add sonar plugin to Jenkins if SonarQube is installed
 if (keyExists("dogu/sonar/current")) {
@@ -33,7 +41,7 @@ for (def shortName : plugins){
   def plugin = updateCenter.getById('default').getPlugin(shortName);
   if (available.contains(plugin)){
       println "install missing plugin " + shortName;
-      plugin.deploy(false).get();
+      plugin.deploy(true).get();
   }
 }
 
