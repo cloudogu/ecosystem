@@ -13,7 +13,21 @@ function copy_cas_plugin() {
   fi
 }
 
+function install_plugin() {
+  PLUGIN="${1}.hpi"
+  # Checking if /var/lib/jenkins/cas-plugin exists
+  if [ ! -f "/var/lib/jenkins/plugins/${PLUGIN}" ]; then
+  	# Making directory, if not already existing
+  	mkdir -p /var/lib/jenkins/plugins
+  	# Copy plugin
+    curl -Lks "https://updates.jenkins-ci.org/latest/${PLUGIN}" -o "/var/lib/jenkins/plugins/${PLUGIN}"
+  fi
+}
+
 ### functions end
+
+# manually resolve cas plugin dependencies
+install_plugin "mailer"
 
 # copy custom jenkins cas plugin
 copy_cas_plugin
