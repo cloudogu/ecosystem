@@ -2,8 +2,9 @@
 FROM registry.cloudogu.com/official/base:3.3-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-ENV CES_CONFD_VERSION=0.1.4
-ENV WARP_MENU_VERSION=0.1.0
+ENV CES_CONFD_VERSION=0.1.4 \
+    WARP_MENU_VERSION=0.1.0 \
+    CES_THEME_VERSION=bcf04bab10a6bf534a7167a92315cd917de7bcb7
 
 RUN apk --update add openssl pcre zlib \
  # add nginx user
@@ -20,10 +21,10 @@ RUN apk --update add openssl pcre zlib \
  && unzip /tmp/warp.zip -d /var/www/html \
 
  # install custom error pages
- && curl -Lsk https://github.com/cloudogu/ces-theme/archive/master.zip -o /tmp/theme.zip \
+ && curl -Lsk https://github.com/cloudogu/ces-theme/archive/${CES_THEME_VERSION}.zip -o /tmp/theme.zip \
  && mkdir /var/www/html/errors \
  && unzip /tmp/theme.zip -d /tmp/theme \
- && mv /tmp/theme/ces-theme-master/dist/errors/* /var/www/html/errors \
+ && mv /tmp/theme/ces-theme-*/dist/errors/* /var/www/html/errors \
  && rm -rf /tmp/theme.zip /tmp/theme \
 
  # redirect logs
