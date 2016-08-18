@@ -11,6 +11,7 @@ server {
   # disable gzip encoding for proxy applications
   proxy_set_header Accept-Encoding identity;
 
+  include /etc/nginx/include.d/errors.conf;
   include /etc/nginx/include.d/warp.conf;
   include /etc/nginx/include.d/default-dogu.conf;
 
