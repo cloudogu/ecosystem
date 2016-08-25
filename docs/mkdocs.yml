@@ -3,4 +3,5 @@ pages:
 - Home: index.md
 - User Guide:
   - Integration-Tests: user-guide/integration-tests.md
+  - Dogu creation: user-guide/dogu-creation.md
 - About: about.md
