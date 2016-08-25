@@ -53,7 +53,7 @@ openssl req -new -nodes -key "${KEY}" -out "${CSR}" -config "${SSL_CONF}" -sha51
 # create ca database
 mkdir -p "${CA_DIR}/certs" "${CA_DIR}/newcerts"
 touch "${CA_DIR}/index.txt" "${CA_DIR}/.rand"
-echo '01' > ${CA_DIR}/serial
+date +%s > ${CA_DIR}/serial
 
 # sign request
 openssl ca -batch -config "${SSL_CONF}" -passin pass:${PASSPHRASE} -policy policy_anything -out "${SIGNED}" -in "${CSR}" 2>/dev/null
