@@ -173,3 +173,4 @@ ldap.authn.attribute.groups=memberOf
 
 # set deployment stage
 stage = production
+requireSecure = %REQUIRE_SECURE%
