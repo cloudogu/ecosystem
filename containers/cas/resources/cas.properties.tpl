@@ -27,7 +27,7 @@ cas.securityContext.serviceProperties.adminRoles=ROLE_ADMIN
 cas.securityContext.casProcessingFilterEntryPoint.loginUrl=${server.prefix}/login
 cas.securityContext.ticketValidator.casServerUrlPrefix=${server.prefix}
 # IP address or CIDR subnet allowed to access the /status URI of CAS that exposes health check information
-cas.securityContext.status.allowedSubnet=127.0.0.1
+cas.securityContext.status.allowedSubnet=192.168.
 
 
 cas.themeResolver.defaultThemeName=cas-theme-scmm-universe
@@ -156,14 +156,14 @@ ldap.authn.managerPassword=%LDAP_BIND_PASSWORD%
 
 # Search filter used for configurations that require searching for DNs
 #ldap.authn.searchFilter=(&(uid={user})(accountState=active))
-ldap.authn.searchFilter=(&(objectClass=person)(uid={user}))
+ldap.authn.searchFilter=%LDAP_SEARCH_FILTER%
 
 # Search filter used for configurations that require searching for DNs
 #ldap.authn.format=uid=%s,ou=Users,dc=example,dc=org
-ldap.authn.format=uid=%s,ou=People,%LDAP_BASE_DN%
+ldap.authn.format=uid=%s,ou=Accounts,%LDAP_BASE_DN%
 
 #Ldap mapping of result attributes
-ldap.authn.attribute.username=uid
+ldap.authn.attribute.username=%LDAP_ATTRIBUTE_USERNAME%
 ldap.authn.attribute.cn=cn
 ldap.authn.attribute.mail=mail
 ldap.authn.attribute.givenName=givenName
