@@ -10,9 +10,16 @@ LDAP_BASE_DN="ou=People,o=${DOMAIN},dc=cloudogu,dc=com"
 LDAP_BIND_DN=$(doguctl config -e sa-ldap/username)
 LDAP_BIND_PASSWORD=$(doguctl config -e sa-ldap/password | sed 's@/@\\\\/@g')
 
+STAGE=$(doguctl config --global stage)
+REQUIRE_SECURE='true'
+if [[ "$STAGE" == 'development' ]]; then
+  REQUIRE_SECURE='false'
+fi
+
 # render templates
 sed "s@%DOMAIN%@$DOMAIN@g;\
 s@%FQDN%@$FQDN@g;\
+s@%REQUIRE_SECURE%@$REQUIRE_SECURE@g;\
 s@%LDAP_HOST%@$LDAP_HOST@g;\
 s@%LDAP_PORT%@$LDAP_PORT@g;\
 s@%LDAP_BASE_DN%@$LDAP_BASE_DN@g;\
