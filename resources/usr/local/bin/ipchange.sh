@@ -9,6 +9,8 @@ while [ $SECONDS -lt $end ] && [ -z $LASTIP ]; do
   echo "$(date +%T): etcd unavailable, trying again..."
   sleep 0.25
   LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
+  CURRIP=$(get_ip)
+  echo ${CURRIP} > /etc/ces/node_master
 done
 
 function valid_ip()
@@ -39,9 +41,9 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
     end=$((SECONDS+20)) # wait for max. 20 seconds
     while [ "${ETCDCTL_EXIT}" -ne "0" ] && [ $SECONDS -lt $end ]; do # etcd is not ready yet
       echo "$(date +%T): Redo setting fqdn"
-      sleep 0.25
       /opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
       ETCDCTL_EXIT=$?
+      sleep 0.25
     done
   else
     echo "$(date +%T): ${CURRIP} is no valid IP!"
