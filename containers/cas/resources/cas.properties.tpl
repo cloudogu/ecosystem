@@ -27,7 +27,7 @@ cas.securityContext.serviceProperties.adminRoles=ROLE_ADMIN
 cas.securityContext.casProcessingFilterEntryPoint.loginUrl=${server.prefix}/login
 cas.securityContext.ticketValidator.casServerUrlPrefix=${server.prefix}
 # IP address or CIDR subnet allowed to access the /status URI of CAS that exposes health check information
-cas.securityContext.status.allowedSubnet=192.168.
+cas.securityContext.status.allowedSubnet=127.0.0.1
 
 
 cas.themeResolver.defaultThemeName=cas-theme-scmm-universe
@@ -116,7 +116,7 @@ ldap.url=ldap://%LDAP_HOST%:%LDAP_PORT%
 ldap.connectTimeout=3000
 
 # Whether to use StartTLS (probably needed if not SSL connection)
-ldap.useStartTLS=false
+ldap.useStartTLS=%LDAP_STARTTLS%
 
 #========================================
 # LDAP connection pool configuration
@@ -165,11 +165,11 @@ ldap.authn.format=uid=%s,ou=Accounts,%LDAP_BASE_DN%
 #Ldap mapping of result attributes
 ldap.authn.attribute.username=%LDAP_ATTRIBUTE_USERNAME%
 ldap.authn.attribute.cn=cn
-ldap.authn.attribute.mail=mail
+ldap.authn.attribute.mail=%LDAP_ATTRIBUTE_MAIL%
 ldap.authn.attribute.givenName=givenName
 ldap.authn.attribute.surname=sn
 ldap.authn.attribute.displayName=displayName
-ldap.authn.attribute.groups=memberOf
+ldap.authn.attribute.groups=%LDAP_ATTRIBUTE_GROUP%
 
 # set deployment stage
 stage = production
