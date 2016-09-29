@@ -27,6 +27,10 @@ function install_plugin() {
 ### functions end
 
 # manually resolve cas plugin dependencies
+# TODO find a better way as manually resolve transitive dependencies
+install_plugin "structs"
+install_plugin "junit"
+install_plugin "display-url-api"
 install_plugin "mailer"
 
 # copy custom jenkins cas plugin
