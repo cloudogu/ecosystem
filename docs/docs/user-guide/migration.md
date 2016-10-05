@@ -13,10 +13,11 @@
  * 
 
 ### Sonatype Nexus
- * 
- * 
- * 
- * 
+ * Stop Sonatype nexus dogu via 'service ces-nexus stop' and 'docker stop nexus'
+ * Copy the contents of the following folders from your old sonatype_work/nexus directory to the corresponding /var/lib/ces/nexus/volumes/data folders: storage, conf, logs & timeline
+ * Check for right file system permissions
+ * Start Sonatype nexus via 'service ces-nexus start'
+ * Update indices
 
 ### SCM Manager
  * 
