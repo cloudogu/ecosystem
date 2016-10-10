@@ -49,7 +49,9 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
 
   CONFIG_DISPLAYNAME=$(doguctl config "admin_displayname") || CONFIG_DISPLAYNAME="admin"
   ADMIN_DISPLAYNAME=${CONFIG_DISPLAYNAME:-CES Administrator}
-
+  
+  ADMIN_GROUP=$(doguctl config --global admin_group)
+  
   # TODO remove from etcd ???
   CONFIG_PASSWORD=$(doguctl config "admin_password")
   ADMIN_PASSWORD=${CONFIG_PASSWORD:-admin}
