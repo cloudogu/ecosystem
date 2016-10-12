@@ -53,7 +53,7 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   ADMIN_GROUP=$(doguctl config --global admin_group)
   
   # TODO remove from etcd ???
-  CONFIG_PASSWORD=$(doguctl config "admin_password")
+  CONFIG_PASSWORD=$(doguctl config -e "admin_password")
   ADMIN_PASSWORD=${CONFIG_PASSWORD:-admin}
   ADMIN_PASSWORD_ENC="$(slappasswd -s $ADMIN_PASSWORD)"
 
