@@ -22,7 +22,7 @@ LDAP_SEARCH_FILTER=$( echo "(&$(doguctl config ldap/search_filter)($LDAP_ATTRIBU
 if [[ "$LDAP_TYPE" == 'external' ]]; then
   LDAP_BASE_DN=$(doguctl config ldap/base_dn)
   LDAP_BIND_DN=$(doguctl config ldap/connection_dn)
-  LDAP_BIND_PASSWORD=$(doguctl config ldap/password | sed 's@/@\\\\/@g')
+  LDAP_BIND_PASSWORD=$(doguctl config -e ldap/password | sed 's@/@\\\\/@g')
 else
   # for embedded ldap
   LDAP_BASE_DN="ou=People,o=${DOMAIN},dc=cloudogu,dc=com"
