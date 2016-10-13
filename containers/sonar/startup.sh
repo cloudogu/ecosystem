@@ -35,6 +35,7 @@ function render_template(){
 
 move_sonar_dir conf
 move_sonar_dir extensions
+move_sonar_dir data
 move_sonar_dir logs
 
 # get variables for templates
