@@ -9,8 +9,8 @@
 			],
 			"iso_checksum": "a3b345908a826e262f4ea1afeb357fd09ec0558cf34e6c9112cead4bb55ccdfb",
 			"iso_checksum_type": "sha256",
-			"ssh_username": "vagrant",
-			"ssh_password": "vagrant",
+			"ssh_username": "cesadmin",
+			"ssh_password": "cesadmin",
 			"ssh_wait_timeout": "10000s",
 			"http_directory": "http",
 			"headless": false,
@@ -26,14 +26,14 @@
 				"keyboard-configuration/variant=USA console-setup/ask_detect=false ",
 				"initrd=/install/initrd.gz -- <enter>"
 			],
-			"shutdown_command": "echo 'vagrant' | sudo -S -E shutdown -P now",
+			"shutdown_command": "echo 'cesadmin' | sudo -S -E shutdown -P now",
 			"hard_drive_interface": "sata"
 		}
 	],
 	"provisioners": [
 		{
 			"type": "shell",
-			"execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
+			"execute_command": "echo 'cesadmin' | sudo -S -E sh {{.Path}}",
 			"override": {
 				"ecosystem-basebox": {
 					"scripts": [
