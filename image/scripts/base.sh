@@ -22,3 +22,8 @@ GRUB_CMDLINE_LINUX="debian-installer=en_US"
 EOF
 
 update-grub
+
+# Add cesAdmin user
+adduser cesadmin --disabled-password --gecos ""
+echo cesadmin:cesadmin | chpasswd
+usermod -aG sudo cesadmin
