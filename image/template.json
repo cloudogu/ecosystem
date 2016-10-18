@@ -5,9 +5,9 @@
 			"type": "virtualbox-iso",
 			"guest_os_type": "Ubuntu_64",
 			"iso_urls": [
-				"http://releases.ubuntu.com/14.04/ubuntu-14.04.3-server-amd64.iso"
+				"http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso"
 			],
-			"iso_checksum": "a3b345908a826e262f4ea1afeb357fd09ec0558cf34e6c9112cead4bb55ccdfb",
+			"iso_checksum": "dde07d37647a1d2d9247e33f14e91acb10445a97578384896b4e1d985f754cc1",
 			"iso_checksum_type": "sha256",
 			"ssh_username": "cesadmin",
 			"ssh_password": "cesadmin",
@@ -35,7 +35,7 @@
 			"type": "shell",
 			"execute_command": "echo 'cesadmin' | sudo -S -E sh {{.Path}}",
 			"override": {
-				"ecosystem-basebox": {
+				"ecosystem-image": {
 					"scripts": [
 						"scripts/base.sh",
 						"scripts/subvolumes.sh",
