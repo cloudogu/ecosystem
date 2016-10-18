@@ -6,19 +6,22 @@ if [ "${SERVICE}" == "" ]; then
 fi
 
 # create random schema suffix and password
-SCHEMA="${SERVICE}_$(doguctl random -l 6)"
+ID=$(doguctl random -l 6 | tr '[:upper:]' '[:lower:]')
+USER="${SERVICE}_${ID}"
 PASSWORD=$(doguctl random)
+DATABASE="${USER}"
+SCHEMA="${USER}"
 
 # connection user
 ADMIN_USERNAME=$(doguctl config user)
 
-# create database
-2>/dev/null 1>&2 psql -U ${ADMIN_USERNAME} -c "CREATE USER ${SCHEMA} WITH PASSWORD '${PASSWORD}';"
+# create role
+2>/dev/null 1>&2 psql -U ${ADMIN_USERNAME} -c "CREATE USER ${USER} WITH PASSWORD '${PASSWORD}';"
 
-# grant access for user
-2>/dev/null 1>&2 psql -U ${ADMIN_USERNAME} -c "CREATE DATABASE ${SCHEMA} OWNER ${SCHEMA};"
+# create database
+2>/dev/null 1>&2 psql -U ${ADMIN_USERNAME} -c "CREATE DATABASE ${DATABASE} OWNER ${USER};"
 
 # print details
-echo "database: ${SCHEMA}"
-echo "username: ${SCHEMA}"
+echo "database: ${DATABASE}"
+echo "username: ${USER}"
 echo "password: ${PASSWORD}"
