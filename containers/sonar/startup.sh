@@ -39,10 +39,12 @@ move_sonar_dir logs
 
 # get variables for templates
 FQDN=$(doguctl config --global fqdn)
-MYSQL_IP=mysql
-MYSQL_USER=$(doguctl config -e sa-mysql/username)
-MYSQL_USER_PASSWORD=$(doguctl config -e sa-mysql/password)
-MYSQL_DB=$(doguctl config -e sa-mysql/database)
+DATABASE_TYPE=postgresql
+DATABASE_IP=postgresql
+DATABASE_PORT=5432
+DATABASE_USER=$(doguctl config -e sa-postgresql/username)
+DATABASE_USER_PASSWORD=$(doguctl config -e sa-postgresql/password)
+DATABASE_DB=$(doguctl config -e sa-postgresql/database)
 
 # create truststore, which is used in the sonar.properties file
 create_truststore.sh > /dev/null

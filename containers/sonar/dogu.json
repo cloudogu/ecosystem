@@ -11,7 +11,7 @@
   "Url": "http://www.sonarqube.org/",
   "Image": "registry.cloudogu.com/official/sonar",
   "Dependencies": [
-    "mysql", "cas", "nginx", "postfix"
+    "postgresql", "cas", "nginx", "postfix"
   ],
   "Volumes": [{
     "Name": "data",
@@ -20,7 +20,7 @@
     "Group": "1000"
   }],
   "ServiceAccounts": [{
-    "Type": "mysql"
+    "Type": "postgresql"
   }],
   "HealthCheck": {
     "Type": "tcp",

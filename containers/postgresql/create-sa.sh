@@ -1,0 +1,27 @@
+#!/bin/bash -e
+SERVICE="$1"
+if [ "${SERVICE}" == "" ]; then
+  echo "usage create-sa.sh servicename"
+  exit 1
+fi
+
+# create random schema suffix and password
+ID=$(doguctl random -l 6 | tr '[:upper:]' '[:lower:]')
+USER="${SERVICE}_${ID}"
+PASSWORD=$(doguctl random)
+DATABASE="${USER}"
+SCHEMA="${USER}"
+
+# connection user
+ADMIN_USERNAME=$(doguctl config user)
+
+# create role
+2>/dev/null 1>&2 psql -U ${ADMIN_USERNAME} -c "CREATE USER ${USER} WITH PASSWORD '${PASSWORD}';"
+
+# create database
+2>/dev/null 1>&2 psql -U ${ADMIN_USERNAME} -c "CREATE DATABASE ${DATABASE} OWNER ${USER};"
+
+# print details
+echo "database: ${DATABASE}"
+echo "username: ${USER}"
+echo "password: ${PASSWORD}"
