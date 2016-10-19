@@ -2,7 +2,7 @@
 FROM registry.cloudogu.com/official/java:8u102-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-ENV SONAR_VERSION 5.3
+ENV SONAR_VERSION 5.6.3
 ENV SONARQUBE_HOME /opt/sonar
 
 # mark as webapp for nginx
@@ -11,7 +11,7 @@ ENV SERVICE_TAGS webapp
 # there seems to be an ssl problem with curl and bintray.com, that is why the
 # --insecure flag was passed to curl. we should keep this in mind and try to
 # remove it in the future
-RUN apk add --update procps mysql-client \
+RUN apk add --update procps postgresql-client \
     && cd /tmp \
     && curl --insecure -L -O https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip \
     && unzip sonarqube-${SONAR_VERSION}.zip \
@@ -32,19 +32,6 @@ RUN chown -R sonar:sonar ${SONARQUBE_HOME}
 
 # add startscript
 ADD ./startup.sh /startup.sh
-RUN chmod +x /startup.sh
-
-# add user script
-ADD ./resources/sonaradmingroup.sh /sonaradmingroup.sh
-RUN chmod +x /sonaradmingroup.sh
-
-# add mailconfig
-ADD ./resources/sonarmailconfig.sh /sonarmailconfig.sh
-RUN chmod +x /sonarmailconfig.sh
-
-# add baseUrl
-ADD ./resources/sonarbaseurl.sh /sonarbaseurl.sh
-RUN chmod +x /sonarbaseurl.sh
 
 EXPOSE 9000
 CMD /startup.sh
