@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/redmine
-FROM registry.cloudogu.com/official/base:3.3-2
+FROM registry.cloudogu.com/official/base:3.3-3
 MAINTAINER Robert Auer <robert.auer@cloudogu.com>
 
 RUN apk add --update redmine ruby-io-console build-base ruby-dev \
