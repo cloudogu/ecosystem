@@ -11,10 +11,10 @@
   "Url": "http://www.redmine.org",
   "Image": "registry.cloudogu.com/official/redmine",
   "Dependencies": [
-    "mysql", "cas", "nginx", "postfix"
+    "postgresql", "cas", "nginx", "postfix"
   ],
   "ServiceAccounts": [{
-    "Type": "mysql"
+    "Type": "postgresql"
   }],
   "HealthCheck": {
     "Type": "tcp",
