@@ -62,7 +62,7 @@ if [ -z "$(ls -A "$PGDATA")" ]; then
   sed -ri "s/^#(listen_addresses\s*=\s*)\S+/\1'*'/" "$PGDATA"/postgresql.conf
 
   # set generated password
-  echo "ALTER USER ${POSTGRES_USER} WITH SUPERUSER PASSWORD '${POSTGRES_PASSWORD}';" | gosu postgres postgres --single -jE
+  echo "ALTER USER ${POSTGRES_USER} WITH SUPERUSER PASSWORD '${POSTGRES_PASSWORD}';" | 2>/dev/null 1>&2 gosu postgres postgres --single -jE
 fi
 
 # generate pg_hba.conf
