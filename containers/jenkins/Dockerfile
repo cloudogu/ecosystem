@@ -9,7 +9,7 @@ ENV JENKINS_HOME=/var/lib/jenkins \
     # mark as webapp for nginx
     SERVICE_TAGS=webapp \
     # jenkins version
-    JENKINS_VERSION=2.7.4
+    JENKINS_VERSION=2.19.1
 
 # Jenkins is ran with user `jenkins`, uid = 1000
 # If you bind mount a volume from host/volume from a data container,
@@ -20,8 +20,6 @@ RUN addgroup -S -g 1000 jenkins && adduser -S -h "$JENKINS_HOME" -s /bin/bash -G
  # could use ADD but this one does not check Last-Modified header
  # see https://github.com/docker/docker/issues/8331
  && curl -L http://mirrors.jenkins-ci.org/war-stable/${JENKINS_VERSION}/jenkins.war -o /jenkins.war \
- # add cas plugin to temp, will be installed by the startup script
- && curl -L https://github.com/sdorra/jenkins-cas-plugin/releases/download/cas-plugin-1.3.0-CES-1/cas-plugin.hpi -o /var/tmp/cas-plugin.hpi \
  # clear apk cache
  && rm -rf /var/cache/apk/* \
  # set git system ca-certificates
