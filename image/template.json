@@ -32,6 +32,16 @@
 	],
 	"provisioners": [
 		{
+			"type": "file",
+  		"source": "scripts/install",
+  		"destination": "/home/cesadmin"
+		},
+		{
+			"type": "file",
+  		"source": "scripts/resources",
+  		"destination": "/home/cesadmin"
+		},
+		{
 			"type": "shell",
 			"execute_command": "echo 'cesadmin' | sudo -S -E sh {{.Path}}",
 			"override": {
@@ -43,7 +53,8 @@
 						"scripts/dep.sh",
 						"scripts/etcd.sh",
 						"scripts/cleanup.sh",
-						"scripts/zerodisk.sh"
+						"scripts/zerodisk.sh",
+						"scripts/install.sh"
 					]
 				}
 			}
