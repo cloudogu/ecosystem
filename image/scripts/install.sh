@@ -7,17 +7,27 @@ if [ $UID != 0 ]; then
   exit 1
 fi
 
+# Copy resources to the right place
+cp -r /home/cesadmin/resources/etc/* /etc/
+cp -r /home/cesadmin/resources/usr/* /usr/
 chmod ug+x /home/cesadmin/install/*
-chmod ug+x /home/cesadmin/resources/etc/ces/functions.sh
+chmod ug+x /etc/ces/functions.sh
 
-# snyc resources
+# sync resources
 echo "sync files"
 $INSTALL_HOME/install/sync-files.sh
 
 # source new path environment, to fix missing etcdctl
-source /etc/environment
-export PATH
+echo "PATH ="
+echo $PATH
+#EN=$(cat /etc/environment) # source /etc/environment
+export $(cat /etc/environment) #PATH
+echo "PATH ="
+echo $PATH
 echo "INSTALL_HOME=\"$INSTALL_HOME\"" >> /etc/environment
+echo "/etc/environment ="
+EN=$(cat /etc/environment)
+echo $EN
 
 # create overlay network
 # errormessages of test may be confusing to read ... perhaps this could be fixed later
