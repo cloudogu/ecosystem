@@ -1,6 +1,0 @@
-/var/log/docker/*.log {
-    size 100M
-    rotate 2
-    missingok
-    compress
-}

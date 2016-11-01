@@ -33,12 +33,12 @@
 	"provisioners": [
 		{
 			"type": "file",
-  		"source": "scripts/install",
+  		"source": "../install",
   		"destination": "/home/cesadmin"
 		},
 		{
 			"type": "file",
-  		"source": "scripts/resources",
+  		"source": "../resources",
   		"destination": "/home/cesadmin"
 		},
 		{
