@@ -31,7 +31,8 @@ function valid_ip()
 }
 
 # Check if system has got a new IP after reboot
-if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
+# or last IP was empty or not an IP
+if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ] && $(valid_ip ${LASTIP}); then
   echo "$(date +%T): IP has changed from >${LASTIP}< to >${CURRIP}<"
   # IP changed
   if $(valid_ip ${CURRIP}) ; then
@@ -70,5 +71,5 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
     echo "$(date +%T): certificate type is not selfsigned"
   fi
 else
-  echo "$(date +%T): IP has not changed or last IP (${LASTIP}) is empty. Current IP = $CURRIP"
+  echo "$(date +%T): IP has not changed or last IP (${LASTIP}) is empty or not an IP. Current IP = $CURRIP"
 fi

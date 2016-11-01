@@ -7,7 +7,12 @@ name=$(hostname)
 domain=$(get_domain)
 
 if [ ! -f /etc/postfix/configured ]; then
-    net=$(etcdctl -C "$(cat /etc/ces/node_master):4001" get $(etcdctl -C "$(cat /etc/ces/node_master):4001" ls /docker/network/v1.0/overlay/network/) | jq '.[]' | jq '.SubnetIP' -r)
+    # GATHERING NETWORKS FROM INTERFACES FOR MYNETWORKS
+    for i in $(netstat -nr | grep -v ^0 | grep -v Dest | grep -v Kern| awk '{print $1}' | xargs); do
+      mask=$(netstat -nr | grep $i | awk '{print $3}')
+      cidr=$(/mask2cidr.sh $mask)
+      net="$net $i/$cidr"
+    done
     # POSTFIX CONFIG
     postconf -e myhostname="${name}.${domain}"
     postconf -e mydestination="${name}.${domain}, ${domain}, localhost.localdomain, localhost"
