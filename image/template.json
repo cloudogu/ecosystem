@@ -48,7 +48,7 @@
 				"ecosystem-image": {
 					"scripts": [
 						"../ecosystem-basebox/scripts/base.sh",
-						"scripts/subvolumes.sh",
+						"../ecosystem-basebox/scripts/subvolumes.sh",
 						"../ecosystem-basebox/scripts/virtualbox.sh",
 						"../ecosystem-basebox/scripts/dep.sh",
 						"../ecosystem-basebox/scripts/etcd.sh",
