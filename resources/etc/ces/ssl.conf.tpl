@@ -335,7 +335,5 @@ ess_cert_id_chain	= no	# Must the ESS cert id chain be included?
 				# (optional, default: no)
 
 
-
 [ alt_names ]
-IP = ${IP}
-DNS.1 = ${IP}
+DNS.1 = ${FQDN}

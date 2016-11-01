@@ -8,12 +8,12 @@ IFS=$'\n\t'
 source /etc/environment
 export PATH
 
-echo "create certificate"
-
 # variables
 DOMAIN=$(get_domain)
 FQDN=$(get_fqdn)
 IP=$(get_ip)
+
+echo "create self sigined certificate for fqdn ${FQDN}"
 
 # create temporary directoy
 SSL_DIR=$(mktemp)
@@ -31,7 +31,18 @@ SIGNED="${SSL_DIR}/server.signed"
 CA_DIR="${SSL_DIR}/ca"
 
 CN="CES Self Signed"
-render_template "/etc/ces/ssl.conf.tpl" > "${SSL_CONF}"
+
+function render_openssl_config() {
+  # render template for ssl configuration
+  render_template "/etc/ces/ssl.conf.tpl" > "${SSL_CONF}"
+
+  # if fqdn is an ip add alternative name
+  if [[ $FQDN =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+    echo "IP = ${IP}" >> "${SSL_CONF}"
+  fi
+}
+
+render_openssl_config
 
 # create passphrase
 PASSPHRASE=$(openssl rand -hex 16)
@@ -44,7 +55,7 @@ openssl req -x509 -new -passin pass:${PASSPHRASE} -extensions v3_ca -key "${CAKE
 
 # rerender ssl configuration to change CN
 CN="${FQDN}"
-render_template "/etc/ces/ssl.conf.tpl" > "${SSL_CONF}"
+render_openssl_config
 
 # create server key, request and certificate
 openssl genrsa -out "${KEY}" 4096 2>/dev/null
