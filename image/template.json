@@ -47,13 +47,13 @@
 			"override": {
 				"ecosystem-image": {
 					"scripts": [
-						"../ecosystem-basebox/scripts/base.sh",
-						"../ecosystem-basebox/scripts/subvolumes.sh",
-						"../ecosystem-basebox/scripts/virtualbox.sh",
-						"../ecosystem-basebox/scripts/dep.sh",
-						"../ecosystem-basebox/scripts/etcd.sh",
-						"../ecosystem-basebox/scripts/cleanup.sh",
-						"../ecosystem-basebox/scripts/zerodisk.sh",
+						"../../ecosystem-basebox/scripts/base.sh",
+						"../../ecosystem-basebox/scripts/subvolumes.sh",
+						"../../ecosystem-basebox/scripts/virtualbox.sh",
+						"../../ecosystem-basebox/scripts/dep.sh",
+						"../../ecosystem-basebox/scripts/etcd.sh",
+						"../../ecosystem-basebox/scripts/cleanup.sh",
+						"../../ecosystem-basebox/scripts/zerodisk.sh",
 						"scripts/customize.sh",
 						"../install.sh"
 					]
