@@ -4,5 +4,7 @@
 images/ecosystem-basebox/build
 images/ecosystem-basebox/packer_cache
 images/ecosystem-basebox/.bundle
+images/ecosystem-basebox/output-ecosystem-basebox
 images/ecosystem/packer_cache
 images/ecosystem/packer_cache
+images/ecosystem/output-ecosystem-image
