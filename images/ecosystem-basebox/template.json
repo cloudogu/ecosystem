@@ -37,14 +37,14 @@
 			"override": {
 				"ecosystem-basebox": {
 					"scripts": [
-						"scripts/base.sh",
-						"scripts/subvolumes.sh",
-						"scripts/virtualbox.sh",
-						"scripts/vagrant.sh",
-						"scripts/dep.sh",
-						"scripts/etcd.sh",
-						"scripts/cleanup.sh",
-						"scripts/zerodisk.sh"
+						"../scripts/base.sh",
+						"../scripts/subvolumes.sh",
+						"../scripts/virtualbox.sh",
+						"../scripts/vagrant.sh",
+						"../scripts/dep.sh",
+						"../scripts/etcd.sh",
+						"../scripts/cleanup.sh",
+						"../scripts/zerodisk.sh"
 					]
 				}
 			}
