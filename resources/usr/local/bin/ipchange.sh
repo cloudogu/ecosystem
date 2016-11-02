@@ -56,16 +56,16 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ] && $(valid_ip ${LASTIP}); 
     source /etc/environment;
     if [ $(cat /etc/ces/type) == "vagrant" ]; then
       end=$((SECONDS+20)) # wait for max. 20 seconds
-      while [ ! -f ${INSTALL_HOME}/install/ssl.sh ] && [ $SECONDS -lt $end ]
+      while [ ! -f /usr/local/bin/ssl.sh ] && [ $SECONDS -lt $end ]
       do
         sleep 0.25
-        echo "$(date +%T): waiting for ${INSTALL_HOME}/install/ssl.sh to become available..."
+        echo "$(date +%T): waiting for /usr/local/bin/ssl.sh to become available..."
       done
     fi
-    if [ -f ${INSTALL_HOME}/install/ssl.sh ]; then
-      ${INSTALL_HOME}/install/ssl.sh
+    if [ -f /usr/local/bin/ssl.sh ]; then
+      /usr/local/bin/ssl.sh
     else
-      echo "$(date +%T): ${INSTALL_HOME}/install/ssl.sh does not exist"
+      echo "$(date +%T): /usr/local/bin/ssl.sh does not exist"
     fi
   else
     echo "$(date +%T): certificate type is not selfsigned"
