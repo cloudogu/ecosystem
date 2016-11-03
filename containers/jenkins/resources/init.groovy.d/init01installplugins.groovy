@@ -15,6 +15,7 @@ def keyExists(String key){
 
 // configuration
 def plugins = [
+  'cas-plugin',
   'git',
   'mercurial',
   'subversion',

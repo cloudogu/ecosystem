@@ -1,6 +1,6 @@
 {
   "Name": "official/redmine",
-  "Version": "3.0.5-2",
+  "Version": "3.0.5-3",
   "DisplayName": "Redmine",
   "Description": "Redmine is a flexible project management web application",
   "Category": "Development Apps",
@@ -11,10 +11,10 @@
   "Url": "http://www.redmine.org",
   "Image": "registry.cloudogu.com/official/redmine",
   "Dependencies": [
-    "mysql", "cas", "nginx", "postfix"
+    "postgresql", "cas", "nginx", "postfix"
   ],
   "ServiceAccounts": [{
-    "Type": "mysql"
+    "Type": "postgresql"
   }],
   "HealthCheck": {
     "Type": "tcp",

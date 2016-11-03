@@ -9,6 +9,8 @@ while [ $SECONDS -lt $end ] && [ -z $LASTIP ]; do
   echo "$(date +%T): etcd unavailable, trying again..."
   sleep 0.25
   LASTIP=$(/opt/ces/bin/etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
+  CURRIP=$(get_ip)
+  echo ${CURRIP} > /etc/ces/node_master
 done
 
 function valid_ip()
@@ -29,7 +31,8 @@ function valid_ip()
 }
 
 # Check if system has got a new IP after reboot
-if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
+# or last IP was empty or not an IP
+if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ] && $(valid_ip ${LASTIP}); then
   echo "$(date +%T): IP has changed from >${LASTIP}< to >${CURRIP}<"
   # IP changed
   if $(valid_ip ${CURRIP}) ; then
@@ -39,9 +42,9 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
     end=$((SECONDS+20)) # wait for max. 20 seconds
     while [ "${ETCDCTL_EXIT}" -ne "0" ] && [ $SECONDS -lt $end ]; do # etcd is not ready yet
       echo "$(date +%T): Redo setting fqdn"
-      sleep 0.25
       /opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
       ETCDCTL_EXIT=$?
+      sleep 0.25
     done
   else
     echo "$(date +%T): ${CURRIP} is no valid IP!"
@@ -53,20 +56,20 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ]; then
     source /etc/environment;
     if [ $(cat /etc/ces/type) == "vagrant" ]; then
       end=$((SECONDS+20)) # wait for max. 20 seconds
-      while [ ! -f ${INSTALL_HOME}/install/ssl.sh ] && [ $SECONDS -lt $end ]
+      while [ ! -f /usr/local/bin/ssl.sh ] && [ $SECONDS -lt $end ]
       do
         sleep 0.25
-        echo "$(date +%T): waiting for ${INSTALL_HOME}/install/ssl.sh to become available..."
+        echo "$(date +%T): waiting for /usr/local/bin/ssl.sh to become available..."
       done
     fi
-    if [ -f ${INSTALL_HOME}/install/ssl.sh ]; then
-      ${INSTALL_HOME}/install/ssl.sh
+    if [ -f /usr/local/bin/ssl.sh ]; then
+      /usr/local/bin/ssl.sh
     else
-      echo "$(date +%T): ${INSTALL_HOME}/install/ssl.sh does not exist"
+      echo "$(date +%T): /usr/local/bin/ssl.sh does not exist"
     fi
   else
     echo "$(date +%T): certificate type is not selfsigned"
   fi
 else
-  echo "$(date +%T): IP has not changed or last IP (${LASTIP}) is empty. Current IP = $CURRIP"
+  echo "$(date +%T): IP has not changed or last IP (${LASTIP}) is empty or not an IP. Current IP = $CURRIP"
 fi

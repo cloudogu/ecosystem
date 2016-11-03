@@ -3,11 +3,11 @@
 # Line indentation must be 2 spaces (no tabs).
 
 production:
-  adapter: mysql2
-  database: ${MYSQL_DB}
-  host: ${MYSQL_IP}
-  username: ${MYSQL_USER}
-  password: ${MYSQL_USER_PASSWORD}
+  adapter: ${DATABASE_TYPE}
+  database: ${DATABASE_DB}
+  host: ${DATABASE_IP}
+  username: ${DATABASE_USER}
+  password: ${DATABASE_USER_PASSWORD}
   encoding: utf8
 
 #development:

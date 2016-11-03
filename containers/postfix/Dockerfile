@@ -5,9 +5,9 @@ MAINTAINER	stephan christann	<stephan.christann@christann.net>
 RUN apk add --update postfix openrc \
 	&& rm -rf /var/cache/apk/*
 
-# Add POSTFIX RUN
+# Add POSTFIX RUN AND CIDR CALCULATOR
 ADD startup.sh /startup.sh
-RUN chmod 755 /startup.sh
+ADD mask2cidr.sh /mask2cidr.sh
 
 # VOLUMES
 VOLUME  ["/tmp", "/etc/ces/", "/etc/postfix"]
