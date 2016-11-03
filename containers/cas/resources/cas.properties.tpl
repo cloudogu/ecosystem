@@ -116,7 +116,7 @@ ldap.url=ldap://%LDAP_HOST%:%LDAP_PORT%
 ldap.connectTimeout=3000
 
 # Whether to use StartTLS (probably needed if not SSL connection)
-ldap.useStartTLS=false
+ldap.useStartTLS=%LDAP_STARTTLS%
 
 #========================================
 # LDAP connection pool configuration
@@ -156,20 +156,20 @@ ldap.authn.managerPassword=%LDAP_BIND_PASSWORD%
 
 # Search filter used for configurations that require searching for DNs
 #ldap.authn.searchFilter=(&(uid={user})(accountState=active))
-ldap.authn.searchFilter=(&(objectClass=person)(uid={user}))
+ldap.authn.searchFilter=%LDAP_SEARCH_FILTER%
 
 # Search filter used for configurations that require searching for DNs
 #ldap.authn.format=uid=%s,ou=Users,dc=example,dc=org
-ldap.authn.format=uid=%s,ou=People,%LDAP_BASE_DN%
+ldap.authn.format=uid=%s,ou=Accounts,%LDAP_BASE_DN%
 
 #Ldap mapping of result attributes
-ldap.authn.attribute.username=uid
+ldap.authn.attribute.username=%LDAP_ATTRIBUTE_USERNAME%
 ldap.authn.attribute.cn=cn
-ldap.authn.attribute.mail=mail
+ldap.authn.attribute.mail=%LDAP_ATTRIBUTE_MAIL%
 ldap.authn.attribute.givenName=givenName
 ldap.authn.attribute.surname=sn
 ldap.authn.attribute.displayName=displayName
-ldap.authn.attribute.groups=memberOf
+ldap.authn.attribute.groups=%LDAP_ATTRIBUTE_GROUP%
 
 # set deployment stage
 stage = production
