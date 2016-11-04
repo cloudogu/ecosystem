@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/bash -e
 
 perl -p -i -e 's#http://us.archive.ubuntu.com/ubuntu#http://mirror.rackspace.com/ubuntu#gi' /etc/apt/sources.list
 
 # Update the box
-apt-get -y update >/dev/null
-apt-get -y install facter linux-headers-$(uname -r) build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev curl unzip btrfs-tools >/dev/null
+DEBIAN_FRONTEND=noninteractive apt-get -y update
+DEBIAN_FRONTEND=noninteractive apt-get -y install curl unzip btrfs-tools apt-transport-https ca-certificates linux-image-extra-$(uname -r) linux-image-extra-virtual
 
 # Tweak sshd to prevent DNS resolution (speed up logins)
 echo 'UseDNS no' >> /etc/ssh/sshd_config

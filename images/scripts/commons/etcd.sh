@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 ETCD_VERSION=v2.3.7
 

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# remove ces-admin resources
+echo "remove temporary install resources"
+rm -rf /home/ces-admin/resources /home/ces-admin/install/
+
 # Removing leftover leases and persistent rules
 echo "cleaning up dhcp leases"
 rm /var/lib/dhcp/*

@@ -18,7 +18,7 @@
 			"boot_command": [
 				"<esc><esc><enter><wait>",
 				"/install/vmlinuz ",
-				"preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/preseed.cfg ",
+				"preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/dev/preseed.cfg ",
 				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
 				"hostname={{.Name}} ",
 				"fb=false debconf/frontend=noninteractive ",
@@ -33,21 +33,22 @@
 	"provisioners": [
 		{
 			"type": "shell",
-			"execute_command": "echo 'vagrant' | sudo -S -E sh {{.Path}}",
-			"override": {
-				"ecosystem-basebox": {
-					"scripts": [
-						"../scripts/base.sh",
-						"../scripts/subvolumes.sh",
-						"../scripts/virtualbox.sh",
-						"../scripts/vagrant.sh",
-						"../scripts/dep.sh",
-						"../scripts/etcd.sh",
-						"../scripts/cleanup.sh",
-						"../scripts/zerodisk.sh"
-					]
-				}
-			}
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E /bin/bash -eux '{{.Path}}'",
+			"environment_vars": [
+				"INSTALL_HOME=/vagrant",
+				"HOME_DIR=/home/vagrant"
+			],
+			"scripts": [
+				"scripts/commons/base.sh",
+				"scripts/commons/subvolumes.sh",
+				"scripts/commons/virtualbox.sh",
+				"scripts/commons/vagrant.sh",
+				"scripts/dev/dependencies/dep.sh",
+				"scripts/commons/etcd.sh",
+				"scripts/commons/docker.sh",
+				"scripts/commons/cleanup.sh",
+				"scripts/commons/zerodisk.sh"
+			]
 		}
 	],
 	"post-processors": [
