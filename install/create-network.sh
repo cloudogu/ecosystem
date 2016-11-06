@@ -1,12 +1,31 @@
-#!/bin/bash
+#!/bin/bash -e
 
-# check if etcd was started with docker
+if ! service etcd status | grep 'running' &> /dev/null; then
+  >&2 echo "service etcd is not running, starting ..."
+  service etcd start &>/dev/null
+  sleep 0.5
+fi
 
-if /opt/ces/bin/etcdctl cluster-health; then
-  # restarting docker and upstart should start etcd as well
-  >&2 echo "WARNING: etcd seem not to be started, restarting docker"
+for i in $(seq 1 5); do
+  if ! /opt/ces/bin/etcdctl cluster-health &> /dev/null; then
+    >&2 echo "etcd is not running, try to restart (retry counter $i)..."
+    service etcd restart &>/dev/null
+    sleep 0.5
+  else
+    echo "etcd successfully started ..."
+    break
+  fi
+done
+
+if ! /opt/ces/bin/etcdctl cluster-health &> /dev/null; then
+  >&2 echo "failed to start etcd ..."
+  exit 1
+fi
+
+if ! docker info | grep -i 'cluster store' | grep 'etcd' &> /dev/null; then
+  echo "docker is not configured for etcd, restarting docker ..."
   service docker restart
 fi
 
-echo "creating overlay network"
+echo "creating overlay network ..."
 docker network create --driver overlay cesnet1
