@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # sync resources to fs
 rsync -rav $INSTALL_HOME/resources/* /

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # be sure we are root
 if [ $(id -u) -ne 0 ]; then
