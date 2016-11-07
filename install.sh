@@ -1,11 +1,16 @@
-#!/bin/bash
+#!/bin/bash -e
 
-export INSTALL_HOME=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
-
-if [ $UID != 0 ]; then
+# be sure we are root
+if [ $(id -u) -ne 0 ]; then
   echo "please run as root"
   exit 1
 fi
+
+# set install home, if not set 
+if [ -z ${INSTALL_HOME+x} ]; then
+  INSTALL_HOME=$(cd "$( dirname "${0}" )" && pwd)
+fi
+export INSTALL_HOME
 
 # snyc resources
 echo "sync files"

@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/bash -e
+
 source /etc/ces/functions.sh
 
 # write current ip

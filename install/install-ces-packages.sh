@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/bash -e
+
 PACKAGES="cesapp ces-setup"
 APTINSTALL=""
 
@@ -6,8 +7,8 @@ APTINSTALL=""
 apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0249BCED
 
 for PKG in $PACKAGES; do
-  DEBPKG=$(ls /vagrant/${PKG}*.deb 2> /dev/null)
-  if [ $? = 0 ]; then
+  if ls /vagrant/${PKG}*.deb 2> /dev/null; then
+    DEBPKG=$(ls /vagrant/${PKG}*.deb 2> /dev/null)
     echo "install ${PKG} from development package ${DEBPKG}"
     dpkg -i ${DEBPKG}
   else
