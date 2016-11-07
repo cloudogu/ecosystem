@@ -72,7 +72,7 @@
 		},
 		{
 			"type": "shell",
-			"execute_command": "echo {{user `username`}} | {{.Vars}} sudo -S -E /bin/bash -eux '{{.Path}}'",
+			"execute_command": "echo {{user `password`}} | {{.Vars}} sudo -S -E /bin/bash -eux '{{.Path}}'",
 			"environment_vars": [
 				"INSTALL_HOME=/home/{{user `username`}}",
 				"HOME_DIR=/home/{{user `username`}}"
