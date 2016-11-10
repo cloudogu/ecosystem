@@ -2,16 +2,19 @@
 FROM registry.cloudogu.com/official/base:3.3-3
 MAINTAINER Robert Auer <robert.auer@cloudogu.com>
 
-RUN apk add --update redmine ruby-io-console build-base ruby-dev \
-  imagemagick-dev ruby-irb ruby-pg git ruby-sqlite postgresql-client \
+RUN apk add --update ruby-io-console ruby-rdoc build-base ruby-dev \
+  imagemagick-dev ruby-irb ruby-pg git ruby-sqlite postgresql-client zlib-dev \
   && rm -rf /tmp/* /var/cache/apk/*
 
+ENV REDMINE_VERSION 3.3.1
 ENV WORKDIR /usr/share/webapps/redmine
 ENV RMCASPLUGINVERSION 1.2.9
 ENV RUBYCASVERSION 2.3.13
 
-# Reinstall RMagick to make it work
-RUN gem uninstall rmagick && gem install rmagick -v 2.13.4
+# Get Redmine
+RUN curl -L --create-dirs -o ${WORKDIR}.tar.gz http://www.redmine.org/releases/redmine-${REDMINE_VERSION}.tar.gz
+RUN tar -xzf ${WORKDIR}.tar.gz && mkdir ${WORKDIR} && mv redmine-${REDMINE_VERSION}/* ${WORKDIR} \
+  && rm -rf redmine-${REDMINE_VERSION} ${WORKDIR}.tar.gz
 
 RUN gem install activerecord-session_store
 RUN echo 'gem "activerecord-session_store"' >> /usr/share/webapps/redmine/Gemfile
