@@ -15,7 +15,7 @@ if [ ! -f /etc/postfix/configured ]; then
     done
     # POSTFIX CONFIG
     postconf -e myhostname="${name}.${domain}"
-    postconf -e mydestination="${name}.${domain}, ${domain}, localhost.localdomain, localhost"
+    postconf -e mydestination="${name}.${domain}, localhost.localdomain, localhost"
     postconf -e mynetworks="127.0.0.1 ${net}"
     postconf -e smtputf8_enable=no
     postconf -e relayhost=$MAILRELAY
