@@ -2,14 +2,26 @@
 FROM registry.cloudogu.com/official/base:3.3-3
 MAINTAINER Robert Auer <robert.auer@cloudogu.com>
 
-RUN apk add --update ruby-io-console ruby-rdoc build-base ruby-dev \
-  imagemagick-dev ruby-irb ruby-pg git ruby-sqlite postgresql-client zlib-dev \
+RUN apk add --update ruby-io-console build-base ruby-dev \
+  imagemagick-dev ruby-irb ruby-pg git ruby-sqlite postgresql-client \
+  ruby-bundler ruby ruby-actionpack-action_caching4.2 \
+  ruby-actionpack-xml_parser4.2 ruby-bigdecimal ruby-coderay ruby-fastercsv \
+  ruby-i18n ruby-jquery-rails4.2 ruby-json ruby-mocha ruby-net-ldap ruby-openid \
+  ruby-rack ruby-rack-openid ruby-rails4.2 ruby-rbpdf ruby-rdoc ruby-redcarpet \
+  ruby-request_store ruby-rmagick ruby-protected_attributes4.2 binutils ruby-io-console \
   && rm -rf /tmp/* /var/cache/apk/*
 
 ENV REDMINE_VERSION 3.3.1
 ENV WORKDIR /usr/share/webapps/redmine
 ENV RMCASPLUGINVERSION 1.2.9
 ENV RUBYCASVERSION 2.3.13
+
+#RUN apk add --update ruby-bundler ruby ruby-actionpack-action_caching4.2 \
+#  ruby-actionpack-xml_parser4.2 ruby-bigdecimal ruby-coderay ruby-fastercsv \
+#  ruby-i18n ruby-jquery-rails4.2 ruby-json ruby-mocha ruby-net-ldap ruby-openid \
+#  ruby-rack ruby-rack-openid ruby-rails4.2 ruby-rbpdf ruby-rdoc ruby-redcarpet \
+#  ruby-request_store ruby-rmagick ruby-protected_attributes4.2 binutils ruby-io-console
+#  && rm -rf /tmp/* /var/cache/apk/*
 
 # Get Redmine
 RUN curl -L --create-dirs -o ${WORKDIR}.tar.gz http://www.redmine.org/releases/redmine-${REDMINE_VERSION}.tar.gz
