@@ -172,5 +172,5 @@ ldap.authn.attribute.displayName=displayName
 ldap.authn.attribute.groups=%LDAP_ATTRIBUTE_GROUP%
 
 # set deployment stage
-stage = production
+stage = %STAGE%
 requireSecure = %REQUIRE_SECURE%
