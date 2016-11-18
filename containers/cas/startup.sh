@@ -32,6 +32,9 @@ fi
 
 
 STAGE=$(doguctl config --global stage)
+if [[ "$STAGE" != 'development' ]]; then
+  STAGE='production'
+fi
 REQUIRE_SECURE='true'
 if [[ "$STAGE" == 'development' ]]; then
   REQUIRE_SECURE='false'
@@ -42,6 +45,7 @@ fi
 sed "s@%DOMAIN%@$DOMAIN@g;\
 s@%LDAP_STARTTLS%@$LDAP_STARTTLS@g;\
 s@%FQDN%@$FQDN@g;\
+s@%STAGE%@$STAGE@g;\
 s@%REQUIRE_SECURE%@$REQUIRE_SECURE@g;\
 s@%LDAP_HOST%@$LDAP_HOST@g;\
 s@%LDAP_PORT%@$LDAP_PORT@g;\
