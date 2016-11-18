@@ -1,6 +1,6 @@
 {
   "Name": "official/postfix",
-  "Version": "3.0.4-2",
+  "Version": "3.0.4-3",
   "DisplayName": "Postfix",
   "Description": "Postfix - Mail Transfer Agent",
   "Logo": "https://cloudogu.com/images/dogus/postfix.png",
