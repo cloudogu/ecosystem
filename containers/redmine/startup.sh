@@ -22,9 +22,8 @@ function sql(){
   return $?
 }
 
-# Add redmine user
-adduser -D redmine
-chown -R redmine:redmine ${WORKDIR}
+# Add redmine user, if it does not exist
+id -u redmine &> /dev/null || (adduser -D redmine && chown -R redmine:redmine ${WORKDIR})
 # adjust redmine database.yml
 render_template "${WORKDIR}/config/database.yml.tpl" > "${WORKDIR}/config/database.yml"
 # Install Redmine Gemfile
@@ -82,7 +81,9 @@ if [ ! -e ${WORKDIR}/stylesheets ]; then
 fi
 
 # Generate configuration.yml from template (e.g. for config of mail transport)
-mkdir -m 755 /etc/redmine
+if [ ! -d /etc/redmine ]; then
+  mkdir -m 755 /etc/redmine
+fi
 render_template "${WORKDIR}/config/configuration.yml.tpl" > "/etc/redmine/configuration.yml"
 
 # remove old pid
