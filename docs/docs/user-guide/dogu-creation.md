@@ -40,4 +40,8 @@ For additional resources of the new dogu, a `resources` folder can be created.
  * Go to /vagrant/containers/'newDoguName'
  * Type `cesapp build 'newDoguName'`
  * If the dogu is successfully built, type `docker start 'newDoguName'`
- * Test your dogu
+
+### 4. Test your dogu
+ * Check /var/log/docker/'newDoguName'.log if dogu is started up correctly
+ * Restart your dogu via `docker restart 'newDoguName'` and check the log again
+ * Make sure all bash scripts comply to the [guideline](bash-guideline.md) 
