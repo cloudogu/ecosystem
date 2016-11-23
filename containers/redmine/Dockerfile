@@ -40,41 +40,57 @@ RUN apk add --update binutils \
   && rm -rf /tmp/* /var/cache/apk/*
 
 ENV REDMINE_VERSION 3.3.1
-ENV WORKDIR /usr/share/webapps/redmine
 ENV RMCASPLUGINVERSION 1.2.9
 ENV RUBYCASVERSION 2.3.13
+ENV USER redmine
+ENV BASEDIR /usr/share/webapps
+ENV WORKDIR ${BASEDIR}/redmine
+
+# Create redmine user and workdir
+RUN adduser -D ${USER}
+RUN mkdir -p -m 755 ${WORKDIR}
+RUN chown -R ${USER}:${USER} ${BASEDIR}
+USER ${USER}
+WORKDIR ${WORKDIR}
 
 # Get Redmine
-RUN mkdir -p -m 755 ${WORKDIR}
 RUN curl -L -o ${WORKDIR}.tar.gz http://www.redmine.org/releases/redmine-${REDMINE_VERSION}.tar.gz \
   && tar -xzf ${WORKDIR}.tar.gz \
   && mv redmine-${REDMINE_VERSION}/* ${WORKDIR} \
   && rm -rf redmine-${REDMINE_VERSION} ${WORKDIR}.tar.gz
 
-RUN gem install activerecord-session_store
-RUN echo 'gem "activerecord-session_store"' >> /usr/share/webapps/redmine/Gemfile
-RUN gem install activerecord-deprecated_finders
-RUN echo 'gem "activerecord-deprecated_finders", require: "active_record/deprecated_finders"' >> /usr/share/webapps/redmine/Gemfile
-
+USER root
 COPY ./resources/workdir/ ${WORKDIR}/
+RUN gem install activerecord-session_store
+RUN echo 'gem "activerecord-session_store"' >> ${WORKDIR}/Gemfile
+RUN gem install activerecord-deprecated_finders
+RUN echo 'gem "activerecord-deprecated_finders", require: "active_record/deprecated_finders"' >> ${WORKDIR}/Gemfile
+RUN bundle install
+RUN gem install pg -v '0.18.4'
+RUN chown -R ${USER}:${USER} ${BASEDIR}
+RUN mkdir -m 755 /etc/redmine && chown ${USER}:${USER} /etc/redmine
+# Generate secret session token
+RUN rake generate_secret_token --trace -f ${WORKDIR}/Rakefile
 
 # Install (available) rubycas-client version
 RUN git clone https://github.com/cloudogu/rubycas-client.git \
-  && cd /rubycas-client \
+  && cd rubycas-client \
   && gem build rubycas-client.gemspec \
-  && gem install rubycas-client-${RUBYCASVERSION}.gem
+  && gem install rubycas-client-${RUBYCASVERSION}.gem \
+  && rm -rf ../rubycas-client
 
 # Install Redmine CAS plugin
-RUN curl -L -o /casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
-  && tar -xzf /casplugin${RMCASPLUGINVERSION}.tar.gz \
-  && mv /redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
-  && rm /casplugin${RMCASPLUGINVERSION}.tar.gz
+USER ${USER}
+RUN curl -L -o casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
+  && tar -xzf casplugin${RMCASPLUGINVERSION}.tar.gz \
+  && mv redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
+  && rm casplugin${RMCASPLUGINVERSION}.tar.gz
 
 # Install redmine_activerecord_session_store plugin to make Single Sign-Out work
-RUN curl -L -o /redmine_AR_session_store.tar.gz https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz \
-  && tar -xzf /redmine_AR_session_store.tar.gz \
-  && mv /redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
-  && rm /redmine_AR_session_store.tar.gz
+RUN curl -L -o redmine_AR_session_store.tar.gz https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz \
+  && tar -xzf redmine_AR_session_store.tar.gz \
+  && mv redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
+  && rm redmine_AR_session_store.tar.gz
 
 # startscript
 COPY ./startup.sh /startup.sh

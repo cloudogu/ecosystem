@@ -22,14 +22,10 @@ function sql(){
   return $?
 }
 
-# Add redmine user, if it does not exist
-id -u redmine &> /dev/null || (adduser -D redmine && chown -R redmine:redmine ${WORKDIR})
 # adjust redmine database.yml
 render_template "${WORKDIR}/config/database.yml.tpl" > "${WORKDIR}/config/database.yml"
 # Install Redmine Gemfile
 bundle install --gemfile=${WORKDIR}/Gemfile
-# Generate secret session token
-su - redmine -c "rake generate_secret_token --trace -f ${WORKDIR}/Rakefile"
 # insert secret_key_base into secrets.yml
 SECRETKEYBASE=$(grep secret_key_base ${WORKDIR}/config/initializers/secret_token.rb | awk -F \' '{print $2}' )
 render_template "${WORKDIR}/config/secrets.yml.tpl" > "${WORKDIR}/config/secrets.yml"
@@ -45,12 +41,12 @@ else
 
   # Create the database structure
   echo "Creating database structure..."
-  su - redmine -c "RAILS_ENV=$RAILS_ENV rake db:migrate --trace -f ${WORKDIR}/Rakefile"
+  RAILS_ENV=$RAILS_ENV rake db:migrate --trace -f ${WORKDIR}/Rakefile
 
   # Insert default configuration data into database
   # Adjust to your language at REDMINE_LANG parameter above
   echo "Inserting default configuration data into database..."
-  su - redmine -c "RAILS_ENV=$RAILS_ENV REDMINE_LANG="$REDMINE_LANG" rake redmine:load_default_data --trace -f ${WORKDIR}/Rakefile"
+  RAILS_ENV=$RAILS_ENV REDMINE_LANG="$REDMINE_LANG" rake redmine:load_default_data --trace -f ${WORKDIR}/Rakefile
 
   echo "Writing cas plugin settings to database..."
   sql "INSERT INTO settings (name, value, updated_on) VALUES ('plugin_redmine_cas', E'--- !ruby/hash:ActionController::Parameters \nenabled: 1 \ncas_url: https://${FQDN}/cas \nattributes_mapping: firstname=givenName&lastname=surname&mail=mail \nautocreate_users: 1', now());"
@@ -69,7 +65,7 @@ else
   sql "DELETE FROM users WHERE login='admin';"
 
   echo "Running plugins migrations..."
-  su - redmine -c "rake redmine:plugins:migrate RAILS_ENV=$RAILS_ENV -f ${WORKDIR}/Rakefile"
+  rake redmine:plugins:migrate RAILS_ENV=$RAILS_ENV -f ${WORKDIR}/Rakefile
 fi
 
 # Create links
@@ -81,9 +77,6 @@ if [ ! -e ${WORKDIR}/stylesheets ]; then
 fi
 
 # Generate configuration.yml from template (e.g. for config of mail transport)
-if [ ! -d /etc/redmine ]; then
-  mkdir -m 755 /etc/redmine
-fi
 render_template "${WORKDIR}/config/configuration.yml.tpl" > "/etc/redmine/configuration.yml"
 
 # remove old pid
