@@ -13,8 +13,10 @@ Vagrant.configure(2) do |config|
 
   # use bridged netword
   # to get the ip use vagrant ssh -c ifconfig
-  #
   config.vm.network "public_network"
+
+  # private network configuration
+  # config.vm.network "private_network", ip: "192.168.42.2"
 
   # create flag file to set appliance type to vagrant
   config.vm.provision "shell",
@@ -24,6 +26,10 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |v|
     v.memory = 3072
     # v.cpus = 2
+
+    # enable dns host resolver
+    # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    # v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
   # load custom configurations
