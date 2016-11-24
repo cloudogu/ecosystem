@@ -1,18 +1,27 @@
 ## How to create a dogu
-### 1. Create a new directory (/ecosystem/containers/'newDoguName') and place these essential files into it:
+### 1. Create dogu directory
+Create directory /ecosystem/containers/'newDoguName' and place these essential files into it:
+
  * `Dockerfile` --> Creation of the Docker image of your new dogu
- * `dogu.json` --> important dogu configuration information
- * `startup.sh` --> commands executed at every start of the dogu
+ * `startup.sh` --> Commands executed at every start of the dogu
+ * `dogu.json` --> Important dogu configuration information
 
 For additional resources of the new dogu, a `resources` folder can be created.
-### 2. Fill those files with content
+### 2. Fill files with content
 #### Dockerfile
+ * Fixed commands, which only need to be executed once are included here
  * Guidelines for writing Dockerfiles can be found [here](https://docs.docker.com/engine/reference/builder/) and [here](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/). 
  * For Java-based applications use the cloudogu `java` base image
  * For other applications use the cloudogu `base` base image
  * If your dogu is a web application, add the line `ENV SERVICE_TAGS webapp`. This will lead to the appearance of your dogu in the warp menu.
  * Copy your resources to the dogu, if necessary
  * Please include `MAINTAINER` information
+
+#### startup.sh
+ * Commands, which need to be executed at every start of the dogu are included here
+ * Create or modify files and directories if necessary
+ * Run commands necessary at first or every start
+ * Add a command to start your application at the end of the file
 
 #### dogu.json
  * Name: The name of the new dogu
@@ -30,18 +39,13 @@ For additional resources of the new dogu, a `resources` folder can be created.
  * Volumes (JSON array): Directories in the ecosystem, which are also accessible from inside the dogu
  * ServiceAccounts (JSON array): 
 
-#### startup.sh
- * Create or modify files and directories if necessary
- * Run commands necessary at first or every start
- * add a command to start your application at the end of the file
-
 ### 3. Create your dogu
  * Start up ecosystem
- * Go to /vagrant/containers/'newDoguName'
+ * Go to /vagrant/containers
  * Type `cesapp build 'newDoguName'`
  * If the dogu is successfully built, type `docker start 'newDoguName'`
 
 ### 4. Test your dogu
  * Check /var/log/docker/'newDoguName'.log if dogu is started up correctly
  * Restart your dogu via `docker restart 'newDoguName'` and check the log again
- * Make sure all bash scripts comply to the [guideline](bash-guideline.md) 
+ * Make sure all bash scripts comply with the [guideline](bash-guideline.md) 
