@@ -87,5 +87,4 @@ fi
 
 # Start redmine
 echo "Starting redmine..."
-cd ${WORKDIR}
 exec bundle exec ruby bin/rails server webrick -e production -b 0.0.0.0
