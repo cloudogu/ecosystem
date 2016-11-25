@@ -4,7 +4,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 
 # scm-server environment
-ENV SCM_VERSION=1.49
+ENV SCM_VERSION=1.50
 ENV SCM_PKG_URL https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 ENV SCM_HOME /var/lib/scm
 ENV SSL_CERT_FILE /opt/scm-server/conf/ca-certificates.crt
