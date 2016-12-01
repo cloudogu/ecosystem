@@ -12,7 +12,7 @@
 			"type": "vmware-iso",
 			"format": "ova",
 			"vm_name": "{{user `vm_name`}}",
-			"guest_os_type": "Ubuntu_64",
+			"guest_os_type": "ubuntu-64",
 			"iso_urls": [
 				"http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso"
 			],
@@ -36,7 +36,7 @@
 				"initrd=/install/initrd.gz -- <enter>"
 			],
 			"shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now"
-			
+
 		}
 	],
 	"provisioners": [
