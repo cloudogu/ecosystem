@@ -64,6 +64,7 @@
 				"scripts/commons/sshd.sh",
 				"scripts/commons/grub.sh",
 				"scripts/commons/subvolumes.sh",
+				"scripts/commons/vmwareTools.sh",
 				"scripts/commons/docker.sh",
 				"scripts/commons/etcd.sh",
 				"../install.sh",
