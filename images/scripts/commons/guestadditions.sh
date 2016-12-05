@@ -22,6 +22,8 @@ vmware-iso)
 *)
   echo "Unknown Packer Builder Type >>$PACKER_BUILDER_TYPE<< selected."
   echo "Known are virtualbox-iso|vmware-iso."
+  echo "Aborting"
+  exit 1
   ;;
 
 esac
