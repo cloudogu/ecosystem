@@ -51,7 +51,7 @@
         "scripts/commons/sshd.sh",
         "scripts/commons/grub.sh",
         "scripts/commons/subvolumes.sh",
-        "scripts/commons/virtualbox.sh",
+        "scripts/commons/guestadditions.sh",
         "scripts/dev/vagrant.sh",
         "scripts/dev/dependencies.sh",
         "scripts/commons/docker.sh",
