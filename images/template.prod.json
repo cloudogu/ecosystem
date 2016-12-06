@@ -1,6 +1,6 @@
 {
 	"variables": {
-		"vm_name": "ces", 
+		"vm_name": "ces",
 		"username": "ces-admin",
 		"password": "ces-admin",
 		"memory": "4096",
@@ -8,7 +8,7 @@
 	},
 	"builders": [
 		{
-			"name": "ecosystem",
+			"name": "ecosystem-virtualbox",
 			"type": "virtualbox-iso",
 			"format": "ova",
 			"vm_name": "{{user `vm_name`}}",
@@ -57,6 +57,38 @@
 					"10"
 				]
 			]
+		},
+		{
+			"name": "ecosystem-vmware",
+			"type": "vmware-iso",
+			"format": "ova",
+			"vm_name": "{{user `vm_name`}}",
+			"guest_os_type": "ubuntu-64",
+			"iso_urls": [
+				"http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso"
+			],
+			"iso_checksum": "dde07d37647a1d2d9247e33f14e91acb10445a97578384896b4e1d985f754cc1",
+			"iso_checksum_type": "sha256",
+			"ssh_username": "{{user `username`}}",
+			"ssh_password": "{{user `password`}}",
+			"ssh_wait_timeout": "10000s",
+			"http_directory": "http",
+			"headless": false,
+			"tools_upload_flavor": "linux",
+			"boot_wait": "5s",
+			"boot_command": [
+				"<esc><esc><enter><wait>",
+				"/install/vmlinuz ",
+				"preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/prod/preseed.cfg ",
+				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+				"hostname={{user `vm_name`}} ",
+				"fb=false debconf/frontend=noninteractive ",
+				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+				"keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+				"initrd=/install/initrd.gz -- <enter>"
+			],
+			"shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now"
+
 		}
 	],
 	"provisioners": [
@@ -83,7 +115,7 @@
 				"scripts/commons/sshd.sh",
 				"scripts/commons/grub.sh",
 				"scripts/commons/subvolumes.sh",
-				"scripts/commons/virtualbox.sh",
+				"scripts/commons/guestadditions.sh",
 				"scripts/commons/docker.sh",
 				"scripts/commons/etcd.sh",
 				"../install.sh",
@@ -102,9 +134,7 @@
 		{
 			"type": "compress",
 			"compression_level": 6,
-			"format": ".gz",
-			"keep_input_artifact": false,
-			"output": "build/{{user `vm_name`}}.gz"
+			"output": "build/{{user `vm_name`}}.tar.gz"
 		}
 	]
 }
