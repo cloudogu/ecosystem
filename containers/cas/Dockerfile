@@ -18,25 +18,17 @@ RUN addgroup -S -g 1000 cas && adduser -S -h /var/lib/cas -s /bin/bash -G cas -u
  | gunzip \
  | tar x -C /opt \
  && mv /opt/apache-tomcat-* ${CATALINA_BASE} \
- && rm -rf ${CATALINA_BASE}/webapps/*
-
-# copy server.xml to configure RemoteIpValve
-ADD resources/server.xml ${CATALINA_BASE}/conf/server.xml
-
-# copy setenv.sh to configure missing jvm settings
-ADD resources/setenv.sh ${CATALINA_BASE}/bin/setenv.sh
-
-# install cas webapp
-RUN mkdir ${CATALINA_BASE}/webapps/cas/ \
+ && rm -rf ${CATALINA_BASE}/webapps/* \
+ # install cas webapp application
+ && mkdir ${CATALINA_BASE}/webapps/cas/ \
  && curl -L https://github.com/cloudogu/cas/releases/download/v${CAS_VERSION}/cas-${CAS_VERSION}.war -o ${CATALINA_BASE}/webapps/cas/cas.war \
  && cd ${CATALINA_BASE}/webapps/cas/ \
  && unzip cas.war \
  && rm -f cas.war \
  && chown -R cas:cas ${CATALINA_BASE}
 
-# copy resource templates
-ADD resources/cas.properties.tpl /resources/cas.properties.tpl
-ADD startup.sh /startup.sh
+# copy resources
+COPY resources /
 
 # expose tomcat port
 EXPOSE 8080

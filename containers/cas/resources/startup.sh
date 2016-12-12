@@ -56,7 +56,7 @@ s@%LDAP_BIND_PASSWORD%@$LDAP_BIND_PASSWORD@g;\
 s@%LDAP_ATTRIBUTE_USERNAME%@$LDAP_ATTRIBUTE_USERNAME@g;\
 s?%LDAP_ATTRIBUTE_MAIL%?$LDAP_ATTRIBUTE_MAIL?g;\
 s@%LDAP_ATTRIBUTE_GROUP%@$LDAP_ATTRIBUTE_GROUP@g"\
- /resources/cas.properties.tpl > /opt/apache-tomcat/webapps/cas/WEB-INF/cas.properties
+ /opt/apache-tomcat/cas.properties.tpl > /opt/apache-tomcat/webapps/cas/WEB-INF/cas.properties
 
 # create truststore, which is used in the setenv.sh
 create_truststore.sh > /dev/null
