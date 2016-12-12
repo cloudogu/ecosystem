@@ -1,16 +1,18 @@
 #!/bin/bash
+# TODO check if we still need the functions.sh
 source /etc/ces/functions.sh
 
 # general variables for templates
-DOMAIN=$(get_domain)
-FQDN=$(get_fqdn)
+DOMAIN=$(doguctl config --global domain)
+FQDN=$(doguctl config --global fqdn)
 
+# ldap settings for template
 LDAP_TYPE=$(doguctl config ldap/ds_type)
 LDAP_SERVER=$(doguctl config ldap/server)
 LDAP_HOST=$(doguctl config ldap/host)
 LDAP_PORT=$(doguctl config ldap/port)
 LDAP_ATTRIBUTE_USERNAME=$(doguctl config ldap/attribute_id)
-# TODO: use fullname
+# TODO: use fullname ??
 LDAP_ATTRIBUTE_FULLNAME=$(doguctl config ldap/attribute_fullname)
 LDAP_ATTRIBUTE_MAIL=$(doguctl config ldap/attribute_mail)
 LDAP_ATTRIBUTE_GROUP=$(doguctl config ldap/attribute_group)
