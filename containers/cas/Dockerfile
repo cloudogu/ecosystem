@@ -2,9 +2,9 @@
 FROM registry.cloudogu.com/official/java:8u102-1
 MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
-ENV CAS_VERSION=4.0.7.7 \
+ENV CAS_VERSION=4.0.7.8 \
 	TOMCAT_MAJOR_VERSION=8 \
-	TOMCAT_VERSION=8.0.38 \
+	TOMCAT_VERSION=8.0.39 \
 	CATALINA_BASE=/opt/apache-tomcat \
 	CATALINA_PID=/var/run/tomcat7.pid \
 	CATALINA_SH=/opt/apache-tomcat/bin/catalina.sh \
