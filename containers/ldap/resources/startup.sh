@@ -51,7 +51,8 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   ADMIN_DISPLAYNAME=${CONFIG_DISPLAYNAME:-CES Administrator}
   
   ADMIN_GROUP=$(doguctl config --global admin_group) || ADMIN_GROUP="cesAdmin"
-  
+  ADMIN_MEMBER=$(doguctl config --global admin_member) || ADMIN_MEMBER="false"
+
   # TODO remove from etcd ???
   CONFIG_PASSWORD=$(doguctl config -e "admin_password")
   ADMIN_PASSWORD=${CONFIG_PASSWORD:-admin}
@@ -89,7 +90,16 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
       echo >&2 "applying $f"
       ldapadd -Y EXTERNAL -f "$f" 2>&1
     done
-
+    # if ADMIN_MEMBER is true add admin to member group for tool admin rights
+    if [ ${ADMIN_MEMBER} = "true" ]; then
+      ldapmodify -Y EXTERNAL << EOF
+dn: cn=${ADMIN_GROUP},ou=Groups,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
+changetype: modify
+replace: member
+member: uid=${ADMIN_USERNAME},ou=People,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
+member: cn=__dummy
+EOF
+    fi
     if [[ ! -s ${OPENLDAP_RUN_PIDFILE} ]]; then
       echo >&2 "$0 ($slapd_exe): ${OPENLDAP_RUN_PIDFILE} is missing, did the daemon start?"
       exit 1
