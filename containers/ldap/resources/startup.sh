@@ -58,9 +58,6 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
   ADMIN_PASSWORD=${CONFIG_PASSWORD:-admin}
   ADMIN_PASSWORD_ENC="$(slappasswd -s $ADMIN_PASSWORD)"
 
-  SYSTEM_USERNAME="system"
-  SYSTEM_PASSWORD="$(slappasswd -s system)"
-
   mkdir -p ${OPENLDAP_CONFIG_DIR}
 
   if [[ ! -s ${OPENLDAP_ETC_DIR}/ldap.conf ]]; then
