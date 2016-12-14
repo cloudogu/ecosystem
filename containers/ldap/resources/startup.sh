@@ -91,7 +91,7 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
       ldapadd -Y EXTERNAL -f "$f" 2>&1
     done
     # if ADMIN_MEMBER is true add admin to member group for tool admin rights
-    if [ ${ADMIN_MEMBER} = "true" ]; then
+    if [[ ${ADMIN_MEMBER} = "true" ]]; then
       ldapmodify -Y EXTERNAL << EOF
 dn: cn=${ADMIN_GROUP},ou=Groups,o=${LDAP_DOMAIN},${OPENLDAP_SUFFIX}
 changetype: modify
