@@ -1,6 +1,6 @@
 {
   "Name": "official/ldap",
-  "Version": "2.4.43-4",
+  "Version": "2.4.43-5",
   "DisplayName": "OpenLDAP",
   "Description": "OpenLDAP server for user and group management.",
   "Url": "http://www.openldap.org",
