@@ -1,4 +1,4 @@
-# registry.cloudogu.com/official/java:8u111-1
+# registry.cloudogu.com/official/java:8u111-2
 FROM registry.cloudogu.com/official/base:3.3-3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
@@ -15,20 +15,30 @@ ENV JAVA_VERSION_MAJOR=8 \
     GLIBC_VERSION=2.23-r3
 
 # do all in one step
-RUN apk upgrade --update && \
-    curl -Lo /tmp/glibc.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" && \
-    apk add --allow-untrusted /tmp/glibc.apk && \
-    curl -Lo /tmp/glibc-bin.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" && \
-    apk add --allow-untrusted /tmp/glibc-bin.apk && \
-    /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib && \
-    mkdir /opt && curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/java.tar.gz \
-    http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz && \
-    gunzip /tmp/java.tar.gz && \
-    tar -C /opt -xf /tmp/java.tar && \
-    ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk && \
-    find /opt/jdk/ -maxdepth 1 -mindepth 1 | grep -v jre | xargs rm -rf && \
-    cd /opt/jdk/ && ln -s ./jre/bin ./bin && \
-    rm -rf /opt/jdk/jre/plugin \
+RUN apk upgrade --update \
+
+ # install glibc for alpine
+ && apk add --update libstdc++ \
+ && curl -Lo /tmp/glibc.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" \
+ && apk add --allow-untrusted /tmp/glibc.apk \
+ && curl -Lo /tmp/glibc-bin.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
+ && apk add --allow-untrusted /tmp/glibc-bin.apk \
+ && curl -Lo /tmp/glibc-i18n.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-i18n-${GLIBC_VERSION}.apk" \
+ && apk add --allow-untrusted /tmp/glibc-i18n.apk \
+ # do not abort https://github.com/sgerrand/alpine-pkg-glibc/issues/5
+ && (/usr/glibc-compat/bin/localedef --force --inputfile POSIX --charmap UTF-8 C.UTF-8 || true ) \
+ && echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh \
+ && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib \
+ 
+ # install oracle java
+ && mkdir /opt && curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/java.tar.gz \
+    http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz \
+ && gunzip /tmp/java.tar.gz \
+ && tar -C /opt -xf /tmp/java.tar \
+ && ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk \
+ && find /opt/jdk/ -maxdepth 1 -mindepth 1 | grep -v jre | xargs rm -rf \
+ && cd /opt/jdk/ && ln -s ./jre/bin ./bin \
+ && rm -rf /opt/jdk/jre/plugin \
            /opt/jdk/jre/bin/javaws \
            /opt/jdk/jre/bin/jjs \
            # keep keytool
@@ -58,8 +68,8 @@ RUN apk upgrade --update && \
            /opt/jdk/jre/lib/ext/nashorn.jar \
            /opt/jdk/jre/lib/oblique-fonts \
            /opt/jdk/jre/lib/plugin.jar \
-           /tmp/* /var/cache/apk/* && \
-    echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+           /tmp/* /var/cache/apk/* \
+  && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
 # add helper scripts
 ADD create_truststore.sh /usr/bin/create_truststore.sh
