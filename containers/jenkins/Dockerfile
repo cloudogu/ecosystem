@@ -1,5 +1,5 @@
 # cesi/scm
-FROM registry.cloudogu.com/official/java:8u102-1
+FROM registry.cloudogu.com/official/java:8u111-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # Dockerfile based on https://github.com/cloudbees/jenkins-ci.org-docker/blob/f313389f8ab728d7b4207da36804ea54415c830b/1.580.1/Dockerfile
@@ -9,7 +9,7 @@ ENV JENKINS_HOME=/var/lib/jenkins \
     # mark as webapp for nginx
     SERVICE_TAGS=webapp \
     # jenkins version
-    JENKINS_VERSION=2.19.3
+    JENKINS_VERSION=2.19.4
 
 # Jenkins is ran with user `jenkins`, uid = 1000
 # If you bind mount a volume from host/volume from a data container,
