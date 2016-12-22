@@ -85,6 +85,9 @@ if [ -f "${RPID}" ]; then
   rm -f "${RPID}"
 fi
 
+# unzip theme
+unzip -o /usr/share/webapps/redmine/public/themes/Cloudogu.zip
+
 # Start redmine
 echo "Starting redmine..."
 exec bundle exec ruby bin/rails server webrick -e production -b 0.0.0.0

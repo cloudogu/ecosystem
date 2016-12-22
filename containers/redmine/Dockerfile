@@ -95,6 +95,9 @@ RUN curl -L -o redmine_AR_session_store.tar.gz https://github.com/pencil/redmine
 # startscript
 COPY ./startup.sh /startup.sh
 
+# theme
+COPY ./resources/Cloudogu.zip /usr/share/webapps/redmine/public/themes
+
 # mark as webapp for nginx
 ENV SERVICE_TAGS webapp
 
