@@ -86,7 +86,8 @@ if [ -f "${RPID}" ]; then
 fi
 
 # unzip theme
-unzip -o /usr/share/webapps/redmine/public/themes/Cloudogu.zip
+mkdir -p /usr/share/webapps/redmine/public/themes/Cloudogu
+unzip -o /usr/share/webapps/redmine/public/themes/Cloudogu.zip -d /usr/share/webapps/redmine/public/themes/Cloudogu
 
 # Start redmine
 echo "Starting redmine..."
