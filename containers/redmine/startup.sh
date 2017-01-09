@@ -61,6 +61,10 @@ else
   # Write base url to database
   sql "INSERT INTO settings (name, value, updated_on) VALUES ('host_name','https://$FQDN/redmine/', now());"
 
+  # set theme to cloudogu, do this only on installation not on a upgrade
+  # because the user should be able to change the theme
+  sql "INSERT INTO settings (name, value, updated_on) VALUES ('ui_theme','Cloudogu', now());"
+
   # Remove default admin account
   sql "DELETE FROM users WHERE login='admin';"
 
@@ -84,6 +88,10 @@ RPID="${WORKDIR}/tmp/pids/server.pid"
 if [ -f "${RPID}" ]; then
   rm -f "${RPID}"
 fi
+
+# unzip theme
+mkdir -p /usr/share/webapps/redmine/public/themes/Cloudogu
+unzip -o /usr/share/webapps/redmine/public/themes/Cloudogu.zip -d /usr/share/webapps/redmine/public/themes/Cloudogu
 
 # Start redmine
 echo "Starting redmine..."
