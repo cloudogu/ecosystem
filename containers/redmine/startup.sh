@@ -61,6 +61,10 @@ else
   # Write base url to database
   sql "INSERT INTO settings (name, value, updated_on) VALUES ('host_name','https://$FQDN/redmine/', now());"
 
+  # set theme to cloudogu, do this only on installation not on a upgrade
+  # because the user should be able to change the theme
+  sql "INSERT INTO settings (name, value, updated_on) VALUES ('ui_theme','Cloudogu', now());"
+
   # Remove default admin account
   sql "DELETE FROM users WHERE login='admin';"
 
