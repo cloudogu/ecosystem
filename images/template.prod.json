@@ -109,7 +109,7 @@
 			"boot_command": [
 				"<esc><esc><enter><wait>",
 				"/install/vmlinuz ",
-				"preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/prod/preseed.cfg ",
+				"preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/prod/preseed-qemu.cfg ",
 				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
 				"hostname={{user `vm_name`}} ",
 				"fb=false debconf/frontend=noninteractive ",
