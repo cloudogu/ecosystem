@@ -92,6 +92,9 @@ RUN curl -L -o redmine_AR_session_store.tar.gz https://github.com/pencil/redmine
   && mv redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
   && rm redmine_AR_session_store.tar.gz
 
+# redirect production.log to stdout to make it available in hosts /var/log/docker/redmine.log
+RUN ln -s /dev/stdout /usr/share/webapps/redmine/log/production.log
+
 # startscript
 COPY ./startup.sh /startup.sh
 
