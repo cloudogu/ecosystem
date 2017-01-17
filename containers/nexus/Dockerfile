@@ -24,9 +24,7 @@ ENV SERVICE_TAGS webapp
 
 # startscript
 ADD ./startup.sh /startup.sh
-ADD ./configuration.sh /configuration.sh
 RUN chmod +x /startup.sh
-RUN chmod +x /configuration.sh
 
 # cas plugin
 ADD resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION} /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/
