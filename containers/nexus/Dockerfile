@@ -36,7 +36,8 @@ ADD resources/cas-plugin.xml.tpl /opt/sonatype/nexus/resources/cas-plugin.xml.tp
 ADD resources/security-configuration.xml /security-configuration.xml
 ADD resources/lvo-plugin.xml /lvo-plugin.xml
 ADD resources/nexus.xml.tpl /opt/sonatype/nexus/resources/nexus.xml.tpl
-RUN chown 1000:1000 /security-configuration.xml /lvo-plugin.xml /opt/sonatype/nexus/resources/nexus.xml.tpl
+ADD resources/security.xml.tpl /opt/sonatype/nexus/resources/security.xml.tpl
+RUN chown 1000:1000 /security-configuration.xml /lvo-plugin.xml /opt/sonatype/nexus/resources/security.xml.tpl /opt/sonatype/nexus/resources/nexus.xml.tpl
 
 EXPOSE 8081
 USER nexus

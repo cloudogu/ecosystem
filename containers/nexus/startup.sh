@@ -42,6 +42,7 @@ echo "render_template"
 # update cas url
 render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
 render_template "/opt/sonatype/nexus/resources/nexus.xml.tpl" > "/var/lib/nexus/conf/nexus.xml"
+render_template "/opt/sonatype/nexus/resources/security.xml.tpl" > "/var/lib/nexus/conf/security.xml"
 sed -i.bak 's/version=1.0 encoding=UTF-8/version="1.0" encoding="UTF-8"/g' /var/lib/nexus/conf/nexus.xml
-/configuration.sh $ADMUSR $ADMPW $ADMINGROUP &
+sed -i.bak 's/version=1.0 encoding=UTF-8/version="1.0" encoding="UTF-8"/g' /var/lib/nexus/conf/security.xml
 exec $START_NEXUS
