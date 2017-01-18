@@ -25,8 +25,8 @@ START_NEXUS="java \
 # Copy files at first start
 if ! [ -e /var/lib/nexus/conf/security-configuration.xml ]; then
   mkdir -p /var/lib/nexus/conf
-  cp /security-configuration.xml /var/lib/nexus/conf/security-configuration.xml
-  cp /lvo-plugin.xml /var/lib/nexus/conf/lvo-plugin.xml
+  cp /opt/sonatype/nexus/resources/security-configuration.xml /var/lib/nexus/conf/security-configuration.xml
+  cp /opt/sonatype/nexus/resources/lvo-plugin.xml /var/lib/nexus/conf/lvo-plugin.xml
 fi
 
 # Install cas-plugin
