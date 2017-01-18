@@ -26,19 +26,9 @@ ENV SERVICE_TAGS webapp
 ADD ./startup.sh /startup.sh
 RUN chmod +x /startup.sh
 
-# cas plugin
-ADD resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION} /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/
-ADD resources/cas-plugin.xml.tpl /opt/sonatype/nexus/resources/cas-plugin.xml.tpl
-
-# add configuration resources
-ADD resources/security-configuration.xml /opt/sonatype/nexus/resources/security-configuration.xml
-ADD resources/lvo-plugin.xml /opt/sonatype/nexus/resources/lvo-plugin.xml
-ADD resources/nexus.xml.tpl /opt/sonatype/nexus/resources/nexus.xml.tpl
-ADD resources/security.xml.tpl /opt/sonatype/nexus/resources/security.xml.tpl
-RUN chown 1000:1000 /opt/sonatype/nexus/resources/security-configuration.xml \
-  /opt/sonatype/nexus/resources/lvo-plugin.xml \
-  /opt/sonatype/nexus/resources/security.xml.tpl \
-  /opt/sonatype/nexus/resources/nexus.xml.tpl
+# Add resources
+ADD resources /opt/sonatype/nexus/resources
+RUN chown -R 1000:1000 /opt/sonatype/nexus/resources
 
 EXPOSE 8081
 USER nexus

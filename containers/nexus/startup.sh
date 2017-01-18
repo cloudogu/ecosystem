@@ -25,8 +25,8 @@ START_NEXUS="java \
 # Copy files at first start
 if ! [ -e /var/lib/nexus/conf/security-configuration.xml ]; then
   mkdir -p /var/lib/nexus/conf
-  cp /opt/sonatype/nexus/resources/security-configuration.xml /var/lib/nexus/conf/security-configuration.xml
-  cp /opt/sonatype/nexus/resources/lvo-plugin.xml /var/lib/nexus/conf/lvo-plugin.xml
+  cp /opt/sonatype/nexus/resources/conf/security-configuration.xml /var/lib/nexus/conf/security-configuration.xml
+  cp /opt/sonatype/nexus/resources/conf/lvo-plugin.xml /var/lib/nexus/conf/lvo-plugin.xml
 fi
 
 # Install cas-plugin
@@ -38,9 +38,9 @@ fi
 FQDN=$(get_fqdn)
 echo "render_template"
 # update cas url
-render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
-render_template "/opt/sonatype/nexus/resources/nexus.xml.tpl" > "/var/lib/nexus/conf/nexus.xml"
-render_template "/opt/sonatype/nexus/resources/security.xml.tpl" > "/var/lib/nexus/conf/security.xml"
-sed -i.bak 's/version=1.0 encoding=UTF-8/version="1.0" encoding="UTF-8"/g' /var/lib/nexus/conf/nexus.xml
-sed -i.bak 's/version=1.0 encoding=UTF-8/version="1.0" encoding="UTF-8"/g' /var/lib/nexus/conf/security.xml
+render_template "/opt/sonatype/nexus/resources/tpl/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
+render_template "/opt/sonatype/nexus/resources/tpl/nexus.xml.tpl" > "/var/lib/nexus/conf/nexus.xml"
+render_template "/opt/sonatype/nexus/resources/tpl/security.xml.tpl" > "/var/lib/nexus/conf/security.xml"
+sed -i 's/version=1.0 encoding=UTF-8/version="1.0" encoding="UTF-8"/g' /var/lib/nexus/conf/nexus.xml
+sed -i 's/version=1.0 encoding=UTF-8/version="1.0" encoding="UTF-8"/g' /var/lib/nexus/conf/security.xml
 exec $START_NEXUS
