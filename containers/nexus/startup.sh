@@ -6,8 +6,6 @@ set -o pipefail
 source /etc/ces/functions.sh
 
 # variables
-ADMUSR="admin"
-ADMPW="admin123"
 ADMINGROUP=$(get_config admin_group)
 DOMAIN=$(get_config domain)
 FQDN=$(get_fqdn)
