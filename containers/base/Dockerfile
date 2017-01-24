@@ -1,19 +1,14 @@
-# registry.cloudogu.com/official/base:3.3-3
-FROM alpine:3.3
+# registry.cloudogu.com/official/base:3.5-1
+FROM alpine:3.5
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-# etcd version
-ENV CES_ETCD_VERSION 2.1.3
-ENV DOGUCTL_VERSION 0.1.1
+ENV DOGUCTL_VERSION 0.2.0
 
-# install etcd
-RUN apk add --update bash curl openssl wget curl zip unzip ca-certificates jq \
-    && curl -L https://github.com/coreos/etcd/releases/download/v${CES_ETCD_VERSION}/etcd-v${CES_ETCD_VERSION}-linux-amd64.tar.gz -o /tmp/etcd.tar.gz \
-    && mkdir /tmp/etcd \
-    && tar xzvf /tmp/etcd.tar.gz -C /tmp/etcd \
-    && mv /tmp/etcd/etcd-v${CES_ETCD_VERSION}-linux-amd64/etcdctl /bin
-COPY ./resources/doguctl-${DOGUCTL_VERSION}.tar.gz /tmp/doguctl-${DOGUCTL_VERSION}.tar.gz
-COPY ./resources/create-ca-certificates.sh /usr/bin/create-ca-certificates.sh
-RUN cat /tmp/doguctl-${DOGUCTL_VERSION}.tar.gz | gunzip | tar -x -O > /usr/bin/doguctl \
-    && chmod +x /usr/bin/doguctl && rm -rf /tmp/etcd* /var/cache/apk/* \
-    && rm /tmp/doguctl-${DOGUCTL_VERSION}.tar.gz
+# copy resource
+COPY resources/ /
+
+# install doguctl
+ADD packages/doguctl-${DOGUCTL_VERSION}.tar.gz /usr/bin/
+
+# install dependencies
+RUN apk add --no-cache bash curl openssl wget tar zip unzip ca-certificates jq
