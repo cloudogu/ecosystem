@@ -1,103 +1,110 @@
 # registry.cloudogu.com/official/redmine
-FROM registry.cloudogu.com/official/base:3.3-3
+FROM registry.cloudogu.com/official/base:3.5-1
 MAINTAINER Robert Auer <robert.auer@cloudogu.com>
 
-RUN apk add --update binutils \
-  build-base \
-  git \
-  imagemagick-dev \
-  libffi-dev \
-  postgresql-client \
-  postgresql-dev \
-  ruby \
-  ruby-actionpack-action_caching4.2 \
-  ruby-actionpack-xml_parser4.2 \
-  ruby-bigdecimal \
-  ruby-bundler \
-  ruby-coderay \
-  ruby-dev \
-  ruby-fastercsv \
-  ruby-i18n \
-  ruby-io-console \
-  ruby-irb \
-  ruby-jquery-rails4.2 \
-  ruby-json \
-  ruby-mocha \
-  ruby-net-ldap \
-  ruby-openid \
-  ruby-pg \
-  ruby-protected_attributes4.2 \
-  ruby-rack \
-  ruby-rack-openid \
-  ruby-rails4.2 \
-  ruby-rbpdf \
-  ruby-rdoc \
-  ruby-redcarpet \
-  ruby-request_store \
-  ruby-rmagick \
-  ruby-sqlite \
-  zlib-dev \
-  && rm -rf /tmp/* /var/cache/apk/*
+# set environment variables
+ENV REDMINE_VERSION=3.3.2 \
+    RMCASPLUGINVERSION=1.2.10 \
+    RUBYCASVERSION=2.3.13 \
+    USER=redmine \
+    BASEDIR=/usr/share/webapps \
+    WORKDIR=/usr/share/webapps/redmine \
+    SERVICE_TAGS=webapp
 
-ENV REDMINE_VERSION 3.3.1
-ENV RMCASPLUGINVERSION 1.2.9
-ENV RUBYCASVERSION 2.3.13
-ENV USER redmine
-ENV BASEDIR /usr/share/webapps
-ENV WORKDIR ${BASEDIR}/redmine
+# copy resource files
+COPY resources/ /
 
-# Create redmine user and workdir
-RUN adduser -D ${USER}
-RUN mkdir -p -m 755 ${WORKDIR}
-RUN chown -R ${USER}:${USER} ${BASEDIR}
+RUN \ 
+ # add user and group
+ addgroup -S "${USER}" \
+ && adduser -S -G "${USER}" "${USER}" \
+
+ # install runtime packages
+ && apk --no-cache add --virtual /.run-deps \
+    postgresql-client \
+		sqlite-libs \
+    imagemagick \
+    tzdata \
+    ruby \
+		ruby-bigdecimal \
+		ruby-bundler \
+    tini \
+    libffi \
+    su-exec \
+    git \
+
+ # install build dependencies
+ && apk --no-cache add --virtual /.build-deps \
+    build-base \
+    ruby-dev \
+    libxslt-dev \
+    imagemagick-dev \
+    postgresql-dev \
+    sqlite-dev \
+    linux-headers \
+    patch \
+    coreutils \
+    libffi-dev \
+ 
+ # update ruby gems
+ && echo 'gem: --no-document' > /etc/gemrc \
+ && 2>/dev/null 1>&2 gem update --system --quiet \
+
+ # install redmine
+ && mkdir -p ${WORKDIR} \
+ && curl -L http://www.redmine.org/releases/redmine-${REDMINE_VERSION}.tar.gz | tar xfz - --strip-components=1 -C ${WORKDIR} \
+
+ # set temporary database configuration for bundle install
+ && DATABASE_TYPE=postgresql \
+    DATABASE_IP=localhost \
+    DATABASE_DB=redmine \
+    DATABASE_USER=redmine \
+    DATABASE_USER_PASSWORD=redmine \
+    eval "echo \"$(cat  ${WORKDIR}/config/database.yml.tpl)\"" > ${WORKDIR}/config/database.yml \
+
+ # install redmine required gems
+ && echo 'gem "activerecord-session_store"' >> ${WORKDIR}/Gemfile \
+ && echo 'gem "activerecord-deprecated_finders", require: "active_record/deprecated_finders"' >> ${WORKDIR}/Gemfile \
+ && cd ${WORKDIR}; RAILS_ENV="production" bundle install \
+
+ # Generate secret session token
+ && rake generate_secret_token --trace -f ${WORKDIR}/Rakefile \
+
+ # override environment to run redmine with a context path "/redmine"
+ && mv ${WORKDIR}/config/environment.ces.rb ${WORKDIR}/config/environment.rb \
+
+ # Install (available) rubycas-client version
+ && git clone https://github.com/cloudogu/rubycas-client.git \
+ && cd rubycas-client \
+ && gem build rubycas-client.gemspec \
+ && gem install rubycas-client-${RUBYCASVERSION}.gem \
+ && cd ..; rm -rf rubycas-client \
+
+ # Install Redmine CAS plugin
+ && mkdir -p ${WORKDIR}/plugins/redmine_cas \
+ && curl -L https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz | tar xfz - --strip-components=1 -C ${WORKDIR}/plugins/redmine_cas \
+
+ # Install redmine_activerecord_session_store plugin to make Single Sign-Out work
+ && mkdir -p ${WORKDIR}/plugins/redmine_activerecord_session_store \
+ && curl -L https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz | tar xfz - --strip-components=1 -C ${WORKDIR}/plugins/redmine_activerecord_session_store \
+
+ # fix permissions
+ && chown -R ${USER}:${USER} ${BASEDIR} \
+ && mkdir -m 755 /etc/redmine \
+ && chown ${USER}:${USER} /etc/redmine \
+
+ # cleanup
+ && rm -rf /root/* /tmp/* $(gem env gemdir)/cache \
+ && apk --purge del /.build-deps \
+ && rm -rf /var/cache/apk/*
+
+# switch to redmine user
 USER ${USER}
+
+# set workdir
 WORKDIR ${WORKDIR}
 
-# Get Redmine
-RUN curl -L -o ${WORKDIR}.tar.gz http://www.redmine.org/releases/redmine-${REDMINE_VERSION}.tar.gz \
-  && tar -xzf ${WORKDIR}.tar.gz \
-  && mv redmine-${REDMINE_VERSION}/* ${WORKDIR} \
-  && rm -rf redmine-${REDMINE_VERSION} ${WORKDIR}.tar.gz
-
-USER root
-COPY ./resources/workdir/ ${WORKDIR}/
-RUN gem install activerecord-session_store
-RUN echo 'gem "activerecord-session_store"' >> ${WORKDIR}/Gemfile
-RUN gem install activerecord-deprecated_finders
-RUN echo 'gem "activerecord-deprecated_finders", require: "active_record/deprecated_finders"' >> ${WORKDIR}/Gemfile
-RUN bundle install
-RUN gem install pg -v '0.18.4'
-RUN chown -R ${USER}:${USER} ${BASEDIR}
-RUN mkdir -m 755 /etc/redmine && chown ${USER}:${USER} /etc/redmine
-# Generate secret session token
-RUN rake generate_secret_token --trace -f ${WORKDIR}/Rakefile
-
-# Install (available) rubycas-client version
-RUN git clone https://github.com/cloudogu/rubycas-client.git \
-  && cd rubycas-client \
-  && gem build rubycas-client.gemspec \
-  && gem install rubycas-client-${RUBYCASVERSION}.gem \
-  && rm -rf ../rubycas-client
-
-# Install Redmine CAS plugin
-USER ${USER}
-RUN curl -L -o casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
-  && tar -xzf casplugin${RMCASPLUGINVERSION}.tar.gz \
-  && mv redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
-  && rm casplugin${RMCASPLUGINVERSION}.tar.gz
-
-# Install redmine_activerecord_session_store plugin to make Single Sign-Out work
-RUN curl -L -o redmine_AR_session_store.tar.gz https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz \
-  && tar -xzf redmine_AR_session_store.tar.gz \
-  && mv redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
-  && rm redmine_AR_session_store.tar.gz
-
-# startscript
-COPY ./startup.sh /startup.sh
-
-# mark as webapp for nginx
-ENV SERVICE_TAGS webapp
-
+# expose application port
 EXPOSE 3000
 
 # start

@@ -12,6 +12,7 @@ DATABASE_IP=postgresql
 DATABASE_USER=$(doguctl config -e sa-postgresql/username)
 DATABASE_USER_PASSWORD=$(doguctl config -e sa-postgresql/password)
 DATABASE_DB=$(doguctl config -e sa-postgresql/database)
+ADMIN_GROUP=$(doguctl config --global 'admin_group')
 RAILS_ENV=production
 REDMINE_LANG=en
 DOMAIN=$(doguctl config --global domain)
@@ -24,13 +25,21 @@ function sql(){
 
 # adjust redmine database.yml
 render_template "${WORKDIR}/config/database.yml.tpl" > "${WORKDIR}/config/database.yml"
-# Install Redmine Gemfile
-bundle install --gemfile=${WORKDIR}/Gemfile
+
 # insert secret_key_base into secrets.yml
 SECRETKEYBASE=$(grep secret_key_base ${WORKDIR}/config/initializers/secret_token.rb | awk -F \' '{print $2}' )
 render_template "${WORKDIR}/config/secrets.yml.tpl" > "${WORKDIR}/config/secrets.yml"
-# insert fqdn into cas auth source template
-render_template "${WORKDIR}/app/models/auth_source_cas.rb.tpl" > ${WORKDIR}/app/models/auth_source_cas.rb
+
+# export variables for auth_source_cas.rb
+export FQDN
+export ADMIN_GROUP
+
+# wait until postgresql passes all health checks
+echo "wait until postgresql passes all health checks"
+if ! doguctl healthy --wait --timeout 120 postgresql; then
+  echo "timeout reached by waiting of postgresql to get healthy"
+  exit 1
+fi 
 
 # Check if Redmine has been installed already
 if 2>/dev/null 1>&2 sql "select count(*) from settings;"; then
