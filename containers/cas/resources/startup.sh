@@ -63,5 +63,12 @@ s@%LDAP_ATTRIBUTE_GROUP%@$LDAP_ATTRIBUTE_GROUP@g"\
 # create truststore, which is used in the setenv.sh
 create_truststore.sh > /dev/null
 
+# wait until ldap passed all health checks
+echo "wait unit ldap passes all health checks"
+if ! doguctl healthy --wait --timeout 120 ldap; then
+  echo "timeout reached by waiting of ldap to get healthy"
+  exit 1
+fi 
+
 # startup tomcat
 exec su - cas -c "export JAVA_HOME='/opt/jdk' && ${CATALINA_SH} run"
