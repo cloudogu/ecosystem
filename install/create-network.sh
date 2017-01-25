@@ -1,8 +1,12 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
-if ! service etcd status | grep 'running' &> /dev/null; then
+# TODO: check this if statement on correctness
+if ! systemctl is-active etcd | grep 'active' &> /dev/null; then
   >&2 echo "service etcd is not running, starting ..."
-  service etcd start &>/dev/null
+  systemctl start etcd.service &>/dev/null
   sleep 1
 fi
 
@@ -13,7 +17,7 @@ for i in $(seq 1 5); do
       break
     else
       >&2 echo "etcd is not running, try to restart (retry counter $i)..."
-      service etcd restart &>/dev/null
+      systemctl restart etcd.service &>/dev/null
     fi
   else
     echo "etcd successfully started ..."
@@ -28,7 +32,7 @@ fi
 
 if ! docker info | grep -i 'cluster store' | grep 'etcd' &> /dev/null; then
   echo "docker is not configured for etcd, restarting docker ..."
-  service docker restart
+  systemctl restart docker.service
 fi
 
 echo "creating overlay network ..."

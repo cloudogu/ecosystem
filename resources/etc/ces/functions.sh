@@ -86,7 +86,7 @@ export -f set_config_global
 # fqdn functions
 
 function get_ip(){
-  IPS=$(/sbin/ifconfig | grep eth -A1 | grep addr: | awk '{print $2}' | awk -F':' '{print $2}')
+  IPS=$(/sbin/ifconfig | grep enp -A1 | grep addr: | awk '{print $2}' | awk -F':' '{print $2}')
   COUNT=$(echo $IPS | wc -w)
   if [ $COUNT -gt 1 ]; then
     TYPE=$(cat /etc/ces/type)

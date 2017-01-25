@@ -14,7 +14,7 @@ if [ ! -d /var/log/docker ]; then
   mkdir /var/log/docker
 fi
 chown syslog /var/log/docker
-service rsyslog restart
+systemctl restart rsyslog.service
 
 # modify sudoers save path
 echo "modify sudoers"
