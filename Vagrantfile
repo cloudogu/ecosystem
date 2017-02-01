@@ -7,9 +7,9 @@ Vagrant.require_version ">= 1.5.0"
 Vagrant.configure(2) do |config|
 
   # https://atlas.hashicorp.com/cloudogu/boxes/ecosystem-basebox
-  config.vm.box = "cloudogu/ecosystem-basebox"
+  config.vm.box = "./images/build/ecosystem-basebox.box"
   config.vm.hostname = "ces"
-  config.vm.box_version = "0.4.1"
+  #config.vm.box_version = "0.4.1"
 
   # use bridged netword
   # to get the ip use vagrant ssh -c ifconfig
