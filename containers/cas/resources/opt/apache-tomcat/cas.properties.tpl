@@ -185,6 +185,9 @@ ldap.authn.groups.searchFilter=%LDAP_GROUP_SEARCH_FILTER%
 # name attribute of groups e.g.: cn
 ldap.authn.groups.attribute.name=%LDAP_GROUP_ATTRIBUTE_NAME%
 
+# use the connection after bind with user dn to fetch attributes
+ldap.authn.useUserConnectionToFetchAttributes = %LDAP_USE_USER_CONNECTION%
+
 # set deployment stage
 stage = %STAGE%
 requireSecure = %REQUIRE_SECURE%
