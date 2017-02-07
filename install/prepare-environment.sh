@@ -9,7 +9,7 @@ echo "writing ip to master node file"
 get_ip > /etc/ces/node_master
 
 # prepare syslog and restart
-echo "prepare syslog and restart"
+echo "prepare syslog and restart rsyslog service"
 if [ ! -d /var/log/docker ]; then
   mkdir /var/log/docker
 fi

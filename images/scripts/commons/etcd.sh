@@ -37,7 +37,7 @@ chmod 750 /etc/etcdstart.sh
 
 # write systemd unit file
 # from https://github.com/coreos/etcd/blob/2724c3946eb2f3def5ed38a127be982b62c81779/contrib/systemd/etcd.service
-cat << 'EOF' >> /etc/systemd/system/etcd.service
+cat << 'EOF' >> /etc/systemd/system/multi-user.target.wants/etcd.service
 [Unit]
 Description=CES etcd container
 After=network.target
