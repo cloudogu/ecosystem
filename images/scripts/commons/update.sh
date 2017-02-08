@@ -1,4 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 # Disable release-upgrades
 sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades

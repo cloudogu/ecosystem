@@ -1,4 +1,7 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 # Install docker
 # see https://docs.docker.com/engine/installation/linux/ubuntulinux/

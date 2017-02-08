@@ -1,4 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 # perl -p -i -e 's#http://us.archive.ubuntu.com/ubuntu#http://mirror.rackspace.com/ubuntu#gi' /etc/apt/sources.list
 
@@ -10,8 +13,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install \
   btrfs-tools \
   apt-transport-https \
   ca-certificates \
-  linux-headers-$(uname -r) \
-  linux-image-extra-$(uname -r) \
+  linux-headers-"$(uname -r)" \
+  linux-image-extra-"$(uname -r)" \
   linux-image-extra-virtual
 #  dmsetup \
 #  facter \

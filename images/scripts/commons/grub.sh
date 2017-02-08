@@ -1,4 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 # Remove 5s grub timeout to speed up booting
 cat <<EOF > /etc/default/grub
