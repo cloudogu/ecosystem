@@ -1,4 +1,7 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 # Vagrant specific
 date > /etc/vagrant_box_build_time
