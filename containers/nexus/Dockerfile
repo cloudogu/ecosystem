@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/nexus
-FROM registry.cloudogu.com/official/java:8u77-1
+FROM registry.cloudogu.com/official/java:8u111-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # dockerfile based on https://registry.hub.docker.com/u/sonatype/nexus/dockerfile/
@@ -24,13 +24,11 @@ ENV SERVICE_TAGS webapp
 
 # startscript
 ADD ./startup.sh /startup.sh
-ADD ./configuration.sh /configuration.sh
 RUN chmod +x /startup.sh
-RUN chmod +x /configuration.sh
 
-# cas plugin
-ADD resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION} /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/
-ADD resources/cas-plugin.xml.tpl /opt/sonatype/nexus/resources/cas-plugin.xml.tpl
+# Add resources
+ADD resources /opt/sonatype/nexus/resources
+RUN chown -R 1000:1000 /opt/sonatype/nexus/resources
 
 EXPOSE 8081
 USER nexus

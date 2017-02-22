@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<security-configuration>
+  <version>2.0.8</version>
+  <anonymousUsername>anonymous</anonymousUsername>
+  <anonymousPassword>{ECl3Wfowz9QHaViTBu93aMoTtWeei97r56tiJB1on+g=}</anonymousPassword>
+  <realms>
+    <realm>XmlAuthenticatingRealm</realm>
+    <realm>XmlAuthorizingRealm</realm>
+    <realm>CasAuthenticatingRealm</realm>
+  </realms>
+  <hashIterations>1024</hashIterations>
+</security-configuration>
