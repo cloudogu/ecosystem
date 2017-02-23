@@ -4,7 +4,7 @@ set -o nounset
 set -o pipefail
 
 # TODO: check this if statement on correctness
-if ! systemctl is-active etcd | grep 'active' &> /dev/null; then
+if ! systemctl is-active etcd.service | grep 'active' &> /dev/null; then
   >&2 echo "service etcd is not running, starting ..."
   systemctl start etcd.service &>/dev/null
   sleep 1
