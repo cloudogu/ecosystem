@@ -81,4 +81,8 @@ EOF
 # make it executable
 #chmod +x /etc/init/etcd.conf
 
+# Enable it to make it start at bootup
+systemctl daemon-reload
+systemctl enable etcd.service
+
 echo "installing etcd version $ETCD_VERSION - end"
