@@ -30,9 +30,6 @@ Vagrant.configure(2) do |config|
     # enable dns host resolver
     # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     # v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
-
-    # disable guest additions time synchronization
-    v.customize ["setextradata", :id, "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled", "1"]
   end
 
   # load custom configurations
