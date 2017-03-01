@@ -49,6 +49,13 @@ DATABASE_USER=$(doguctl config -e sa-postgresql/username)
 DATABASE_USER_PASSWORD=$(doguctl config -e sa-postgresql/password)
 DATABASE_DB=$(doguctl config -e sa-postgresql/database)
 
+# wait until postgresql passes all health checks
+echo "wait until postgresql passes all health checks"
+if ! doguctl healthy --wait --timeout 120 postgresql; then
+  echo "timeout reached by waiting of postgresql to get healthy"
+  exit 1
+fi 
+
 function sql(){
   PGPASSWORD="${DATABASE_USER_PASSWORD}" psql --host "${DATABASE_IP}" --username "${DATABASE_USER}" --dbname "${DATABASE_DB}" -1 -c "${1}" 
   return $? 
