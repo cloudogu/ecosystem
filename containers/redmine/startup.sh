@@ -82,9 +82,12 @@ else
     && mv redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
     && rm redmine_AR_session_store.tar.gz
 
-  echo "Running plugins migrations..."
-  rake redmine:plugins:migrate RAILS_ENV=$RAILS_ENV -f ${WORKDIR}/Rakefile
 fi
+
+echo "running plugins migrations..."
+  rake redmine:plugins:migrate RAILS_ENV=$RAILS_ENV -f ${WORKDIR}/Rakefile
+echo "plugins migrations... done"
+
 
 # Create links
 if [ ! -e ${WORKDIR}/public/redmine ]; then
