@@ -5,7 +5,7 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 # dockerfile based on https://registry.hub.docker.com/u/sonatype/nexus/dockerfile/
 
 # The version of nexus to install
-ENV NEXUS_VERSION 2.11.1-01
+ENV NEXUS_VERSION 2.14.3-02
 ENV CAS_PLUGIN_VERSION 1.2.2-SNAPSHOT
 
 RUN mkdir -p /opt/sonatype/nexus \
