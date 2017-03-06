@@ -35,7 +35,7 @@ After=network.target docker.service
 
 [Service]
 ExecStart=/usr/sbin/ces-setup
-Restart=always
+Restart=on-failure
 RestartSec=10s
 LimitNOFILE=40000
 
