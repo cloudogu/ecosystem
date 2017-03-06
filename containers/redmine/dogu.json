@@ -1,6 +1,6 @@
 {
   "Name": "official/redmine",
-  "Version": "3.3.1-4",
+  "Version": "3.3.1-5",
   "DisplayName": "Redmine",
   "Description": "Redmine is a flexible project management web application",
   "Category": "Development Apps",
@@ -18,7 +18,14 @@
     "Path": "/usr/share/webapps/redmine/files",
     "Owner": "1000",
     "Group": "1000"
-  }],
+    },
+    {
+    "Name": "plugins",
+    "Path": "/usr/share/webapps/redmine/plugins",
+    "Owner": "1000",
+    "Group": "1000"
+    }
+  ],
   "ServiceAccounts": [{
     "Type": "postgresql"
   }],
@@ -27,3 +34,4 @@
     "Port": 3000
   }
 }
+

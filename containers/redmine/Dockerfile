@@ -79,19 +79,6 @@ RUN git clone https://github.com/cloudogu/rubycas-client.git \
   && gem install rubycas-client-${RUBYCASVERSION}.gem \
   && rm -rf ../rubycas-client
 
-# Install Redmine CAS plugin
-USER ${USER}
-RUN curl -L -o casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
-  && tar -xzf casplugin${RMCASPLUGINVERSION}.tar.gz \
-  && mv redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
-  && rm casplugin${RMCASPLUGINVERSION}.tar.gz
-
-# Install redmine_activerecord_session_store plugin to make Single Sign-Out work
-RUN curl -L -o redmine_AR_session_store.tar.gz https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz \
-  && tar -xzf redmine_AR_session_store.tar.gz \
-  && mv redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
-  && rm redmine_AR_session_store.tar.gz
-
 # redirect production.log to stdout to make it available in hosts /var/log/docker/redmine.log
 RUN ln -s /dev/stdout /usr/share/webapps/redmine/log/production.log
 
