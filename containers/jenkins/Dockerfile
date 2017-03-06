@@ -9,7 +9,7 @@ ENV JENKINS_HOME=/var/lib/jenkins \
     # mark as webapp for nginx
     SERVICE_TAGS=webapp \
     # jenkins version
-    JENKINS_VERSION=2.32.2
+    JENKINS_VERSION=2.32.3
 
 # Jenkins is ran with user `jenkins`, uid = 1000
 # If you bind mount a volume from host/volume from a data container,
@@ -36,10 +36,10 @@ RUN addgroup -S -g 1000 jenkins && adduser -S -h "$JENKINS_HOME" -s /bin/bash -G
 VOLUME /var/lib/jenkins
 
 # add jenkins config file template, including changes for cas plugin and mailConfiguration
-ADD ./resources /var/tmp/resources
+COPY ./resources /var/tmp/resources
 
 # startscript
-ADD ./startup.sh /startup.sh
+COPY ./startup.sh /startup.sh
 
 # switch to jenkins user
 USER jenkins
