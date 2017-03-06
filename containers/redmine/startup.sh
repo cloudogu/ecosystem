@@ -65,6 +65,9 @@ else
   # because the user should be able to change the theme
   sql "INSERT INTO settings (name, value, updated_on) VALUES ('ui_theme','Cloudogu', now());"
 
+  # set default email address
+  sql "INSERT INTO settings (name, value, updated_on) VALUES ('mail_from','redmine@${DOMAIN}', now());"
+
   # Remove default admin account
   sql "DELETE FROM users WHERE login='admin';"
 
@@ -103,7 +106,7 @@ if [ ! -e ${WORKDIR}/stylesheets ]; then
 fi
 
 # Generate configuration.yml from template (e.g. for config of mail transport)
-render_template "${WORKDIR}/config/configuration.yml.tpl" > "/etc/redmine/configuration.yml"
+render_template "${WORKDIR}/config/configuration.yml.tpl" > "${WORKDIR}/config/configuration.yml"
 
 # remove old pid
 RPID="${WORKDIR}/tmp/pids/server.pid"
