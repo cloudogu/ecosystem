@@ -65,6 +65,9 @@ else
   # because the user should be able to change the theme
   sql "INSERT INTO settings (name, value, updated_on) VALUES ('ui_theme','Cloudogu', now());"
 
+  # set default email address
+  sql "INSERT INTO settings (name, value, updated_on) VALUES ('mail_from','redmine@${DOMAIN}', now());"
+
   # Remove default admin account
   sql "DELETE FROM users WHERE login='admin';"
 
