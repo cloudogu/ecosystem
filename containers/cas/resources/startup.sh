@@ -1,4 +1,8 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
 # TODO check if we still need the functions.sh
 source /etc/ces/functions.sh
 
@@ -68,7 +72,7 @@ echo "wait unit ldap passes all health checks"
 if ! doguctl healthy --wait --timeout 120 ldap; then
   echo "timeout reached by waiting of ldap to get healthy"
   exit 1
-fi 
+fi
 
 # startup tomcat
 exec su - cas -c "export JAVA_HOME='/opt/jdk' && ${CATALINA_SH} run"

@@ -1,4 +1,8 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
 source /etc/ces/functions.sh
 
 # based on https://github.com/dweomer/dockerfiles-openldap/blob/master/openldap.sh
@@ -49,7 +53,7 @@ if [[ ! -d ${OPENLDAP_CONFIG_DIR}/cn=config ]]; then
 
   CONFIG_DISPLAYNAME=$(doguctl config "admin_displayname") || CONFIG_DISPLAYNAME="admin"
   ADMIN_DISPLAYNAME=${CONFIG_DISPLAYNAME:-CES Administrator}
-  
+
   ADMIN_GROUP=$(doguctl config --global admin_group) || ADMIN_GROUP="cesAdmin"
   ADMIN_MEMBER=$(doguctl config admin_member) || ADMIN_MEMBER="false"
 
