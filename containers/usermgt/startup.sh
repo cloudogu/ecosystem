@@ -6,8 +6,8 @@ set -o pipefail
 source /etc/ces/functions.sh
 
 # create environment for templates
-FQDN=$(get_fqdn)
-DOMAIN=$(get_domain)
+FQDN=$(doguctl config --global fqdn)
+DOMAIN=$(doguctl config --global domain)
 
 LDAP_HOST=ldap
 LDAP_PORT=389

@@ -1,4 +1,4 @@
-# registry.cloudogu.com/official/java:8u121-1
+# registry.cloudogu.com/official/java:8u121-2
 FROM registry.cloudogu.com/official/base:3.5-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
