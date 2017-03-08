@@ -32,10 +32,8 @@ def addNewSmeagolNotifyEntry(globalConfig){
   
   def properties = new BasicPropertiesAware();
   properties.setProperty("webhooks",url+";"+executeOnEveryCommit+";"+sendCommitData+";"+httpMethod);
-  println("properties:"+ properties.getProperty("webhooks"));
   def webHookConfigurationClass = Class.forName("sonia.scm.webhook.WebHookConfiguration");
   def config = webHookConfigurationClass.newInstance(properties);
-  println("webhook availabile: "+config.isWebHookAvailable())
   return globalConfig.merge(config);
 }
 
@@ -46,7 +44,6 @@ try {
 
     deleteOldSmeagolNotifyEntry(globalConfig);
     def newGlobalConfig = addNewSmeagolNotifyEntry(globalConfig);
-    println("webhook availabile: "+newGlobalConfig.isWebHookAvailable())
     webHookContext.setGlobalConfiguration(newGlobalConfig);
 
 } catch( JAXBException | ClassNotFoundException e ) {
