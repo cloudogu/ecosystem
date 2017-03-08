@@ -6,6 +6,16 @@ set -o pipefail
 # TODO check if we still need the functions.sh
 source /etc/ces/functions.sh
 
+# return config value or default value
+# param1 config key
+# param2 default value
+function cfg_or_default {
+  if ! VALUE=$(doguctl config "${1}"); then
+    VALUE="${2}"
+  fi
+  echo "${VALUE}"
+}
+
 # general variables for templates
 DOMAIN=$(doguctl config --global domain)
 FQDN=$(doguctl config --global fqdn)
@@ -22,8 +32,14 @@ LDAP_ATTRIBUTE_MAIL=$(doguctl config ldap/attribute_mail)
 LDAP_ATTRIBUTE_GROUP=$(doguctl config ldap/attribute_group)
 LDAP_STARTTLS='false'
 
+LDAP_GROUP_BASE_DN=$(cfg_or_default 'ldap/group_base_dn' '')
+LDAP_GROUP_SEARCH_FILTER=$(cfg_or_default 'ldap/group_search_filter' '' | sed 's@&@\\\&@g')
+LDAP_GROUP_ATTRIBUTE_NAME=$(cfg_or_default 'ldap/group_attribute_name' '')
+
+LDAP_USE_USER_CONNECTION=$(cfg_or_default 'ldap/use_user_connection_to_fetch_attributes' 'true')
+
 # replace & with /& because of sed
-LDAP_SEARCH_FILTER=$( echo "(&$(doguctl config ldap/search_filter)($LDAP_ATTRIBUTE_USERNAME={user}))" | sed 's@&@\\\&@g')
+LDAP_SEARCH_FILTER=$(echo "(&$(doguctl config ldap/search_filter)($LDAP_ATTRIBUTE_USERNAME={user}))" | sed 's@&@\\\&@g')
 
 if [[ "$LDAP_TYPE" == 'external' ]]; then
   LDAP_BASE_DN=$(doguctl config ldap/base_dn)
@@ -61,7 +77,11 @@ s?%LDAP_BIND_DN%?$LDAP_BIND_DN?g;\
 s@%LDAP_BIND_PASSWORD%@$LDAP_BIND_PASSWORD@g;\
 s@%LDAP_ATTRIBUTE_USERNAME%@$LDAP_ATTRIBUTE_USERNAME@g;\
 s?%LDAP_ATTRIBUTE_MAIL%?$LDAP_ATTRIBUTE_MAIL?g;\
-s@%LDAP_ATTRIBUTE_GROUP%@$LDAP_ATTRIBUTE_GROUP@g"\
+s@%LDAP_ATTRIBUTE_GROUP%@$LDAP_ATTRIBUTE_GROUP@g;\
+s@%LDAP_GROUP_BASE_DN%@$LDAP_GROUP_BASE_DN@g;\
+s@%LDAP_GROUP_SEARCH_FILTER%@$LDAP_GROUP_SEARCH_FILTER@g;\
+s@%LDAP_GROUP_ATTRIBUTE_NAME%@$LDAP_GROUP_ATTRIBUTE_NAME@g;\
+s@%LDAP_USE_USER_CONNECTION%@$LDAP_USE_USER_CONNECTION@g"\
  /opt/apache-tomcat/cas.properties.tpl > /opt/apache-tomcat/webapps/cas/WEB-INF/cas.properties
 
 # create truststore, which is used in the setenv.sh

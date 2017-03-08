@@ -14,7 +14,7 @@ ENV REDMINE_VERSION=3.3.2 \
 # copy resource files
 COPY resources/ /
 
-RUN \ 
+RUN \
  # add user and group
  addgroup -S "${USER}" \
  && adduser -S -G "${USER}" "${USER}" \
@@ -45,7 +45,7 @@ RUN \
     patch \
     coreutils \
     libffi-dev \
- 
+
  # update ruby gems
  && echo 'gem: --no-document' > /etc/gemrc \
  && 2>/dev/null 1>&2 gem update --system --quiet \

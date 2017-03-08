@@ -74,12 +74,37 @@ else
   # because the user should be able to change the theme
   sql "INSERT INTO settings (name, value, updated_on) VALUES ('ui_theme','Cloudogu', now());"
 
+  # set default email address
+  sql "INSERT INTO settings (name, value, updated_on) VALUES ('mail_from','redmine@${DOMAIN}', now());"
+
   # Remove default admin account
   sql "DELETE FROM users WHERE login='admin';"
 
-  echo "Running plugins migrations..."
-  rake redmine:plugins:migrate RAILS_ENV=$RAILS_ENV -f ${WORKDIR}/Rakefile
 fi
+
+# Install base plugins for cloudogu
+if [ $(ls -l ${WORKDIR}/plugins/ | grep "redmine_activerecord" | wc -l) -eq 0 ]; then
+  # Install redmine_activerecord_session_store plugin to make Single Sign-Out work
+  echo "installing redmine_activerecord_session_store plugin"
+  curl -L -o redmine_AR_session_store.tar.gz https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz \
+    && tar -xzf redmine_AR_session_store.tar.gz \
+    && mv redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
+    && rm redmine_AR_session_store.tar.gz
+fi
+if [ $(ls -l ${WORKDIR}/plugins/ | grep "redmine_cas" | wc -l) -eq 0 ]; then
+  # Install Redmine CAS plugin
+  echo "installing CAS plugin"
+  curl -L -o casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
+    && tar -xzf casplugin${RMCASPLUGINVERSION}.tar.gz \
+    && mv redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
+    && rm casplugin${RMCASPLUGINVERSION}.tar.gz
+fi
+
+# Install Plugins
+echo "running plugins migrations..."
+  rake redmine:plugins:migrate RAILS_ENV=$RAILS_ENV -f ${WORKDIR}/Rakefile
+echo "plugins migrations... done"
+
 
 # Create links
 if [ ! -e ${WORKDIR}/public/redmine ]; then
@@ -90,7 +115,7 @@ if [ ! -e ${WORKDIR}/stylesheets ]; then
 fi
 
 # Generate configuration.yml from template (e.g. for config of mail transport)
-render_template "${WORKDIR}/config/configuration.yml.tpl" > "/etc/redmine/configuration.yml"
+render_template "${WORKDIR}/config/configuration.yml.tpl" > "${WORKDIR}/config/configuration.yml"
 
 # remove old pid
 RPID="${WORKDIR}/tmp/pids/server.pid"

@@ -13,6 +13,19 @@
   "Dependencies": [
     "postgresql", "cas", "nginx", "postfix"
   ],
+  "Volumes": [{
+    "Name": "files",
+    "Path": "/usr/share/webapps/redmine/files",
+    "Owner": "1000",
+    "Group": "1000"
+    },
+    {
+    "Name": "plugins",
+    "Path": "/usr/share/webapps/redmine/plugins",
+    "Owner": "1000",
+    "Group": "1000"
+    }
+  ],
   "ServiceAccounts": [{
     "Type": "postgresql"
   }],

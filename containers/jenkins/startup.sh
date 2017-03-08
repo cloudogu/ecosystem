@@ -15,6 +15,17 @@ create-ca-certificates.sh /var/lib/jenkins/ca-certificates.crt
 # copy init scripts
 cp -rf /var/tmp/resources/init.groovy.d /var/lib/jenkins/
 
+# set initial setting for slave-to-master-security
+# see https://wiki.jenkins-ci.org/display/JENKINS/Slave+To+Master+Access+Control
+SLAVE_TO_MASTER_SECURITY="/var/lib/jenkins/secrets/slave-to-master-security-kill-switch"
+if [ ! -f "${SLAVE_TO_MASTER_SECURITY}" ]; then
+  SECRETS_DIRECTORY=$(dirname "${SLAVE_TO_MASTER_SECURITY}")
+  if [ ! -d "${SECRETS_DIRECTORY}" ]; then
+    mkdir -p "${SECRETS_DIRECTORY}"
+  fi
+  echo 'false' > "${SLAVE_TO_MASTER_SECURITY}"
+fi
+
 # starting jenkins
 java -Djava.awt.headless=true \
   -Djava.net.preferIPv4Stack=true \
