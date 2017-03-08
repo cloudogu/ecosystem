@@ -9,9 +9,9 @@ source /etc/ces/functions.sh
 FQDN=$(get_fqdn)
 DOMAIN=$(get_domain)
 
-LDAP_SERVICE=$(get_service ldap 389)
 LDAP_HOST=ldap
 LDAP_PORT=389
+LDAP_SERVICE=${LDAP_HOST}:${LDAP_PORT}
 LDAP_BASE_DN="o=${DOMAIN},dc=cloudogu,dc=com"
 LDAP_BIND_DN=$(doguctl config -e sa-ldap/username)
 LDAP_BIND_PASSWORD=$(/opt/apache-tomcat/webapps/usermgt/WEB-INF/cipher.sh encrypt $(doguctl config -e sa-ldap/password) | tail -1)
