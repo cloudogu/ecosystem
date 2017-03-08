@@ -52,8 +52,7 @@ else
   LDAP_BIND_PASSWORD=$(doguctl config -e sa-ldap/password | sed 's@/@\\\\/@g')
 fi
 
-
-STAGE=$(doguctl config --global stage)
+STAGE=$(cfg_or_default '--global stage' '')
 if [[ "$STAGE" != 'development' ]]; then
   STAGE='production'
 fi
