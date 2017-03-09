@@ -17,7 +17,7 @@ COPY resources/ /
 RUN \
  # add user and group
  addgroup -S "${USER}" \
- && adduser -S -G "${USER}" "${USER}" \
+ && adduser -S -G "${USER}" -u 1000 "${USER}" \
 
  # install runtime packages
  && apk --no-cache add --virtual /.run-deps \
