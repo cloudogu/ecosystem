@@ -80,14 +80,6 @@ RUN \
  && gem install rubycas-client-${RUBYCASVERSION}.gem \
  && cd ..; rm -rf rubycas-client \
 
- # Install Redmine CAS plugin
- && mkdir -p ${WORKDIR}/plugins/redmine_cas \
- && curl -L https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz | tar xfz - --strip-components=1 -C ${WORKDIR}/plugins/redmine_cas \
-
- # Install redmine_activerecord_session_store plugin to make Single Sign-Out work
- && mkdir -p ${WORKDIR}/plugins/redmine_activerecord_session_store \
- && curl -L https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz | tar xfz - --strip-components=1 -C ${WORKDIR}/plugins/redmine_activerecord_session_store \
-
  # fix permissions
  && chown -R ${USER}:${USER} ${BASEDIR} \
  && mkdir -m 755 /etc/redmine \
