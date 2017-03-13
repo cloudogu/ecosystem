@@ -39,7 +39,11 @@ echo "wait until postgresql passes all health checks"
 if ! doguctl healthy --wait --timeout 120 postgresql; then
   echo "timeout reached by waiting of postgresql to get healthy"
   exit 1
-fi 
+fi
+
+# wait some more time for PostgreSQL so the next check wont fail
+# TODO: check why the if statement below sometimes fails if there is no sleep
+sleep 3
 
 # Check if Redmine has been installed already
 if 2>/dev/null 1>&2 sql "select count(*) from settings;"; then
