@@ -46,6 +46,6 @@ try {
     def newGlobalConfig = addNewSmeagolNotifyEntry(globalConfig);
     webHookContext.setGlobalConfiguration(newGlobalConfig);
 
-} catch( JAXBException | ClassNotFoundException e ) {
+} catch( Exception e ) {
     println "webhook plugin seems not to be installed"
 }

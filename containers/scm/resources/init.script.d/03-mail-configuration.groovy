@@ -31,6 +31,6 @@ try {
   ]);
 
   mailContext.store(configuration);
-} catch( ClassNotFoundException e ) {
+} catch( Exception e ) {
   println "mail plugin seems not to be installed"
 }
