@@ -48,6 +48,10 @@ if (isDoguInstalled("jenkins")){
 	plugins.add("sonia.scm.plugins:scm-jenkins-plugin")
 }
 
+if (isDoguInstalled("smeagol")){
+	plugins.add("sonia.scm.plugins:scm-webhook-plugin")
+}
+
 def pluginManager = injector.getInstance(PluginManager.class);
 def available = pluginManager.getAvailable();
 def installed = pluginManager.getInstalled();

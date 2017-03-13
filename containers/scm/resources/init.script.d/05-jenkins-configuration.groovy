@@ -18,6 +18,6 @@ try {
 		config.url = "https://${fqdn}/jenkins";
 
     jenkins.storeConfiguration();
-} catch( ClassNotFoundException e ) {
+} catch( Exception e ) {
     println "jenkins plugin seems not to be installed"
 }

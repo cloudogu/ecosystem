@@ -28,6 +28,6 @@ try {
     StringReader configReader = new StringReader(configXml);
     def newConfig = unmarshaller.unmarshal(configReader);
     redmine.setGlobalConfiguration(newConfig);
-} catch( JAXBException | ClassNotFoundException e ) {
+} catch( Exception e ) {
     println "redmine plugin seems not to be installed"
 }

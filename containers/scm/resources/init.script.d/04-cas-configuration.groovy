@@ -26,6 +26,6 @@ try {
 		config.setEnabled(true);
 
     cas.storeConfig(config);
-} catch( ClassNotFoundException e ) {
+} catch( Exception e ) {
     println "cas plugin seems not to be installed"
 }
