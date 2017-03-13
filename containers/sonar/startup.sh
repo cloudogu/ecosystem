@@ -2,7 +2,6 @@
 
 source /etc/ces/functions.sh
 
-# TODO get admin group from etcd
 ADMINGROUP=$(doguctl config --global admin_group)
 
 function move_sonar_dir(){
@@ -82,9 +81,14 @@ if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == 
   # wait until database is installed
   N=0
   until [ $N -ge 10 ]; do
-    sql "SELECT COUNT(*) FROM properties;" && break
-    N=$[$N+1]
-    sleep 10
+    #TODO: Adapt sql function so it is usable with -t parameter here
+    SELECTION=$(PGPASSWORD="${DATABASE_USER_PASSWORD}" psql -t --host "${DATABASE_IP}" --username "${DATABASE_USER}" --dbname "${DATABASE_DB}" -1 -c "SELECT count(1) FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema NOT IN ('pg_catalog', 'information_schema') AND table_name='properties';")
+    if [ "${SELECTION}" -eq 1 ] ; then
+      break
+    else
+      N=$[$N+1]
+      sleep 10
+    fi
   done
 
 	# set base url
