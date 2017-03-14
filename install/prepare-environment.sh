@@ -42,3 +42,7 @@ if [ -f "/etc/sudoers" ]; then
 else
   >&2 echo 'ERR: sudoers file does not exists'
 fi
+
+# Enable IP change check service
+systemctl daemon-reload
+systemctl enable ipchangecheck.service
