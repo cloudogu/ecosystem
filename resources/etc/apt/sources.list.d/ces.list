@@ -1,1 +1,1 @@
-deb [arch=amd64] https://apt.cloudogu.com/repo/ ubuntu main
+deb [arch=amd64] https://apt.cloudogu.com/xenial/ xenial main
