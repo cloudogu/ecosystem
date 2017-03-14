@@ -9,12 +9,6 @@ dpkg --list \
   | grep 'linux-headers' \
   | xargs apt-get -y purge;
 
-# Delete development packages
-dpkg --list \
-    | awk '{ print $2 }' \
-    | grep -- '-dev$' \
-    | xargs apt-get -y purge;
-
 # Delete X11 libraries
 apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6;
 

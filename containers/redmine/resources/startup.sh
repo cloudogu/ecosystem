@@ -17,7 +17,6 @@ RAILS_ENV=production
 REDMINE_LANG=en
 DOMAIN=$(doguctl config --global domain)
 RELAYHOST="postfix"
-
 function sql(){
   PGPASSWORD="${DATABASE_USER_PASSWORD}" psql --host "${DATABASE_IP}" --username "${DATABASE_USER}" --dbname "${DATABASE_DB}" -1 -c "${1}"
   return $?
@@ -43,7 +42,7 @@ fi
 
 # wait some more time for PostgreSQL so the next check wont fail
 # TODO: check why the if statement below sometimes fails if there is no sleep
-sleep 3
+sleep 10
 
 # Check if Redmine has been installed already
 if 2>/dev/null 1>&2 sql "select count(*) from settings;"; then
