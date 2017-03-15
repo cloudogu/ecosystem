@@ -23,7 +23,7 @@ done
 if [ "${APTINSTALL}" != "" ]; then
   # update package index only for ces repository
   apt-get update -o Dir::Etc::sourcelist="sources.list.d/ces.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
-  apt-get install -y --force-yes cesapp ces-setup
+  apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages cesapp ces-setup
 fi
 
 # Make systemd acknowledge ces-setup
