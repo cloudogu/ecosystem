@@ -28,7 +28,7 @@
         "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/dev/preseed.cfg ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
         "hostname={{user `vm_name`}} ",
-        "fb=false debconf/frontend=noninteractive ",
+        "fb=false debconf/frontend=noninteractive net.ifnames=0 ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
         "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
         "initrd=/install/initrd.gz -- <enter>"
