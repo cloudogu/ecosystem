@@ -25,7 +25,7 @@ for i in $(seq 1 5); do
   fi
 done
 
-if ! /opt/ces/bin/etcdctl cluster-health &> /dev/null; then
+if ! etcdctl cluster-health &> /dev/null; then
   >&2 echo "failed to start etcd ..."
   exit 1
 fi
