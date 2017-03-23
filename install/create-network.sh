@@ -11,9 +11,9 @@ if ! systemctl is-active etcd.service | grep 'active' &> /dev/null; then
 fi
 
 for i in $(seq 1 5); do
-  if ! /opt/ces/bin/etcdctl cluster-health &> /dev/null; then
+  if ! etcdctl cluster-health &> /dev/null; then
     sleep 1
-    if /opt/ces/bin/etcdctl cluster-health &> /dev/null; then
+    if etcdctl cluster-health &> /dev/null; then
       break
     else
       >&2 echo "etcd is not running, try to restart (retry counter $i)..."
