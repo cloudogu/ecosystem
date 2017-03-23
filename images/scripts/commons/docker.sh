@@ -6,7 +6,7 @@ set -o pipefail
 # Install docker
 # see https://docs.docker.com/engine/installation/linux/ubuntulinux/
 
-DOCKER_VERSION=1.13.1-0~ubuntu-xenial
+DOCKER_VERSION=17.03.0~ce-0~ubuntu-xenial
 
 echo "installing docker"
 DEBIAN_FRONTEND=noninteractive apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
