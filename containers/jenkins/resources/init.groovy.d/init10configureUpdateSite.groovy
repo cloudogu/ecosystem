@@ -11,7 +11,7 @@ def getValueFromEtcd(String key){
 
 def instance = Jenkins.getInstance();
 
-String updateSiteUrl = getValueFromEtcd("config/jenkins/update_site_url");
+String updateSiteUrl = getValueFromEtcd("config/jenkins/updateSiteUrl");
 
 // TODO: check if already done?
 if(updateSiteUrl != null && !updateSiteUrl.isEmpty()) {
