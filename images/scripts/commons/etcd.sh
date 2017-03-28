@@ -20,14 +20,7 @@ apt-get update -o Dir::Etc::sourcelist="sources.list.d/ces.list" -o Dir::Etc::so
 # install etcd
 apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages ces-etcd
 
-# # Start etcd
-# echo "Check /etc/ces folder"
-# ls -l /etc/ces && sleep 3
-# echo "Try to execute /bin/bash -c 'source /etc/ces/functions.sh; get_ip'"
-# /bin/bash -c 'source /etc/ces/functions.sh; get_ip' && sleep 3
-# echo "Executing /etc/etcdstart.sh"
-# /etc/etcdstart.sh && sleep 3
-# echo "Execute systemctl start etcd.service"
-# systemctl start etcd.service
+# Start etcd
+systemctl start etcd.service
 
 echo "installing etcd - end"
