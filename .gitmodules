@@ -1,6 +1,6 @@
 [submodule "containers/cockpit"]
 	path = containers/cockpit
-	url = git@github.com:cloudogu/cockpit.git
+	url = https://github.com/cloudogu/cockpit
 [submodule "containers/smeagol"]
 	path = containers/smeagol
 	url = https://github.com/cloudogu/smeagol
