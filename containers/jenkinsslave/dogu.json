@@ -1,6 +1,6 @@
 {
   "Name": "official/jenkinsslave",
-  "Version": "0.0.1-1",
+  "Version": "0.0.1-2",
   "DisplayName": "Jenkinsslave",
   "Description": "Jenkinsslave - slavebase",
   "Url": "https://jenkins-ci.org/",

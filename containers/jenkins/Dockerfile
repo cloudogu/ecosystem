@@ -1,5 +1,5 @@
 # cesi/scm
-FROM registry.cloudogu.com/official/java:8u111-2
+FROM registry.cloudogu.com/official/java:8u121-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # Dockerfile based on https://github.com/cloudbees/jenkins-ci.org-docker/blob/f313389f8ab728d7b4207da36804ea54415c830b/1.580.1/Dockerfile

@@ -1,5 +1,5 @@
 # cesi/scm
-FROM registry.cloudogu.com/official/java:8u111-2
+FROM registry.cloudogu.com/official/java:8u121-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 
