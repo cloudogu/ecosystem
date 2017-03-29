@@ -1,5 +1,5 @@
-# registry.cloudogu.com/official/java:8u121-2
-FROM registry.cloudogu.com/official/base:3.5-1
+# registry.cloudogu.com/official/java:8u121-3
+FROM registry.cloudogu.com/official/base:3.5-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # based on https://github.com/anapsix/docker-alpine-java/blob/master/8/jre/Dockerfile
