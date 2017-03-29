@@ -1,6 +1,6 @@
 # registry.cloudogu.com/official/registrator:0.6.0
 # dockerfile is based on https://github.com/progrium/registrator
-FROM registry.cloudogu.com/official/base:3.5-1
+FROM registry.cloudogu.com/official/base:3.5-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 ADD startup.sh /startup.sh

@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/nexus
-FROM registry.cloudogu.com/official/java:8u121-2
+FROM registry.cloudogu.com/official/java:8u121-3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # dockerfile based on https://registry.hub.docker.com/u/sonatype/nexus/dockerfile/

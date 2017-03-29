@@ -1,4 +1,4 @@
-FROM registry.cloudogu.com/official/java:8u121-2
+FROM registry.cloudogu.com/official/java:8u121-3
 MAINTAINER	stephan christann	<stephan.christann@christann.net>
 
 # ADD USER JENKINS AND UNLOCK WITH RANDOM PASSWORD
