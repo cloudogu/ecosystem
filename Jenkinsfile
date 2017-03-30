@@ -7,29 +7,37 @@ node('vagrant') {
 
   ip = "192.168.42.100"
 
+  properties ([
+    // Keep only the last x builds to preserve space
+    buildDiscarder(logRotator(numToKeepStr: '10')),
+    // Don't run concurrent builds for a branch, because they use the same workspace directory
+    disableConcurrentBuilds()
+  ])
+
   stage('Checkout') {
     checkout scm
+    sh 'rm -f setup.json'
   }
 
   try {
 
     stage('Provision') {
-        timeout(5) {
-            writeVagrantConfiguration()
-            sh 'vagrant up'
-        }
+      timeout(5) {
+        writeVagrantConfiguration()
+        sh 'vagrant up'
+      }
     }
 
     stage('Setup') {
-        timeout(30) {
-            writeSetupJSON()
-            sh 'vagrant ssh -c "while pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
-        }
+      timeout(30) {
+        writeSetupJSON()
+        sh 'vagrant ssh -c "while pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
+      }
     }
 
   } finally {
     stage('Clean') {
-        sh 'vagrant destroy -f'
+      sh 'vagrant destroy -f'
     }
   }
 
@@ -41,10 +49,10 @@ void writeVagrantConfiguration() {
   writeFile file: '.vagrant.rb', text: """
 # override public network with a private one
 config.vm.networks.each do |n|
-    if n[0] == :public_network
-        n[0] = :private_network
-        n[1][:ip] = "${ip}"
-    end
+  if n[0] == :public_network
+    n[0] = :private_network
+    n[1][:ip] = "${ip}"
+  end
 end
 config.vm.provider "virtualbox" do |v|
 	v.memory = 8192
