@@ -1,10 +1,14 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 source /etc/ces/functions.sh
 MAILRELAY=$(get_config relayhost)
 
 name=$(hostname)
 domain=$(get_domain)
+net=""
 
 if [ ! -f /etc/postfix/configured ]; then
     # GATHERING NETWORKS FROM INTERFACES FOR MYNETWORKS
