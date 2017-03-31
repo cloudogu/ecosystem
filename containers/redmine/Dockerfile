@@ -88,7 +88,9 @@ RUN \
  # cleanup
  && rm -rf /root/* /tmp/* $(gem env gemdir)/cache \
  && apk --purge del /.build-deps \
- && rm -rf /var/cache/apk/*
+ && rm -rf /var/cache/apk/* \
+
+ && ln -s /dev/stdout /usr/share/webapps/redmine/log/production.log
 
 # switch to redmine user
 USER ${USER}
