@@ -16,7 +16,6 @@ node('vagrant') {
 
   stage('Checkout') {
     checkout scm
-    sh 'rm -f setup.json'
   }
 
   try {
@@ -30,7 +29,8 @@ node('vagrant') {
 
     stage('Setup') {
       timeout(30) {
-        writeSetupJSON()
+        writeSetupStagingJSON()
+        sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.json"'
         sh 'vagrant ssh -c "while pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
       }
     }
@@ -64,9 +64,9 @@ end
 """
 }
 
-void writeSetupJSON() {
+void writeSetupStagingJSON() {
     withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
-    writeFile file: 'setup.json', text: """
+    writeFile file: 'setup.staging.json', text: """
 {
   "token":{
     "ID":"${env.TOKEN_ID}",
