@@ -3,9 +3,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source /etc/ces/functions.sh
-
-FQDN=$(get_fqdn)
+FQDN=$(doguctl config --global fqdn)
 ADMUSR="$1"
 ADMPW="$2"
 ADMINGROUP="$3"

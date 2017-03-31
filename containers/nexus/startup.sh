@@ -63,7 +63,6 @@ if  ! doguctl config -e "admin_password" > /dev/null ; then
 fi
 
 ADMPW=$(doguctl config -e "admin_password")
-FQDN=$(get_fqdn)
 echo "render_template"
 # update cas url
 render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
