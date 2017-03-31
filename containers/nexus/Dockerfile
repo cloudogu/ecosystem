@@ -14,23 +14,15 @@ RUN mkdir -p /opt/sonatype/nexus \
   | gunzip \
   | tar x -C /tmp nexus-${NEXUS_VERSION} \
   && mv /tmp/nexus-${NEXUS_VERSION}/* /opt/sonatype/nexus/ \
-  && rm -rf /tmp/nexus-${NEXUS_VERSION}
-
-RUN addgroup -S -g 1000 nexus && adduser -S -h /var/lib/nexus -s /bin/false -G nexus -u 1000 nexus
+  && rm -rf /tmp/nexus-${NEXUS_VERSION} \
+  && addgroup -S -g 1000 nexus \
+  && adduser -S -h /var/lib/nexus -s /bin/false -G nexus -u 1000 nexus
 
 VOLUME /var/lib/nexus
 
 ENV SERVICE_TAGS webapp
 
-# startscript
-ADD ./startup.sh /startup.sh
-ADD ./configuration.sh /configuration.sh
-RUN chmod +x /startup.sh
-RUN chmod +x /configuration.sh
-
-# cas plugin
-ADD resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION} /opt/sonatype/nexus/resources/nexus-cas-plugin-${CAS_PLUGIN_VERSION}/
-ADD resources/cas-plugin.xml.tpl /opt/sonatype/nexus/resources/cas-plugin.xml.tpl
+COPY resources /
 
 EXPOSE 8081
 USER nexus
