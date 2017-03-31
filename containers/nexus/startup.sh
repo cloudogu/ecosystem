@@ -14,7 +14,7 @@ FQDN=$(doguctl config --global fqdn)
 
 function set_random_admin_password {
   ADMPW=$(doguctl random)
-  curl --retry 3 --retry-delay 10 -X POST -H "Content-Type: application/json" -d "{data:{userId:\"$ADMUSR\",newPassword:\"$ADMPW\"}}" --insecure 'http://127.0.0.1:8081/nexus/service/local/users_setpw' -u "$ADMUSR":"$ADMDEFAULTPW"
+  curl -s --retry 3 --retry-delay 10 -X POST -H "Content-Type: application/json" -d "{data:{userId:\"$ADMUSR\",newPassword:\"$ADMPW\"}}" --insecure 'http://127.0.0.1:8081/nexus/service/local/users_setpw' -u "$ADMUSR":"$ADMDEFAULTPW"
   doguctl config -e "admin_password" "${ADMPW}"
   echo "${ADMPW}"
 }
@@ -42,16 +42,13 @@ if ! [ -d /var/lib/nexus/plugin-repository/nexus-cas-plugin-"${CAS_PLUGIN_VERSIO
       fi
       ADMPW=$(set_random_admin_password)
   		
-      # add Cas Plugin
-      cp -a /opt/sonatype/nexus/resources/nexus-cas-plugin-"${CAS_PLUGIN_VERSION}"/ /var/lib/nexus/plugin-repository/
+      # add cas Plugin
+      cp -dR /opt/sonatype/nexus/resources/nexus-cas-plugin-"${CAS_PLUGIN_VERSION}"/ /var/lib/nexus/plugin-repository/
       # add mailconfig
-      MAIL_CONFIGURATION=$(curl -H 'content-type:application/json' -H 'accept:application/json' 'http://127.0.0.1:8081/nexus/service/local/global_settings/current' -u "$ADMUSR":"$ADMPW" | jq ".data.smtpSettings+={\"host\": \"postfix\"}" | jq ".data.smtpSettings+={\"username\": \"\"}" | jq ".data.smtpSettings+={\"password\": \"\"}" | jq ".data.globalRestApiSettings+={\"baseUrl\": \"https://$FQDN/nexus/\"}" | jq ".data.smtpSettings+={\"systemEmailAddress\": \"nexus@$DOMAIN\"}" | jq ".data+={\"securityAnonymousAccessEnabled\": false}" | jq ".data+={\"securityRealms\": [\"XmlAuthenticatingRealm\",\"XmlAuthorizingRealm\",\"CasAuthenticatingRealm\"]}")
-      echo "============ CONFIG INFO ============"
-      echo "$MAIL_CONFIGURATION" | jq .
-      curl --retry 3 --retry-delay 10 -H "Content-Type: application/json" -X PUT -d "$MAIL_CONFIGURATION" "http://127.0.0.1:8081/nexus/service/local/global_settings/current" -u "$ADMUSR":"$ADMPW"
+      MAIL_CONFIGURATION=$(curl -s -H 'content-type:application/json' -H 'accept:application/json' 'http://127.0.0.1:8081/nexus/service/local/global_settings/current' -u "$ADMUSR":"$ADMPW" | jq ".data.smtpSettings+={\"host\": \"postfix\"}" | jq ".data.smtpSettings+={\"username\": \"\"}" | jq ".data.smtpSettings+={\"password\": \"\"}" | jq ".data.globalRestApiSettings+={\"baseUrl\": \"https://$FQDN/nexus/\"}" | jq ".data.smtpSettings+={\"systemEmailAddress\": \"nexus@$DOMAIN\"}" | jq ".data+={\"securityAnonymousAccessEnabled\": false}" | jq ".data+={\"securityRealms\": [\"XmlAuthenticatingRealm\",\"XmlAuthorizingRealm\",\"CasAuthenticatingRealm\"]}")
+      curl -s --retry 3 --retry-delay 10 -H "Content-Type: application/json" -X PUT -d "$MAIL_CONFIGURATION" "http://127.0.0.1:8081/nexus/service/local/global_settings/current" -u "$ADMUSR":"$ADMPW"
       # disable new version info
-      curl -H "Content-Type: application/json" -X PUT -d "{data:{enabled:false}}" "http://127.0.0.1:8081/nexus/service/local/lvo_config" -u "$ADMUSR":"$ADMPW"
-      echo "========== CONFIG INFO END =========="
+      curl -s -H "Content-Type: application/json" -X PUT -d "{data:{enabled:false}}" "http://127.0.0.1:8081/nexus/service/local/lvo_config" -u "$ADMUSR":"$ADMPW"
       kill $!
 fi
 
