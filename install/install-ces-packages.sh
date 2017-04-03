@@ -18,14 +18,7 @@ for PKG in $PACKAGES; do
 done
 
 if [ "${APTINSTALL}" != "" ]; then
+  apt-get update -o Dir::Etc::sourcelist="sources.list.d/ces.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
   apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages ${APTINSTALL}
 fi
 
-## Make systemd acknowledge ces-setup
-#echo "Reloading systemd daemon"
-#systemctl daemon-reload
-## enabling ces-setup to make it start even after reboot
-#echo "Enabling ces-setup"
-#systemctl enable ces-setup.service
-#echo "Restarting ces-setup"
-#systemctl restart ces-setup.service
