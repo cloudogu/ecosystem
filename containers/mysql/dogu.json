@@ -1,6 +1,6 @@
 {
   "Name": "official/mysql",
-  "Version": "10.1.22-1",
+  "Version": "10.1.22-2",
   "DisplayName": "MySQL/MariaDB",
   "Description": "MySQL/MariaDB Database.",
   "Url": "https://mariadb.com/",
