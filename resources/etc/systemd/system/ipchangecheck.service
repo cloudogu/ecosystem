@@ -1,0 +1,12 @@
+[Unit]
+Description=IP address change check
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/ipchange.sh
+Restart=on-failure
+RestartSec=10s
+LimitNOFILE=40000
+
+[Install]
+WantedBy=multi-user.target

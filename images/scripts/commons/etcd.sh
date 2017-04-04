@@ -1,43 +1,26 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
-ETCD_VERSION=v2.3.7
+echo "installing etcd - start"
 
-echo "installing etc version $ETCD_VERSION"
+if [ ! -d /etc/apt/sources.list.d ]; then
+  mkdir -p /etc/apt/sources.list.d
+fi
 
-curl -L  https://github.com/coreos/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-amd64.tar.gz -o /tmp/etcd.tar.gz
-mkdir -p /opt/ces/etcd
-tar xfz /tmp/etcd.tar.gz -C /opt/ces/etcd --strip-components=1
-mkdir -p /opt/ces/bin
-ln -s /opt/ces/etcd/etcdctl /opt/ces/bin/etcdctl
-rm -f /tmp/etcd-${ETCD_VERSION}-linux-amd64.tar.gz
+echo "deb [arch=amd64] https://apt.cloudogu.com/xenial/ xenial main" > /etc/apt/sources.list.d/ces.list
 
-# write upstart start script
-cat << 'EOF' >> /etc/init/etcd.conf
-description "CES etcd container"
-author "Sebastian Sdorra <sebastian.sdorra@cloudogu.com>"
-start on starting docker
-stop on (runlevel [!2345] and stopped docker)
-respawn
+# import cloudogu key
+apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0249BCED
 
-script
-  IP=$(bash -c "source /etc/ces/functions.sh; get_ip")
-  mkdir -p /var/lib/ces/etcd/data
-  /opt/ces/etcd/etcd  --data-dir /var/lib/ces/etcd/data -addr="$IP":4001
-end script
+# update package index only for ces repository
+apt-get update -o Dir::Etc::sourcelist="sources.list.d/ces.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
 
-post-start script
-  for C in $(seq 1 30); do
-    if $(nc -z "127.0.0.1" 4001); then
-      continue
-    else
-      sleep 0.1
-    fi
-  done
-end script
+# install etcd
+apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages ces-etcd
 
-EOF
+# Start etcd
+systemctl start etcd.service
 
-# make it executable
-chmod +x /etc/init/etcd.conf
-
-echo "installing etc version $ETCD_VERSION - end"
+echo "installing etcd - end"

@@ -1,10 +1,10 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 PACKAGES="cesapp ces-setup"
 APTINSTALL=""
-
-# import cloudogu key
-apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0249BCED
 
 for PKG in $PACKAGES; do
   if ls /vagrant/${PKG}*.deb 2> /dev/null; then
@@ -18,11 +18,7 @@ for PKG in $PACKAGES; do
 done
 
 if [ "${APTINSTALL}" != "" ]; then
-  # update package index only for ces repository
   apt-get update -o Dir::Etc::sourcelist="sources.list.d/ces.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
-  apt-get install -y --force-yes cesapp ces-setup
+  apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages ${APTINSTALL}
 fi
 
-# service start automatically on docker restart
-# docker restart is called after the overlay network configuration
-# service ces-setup start

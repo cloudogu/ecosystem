@@ -12,9 +12,9 @@
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "iso_urls": [
-        "http://releases.ubuntu.com/14.04/ubuntu-14.04.5-server-amd64.iso"
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04.2-server-amd64.iso"
       ],
-      "iso_checksum": "dde07d37647a1d2d9247e33f14e91acb10445a97578384896b4e1d985f754cc1",
+      "iso_checksum": "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
       "iso_checksum_type": "sha256",
       "ssh_username": "{{user `username`}}",
       "ssh_password": "{{user `password`}}",
@@ -23,12 +23,12 @@
       "headless": false,
       "boot_wait": "5s",
       "boot_command": [
-        "<esc><esc><enter><wait>",
+        "<enter><wait><f6><esc>",
         "/install/vmlinuz ",
         "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/dev/preseed.cfg ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
         "hostname={{user `vm_name`}} ",
-        "fb=false debconf/frontend=noninteractive ",
+        "fb=false debconf/frontend=noninteractive net.ifnames=0 ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
         "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
         "initrd=/install/initrd.gz -- <enter>"

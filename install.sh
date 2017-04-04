@@ -1,12 +1,15 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 # be sure we are root
-if [ $(id -u) -ne 0 ]; then
+if [ "$(id -u)" -ne 0 ]; then
   echo "please run as root"
   exit 1
 fi
 
-# set install home, if not set 
+# set install home, if not set
 if [ -z ${INSTALL_HOME+x} ]; then
   INSTALL_HOME=$(cd "$( dirname "${0}" )" && pwd)
 fi
@@ -36,7 +39,7 @@ $INSTALL_HOME/install/install-ces-packages.sh
 
 # restart docker
 echo "restart docker with new config"
-service docker restart
+systemctl restart docker.service
 
 # print setup message
 $INSTALL_HOME/install/setup-message.sh

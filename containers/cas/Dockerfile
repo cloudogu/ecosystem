@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/cas
-FROM registry.cloudogu.com/official/java:8u111-2
+FROM registry.cloudogu.com/official/java:8u121-3
 MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 # configure environment
@@ -13,7 +13,7 @@ ENV CAS_VERSION=4.0.7.11 \
 
 # run installation
 RUN \
- # create group and user for cas 
+ # create group and user for cas
  addgroup -S -g 1000 cas \
  && adduser -S -h /var/lib/cas -s /bin/bash -G cas -u 1000 cas \
 

@@ -1,4 +1,8 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
 source /etc/ces/functions.sh
 
 # write current ip
@@ -9,12 +13,12 @@ echo "writing ip to master node file"
 get_ip > /etc/ces/node_master
 
 # prepare syslog and restart
-echo "prepare syslog and restart"
+echo "prepare syslog and restart rsyslog service"
 if [ ! -d /var/log/docker ]; then
   mkdir /var/log/docker
 fi
 chown syslog /var/log/docker
-service rsyslog restart
+systemctl restart rsyslog.service
 
 # modify sudoers save path
 echo "modify sudoers"
@@ -38,3 +42,7 @@ if [ -f "/etc/sudoers" ]; then
 else
   >&2 echo 'ERR: sudoers file does not exists'
 fi
+
+# Enable IP change check service
+systemctl daemon-reload
+systemctl enable ipchangecheck.service

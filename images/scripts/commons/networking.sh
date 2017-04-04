@@ -1,4 +1,7 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 # Removing leftover leases and persistent rules
 if [ -d /var/lib/dhcp/ ]; then

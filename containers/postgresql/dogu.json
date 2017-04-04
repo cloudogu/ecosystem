@@ -1,30 +1,38 @@
 {
   "Name": "official/postgresql",
-  "Version": "9.4.9-1",
+  "Version": "9.4.11-2",
   "DisplayName": "PostgreSQL",
   "Description": "PostgreSQL Database.",
   "Url": "https://www.postgresql.org/",
   "Category": "Base",
   "Tags": [
-    "database", "db"
+    "database",
+    "db"
   ],
   "Logo": "https://cloudogu.com/images/dogus/postgresql.png",
   "Image": "registry.cloudogu.com/official/postgresql",
-  "Volumes": [{
-    "Name": "data",
-    "Path": "/var/lib/postgresql",
-    "Owner": "1000",
-    "Group": "1000"
-  }],
-  "ExposedCommands": [{
-    "Name": "service-account-create",
-    "Description": "Creates a new service account",
-    "Command": "/create-sa.sh"
-  }],
-  "HealthChecks": [{
-    "Type": "tcp",
-    "Port": 5432
-  },{
-    "Type": "state"
-  }]
+  "Volumes": [
+    {
+      "Name": "data",
+      "Path": "/var/lib/postgresql",
+      "Owner": "1000",
+      "Group": "1000"
+    }
+  ],
+  "ExposedCommands": [
+    {
+      "Name": "service-account-create",
+      "Description": "Creates a new service account",
+      "Command": "/create-sa.sh"
+    }
+  ],
+  "HealthChecks": [
+    {
+      "Type": "tcp",
+      "Port": 5432
+    },
+    {
+      "Type": "state"
+    }
+  ]
 }
