@@ -23,6 +23,7 @@ node('vagrant') {
     stage('Provision') {
       timeout(5) {
         writeVagrantConfiguration()
+        sh 'rm -f setup.staging.json setup.json'
         sh 'vagrant up'
       }
     }
@@ -31,7 +32,8 @@ node('vagrant') {
       timeout(30) {
         writeSetupStagingJSON()
         sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.json"'
-        sh 'vagrant ssh -c "while pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
+        sh 'vagrant ssh -c "while sudo pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
+        sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"'
       }
     }
 
@@ -132,6 +134,8 @@ void writeSetupStagingJSON() {
   "unixUser":{
     "Name":"",
     "Password":""
+  },
+  "registryConfig": {
   }
 }"""
     }
