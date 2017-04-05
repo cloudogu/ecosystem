@@ -1,4 +1,7 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 # install dev dependencies
 DEBIAN_FRONTEND=noninteractive apt-get -y install \

@@ -3,15 +3,18 @@
 # configuration helper functions
 
 function get_config(){
-  KEY=$1
-  VALUE=$(eval echo \$CONFIG_${KEY^^})
-  if [ "$VALUE" == "" ]; then
-    VALUE=$(get_config_local $KEY)
-    if [ "$VALUE" == "" ]; then
-      VALUE=$(get_config_global $KEY)
+  local KEY=$1
+  VALUE=""
+  if [ ! -z "$(eval echo \$\{CONFIG_${KEY^^}:-\})" ]; then
+    VALUE=$(eval echo \$CONFIG_${KEY^^})
+  fi
+  if [ "${VALUE}" == "" ]; then
+    VALUE=$(get_config_local ${KEY})
+    if [ "${VALUE}" == "" ]; then
+      VALUE=$(get_config_global ${KEY})
     fi
   fi
-  echo $VALUE
+  echo ${VALUE}
 }
 
 export -f get_config

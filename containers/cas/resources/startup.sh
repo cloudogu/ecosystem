@@ -1,4 +1,8 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
 # TODO check if we still need the functions.sh
 source /etc/ces/functions.sh
 
@@ -48,8 +52,7 @@ else
   LDAP_BIND_PASSWORD=$(doguctl config -e sa-ldap/password | sed 's@/@\\\\/@g')
 fi
 
-
-STAGE=$(doguctl config --global stage)
+STAGE=$(cfg_or_default '--global stage' '')
 if [[ "$STAGE" != 'development' ]]; then
   STAGE='production'
 fi
@@ -82,6 +85,13 @@ s@%LDAP_USE_USER_CONNECTION%@$LDAP_USE_USER_CONNECTION@g"\
 
 # create truststore, which is used in the setenv.sh
 create_truststore.sh > /dev/null
+
+# wait until ldap passed all health checks
+echo "wait unit ldap passes all health checks"
+if ! doguctl healthy --wait --timeout 120 ldap; then
+  echo "timeout reached by waiting of ldap to get healthy"
+  exit 1
+fi
 
 # startup tomcat
 exec su - cas -c "export JAVA_HOME='/opt/jdk' && ${CATALINA_SH} run"

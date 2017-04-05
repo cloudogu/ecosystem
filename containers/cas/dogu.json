@@ -1,6 +1,6 @@
 {
   "Name": "official/cas",
-  "Version": "4.0.7.11-1",
+  "Version": "4.0.7.11-2",
   "DisplayName": "Central Authentication Service",
   "Description": "The Central Authentication Service (CAS) is a single sign-on protocol for the web.",
   "Url": "http://jasig.github.io/cas",

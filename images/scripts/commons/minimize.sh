@@ -1,4 +1,7 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 SWAPUUID=$(/sbin/blkid -o value -l -s UUID -t TYPE=swap)
 if [ "x${SWAPUUID}" != "x" ]; then

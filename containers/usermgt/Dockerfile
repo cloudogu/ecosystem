@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/usermgt
-FROM registry.cloudogu.com/official/java:8u102-1
+FROM registry.cloudogu.com/official/java:8u121-3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # mark as webapp for nginx
@@ -9,7 +9,7 @@ ENV SERVICE_TAGS=webapp \
 	TOMCAT_VERSION=8.0.38 \
 	# usermgt version
 	USERMGT_VERSION=1.3.1 \
-	# home directory 
+	# home directory
 	UNIVERSEADM_HOME=/var/lib/usermgt/conf
 
 # create user

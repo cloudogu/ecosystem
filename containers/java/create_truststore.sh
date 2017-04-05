@@ -13,7 +13,7 @@ function create(){
 
   # read certificate from etcd
   CERTIFICATE="$(mktemp)"
-  etcdctl --peers "$(cat /etc/ces/node_master):4001" get /config/_global/certificate/server.crt > "${CERTIFICATE}"
+  doguctl config --global certificate/server.crt > "${CERTIFICATE}"
 
   cp /opt/jdk/jre/lib/security/cacerts "${STORE}"
   keytool -keystore "${STORE}" -storepass "${STOREPASS}" -alias "${CERTALIAS}" \

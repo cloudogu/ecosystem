@@ -1,4 +1,8 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
 source /etc/ces/functions.sh
 
 # create truststore, which is used in the default file
