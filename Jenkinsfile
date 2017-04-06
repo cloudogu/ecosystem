@@ -29,12 +29,50 @@ node('vagrant') {
     }
 
     stage('Setup') {
-      timeout(30) {
+      timeout(5) {
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
+          sh "vagrant ssh -c \"sudo cesapp login ${env.TOKEN_ID} ${env.TOKEN_SECRET}\""
+        }
         writeSetupStagingJSON()
-        sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.json"'
+        sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.staging.json"'
+        sh 'vagrant ssh -c "sudo mv /etc/ces/setup.staging.json /etc/ces/setup.json"'
         sh 'vagrant ssh -c "while sudo pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
         sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"'
       }
+    }
+
+    stage('Start Dogus') {
+      timeout(15) {
+        // TODO wait for all
+        sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast cas"'
+        sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast jenkins"'
+        sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast scm"'
+      }
+    }
+
+    stage('Integration Tests') {
+      def seleniumChromeImage = docker.image('selenium/standalone-chrome:3.3.0')
+      def seleniumChromeContainer = seleniumChromeImage.run('-p 4444')
+
+      // checkout integration-tests into
+      checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'integration-tests']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cloudogu/integration-tests']]])
+
+      try {
+
+        def seleniumChromeIP = containerIP(seleniumChromeContainer)
+
+        docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${ip}") {
+          sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
+        }
+
+      } finally {
+        // archive test results
+        junit 'integration-tests/reports/xml-report/*.xml'
+        archiveArtifacts 'integration-tests/reports/html-report/**'
+        
+        seleniumChromeContainer.stop()
+      }
+
     }
 
   } finally {
@@ -46,6 +84,11 @@ node('vagrant') {
 }
 
 String ip;
+
+String containerIP(container) {
+  sh "docker inspect -f {{.NetworkSettings.IPAddress}} ${container.id} > container.ip"
+  return readFile('container.ip').trim()
+}
 
 void writeVagrantConfiguration() {
   writeFile file: '.vagrant.rb', text: """
@@ -67,12 +110,11 @@ end
 }
 
 void writeSetupStagingJSON() {
-    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
     writeFile file: 'setup.staging.json', text: """
 {
   "token":{
-    "ID":"${env.TOKEN_ID}",
-    "Secret":"${env.TOKEN_SECRET}",
+    "ID":"",
+    "Secret":"",
     "Completed":true
   },
   "region":{
@@ -138,5 +180,4 @@ void writeSetupStagingJSON() {
   "registryConfig": {
   }
 }"""
-    }
 }
