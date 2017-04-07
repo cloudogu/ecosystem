@@ -11,9 +11,17 @@ export PATH
 # variables
 DOMAIN=$(get_domain)
 FQDN=$(get_fqdn)
-IP=$(get_ip)
+IPS=$(get_ips)
+PRIMARY_IP=$(get_ip)
 
-echo "create self sigined certificate for fqdn ${FQDN}"
+# if ip matches fqdn, then we should use this ip as primary
+for IP in $IPS; do
+  if [ "${IP}" == "${FQDN}" ]; then
+    PRIMARY_IP="${IP}"
+  fi
+done
+
+echo "create self sigined certificate for fqdn ${FQDN} and primary ip ${PRIMARY_IP}"
 
 # create temporary directoy
 SSL_DIR=$(mktemp)
@@ -38,7 +46,7 @@ function render_openssl_config() {
 
   # if fqdn is an ip add alternative name
   if [[ $FQDN =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-    echo "IP = ${IP}" >> "${SSL_CONF}"
+    echo "IP = ${PRIMARY_IP}" >> "${SSL_CONF}"
   fi
 }
 
