@@ -78,18 +78,22 @@ if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == 
 	# start in background
 	su - sonar -c "/opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar" &
 
-  # wait until database is installed
+  echo "wait until sonarqube has finished database migration"
   N=0
   until [ $N -ge 24 ]; do
-    #TODO: Adapt sql function so it is usable with -t parameter here
-    SELECTION=$(PGPASSWORD="${DATABASE_USER_PASSWORD}" psql -t --host "${DATABASE_IP}" --username "${DATABASE_USER}" --dbname "${DATABASE_DB}" -1 -c "SELECT count(1) FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema NOT IN ('pg_catalog', 'information_schema') AND table_name='properties';")
-    if [ "${SELECTION}" -eq 1 ] ; then
+    # we are waiting for the last known migration version
+    if sql "SELECT 1 FROM schema_migrations WHERE version='1153';" &> /dev/null; then
       break
     else
       N=$[$N+1]
       sleep 10
     fi
   done
+
+  # sleep 10 seconds more to sure migration has finished
+  sleep 10
+  
+  echo "apply ces configurations"
 
 	# set base url
   sql "INSERT INTO properties (prop_key, text_value) VALUES ('sonar.core.serverBaseURL', 'https://${FQDN}/sonar');"
@@ -109,7 +113,7 @@ if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == 
   sql "INSERT INTO properties (prop_key, text_value) VALUES ('email.from', 'sonar@${DOMAIN}');"
   sql "INSERT INTO properties (prop_key, text_value) VALUES ('email.prefix', '[SONARQUBE]');"
 
-  # wait for sonar
+  # reattach to sonarqube process
   wait
 else
   # refresh base url
