@@ -88,11 +88,27 @@ export -f set_config_global
 
 # fqdn functions
 
+function get_type(){
+  TYPE="production"
+  if [ -f "/etc/ces/type" ]; then
+    TYPE=$(cat "/etc/ces/type")
+  fi
+  echo $TYPE
+}
+
+export -f get_type
+
+function get_ips(){
+  /sbin/ifconfig | grep eth -A1 | grep addr: | awk '{print $2}' | awk -F':' '{print $2}' | sed '/^\s*$/d'
+}
+
+export -f get_ips
+
 function get_ip(){
   IPS=$(/sbin/ifconfig | grep eth -A1 | grep addr: | awk '{print $2}' | awk -F':' '{print $2}')
   COUNT=$(echo $IPS | wc -w)
   if [ $COUNT -gt 1 ]; then
-    TYPE=$(cat /etc/ces/type)
+    TYPE=$(get_type)
     if [ $TYPE = "vagrant" ]; then
       VIP=$(echo $IPS | awk '{print $1}')
       for IP in $IPS; do
