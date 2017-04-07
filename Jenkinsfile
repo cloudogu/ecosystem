@@ -3,6 +3,9 @@
 // todo
 // - setup output
 
+// required plugins
+// - http://wiki.jenkins-ci.org/display/JENKINS/HTML+Publisher+Plugin
+
 node('vagrant') {
 
   ip = "192.168.42.100"
@@ -68,7 +71,7 @@ node('vagrant') {
       } finally {
         // archive test results
         junit 'integration-tests/reports/xml-report/*.xml'
-        archiveArtifacts 'integration-tests/reports/html-report/**'
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'integration-tests/reports/html-report', reportFiles: 'index.html', reportName: 'Gauge Reports'])
         
         seleniumChromeContainer.stop()
       }
