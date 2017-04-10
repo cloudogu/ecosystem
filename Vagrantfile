@@ -11,6 +11,8 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "ces"
   config.vm.box_version = "0.5.1"
 
+  config.ssh.username = "ces-admin"
+
   # use bridged netword
   # to get the ip use vagrant ssh -c ifconfig
   config.vm.network "public_network"
