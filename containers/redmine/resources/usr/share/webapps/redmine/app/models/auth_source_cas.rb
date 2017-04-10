@@ -13,7 +13,7 @@ class AuthSourceCas < AuthSource
 
   # read required settings from environment
   FQDN = ENV['FQDN']
-  ces_admin_group = ENV['ADMIN_GROUP']
+  Ces_admin_group = ENV['ADMIN_GROUP']
 
   def add_user_to_group(groupname, user)
     begin
@@ -78,7 +78,7 @@ class AuthSourceCas < AuthSource
 
           # Get ces admin group
           admingroup_exists = false
-          if ces_admin_group != ''
+          if Ces_admin_group != ''
             admingroup_exists = true
           end
 
@@ -91,7 +91,7 @@ class AuthSourceCas < AuthSource
             user.mail = user_mail
             user.auth_source_id = self.id
             if admingroup_exists
-              if user_groups.to_s.include?(ces_admin_group.gsub('\n',''))
+              if user_groups.to_s.include?(Ces_admin_group.gsub('\n',''))
                 user.admin = 1
               end
             end
@@ -120,7 +120,7 @@ class AuthSourceCas < AuthSource
             end
             # remove user's admin rights if he is not in admin group any more
             if admingroup_exists
-              if user_groups.to_s.include?(ces_admin_group.gsub('\n', ''))
+              if user_groups.to_s.include?(Ces_admin_group.gsub('\n', ''))
                 user.admin = 1
                 user.save
               else
