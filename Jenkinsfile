@@ -71,7 +71,16 @@ node('vagrant') {
       } finally {
         // archive test results
         junit 'integration-tests/reports/xml-report/*.xml'
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'integration-tests/reports/html-report', reportFiles: 'index.html', reportName: 'Gauge Reports'])
+
+        // publish gauge results
+        publishHTML([
+          allowMissing: false, 
+          alwaysLinkToLastBuild: false, 
+          keepAll: true, 
+          reportDir: 'integration-tests/reports/html-report', 
+          reportFiles: 'index.html', 
+          reportName: 'Integration Test Report'
+        ])
         
         seleniumChromeContainer.stop()
       }
