@@ -1,6 +1,6 @@
 {
   "Name": "official/jenkins",
-  "Version": "2.32.3-3",
+  "Version": "2.32.3-4",
   "DisplayName": "Jenkins CI",
   "Description": "Jenkins Continious Integration Server",
   "Category": "Development Apps",

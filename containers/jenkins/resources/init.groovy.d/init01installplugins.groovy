@@ -15,6 +15,7 @@ def keyExists(String key){
 
 // configuration
 def plugins = [
+  'mailer-plugin',
   'cas-plugin',
   'git',
   'mercurial',
