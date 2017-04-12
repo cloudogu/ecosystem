@@ -4,7 +4,7 @@ MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
 
-ENV NGINX_VERSION 1.9.15
+ENV NGINX_VERSION 1.11.13
 
 COPY build.sh /build.sh
 COPY copybin.sh /copybin.sh
