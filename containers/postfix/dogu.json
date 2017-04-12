@@ -9,5 +9,9 @@
     "mail", "smtp"
   ],
   "Url": "http://www.postfix.org/",
-  "Image": "registry.cloudogu.com/official/postfix"
+  "Image": "registry.cloudogu.com/official/postfix",
+  "HealthCheck": {
+    "Type": "tcp",
+    "Port": 25
+  }
 }

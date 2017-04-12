@@ -4,6 +4,7 @@ pages:
 - User Guide:
   - Integration-Tests: user-guide/integration-tests.md
   - Dogu creation: user-guide/dogu-creation.md
+  - Goss Spec: user-guide/goss.md
   - Migration: user-guide/migration.md
   - Bash Scripting Guideline: user-guide/bash-guideline.md
 - About: about.md
