@@ -9,7 +9,7 @@ Vagrant.configure(2) do |config|
   # https://atlas.hashicorp.com/cloudogu/boxes/ecosystem-basebox
   config.vm.box = "cloudogu/ecosystem-basebox"
   config.vm.hostname = "ces"
-  config.vm.box_version = "0.5.1"
+  config.vm.box_version = "0.5.2"
 
   config.ssh.username = "ces-admin"
 
