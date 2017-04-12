@@ -3,7 +3,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-PACKAGES="cesapp ces-setup"
+PACKAGES="cesapp ces-setup ces-goss"
 APTINSTALL=""
 
 for PKG in $PACKAGES; do
