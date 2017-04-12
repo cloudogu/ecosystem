@@ -23,13 +23,13 @@ There are two ways to write goss specs for a dogu. The hard way and the easy way
 # How it works
 
 * The cesapp will build the container image of the dogu
-* Dogu container is create with volumes for goss binary and spec directory
+* Dogu container is created with volumes for goss binary and spec directory
 * Container is started with goss binary mounted at `/usr/bin/goss` and spec directory at `/spec`
-* The cesapp will wait unitl the dogu is healthy
+* The cesapp will wait until the dogu is healthy
 * Goss will be executed with in the container and `/spec/goss/goss.yaml` as input
 * The test container will be stopped and removed
 
-# Continuous Integration
+# Build Server Integration
 
-The `verify` command is able to store the results in a ci friendly manner e.g.: `cesapp verify dogu-directory --ci --report-directory reports`.
+The `verify` command is able to store the results in a build server friendly manner e.g.: `cesapp verify dogu-directory --ci --report-directory reports`.
 The command will now format the output in the junit format and write the report to the file `reports/goss_doguname.xml`.
