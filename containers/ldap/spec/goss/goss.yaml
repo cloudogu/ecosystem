@@ -1,0 +1,41 @@
+file:
+  /srv/openldap/create-sa.sh:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+  /srv/openldap/startup.sh:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+    
+package:
+  openldap:
+    installed: true
+  openldap-back-hdb:
+    installed: true
+  openldap-clients:
+    installed: true
+
+port:
+  tcp:389:
+    listening: true
+    ip:
+    - 0.0.0.0
+
+user:
+  ldap:
+    exists: true
+    groups:
+    - ldap
+
+group:
+  ldap:
+    exists: true
+
+process:
+  slapd:
+    running: true
