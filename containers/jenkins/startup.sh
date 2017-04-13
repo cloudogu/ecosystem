@@ -5,6 +5,9 @@ set -o pipefail
 
 source /etc/ces/functions.sh
 
+# set state to installing
+doguctl state 'installing'
+
 function copy_cas_plugin() {
   # Checking if /var/lib/jenkins/cas-plugin exists
   if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
