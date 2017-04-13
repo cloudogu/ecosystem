@@ -36,10 +36,7 @@ RUN addgroup -S -g 1000 jenkins && adduser -S -h "$JENKINS_HOME" -s /bin/bash -G
 VOLUME /var/lib/jenkins
 
 # add jenkins config file template, including changes for cas plugin and mailConfiguration
-COPY ./resources /var/tmp/resources
-
-# startscript
-COPY ./startup.sh /startup.sh
+COPY ./resources /
 
 # switch to jenkins user
 USER jenkins
