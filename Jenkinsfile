@@ -69,7 +69,8 @@ node('vagrant') {
         }
 
       } finally {
-        // archive test results
+          seleniumChromeContainer.stop()
+          // archive test results
         junit 'integration-tests/reports/xml-report/*.xml'
 
         // publish gauge results
@@ -81,8 +82,7 @@ node('vagrant') {
           reportFiles: 'index.html', 
           reportName: 'Integration Test Report'
         ])
-        
-        seleniumChromeContainer.stop()
+
       }
 
     }
