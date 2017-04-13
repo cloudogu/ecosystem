@@ -1,6 +1,6 @@
 {
   "Name": "official/jenkins",
-  "Version": "2.32.3-4",
+  "Version": "2.46.1-1",
   "DisplayName": "Jenkins CI",
   "Description": "Jenkins Continious Integration Server",
   "Category": "Development Apps",
@@ -19,8 +19,10 @@
     "Owner": "1000",
     "Group": "1000"
   }],
-  "HealthCheck": {
+  "HealthChecks": [{
     "Type": "tcp",
     "Port": 8080
-  }
+  }, {
+    "Type": "state"
+  }]
 }
