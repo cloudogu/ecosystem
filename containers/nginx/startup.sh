@@ -15,8 +15,7 @@ render_template "/etc/nginx/include.d/ssl.conf.tpl" > "/etc/nginx/include.d/ssl.
 
 echo "[nginx] configure default redirect ..."
 # include default_dogu in default-dogu.conf
-DEFAULT_DOGU=$(doguctl config --global default_dogu)
-if [[ $? != 0 ]]; then
+if ! DEFAULT_DOGU=$(doguctl config --global default_dogu); then
   DEFAULT_DOGU="cockpit"
 fi
 render_template "/etc/nginx/include.d/default-dogu.conf.tpl" > "/etc/nginx/include.d/default-dogu.conf"
