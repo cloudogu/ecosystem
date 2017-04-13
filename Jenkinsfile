@@ -8,102 +8,102 @@
 
 node('vagrant') {
 
-  ip = "192.168.42.100"
+    ip = "192.168.42.100"
 
-  properties ([
-    // Keep only the last x builds to preserve space
-    buildDiscarder(logRotator(numToKeepStr: '10')),
-    // Don't run concurrent builds for a branch, because they use the same workspace directory
-    disableConcurrentBuilds()
-  ])
+    properties([
+            // Keep only the last x builds to preserve space
+            buildDiscarder(logRotator(numToKeepStr: '10')),
+            // Don't run concurrent builds for a branch, because they use the same workspace directory
+            disableConcurrentBuilds()
+    ])
 
-  stage('Checkout') {
-    checkout scm
-  }
-
-  try {
-
-    stage('Provision') {
-      timeout(5) {
-        writeVagrantConfiguration()
-        sh 'rm -f setup.staging.json setup.json'
-        sh 'vagrant up'
-      }
+    stage('Checkout') {
+        checkout scm
     }
 
-    stage('Setup') {
-      timeout(5) {
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
-          sh "vagrant ssh -c \"sudo cesapp login ${env.TOKEN_ID} ${env.TOKEN_SECRET}\""
-        }
-        writeSetupStagingJSON()
-        sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.staging.json"'
-        sh 'vagrant ssh -c "sudo mv /etc/ces/setup.staging.json /etc/ces/setup.json"'
-        sh 'vagrant ssh -c "while sudo pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
-        sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"'
-      }
-    }
+    try {
 
-    stage('Start Dogus') {
-      timeout(15) {
-        // TODO wait for all
-        sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast cas"'
-        sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast jenkins"'
-        sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast scm"'
-      }
-    }
-
-    stage('Integration Tests') {
-      def seleniumChromeImage = docker.image('selenium/standalone-chrome:3.3.0')
-      def seleniumChromeContainer = seleniumChromeImage.run('-p 4444')
-
-      // checkout integration-tests into
-      checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'integration-tests']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cloudogu/integration-tests']]])
-
-      try {
-
-        def seleniumChromeIP = containerIP(seleniumChromeContainer)
-
-        docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${ip}") {
-          sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
+        stage('Provision') {
+            timeout(5) {
+                writeVagrantConfiguration()
+                sh 'rm -f setup.staging.json setup.json'
+                sh 'vagrant up'
+            }
         }
 
-      } finally {
-          seleniumChromeContainer.stop()
-          // archive test results
-        junit 'integration-tests/reports/xml-report/*.xml'
+        stage('Setup') {
+            timeout(5) {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
+                    sh "vagrant ssh -c \"sudo cesapp login ${env.TOKEN_ID} ${env.TOKEN_SECRET}\""
+                }
+                writeSetupStagingJSON()
+                sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.staging.json"'
+                sh 'vagrant ssh -c "sudo mv /etc/ces/setup.staging.json /etc/ces/setup.json"'
+                sh 'vagrant ssh -c "while sudo pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
+                sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"'
+            }
+        }
 
-        // publish gauge results
-        publishHTML([
-          allowMissing: false, 
-          alwaysLinkToLastBuild: false, 
-          keepAll: true, 
-          reportDir: 'integration-tests/reports/html-report', 
-          reportFiles: 'index.html', 
-          reportName: 'Integration Test Report'
-        ])
+        stage('Start Dogus') {
+            timeout(15) {
+                // TODO wait for all
+                sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast cas"'
+                sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast jenkins"'
+                sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast scm"'
+            }
+        }
 
-      }
+        stage('Integration Tests') {
+            def seleniumChromeImage = docker.image('selenium/standalone-chrome:3.3.0')
+            def seleniumChromeContainer = seleniumChromeImage.run('-p 4444')
 
+            // checkout integration-tests into
+            checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'integration-tests']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cloudogu/integration-tests']]])
+
+            try {
+
+                def seleniumChromeIP = containerIP(seleniumChromeContainer)
+
+                docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${ip}") {
+                    sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
+                }
+
+            } finally {
+                seleniumChromeContainer.stop()
+                // archive test results
+                junit 'integration-tests/reports/xml-report/*.xml'
+
+                // publish gauge results
+                publishHTML([
+                        allowMissing         : false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll              : true,
+                        reportDir            : 'integration-tests/reports/html-report',
+                        reportFiles          : 'index.html',
+                        reportName           : 'Integration Test Report'
+                ])
+
+            }
+
+        }
+
+    } finally {
+        stage('Clean') {
+            sh 'vagrant destroy -f'
+        }
     }
-
-  } finally {
-    stage('Clean') {
-      sh 'vagrant destroy -f'
-    }
-  }
 
 }
 
 String ip;
 
 String containerIP(container) {
-  sh "docker inspect -f {{.NetworkSettings.IPAddress}} ${container.id} > container.ip"
-  return readFile('container.ip').trim()
+    sh "docker inspect -f {{.NetworkSettings.IPAddress}} ${container.id} > container.ip"
+    return readFile('container.ip').trim()
 }
 
 void writeVagrantConfiguration() {
-  writeFile file: '.vagrant.rb', text: """
+    writeFile file: '.vagrant.rb', text: """
 # override public network with a private one
 config.vm.networks.each do |n|
   if n[0] == :public_network
