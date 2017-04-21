@@ -3,9 +3,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# TODO check if we still need the functions.sh
-source /etc/ces/functions.sh
-
 # return config value or default value
 # param1 config key
 # param2 default value
@@ -62,7 +59,6 @@ if [[ "$STAGE" == 'development' ]]; then
 fi
 
 # render templates
-
 sed "s@%DOMAIN%@$DOMAIN@g;\
 s@%LDAP_STARTTLS%@$LDAP_STARTTLS@g;\
 s@%FQDN%@$FQDN@g;\
@@ -86,11 +82,13 @@ s@%LDAP_USE_USER_CONNECTION%@$LDAP_USE_USER_CONNECTION@g"\
 # create truststore, which is used in the setenv.sh
 create_truststore.sh > /dev/null
 
-# wait until ldap passed all health checks
-echo "wait unit ldap passes all health checks"
-if ! doguctl healthy --wait --timeout 120 ldap; then
-  echo "timeout reached by waiting of ldap to get healthy"
-  exit 1
+if [[ "$LDAP_TYPE" == 'embedded' ]]; then
+  # wait until ldap passed all health checks
+  echo "wait unit ldap passes all health checks"
+  if ! doguctl healthy --wait --timeout 120 ldap; then
+    echo "timeout reached by waiting of ldap to get healthy"
+    exit 1
+  fi
 fi
 
 # startup tomcat
