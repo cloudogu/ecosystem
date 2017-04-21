@@ -54,35 +54,37 @@ node('vagrant') {
         }
 
         stage('Integration Tests') {
-            def seleniumChromeImage = docker.image('selenium/standalone-chrome:3.3.0')
-            def seleniumChromeContainer = seleniumChromeImage.run('-p 4444')
+            timeout(10) {
+                def seleniumChromeImage = docker.image('selenium/standalone-chrome:3.3.0')
+                def seleniumChromeContainer = seleniumChromeImage.run('-p 4444')
 
-            // checkout integration-tests into
-            checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'integration-tests']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cloudogu/integration-tests']]])
+                // checkout integration-tests into
+                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'integration-tests']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cloudogu/integration-tests']]])
 
-            try {
+                try {
 
-                def seleniumChromeIP = containerIP(seleniumChromeContainer)
+                    def seleniumChromeIP = containerIP(seleniumChromeContainer)
 
-                docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${ip}") {
-                    sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
+                    docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${ip}") {
+                        sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
+                    }
+
+                } finally {
+                    seleniumChromeContainer.stop()
+                    // archive test results
+                    junit 'integration-tests/reports/xml-report/*.xml'
+
+                    // publish gauge results
+                    publishHTML([
+                            allowMissing         : false,
+                            alwaysLinkToLastBuild: false,
+                            keepAll              : true,
+                            reportDir            : 'integration-tests/reports/html-report',
+                            reportFiles          : 'index.html',
+                            reportName           : 'Integration Test Report'
+                    ])
+
                 }
-
-            } finally {
-                seleniumChromeContainer.stop()
-                // archive test results
-                junit 'integration-tests/reports/xml-report/*.xml'
-
-                // publish gauge results
-                publishHTML([
-                        allowMissing         : false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll              : true,
-                        reportDir            : 'integration-tests/reports/html-report',
-                        reportFiles          : 'index.html',
-                        reportName           : 'Integration Test Report'
-                ])
-
             }
 
         }
