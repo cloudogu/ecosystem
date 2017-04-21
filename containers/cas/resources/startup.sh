@@ -3,9 +3,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# TODO check if we still need the functions.sh
-source /etc/ces/functions.sh
-
 # return config value or default value
 # param1 config key
 # param2 default value
