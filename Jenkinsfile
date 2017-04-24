@@ -8,8 +8,6 @@
 
 node('vagrant') {
 
-    ip = "192.168.42.100"
-
     properties([
             // Keep only the last x builds to preserve space
             buildDiscarder(logRotator(numToKeepStr: '10')),
@@ -64,8 +62,9 @@ node('vagrant') {
                 try {
 
                     def seleniumChromeIP = containerIP(seleniumChromeContainer)
+                    def cesIP = myIP()
 
-                    docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${ip}") {
+                    docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${cesIP}") {
                         sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
                     }
 
@@ -98,6 +97,11 @@ node('vagrant') {
 }
 
 String ip;
+
+String myIP() {
+    sh "ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'  > my.ip"
+    return readFile('container.ip').trim()
+}
 
 String containerIP(container) {
     sh "docker inspect -f {{.NetworkSettings.IPAddress}} ${container.id} > container.ip"
