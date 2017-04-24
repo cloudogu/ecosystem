@@ -110,7 +110,7 @@ void writeVagrantConfiguration() {
 config.vm.networks.each do |n|
   if n[0] == :public_network
     n[0] = :private_network
-    n[1][:ip] = "${ip}"
+    n[1][:type] = "dhcp"
   end
 end
 config.vm.provider "virtualbox" do |v|
