@@ -99,7 +99,8 @@ node('vagrant') {
 String ip;
 
 String myIP() {
-    sh "ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print $2}' | cut -f1  -d'/'  > my.ip"
+    // note \$5 is escaping a $ sign which is needed in the shell script
+    sh "ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print \$52}' | cut -f1  -d'/'  > my.ip"
     return readFile('container.ip').trim()
 }
 
