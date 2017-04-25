@@ -150,7 +150,7 @@ void writeSetupStagingJSON() {
     "completed":true
   },
   "naming":{
-    "fqdn":"${ip}",
+    "fqdn":"${getCesIP()}",
     "hostname":"ces",
     "domain":"ces.local",
     "certificateType":"selfsigned",
