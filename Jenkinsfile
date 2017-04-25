@@ -62,7 +62,7 @@ node('vagrant') {
                 try {
 
                     def seleniumChromeIP = containerIP(seleniumChromeContainer)
-                    def cesIP = myIP()
+                    def cesIP = getCesIP()
 
                     docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${cesIP}") {
                         sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
@@ -96,9 +96,11 @@ node('vagrant') {
 
 }
 
-String myIP() {
+String getCesIP() {
+    //log into vm and get its IP
+
     // note \$5 is escaping a $ sign which is needed in the shell script
-    sh "ip addr | grep 'state UP' -A2 | tail -n1 | awk '{print \$52}' | cut -f1  -d'/'  > my.ip"
+    sh 'vagrant ssh -c "ip addr | grep \'state UP\' -A2 | tail -n1 | awk \'{print \\$52}\' | cut -f1  -d\'/\'  > my.ip"'
     return readFile('my.ip').trim()
 }
 
