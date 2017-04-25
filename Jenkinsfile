@@ -110,6 +110,8 @@ String containerIP(container) {
 }
 
 void writeVagrantConfiguration() {
+    //adjust the vagrant config for local-execution as needed for the integration tests
+
     writeFile file: '.vagrant.rb', text: """
 # override public network with a private one
 config.vm.networks.each do |n|
@@ -118,6 +120,7 @@ config.vm.networks.each do |n|
     n[1][:type] = "dhcp"
   end
 end
+
 config.vm.provider "virtualbox" do |v|
 	v.memory = 8192
 	v.cpus = 2
@@ -129,6 +132,11 @@ end
 }
 
 void writeSetupStagingJSON() {
+    //configure setup
+    //      - to install all Dogus
+    //      - to work in embedded mode
+    //      - have an admin as 'admin/adminpw'
+
     writeFile file: 'setup.staging.json', text: """
 {
   "token":{
