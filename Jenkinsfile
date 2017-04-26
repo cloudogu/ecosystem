@@ -97,13 +97,9 @@ node('vagrant') {
 }
 
 String getCesIP() {
-    //log into vm and get its IP
-
-    // note \$5 is escaping a $ sign which is needed in the shell script
-
-    //TODO: does not work: only empty string provided
-    sh 'vagrant ssh -c "ip addr | grep \'state UP\' -A2 | tail -n1 | awk \'{print \\$52}\' | cut -f1  -d\'/\'"  > my.ip'
-    return readFile('my.ip').trim()
+    // log into vagrant vm and get the ip from the eth1, which should the configured private network
+    sh "vagrant ssh -c \"ip addr show dev eth1\" | grep 'inet ' | awk '{print \$2}' | awk -F'/' '{print \$1}' > vagrant.ip"
+    return readFile('vagrant.ip').trim()
 }
 
 String containerIP(container) {
