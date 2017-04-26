@@ -2,13 +2,12 @@
 FROM registry.cloudogu.com/official/java:8u121-3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-
 # scm-server environment
 ENV SCM_VERSION=1.51
 ENV SCM_PKG_URL https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 ENV SCM_HOME /var/lib/scm
 ENV SSL_CERT_FILE /opt/scm-server/conf/ca-certificates.crt
-ADD default /etc/default/scm-server
+COPY ./resources /
 
 ## install scm-server
 RUN apk add --update mercurial jq \
@@ -40,8 +39,6 @@ RUN apk add --update mercurial jq \
 
 # modify server configuration
 COPY resources/conf/* /opt/scm-server/conf/
-COPY resources/utils/*.class /opt/scm-server/conf/sonia/scm/ces/
-COPY resources/init.script.d /opt/scm-server/init.script.d
 
 # startscript
 COPY ./startup.sh /startup.sh
