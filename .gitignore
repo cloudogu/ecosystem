@@ -1,3 +1,7 @@
 .vagrant
 .bundle
 .vagrant.rb
+
+#IDEA related
+.idea/
+*.iml
