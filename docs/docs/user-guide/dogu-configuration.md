@@ -1,6 +1,6 @@
 # Dogu Configuration
 
-Custom configuration settings are stored in the registry (etcd) of the Cloudogu EcoSystem. Their are two keys which are relevant for a dogu:
+Custom configuration settings are stored in the registry (etcd) of the Cloudogu EcoSystem. There are two keys that are relevant for a dogu:
 
 * **/config/nameOfDogu** (dogu specific settings)
 * **/config/_global** (global settings)
@@ -22,7 +22,7 @@ doguctl config -g admin_group
 
 ## Validation
 
-The `cesapp` is able to validate those settings (since 0.14), if the dogu defines a configuration section in the *dogu.json* e.g.:
+Starting with version 0.14, the `cesapp` is able to validate those settings, if the dogu defines a configuration section in the *dogu.json* e.g.:
 
 ```json
 {
@@ -47,12 +47,17 @@ The `cesapp` is able to validate those settings (since 0.14), if the dogu define
 }
 ```
 
-The `cesapp` will throw an error, if a required settings in the registry is missing (title or secret in the example above).
+The `cesapp` will throw an error, if a required settings is missing in the registry. Required settings are all settings, that are not explicitly marked as optional (like title and secret in the example above).
 
 ## Editing
 
-The settings of a dogu can be changed or created with the `edit-config` sub comand of the `cesapp`. 
-The command can be used with a path to a *dogu.json*, with the name of a installed dogu or with a remote name e.g.:
+The settings of a dogu can be changed or created with the `edit-config` sub comand of the `cesapp`.  The command can be used with either
+ 
+* a path to a *dogu.json*
+* the name of a installed dogu 
+* a remote name
+
+Examples:
 
 ```bash
 # edit settings of a local dogu.json which is located in /vagrant/containers/conf-dogu
@@ -68,10 +73,11 @@ cesapp edit-config sample/conf-dogu
 cesapp edit-config conf-dogu
 ```
 
-By default settings can only be changed and not removed. If is it necessary to remove a setting from the registry the `edit-config` sub command, must be used with the `delete-on-empty`.
+### Removing a setting
+
+By default, settings can only be changed but cannot be removed. In case you want to explicitly remove a setting from the registry, the `edit-config` sub command, must be used with the `delete-on-empty` and an empty value.
 
 ```bash
 cesapp edit-config --delete-on-empty conf-dogu
 ```
-
-When now a configuration value is empty, the setting will be removed from the registry.
+Now, if the configuration value being entered is empty, the setting will be removed from the registry.
