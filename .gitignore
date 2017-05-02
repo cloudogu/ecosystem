@@ -5,3 +5,7 @@
 #IDEA related
 .idea/
 *.iml
+
+# editor backups
+*~
+\#*\#
