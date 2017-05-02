@@ -72,5 +72,5 @@ RUN apk upgrade --update \
            /tmp/* /var/cache/apk/* \
   && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
 
-# add helper scripts
-ADD create_truststore.sh /usr/bin/create_truststore.sh
+# copy resources
+COPY resources/ /
