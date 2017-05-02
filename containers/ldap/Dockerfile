@@ -8,7 +8,6 @@ RUN apk add --update openldap openldap-clients openldap-back-hdb \
 
 # ADD resources
 ADD resources /srv/openldap
-RUN chmod +x /srv/openldap/create-sa.sh
 
 # VOLUMES
 VOLUME ["/var/lib/ldap", "/etc/cesldap"]
