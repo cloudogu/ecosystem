@@ -9,6 +9,9 @@ set -o pipefail
 DEBIAN_FRONTEND=noninteractive apt-get -y update
 DEBIAN_FRONTEND=noninteractive apt-get -y install \
   curl \
+  ctop \
+  mg \
+  jq \
   unzip \
   btrfs-tools \
   apt-transport-https \
@@ -24,6 +27,5 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install \
 #  libreadline-gplv2-dev \
 #  htop \
 #  iftop \
-#  jq \
 #  ruby \
 #  ruby-dev
