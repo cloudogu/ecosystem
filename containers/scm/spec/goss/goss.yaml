@@ -41,7 +41,6 @@ file:
   /opt/scm-server/conf/ca-certificates.crt:
     exists: true
     mode: "0644"
-    size: 274819
     owner: scm
     group: scm
     filetype: file
@@ -156,7 +155,6 @@ file:
   /startup.sh:
     exists: true
     mode: "0755"
-    size: 455
     owner: root
     group: root
     filetype: file
