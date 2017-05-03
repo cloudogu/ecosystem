@@ -45,4 +45,4 @@ USER jenkins
 EXPOSE 8080
 
 # start jenkins
-CMD /startup.sh
+CMD ["/startup.sh"]
