@@ -3,8 +3,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source /etc/ces/functions.sh
-
 # set state to installing
 doguctl state 'installing'
 
