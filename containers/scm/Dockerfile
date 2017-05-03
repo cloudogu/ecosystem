@@ -3,10 +3,13 @@ FROM registry.cloudogu.com/official/java:8u121-3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # scm-server environment
-ENV SCM_VERSION=1.51
-ENV SCM_PKG_URL https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
-ENV SCM_HOME /var/lib/scm
-ENV SSL_CERT_FILE /opt/scm-server/conf/ca-certificates.crt
+ENV SCM_VERSION=1.51 \
+    SCM_HOME=/var/lib/scm \
+    SSL_CERT_FILE=/opt/scm-server/conf/ca-certificates.crt \
+    # mark as webapp for nginx
+    SERVICE_TAGS=webapp
+ENV SCM_PKG_URL=https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
+
 COPY ./resources /
 
 ## install scm-server
@@ -37,21 +40,14 @@ RUN apk add --update mercurial jq \
     && mkdir /etc/mercurial \
     && printf "[web]\ncacerts = /opt/scm-server/conf/ca-certificates.crt\n" > /etc/mercurial/hgrc
 
-# modify server configuration
-COPY resources/conf/* /opt/scm-server/conf/
-
-# startscript
-COPY ./startup.sh /startup.sh
-
-# mark as webapp for nginx
-ENV SERVICE_TAGS webapp
-
 # run scm-manager
 WORKDIR ${SCM_HOME}
+
 VOLUME ${SCM_HOME}
+
 EXPOSE 8080
+
 USER scm
 
-
 # start scm
-CMD /startup.sh
+CMD ["/startup.sh"]
