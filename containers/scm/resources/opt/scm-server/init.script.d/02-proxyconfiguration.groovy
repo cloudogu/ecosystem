@@ -31,9 +31,18 @@ def enableProxy(configuration){
   configuration.setEnableProxy(true);
 }
 
+def disableProxy(configuration){
+  configuration.setEnableProxy(false);
+}
+
 def setProxyServerSettings(configuration){
-  configuration.setProxyServer(getValueFromEtcd("config/_global/proxy/server"));
-  configuration.setProxyPort(Integer.parseInt(getValueFromEtcd("config/_global/proxy/port")));
+	try{
+  	configuration.setProxyServer(getValueFromEtcd("config/_global/proxy/server"));
+  	configuration.setProxyPort(Integer.parseInt(getValueFromEtcd("config/_global/proxy/port")));
+	} catch (FileNotFoundException e){
+		System.out.println("Etcd proxy configuration is incomplete (server or port not found).");
+		disableProxy(configuration);
+	}
 }
 
 def setProxyAuthenticationSettings(configuration){
