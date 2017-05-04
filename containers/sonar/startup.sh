@@ -32,6 +32,36 @@ function render_template(){
   eval "echo \"$(cat $FILE.tpl)\"" | egrep -v '^#' | egrep -v '^\s*$' > "$FILE"
 }
 
+function setProxyConfiguration(){
+  # Remove all proxy related entries
+  sed -i '/http.proxyHost=.*/d' /opt/sonar/conf/sonar.properties
+  sed -i '/http.proxyPort=.*/d' /opt/sonar/conf/sonar.properties
+  sed -i '/http.proxyUser=.*/d' /opt/sonar/conf/sonar.properties
+  sed -i '/http.proxyPassword=.*/d' /opt/sonar/conf/sonar.properties
+  # Enable proxy settings if set in etcd
+  if [ "true" == "$(doguctl config --global proxy/enabled)" ]; then
+    PROXYSERVER=$(doguctl config --global proxy/server)
+    SERVEROK=$?
+    PROXYPORT=$(doguctl config --global proxy/port)
+    PORTOK=$?
+    if [ 0 -eq ${SERVEROK} ] && [ 0 -eq ${PORTOK} ]; then
+      echo http.proxyHost=${PROXYSERVER} >> /opt/sonar/conf/sonar.properties
+      echo http.proxyPort=${PROXYPORT} >> /opt/sonar/conf/sonar.properties
+      PROXYUSER=$(doguctl config --global proxy/username)
+      USEROK=$?
+      PROXYPASSWORD=$(doguctl config --global proxy/password)
+      PASSWORDOK=$?
+      if [ 0 -eq ${USEROK} ] && [ 0 -eq ${PASSWORDOK} ]; then
+        echo http.proxyUser=${PROXYUSER} >> /opt/sonar/conf/sonar.properties
+        echo http.proxyPassword=${PROXYPASSWORD} >> /opt/sonar/conf/sonar.properties
+      else
+        echo "Proxy authentication credentials are incomplete or not existent."
+      fi
+    else
+      echo "Proxy server or port configuration missing in etcd."
+    fi
+  fi
+}
 
 move_sonar_dir conf
 move_sonar_dir extensions
@@ -75,6 +105,8 @@ if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == 
 		mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
 	fi
 
+  setProxyConfiguration
+
 	# start in background
 	su - sonar -c "/opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar" &
 
@@ -92,7 +124,7 @@ if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == 
 
   # sleep 10 seconds more to sure migration has finished
   sleep 10
-  
+
   echo "apply ces configurations"
 
 	# set base url
@@ -124,6 +156,8 @@ else
   sed -i "/sonar.cas.casServerUrlPrefix=.*/c\sonar.cas.casServerUrlPrefix=https://${FQDN}/cas" /opt/sonar/conf/sonar.properties
   sed -i "/sonar.cas.sonarServerUrl=.*/c\sonar.cas.sonarServerUrl=https://${FQDN}/sonar" /opt/sonar/conf/sonar.properties
   sed -i "/sonar.cas.casServerLogoutUrl=.*/c\sonar.cas.casServerLogoutUrl=https://${FQDN}/cas/logout" /opt/sonar/conf/sonar.properties
+
+  setProxyConfiguration
 
   # fire it up
   exec su - sonar -c "exec /opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar"
