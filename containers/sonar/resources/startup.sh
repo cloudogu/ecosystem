@@ -39,10 +39,10 @@ function setProxyConfiguration(){
   if [ "true" == "$(doguctl config --global proxy/enabled)" ]; then
     getProxyCredentials
     if [ 0 -eq ${IS_PROXYSERVER_SET_IN_ETCD} ] && [ 0 -eq ${IS_PROXYPORT_SET_IN_ETCD} ]; then
-      writeProxyCredentials
+      writeProxyCredentialsTo ${SONAR_PROPERTIESFILE}
       getProxyAuthenticationCredentials
       if [ 0 -eq ${IS_PROXYUSER_SET_IN_ETCD} ] && [ 0 -eq ${IS_PROXYPASSWORD_SET_IN_ETCD} ]; then
-        writeProxyAuthenticationCredentials
+        writeProxyAuthenticationCredentialsTo ${SONAR_PROPERTIESFILE}
       else
         echo "Proxy authentication credentials are incomplete or not existent."
       fi
@@ -73,15 +73,15 @@ function getProxyAuthenticationCredentials() {
   IS_PROXYPASSWORD_SET_IN_ETCD=$?
 }
 
-function writeProxyCredentials(){
-  echo http.proxyHost=${PROXYSERVER} >> ${SONAR_PROPERTIESFILE}
-  echo http.proxyPort=${PROXYPORT} >> ${SONAR_PROPERTIESFILE}
+function writeProxyCredentialsTo(){
+  echo http.proxyHost=${PROXYSERVER} >> $1
+  echo http.proxyPort=${PROXYPORT} >> $1
 }
 
-function writeProxyAuthenticationCredentials(){
+function writeProxyAuthenticationCredentialsTo(){
   # Check for java option and add it if not existent
-  if [ -z "$(grep sonar.web.javaAdditionalOpts= ${SONAR_PROPERTIESFILE} | grep Djdk.http.auth.tunneling.disabledSchemes=)" ]; then
-    sed -i '/^sonar.web.javaAdditionalOpts=/ s/$/ -Djdk.http.auth.tunneling.disabledSchemes=/' ${SONAR_PROPERTIESFILE}
+  if [ -z "$(grep sonar.web.javaAdditionalOpts= $1 | grep Djdk.http.auth.tunneling.disabledSchemes=)" ]; then
+    sed -i '/^sonar.web.javaAdditionalOpts=/ s/$/ -Djdk.http.auth.tunneling.disabledSchemes=/' $1
   fi
   # Add proxy authentication credentials
   echo http.proxyUser=${PROXYUSER} >> ${SONAR_PROPERTIESFILE}
@@ -180,7 +180,7 @@ else
   sql "UPDATE properties SET text_value='https://${FQDN}/sonar' WHERE prop_key='sonar.core.serverBaseURL';"
 
   # refresh FQDN
-	sed -i "/sonar.cas.casServerLoginUrl=.*/c\sonar.cas.casServerLoginUrl=https://${FQDN}/cas/login" ${SONAR_PROPERTIESFILE}
+  sed -i "/sonar.cas.casServerLoginUrl=.*/c\sonar.cas.casServerLoginUrl=https://${FQDN}/cas/login" ${SONAR_PROPERTIESFILE}
   sed -i "/sonar.cas.casServerUrlPrefix=.*/c\sonar.cas.casServerUrlPrefix=https://${FQDN}/cas" ${SONAR_PROPERTIESFILE}
   sed -i "/sonar.cas.sonarServerUrl=.*/c\sonar.cas.sonarServerUrl=https://${FQDN}/sonar" ${SONAR_PROPERTIESFILE}
   sed -i "/sonar.cas.casServerLogoutUrl=.*/c\sonar.cas.casServerLogoutUrl=https://${FQDN}/cas/logout" ${SONAR_PROPERTIESFILE}
