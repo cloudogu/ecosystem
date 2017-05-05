@@ -1,0 +1,46 @@
+file:
+  /opt/sonar/conf/sonar.properties:
+    exists: true
+    mode: "0644"
+    size: 1110
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar:
+    exists: true
+    mode: "0644"
+    size: 512981
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /startup.sh:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+package:
+  postgresql-client:
+    installed: true
+    versions:
+    - 9.6.2-r0
+  procps:
+    installed: true
+    versions:
+    - 3.3.12-r1
+user:
+  sonar:
+    exists: true
+    uid: 1000
+    gid: 1000
+    groups:
+    - sonar
+    home: /opt/sonar
+    shell: /bin/bash
+group:
+  sonar:
+    exists: true
+    gid: 1000
