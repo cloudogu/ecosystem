@@ -3,13 +3,14 @@
 source /etc/ces/functions.sh
 
 ADMINGROUP=$(doguctl config --global admin_group)
+SONAR_PROPERTIESFILE=/opt/sonar/conf/sonar.properties
 
 function move_sonar_dir(){
   DIR="$1"
   if [ ! -d "/var/lib/sonar/$DIR" ]; then
     mv /opt/sonar/$DIR /var/lib/sonar
     ln -s /var/lib/sonar/$DIR /opt/sonar/$DIR
-  elif [ ! -L "/opt/sonar/$DIR" -a -d "/opt/sonar/$DIR" ]; then
+  elif [ ! -L "/opt/sonar/$DIR" ] && [ -d "/opt/sonar/$DIR" ]; then
     rm -rf /opt/sonar/$DIR
     ln -s /var/lib/sonar/$DIR /opt/sonar/$DIR
   fi
@@ -33,27 +34,15 @@ function render_template(){
 }
 
 function setProxyConfiguration(){
-  # Remove all proxy related entries
-  sed -i '/http.proxyHost=.*/d' /opt/sonar/conf/sonar.properties
-  sed -i '/http.proxyPort=.*/d' /opt/sonar/conf/sonar.properties
-  sed -i '/http.proxyUser=.*/d' /opt/sonar/conf/sonar.properties
-  sed -i '/http.proxyPassword=.*/d' /opt/sonar/conf/sonar.properties
-  # Enable proxy settings if set in etcd
+  removeProxyRelatedEntriesFrom ${SONAR_PROPERTIESFILE}
+  # Write proxy settings if enabled in etcd
   if [ "true" == "$(doguctl config --global proxy/enabled)" ]; then
-    PROXYSERVER=$(doguctl config --global proxy/server)
-    SERVEROK=$?
-    PROXYPORT=$(doguctl config --global proxy/port)
-    PORTOK=$?
-    if [ 0 -eq ${SERVEROK} ] && [ 0 -eq ${PORTOK} ]; then
-      echo http.proxyHost=${PROXYSERVER} >> /opt/sonar/conf/sonar.properties
-      echo http.proxyPort=${PROXYPORT} >> /opt/sonar/conf/sonar.properties
-      PROXYUSER=$(doguctl config --global proxy/username)
-      USEROK=$?
-      PROXYPASSWORD=$(doguctl config --global proxy/password)
-      PASSWORDOK=$?
-      if [ 0 -eq ${USEROK} ] && [ 0 -eq ${PASSWORDOK} ]; then
-        echo http.proxyUser=${PROXYUSER} >> /opt/sonar/conf/sonar.properties
-        echo http.proxyPassword=${PROXYPASSWORD} >> /opt/sonar/conf/sonar.properties
+    getProxyCredentials
+    if [ 0 -eq ${IS_PROXYSERVER_SET_IN_ETCD} ] && [ 0 -eq ${IS_PROXYPORT_SET_IN_ETCD} ]; then
+      writeProxyCredentials
+      getProxyAuthenticationCredentials
+      if [ 0 -eq ${IS_PROXYUSER_SET_IN_ETCD} ] && [ 0 -eq ${IS_PROXYPASSWORD_SET_IN_ETCD} ]; then
+        writeProxyAuthenticationCredentials
       else
         echo "Proxy authentication credentials are incomplete or not existent."
       fi
@@ -62,6 +51,45 @@ function setProxyConfiguration(){
     fi
   fi
 }
+
+function removeProxyRelatedEntriesFrom() {
+  sed -i '/http.proxyHost=.*/d' $1
+  sed -i '/http.proxyPort=.*/d' $1
+  sed -i '/http.proxyUser=.*/d' $1
+  sed -i '/http.proxyPassword=.*/d' $1
+}
+
+function getProxyCredentials(){
+  PROXYSERVER=$(doguctl config --global proxy/server)
+  IS_PROXYSERVER_SET_IN_ETCD=$?
+  PROXYPORT=$(doguctl config --global proxy/port)
+  IS_PROXYPORT_SET_IN_ETCD=$?
+}
+
+function getProxyAuthenticationCredentials() {
+  PROXYUSER=$(doguctl config --global proxy/username)
+  IS_PROXYUSER_SET_IN_ETCD=$?
+  PROXYPASSWORD=$(doguctl config --global proxy/password)
+  IS_PROXYPASSWORD_SET_IN_ETCD=$?
+}
+
+function writeProxyCredentials(){
+  echo http.proxyHost=${PROXYSERVER} >> ${SONAR_PROPERTIESFILE}
+  echo http.proxyPort=${PROXYPORT} >> ${SONAR_PROPERTIESFILE}
+}
+
+function writeProxyAuthenticationCredentials(){
+  # Check for java option and add it if not existent
+  if [ -z "$(grep sonar.web.javaAdditionalOpts= ${SONAR_PROPERTIESFILE} | grep Djdk.http.auth.tunneling.disabledSchemes=)" ]; then
+    sed -i '/^sonar.web.javaAdditionalOpts=/ s/$/ -Djdk.http.auth.tunneling.disabledSchemes=/' ${SONAR_PROPERTIESFILE}
+  fi
+  # Add proxy authentication credentials
+  echo http.proxyUser=${PROXYUSER} >> ${SONAR_PROPERTIESFILE}
+  echo http.proxyPassword=${PROXYPASSWORD} >> ${SONAR_PROPERTIESFILE}
+}
+
+# End of function declaration, work is done now...
+
 
 move_sonar_dir conf
 move_sonar_dir extensions
@@ -95,10 +123,10 @@ function sql(){
 create_truststore.sh > /dev/null
 
 # pre cas authentication configuration
-if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == "sonar.security.realm=cas" ]; then
+if ! [ "$(cat ${SONAR_PROPERTIESFILE} | grep sonar.security.realm)" == "sonar.security.realm=cas" ]; then
 	# prepare config
 	REALM="cas"
-	render_template "/opt/sonar/conf/sonar.properties"
+	render_template "${SONAR_PROPERTIESFILE}"
 
 	# move cas plugin to right folder
 	if [ -f "/opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar" ]; then
@@ -152,10 +180,10 @@ else
   sql "UPDATE properties SET text_value='https://${FQDN}/sonar' WHERE prop_key='sonar.core.serverBaseURL';"
 
   # refresh FQDN
-	sed -i "/sonar.cas.casServerLoginUrl=.*/c\sonar.cas.casServerLoginUrl=https://${FQDN}/cas/login" /opt/sonar/conf/sonar.properties
-  sed -i "/sonar.cas.casServerUrlPrefix=.*/c\sonar.cas.casServerUrlPrefix=https://${FQDN}/cas" /opt/sonar/conf/sonar.properties
-  sed -i "/sonar.cas.sonarServerUrl=.*/c\sonar.cas.sonarServerUrl=https://${FQDN}/sonar" /opt/sonar/conf/sonar.properties
-  sed -i "/sonar.cas.casServerLogoutUrl=.*/c\sonar.cas.casServerLogoutUrl=https://${FQDN}/cas/logout" /opt/sonar/conf/sonar.properties
+	sed -i "/sonar.cas.casServerLoginUrl=.*/c\sonar.cas.casServerLoginUrl=https://${FQDN}/cas/login" ${SONAR_PROPERTIESFILE}
+  sed -i "/sonar.cas.casServerUrlPrefix=.*/c\sonar.cas.casServerUrlPrefix=https://${FQDN}/cas" ${SONAR_PROPERTIESFILE}
+  sed -i "/sonar.cas.sonarServerUrl=.*/c\sonar.cas.sonarServerUrl=https://${FQDN}/sonar" ${SONAR_PROPERTIESFILE}
+  sed -i "/sonar.cas.casServerLogoutUrl=.*/c\sonar.cas.casServerLogoutUrl=https://${FQDN}/cas/logout" ${SONAR_PROPERTIESFILE}
 
   setProxyConfiguration
 
