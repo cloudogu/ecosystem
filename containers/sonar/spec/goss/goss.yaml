@@ -2,17 +2,14 @@ file:
   /opt/sonar/conf/sonar.properties:
     exists: true
     mode: "0644"
-    size: 1110
     owner: root
     group: root
     filetype: file
     contains: []
-  /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar:
+  /var/lib/sonar/extensions/plugins/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar:
     exists: true
     mode: "0644"
     size: 512981
-    owner: root
-    group: root
     filetype: file
     contains: []
   /startup.sh:
