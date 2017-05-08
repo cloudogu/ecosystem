@@ -37,6 +37,14 @@ file:
     group: jenkins
     filetype: file
     contains: []
+  /var/lib/jenkins/jenkins.CLI.xml:
+    exists: true
+    owner: jenkins
+    group: jenkins
+    filetype: file
+    contains:
+    - <jenkins.CLI>
+    - <enabled>false</enabled>
   /var/lib/jenkins/jenkins.security.UpdateSiteWarningsConfiguration.xml:
     exists: true
     mode: "0644"
