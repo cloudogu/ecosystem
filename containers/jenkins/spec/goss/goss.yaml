@@ -39,6 +39,7 @@ file:
     contains: []
   /var/lib/jenkins/jenkins.CLI.xml:
     exists: true
+    mode: "0644"
     owner: jenkins
     group: jenkins
     filetype: file

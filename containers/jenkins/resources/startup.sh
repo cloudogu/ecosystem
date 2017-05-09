@@ -65,7 +65,8 @@ fi
 #see https://jenkins.io/blog/2017/04/26/security-advisory/
 CLI_CONFIG_FILE="/var/lib/jenkins/jenkins.CLI.xml"
 if [ ! -f "${CLI_CONFIG_FILE}" ]; then
-	mv /var/tmp/resources/jenkins.CLI.xml "${CLI_CONFIG_FILE}"
+	cp /var/tmp/resources/jenkins.CLI.xml "${CLI_CONFIG_FILE}"
+	chmod "${CLI_CONFIG_FILE}" 0644
 fi
 
 
