@@ -62,11 +62,11 @@ fi
 
 
 # Disable CLI over Remoting as advised with Jenkins LTS 2.46.2
-#see https://jenkins.io/blog/2017/04/26/security-advisory/
+# see https://jenkins.io/blog/2017/04/26/security-advisory/
 CLI_CONFIG_FILE="/var/lib/jenkins/jenkins.CLI.xml"
 if [ ! -f "${CLI_CONFIG_FILE}" ]; then
 	cp /var/tmp/resources/jenkins.CLI.xml "${CLI_CONFIG_FILE}"
-	chmod "${CLI_CONFIG_FILE}" 0644
+	chmod 0644 "${CLI_CONFIG_FILE}"
 fi
 
 
