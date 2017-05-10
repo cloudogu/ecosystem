@@ -19,8 +19,13 @@
     "Owner": "1000",
     "Group": "1000"
   }],
-  "HealthCheck": {
-    "Type": "tcp",
-    "Port": 8081
-  }
+  "HealthChecks": [
+    {
+      "Type": "tcp",
+      "Port": 8081
+    },
+    {
+      "Type": "state"
+    }
+  ]
 }

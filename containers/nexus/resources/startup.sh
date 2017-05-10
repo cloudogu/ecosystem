@@ -69,6 +69,7 @@ function startNexusAndWaitForHealth(){
   fi
 }
 
+doguctl state installing
 
 # create truststore
 TRUSTSTORE="/var/lib/nexus/truststore.jks"
@@ -115,4 +116,5 @@ echo "render_template"
 # update cas url
 render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
 /configuration.sh "$ADMUSR" "$ADMPW" "$ADMINGROUP" &
+doguctl state ready
 exec $START_NEXUS
