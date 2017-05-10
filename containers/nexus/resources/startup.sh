@@ -19,6 +19,48 @@ function set_random_admin_password {
   echo "${ADMPW}"
 }
 
+function setProxyConfiguration(){
+  NEXUS_CONFIGURATION=$(curl -s -H 'content-type:application/json' -H 'accept:application/json' 'http://127.0.0.1:8081/nexus/service/local/global_settings/current' -u "$ADMUSR":"$ADMPW")
+  # Write proxy settings if enabled in etcd
+  if [ "true" == "$(doguctl config --global proxy/enabled)" ]; then
+    if PROXYSERVER=$(doguctl config --global proxy/server) && PROXYPORT=$(doguctl config --global proxy/port); then
+      writeProxyCredentialsTo "${NEXUS_CONFIGURATION}"
+      if PROXYUSER=$(doguctl config --global proxy/username) && PROXYPASSWORD=$(doguctl config --global proxy/password); then
+        writeProxyAuthenticationCredentialsTo "${NEXUS_CONFIGURATION}"
+      else
+        echo "Proxy authentication credentials are incomplete or not existent."
+      fi
+      putNexusConfiguration
+    else
+      echo "Proxy server or port configuration missing in etcd."
+    fi
+  fi
+}
+
+function writeProxyCredentialsTo(){
+  NEXUS_CONFIGURATION=$(echo "$1" | jq ".data.remoteProxySettings.httpProxySettings+={\"proxyHostname\": \"${PROXYSERVER}\"}")
+  NEXUS_CONFIGURATION=$(echo "${NEXUS_CONFIGURATION}" | jq ".data.remoteProxySettings.httpProxySettings+={\"proxyPort\": ${PROXYPORT}}")
+}
+
+function writeProxyAuthenticationCredentialsTo(){
+  # Add proxy authentication credentials
+  NEXUS_CONFIGURATION=$(echo "$1" | jq ".data.remoteProxySettings.httpProxySettings.authentication+={\"username\": \"${PROXYUSER}\"}")
+  NEXUS_CONFIGURATION=$(echo "${NEXUS_CONFIGURATION}" | jq ".data.remoteProxySettings.httpProxySettings.authentication+={\"password\": \"${PROXYPASSWORD}\"}")
+}
+
+function putNexusConfiguration(){
+  curl -s --retry 3 --retry-delay 10 -H "Content-Type: application/json" -X PUT -d "${NEXUS_CONFIGURATION}" "http://127.0.0.1:8081/nexus/service/local/global_settings/current" -u "$ADMUSR":"$ADMPW"
+}
+
+function startNexusAndWaitForHealth(){
+  $START_NEXUS &
+  if ! doguctl wait --port 8081 --timeout 120; then
+    echo "Nexus seems not to be started. Exiting."
+    exit 1
+  fi
+}
+
+
 # create truststore
 TRUSTSTORE="/var/lib/nexus/truststore.jks"
 create_truststore.sh "${TRUSTSTORE}" > /dev/null
@@ -28,20 +70,16 @@ START_NEXUS="java \
   -Djavax.net.ssl.trustStore=${TRUSTSTORE} \
 	-Djavax.net.ssl.trustStorePassword=changeit \
   -Dnexus-work=/var/lib/nexus -Dnexus-webapp-context-path=/nexus \
-  -cp conf/:`(echo lib/*.jar) | sed -e "s/ /:/g"` \
+  -cp conf/:$(echo lib/*.jar | sed -e "s/ /:/g") \
   org.sonatype.nexus.bootstrap.Launcher ./conf/jetty.xml ./conf/jetty-requestlog.xml"
-
 
 if ! [ -d /var/lib/nexus/plugin-repository/nexus-cas-plugin-"${CAS_PLUGIN_VERSION}" ]; then
       echo "No cas-plugin installed"
-      $START_NEXUS &
-      
-      if ! doguctl wait --port 8081 --timeout 120; then 
-        echo "Nexus seems not to be started. Exiting."
-        exit 1
-      fi
+
+      startNexusAndWaitForHealth
+
       ADMPW=$(set_random_admin_password)
-  		
+
       # add cas Plugin
       cp -dR /opt/sonatype/nexus/resources/nexus-cas-plugin-"${CAS_PLUGIN_VERSION}"/ /var/lib/nexus/plugin-repository/
       # add mailconfig
@@ -53,16 +91,17 @@ if ! [ -d /var/lib/nexus/plugin-repository/nexus-cas-plugin-"${CAS_PLUGIN_VERSIO
 fi
 
 if  ! doguctl config -e "admin_password" > /dev/null ; then
-  $START_NEXUS &
-  if ! doguctl wait --port 8081 --timeout 120; then 
-    echo "Nexus seems not to be started. Exiting."
-    exit 1
-  fi
+  startNexusAndWaitForHealth
   set_random_admin_password
   kill $!
 fi
 
 ADMPW=$(doguctl config -e "admin_password")
+
+startNexusAndWaitForHealth
+setProxyConfiguration
+kill $!
+
 echo "render_template"
 # update cas url
 render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
