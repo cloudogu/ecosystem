@@ -3,8 +3,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source /etc/ces/functions.sh
-
 # variables
 ADMUSR="admin"
 ADMDEFAULTPW="admin123"
@@ -17,6 +15,17 @@ function set_random_admin_password {
   curl -s --retry 3 --retry-delay 10 -X POST -H "Content-Type: application/json" -d "{data:{userId:\"$ADMUSR\",newPassword:\"$ADMPW\"}}" --insecure 'http://127.0.0.1:8081/nexus/service/local/users_setpw' -u "$ADMUSR":"$ADMDEFAULTPW"
   doguctl config -e "admin_password" "${ADMPW}"
   echo "${ADMPW}"
+}
+
+function render_template(){
+  FILE="$1"
+  if [ ! -f "$FILE" ]; then
+    echo >&2 "could not find template $FILE"
+    exit 1
+  fi
+
+  # render template
+  eval "echo \"$(cat $FILE)\""
 }
 
 function setProxyConfiguration(){
