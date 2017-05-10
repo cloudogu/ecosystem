@@ -1,4 +1,7 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 source /etc/ces/functions.sh
 
@@ -37,11 +40,9 @@ function setProxyConfiguration(){
   removeProxyRelatedEntriesFrom ${SONAR_PROPERTIESFILE}
   # Write proxy settings if enabled in etcd
   if [ "true" == "$(doguctl config --global proxy/enabled)" ]; then
-    getProxyCredentials
-    if [ 0 -eq ${IS_PROXYSERVER_SET_IN_ETCD} ] && [ 0 -eq ${IS_PROXYPORT_SET_IN_ETCD} ]; then
+    if PROXYSERVER=$(doguctl config --global proxy/server) && PROXYPORT=$(doguctl config --global proxy/port); then
       writeProxyCredentialsTo ${SONAR_PROPERTIESFILE}
-      getProxyAuthenticationCredentials
-      if [ 0 -eq ${IS_PROXYUSER_SET_IN_ETCD} ] && [ 0 -eq ${IS_PROXYPASSWORD_SET_IN_ETCD} ]; then
+      if PROXYUSER=$(doguctl config --global proxy/username) && PROXYPASSWORD=$(doguctl config --global proxy/password); then
         writeProxyAuthenticationCredentialsTo ${SONAR_PROPERTIESFILE}
       else
         echo "Proxy authentication credentials are incomplete or not existent."
@@ -57,20 +58,6 @@ function removeProxyRelatedEntriesFrom() {
   sed -i '/http.proxyPort=.*/d' $1
   sed -i '/http.proxyUser=.*/d' $1
   sed -i '/http.proxyPassword=.*/d' $1
-}
-
-function getProxyCredentials(){
-  PROXYSERVER=$(doguctl config --global proxy/server)
-  IS_PROXYSERVER_SET_IN_ETCD=$?
-  PROXYPORT=$(doguctl config --global proxy/port)
-  IS_PROXYPORT_SET_IN_ETCD=$?
-}
-
-function getProxyAuthenticationCredentials() {
-  PROXYUSER=$(doguctl config --global proxy/username)
-  IS_PROXYUSER_SET_IN_ETCD=$?
-  PROXYPASSWORD=$(doguctl config --global proxy/password)
-  IS_PROXYPASSWORD_SET_IN_ETCD=$?
 }
 
 function writeProxyCredentialsTo(){
