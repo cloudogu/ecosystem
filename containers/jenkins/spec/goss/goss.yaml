@@ -132,6 +132,97 @@ file:
     group: jenkins
     filetype: file
     contains: []
+  /var/tmp/resources/init.groovy.d/init00proxyconfiguration.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init01installplugins.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init02setrealm.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init03setauthorization.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init04configuremailer.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init05configurelocation.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init06mavenopts.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init07mavenautoinstall.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init08javaautoinstall.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init09configuretheme.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init10configureUpdateSite.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init11disableCasPluginWarning.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/tmp/resources/init.groovy.d/init99finish.groovy:
+    exists: true
+    mode: "0644"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
 package:
   git:
     installed: true

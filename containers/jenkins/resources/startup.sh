@@ -3,41 +3,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source /etc/ces/functions.sh
-
 # set state to installing
 doguctl state 'installing'
-
-function copy_cas_plugin() {
-  # Checking if /var/lib/jenkins/cas-plugin exists
-  if [ ! -f /var/lib/jenkins/plugins/cas-plugin.hpi ]; then
-  	# Making directory, if not already existing
-  	mkdir -p /var/lib/jenkins/plugins
-  	# Copy plugin
-    cp /var/tmp/resources/cas-plugin.hpi /var/lib/jenkins/plugins/
-  fi
-}
-
-function install_plugin() {
-  PLUGIN="${1}.hpi"
-  # Checking if /var/lib/jenkins/cas-plugin exists
-  if [ ! -f "/var/lib/jenkins/plugins/${PLUGIN}" ]; then
-  	# Making directory, if not already existing
-  	mkdir -p /var/lib/jenkins/plugins
-  	# Copy plugin
-    curl -Lks "https://updates.jenkins-ci.org/latest/${PLUGIN}" -o "/var/lib/jenkins/plugins/${PLUGIN}"
-  fi
-}
-
-# manually resolve cas plugin dependencies
-# TODO find a better way as manually resolve transitive dependencies
-install_plugin "structs"
-install_plugin "junit"
-install_plugin "display-url-api"
-install_plugin "mailer"
-
-# copy custom jenkins cas plugin
-copy_cas_plugin
 
 # create truststore for java processes
 TRUSTSTORE="/var/lib/jenkins/truststore.jks"
