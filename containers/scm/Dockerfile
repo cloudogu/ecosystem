@@ -2,13 +2,13 @@
 FROM registry.cloudogu.com/official/java:8u121-3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-
 # scm-server environment
-ENV SCM_VERSION=1.51
-ENV SCM_PKG_URL https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
-ENV SCM_HOME /var/lib/scm
-ENV SSL_CERT_FILE /opt/scm-server/conf/ca-certificates.crt
-ADD default /etc/default/scm-server
+ENV SCM_VERSION=1.53 \
+    SCM_HOME=/var/lib/scm \
+    SSL_CERT_FILE=/opt/scm-server/conf/ca-certificates.crt \
+    # mark as webapp for nginx
+    SERVICE_TAGS=webapp
+ENV SCM_PKG_URL=https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 
 ## install scm-server
 RUN apk add --update mercurial jq \
@@ -25,11 +25,6 @@ RUN apk add --update mercurial jq \
     && curl -Lks http://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/plugins/scm-script-plugin/1.5/scm-script-plugin-1.5.jar -o /tmp/WEB-INF/lib/scm-script-plugin-1.5.jar \
     && zip -u /opt/scm-server/var/webapp/scm-webapp.war WEB-INF/lib/* \
 
-    # set permissions
-    && chown -R scm:scm /opt/scm-server \
-    && mkdir -p ${SCM_HOME} \
-    && chown scm:scm ${SCM_HOME} \
-
     # cleanup
     && rm -rf /tmp/* /var/cache/apk/* \
 
@@ -38,23 +33,22 @@ RUN apk add --update mercurial jq \
     && mkdir /etc/mercurial \
     && printf "[web]\ncacerts = /opt/scm-server/conf/ca-certificates.crt\n" > /etc/mercurial/hgrc
 
-# modify server configuration
-COPY resources/conf/* /opt/scm-server/conf/
-COPY resources/utils/*.class /opt/scm-server/conf/sonia/scm/ces/
-COPY resources/init.script.d /opt/scm-server/init.script.d
+# copy resources after package installation, that we can override package defaults
+COPY ./resources /
 
-# startscript
-COPY ./startup.sh /startup.sh
-
-# mark as webapp for nginx
-ENV SERVICE_TAGS webapp
+# set permissions
+RUN mkdir -p ${SCM_HOME} \
+    && chown scm:scm ${SCM_HOME} \
+    && chown -R scm:scm /opt/scm-server
 
 # run scm-manager
 WORKDIR ${SCM_HOME}
+
 VOLUME ${SCM_HOME}
+
 EXPOSE 8080
+
 USER scm
 
-
 # start scm
-CMD /startup.sh
+CMD ["/startup.sh"]

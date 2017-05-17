@@ -3,8 +3,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source /etc/ces/functions.sh
-
 # create truststore, which is used in the default file
 create_truststore.sh /opt/scm-server/conf/truststore.jks > /dev/null
 
