@@ -43,6 +43,14 @@ function setProxyConfiguration(){
     else
       echo "Proxy server or port configuration missing in etcd."
     fi
+  else
+    PROXYSERVER=""
+    PROXYPORT=0
+    PROXYUSER=""
+    PROXYPASSWORD=""
+    writeProxyCredentialsTo "${NEXUS_CONFIGURATION}"
+    writeProxyAuthenticationCredentialsTo "${NEXUS_CONFIGURATION}"
+    putNexusConfiguration
   fi
 }
 
