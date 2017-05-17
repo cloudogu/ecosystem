@@ -10,8 +10,6 @@ ENV SCM_VERSION=1.51 \
     SERVICE_TAGS=webapp
 ENV SCM_PKG_URL=https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 
-COPY ./resources /
-
 ## install scm-server
 RUN apk add --update mercurial jq \
     && curl -Lks ${SCM_PKG_URL} -o /tmp/scm-server.tar.gz \
@@ -27,11 +25,6 @@ RUN apk add --update mercurial jq \
     && curl -Lks http://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/plugins/scm-script-plugin/1.5/scm-script-plugin-1.5.jar -o /tmp/WEB-INF/lib/scm-script-plugin-1.5.jar \
     && zip -u /opt/scm-server/var/webapp/scm-webapp.war WEB-INF/lib/* \
 
-    # set permissions
-    && chown -R scm:scm /opt/scm-server \
-    && mkdir -p ${SCM_HOME} \
-    && chown scm:scm ${SCM_HOME} \
-
     # cleanup
     && rm -rf /tmp/* /var/cache/apk/* \
 
@@ -39,6 +32,14 @@ RUN apk add --update mercurial jq \
     # see https://github.com/cloudogu/ecosystem/issues/193
     && mkdir /etc/mercurial \
     && printf "[web]\ncacerts = /opt/scm-server/conf/ca-certificates.crt\n" > /etc/mercurial/hgrc
+
+# copy resources after package installation, that we can override package defaults
+COPY ./resources /
+
+# set permissions
+RUN mkdir -p ${SCM_HOME} \
+    && chown scm:scm ${SCM_HOME} \
+    && chown -R scm:scm /opt/scm-server
 
 # run scm-manager
 WORKDIR ${SCM_HOME}

@@ -47,14 +47,14 @@ file:
     contains: []
   /opt/scm-server/conf/logging.xml:
     exists: true
-    mode: "0664"
+    mode: "0644"
     owner: scm
     group: scm
     filetype: file
     contains: []
   /opt/scm-server/conf/server-config.xml:
     exists: true
-    mode: "0664"
+    mode: "0644"
     owner: scm
     group: scm
     filetype: file
