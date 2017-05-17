@@ -3,7 +3,7 @@ FROM registry.cloudogu.com/official/java:8u121-3
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # scm-server environment
-ENV SCM_VERSION=1.51 \
+ENV SCM_VERSION=1.53 \
     SCM_HOME=/var/lib/scm \
     SSL_CERT_FILE=/opt/scm-server/conf/ca-certificates.crt \
     # mark as webapp for nginx
