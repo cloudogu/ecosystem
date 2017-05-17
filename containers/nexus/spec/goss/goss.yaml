@@ -32,7 +32,6 @@ file:
   /var/lib/nexus/conf/cas-plugin.xml:
     exists: true
     mode: "0644"
-    size: 371
     owner: nexus
     group: nexus
     filetype: file
