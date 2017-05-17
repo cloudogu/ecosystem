@@ -1,0 +1,190 @@
+file:
+  /etc/default/scm-server:
+    exists: true
+    mode: "0644"
+    size: 379
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /etc/mercurial:
+    exists: true
+    mode: "0755"
+    size: 8
+    owner: root
+    group: root
+    filetype: directory
+    contains: []
+  /etc/mercurial/hgrc:
+    exists: true
+    mode: "0644"
+    size: 57
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /opt/scm-server:
+    exists: true
+    mode: "0755"
+    owner: scm
+    group: scm
+    filetype: directory
+    contains: []
+  /opt/scm-server/conf:
+    exists: true
+    mode: "0755"
+    size: 132
+    owner: scm
+    group: scm
+    filetype: directory
+    contains: []
+  /opt/scm-server/conf/ca-certificates.crt:
+    exists: true
+    mode: "0644"
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/conf/logging.xml:
+    exists: true
+    mode: "0664"
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/conf/server-config.xml:
+    exists: true
+    mode: "0664"
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/conf/sonia/scm/ces:
+    exists: true
+    mode: "0755"
+    owner: scm
+    group: scm
+    filetype: directory
+    contains: []
+  /opt/scm-server/conf/sonia/scm/ces/WebAppRestartHook.class:
+    exists: true
+    mode: "0644"
+    size: 1039
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d:
+    exists: true
+    mode: "0755"
+    owner: scm
+    group: scm
+    filetype: directory
+    contains: []
+  /opt/scm-server/init.script.d/00-deactivate-scmadmin.groovy:
+    exists: true
+    mode: "0644"
+    size: 267
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d/01-configuration.groovy:
+    exists: true
+    mode: "0644"
+    size: 1024
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d/02-proxyconfiguration.groovy:
+    exists: true
+    mode: "0644"
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d/03-install-plugins.groovy:
+    exists: true
+    mode: "0644"
+    size: 1771
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d/04-mail-configuration.groovy:
+    exists: true
+    mode: "0644"
+    size: 1222
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d/05-cas-configuration.groovy:
+    exists: true
+    mode: "0644"
+    size: 908
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d/06-jenkins-configuration.groovy:
+    exists: true
+    mode: "0644"
+    size: 693
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d/07-redmine-configuration.groovy:
+    exists: true
+    mode: "0644"
+    size: 1365
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /opt/scm-server/init.script.d/08-webhook-configuration.groovy:
+    exists: true
+    mode: "0644"
+    size: 1692
+    owner: scm
+    group: scm
+    filetype: file
+    contains: []
+  /startup.sh:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+    contains: []
+  /var/lib/scm:
+    exists: true
+    mode: "0755"
+    owner: scm
+    group: scm
+    filetype: directory
+    contains: []
+package:
+  jq:
+    installed: true
+    versions:
+    - 1.5-r3
+  mercurial:
+    installed: true
+    versions:
+    - 4.0.1-r0
+user:
+  scm:
+    exists: true
+    uid: 1000
+    gid: 1000
+    groups:
+    - scm
+    home: /opt/scm-server
+    shell: /bin/bash
+group:
+  scm:
+    exists: true
+    gid: 1000
