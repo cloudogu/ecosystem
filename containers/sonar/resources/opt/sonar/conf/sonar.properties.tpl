@@ -2,7 +2,7 @@
 # See http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Properties.html#load(java.io.InputStream)
 #
 # Property values can:
-# - reference an environment variable, for example sonar.jdbc.url= ${env:SONAR_JDBC_URL}
+# - reference an environment variable
 # - be encrypted. See http://redirect.sonarsource.com/doc/settings-encryption.html
 
 
