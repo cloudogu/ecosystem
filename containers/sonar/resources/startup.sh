@@ -3,8 +3,6 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-source /etc/ces/functions.sh
-
 ADMINGROUP=$(doguctl config --global admin_group)
 SONAR_PROPERTIESFILE=/opt/sonar/conf/sonar.properties
 
@@ -114,7 +112,6 @@ if ! [ "$(cat ${SONAR_PROPERTIESFILE} | grep sonar.security.realm)" == "sonar.se
 	# prepare config
 	REALM="cas"
 	render_template "${SONAR_PROPERTIESFILE}"
-
 	# move cas plugin to right folder
 	if [ -f "/opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar" ]; then
 		mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
