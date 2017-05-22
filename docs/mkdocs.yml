@@ -4,6 +4,7 @@ pages:
 - User Guide:
   - Integration-Tests: user-guide/integration-tests.md
   - Dogu creation: user-guide/dogu-creation.md
+  - Dogu upgrades: user-guide/dogu-upgrade.md
   - Dogu configuration: user-guide/dogu-configuration.md
   - Goss Spec: user-guide/goss.md
   - Migration: user-guide/migration.md
