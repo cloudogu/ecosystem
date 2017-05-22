@@ -1,6 +1,6 @@
 # Dogu upgrades
 
-Starting with version 0.14 of the `cesapp` dogu can be upgraded with the `upgrade` command and available upgrade can be listed with `list-upgrades`.
+Starting with version 0.14 of the `cesapp`, dogus can be upgraded with the `upgrade` command. In order to help with upgrading a Dogu, available upgrades can be listed with `list-upgrades`.
 
 ## Usage
 
@@ -23,12 +23,12 @@ cesapp upgrade scm 1.52-1 --force
 
 During the upgrade process the `cesapp` will execute the following list of steps:
 
-* stop all depending dogus
-* execute the pre-upgrade script, if it is configured
+* stop all dogus depending on the one to be upgraded
+* execute the pre-upgrade script, if configured
 * remove old container
 * start new container
-* execute post-upgrade script, if it is configured
-* start depending dogus
+* execute post-upgrade script, if configured
+* start all dogus depending on the one to be upgraded
 
 ## Upgrade scripts
 
@@ -50,6 +50,12 @@ The upgrade scripts can be defined in the dogu.json e.g.:
 }
 ```
 
-Note the script configuration is always loaded from the new version of the dogu. 
-If a pre-upgrade script is defined in the new version, the it is copied from the **new image** in to the **old container** and is executed in the **old container**. The post-upgrade is executed after the **new container** is started. 
+***Please Note:*** 
+
+The configuration for the upgrade scripts is always loaded from the new version of the dogu. The new dogu knows, what is required for the update.
+ 
+If a pre-upgrade script is defined in the new version, then it is extracted from the **new image** into the **old container**. This enables the execution of the pre-update script in the **old container**. 
+
+The post-upgrade is executed after the **new container** is started.
+ 
 This behaviour is useful for complicated tasks such as dump (pre-upgrade) and restore (post-upgrade).
