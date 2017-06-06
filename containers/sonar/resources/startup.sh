@@ -1,15 +1,17 @@
 #!/bin/bash
-
-source /etc/ces/functions.sh
+set -o errexit
+set -o nounset
+set -o pipefail
 
 ADMINGROUP=$(doguctl config --global admin_group)
+SONAR_PROPERTIESFILE=/opt/sonar/conf/sonar.properties
 
 function move_sonar_dir(){
   DIR="$1"
   if [ ! -d "/var/lib/sonar/$DIR" ]; then
     mv /opt/sonar/$DIR /var/lib/sonar
     ln -s /var/lib/sonar/$DIR /opt/sonar/$DIR
-  elif [ ! -L "/opt/sonar/$DIR" -a -d "/opt/sonar/$DIR" ]; then
+  elif [ ! -L "/opt/sonar/$DIR" ] && [ -d "/opt/sonar/$DIR" ]; then
     rm -rf /opt/sonar/$DIR
     ln -s /var/lib/sonar/$DIR /opt/sonar/$DIR
   fi
@@ -31,6 +33,47 @@ function render_template(){
   # render template
   eval "echo \"$(cat $FILE.tpl)\"" | egrep -v '^#' | egrep -v '^\s*$' > "$FILE"
 }
+
+function setProxyConfiguration(){
+  removeProxyRelatedEntriesFrom ${SONAR_PROPERTIESFILE}
+  # Write proxy settings if enabled in etcd
+  if [ "true" == "$(doguctl config --global proxy/enabled)" ]; then
+    if PROXYSERVER=$(doguctl config --global proxy/server) && PROXYPORT=$(doguctl config --global proxy/port); then
+      writeProxyCredentialsTo ${SONAR_PROPERTIESFILE}
+      if PROXYUSER=$(doguctl config --global proxy/username) && PROXYPASSWORD=$(doguctl config --global proxy/password); then
+        writeProxyAuthenticationCredentialsTo ${SONAR_PROPERTIESFILE}
+      else
+        echo "Proxy authentication credentials are incomplete or not existent."
+      fi
+    else
+      echo "Proxy server or port configuration missing in etcd."
+    fi
+  fi
+}
+
+function removeProxyRelatedEntriesFrom() {
+  sed -i '/http.proxyHost=.*/d' $1
+  sed -i '/http.proxyPort=.*/d' $1
+  sed -i '/http.proxyUser=.*/d' $1
+  sed -i '/http.proxyPassword=.*/d' $1
+}
+
+function writeProxyCredentialsTo(){
+  echo http.proxyHost=${PROXYSERVER} >> $1
+  echo http.proxyPort=${PROXYPORT} >> $1
+}
+
+function writeProxyAuthenticationCredentialsTo(){
+  # Check for java option and add it if not existent
+  if [ -z "$(grep sonar.web.javaAdditionalOpts= $1 | grep Djdk.http.auth.tunneling.disabledSchemes=)" ]; then
+    sed -i '/^sonar.web.javaAdditionalOpts=/ s/$/ -Djdk.http.auth.tunneling.disabledSchemes=/' $1
+  fi
+  # Add proxy authentication credentials
+  echo http.proxyUser=${PROXYUSER} >> ${SONAR_PROPERTIESFILE}
+  echo http.proxyPassword=${PROXYPASSWORD} >> ${SONAR_PROPERTIESFILE}
+}
+
+# End of function declaration, work is done now...
 
 
 move_sonar_dir conf
@@ -65,15 +108,16 @@ function sql(){
 create_truststore.sh > /dev/null
 
 # pre cas authentication configuration
-if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == "sonar.security.realm=cas" ]; then
+if ! [ "$(cat ${SONAR_PROPERTIESFILE} | grep sonar.security.realm)" == "sonar.security.realm=cas" ]; then
 	# prepare config
 	REALM="cas"
-	render_template "/opt/sonar/conf/sonar.properties"
-
+	render_template "${SONAR_PROPERTIESFILE}"
 	# move cas plugin to right folder
 	if [ -f "/opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar" ]; then
 		mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
 	fi
+
+  setProxyConfiguration
 
 	# start in background
 	su - sonar -c "/opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar" &
@@ -92,7 +136,7 @@ if ! [ "$(cat /opt/sonar/conf/sonar.properties | grep sonar.security.realm)" == 
 
   # sleep 10 seconds more to sure migration has finished
   sleep 10
-  
+
   echo "apply ces configurations"
 
 	# set base url
@@ -120,10 +164,12 @@ else
   sql "UPDATE properties SET text_value='https://${FQDN}/sonar' WHERE prop_key='sonar.core.serverBaseURL';"
 
   # refresh FQDN
-	sed -i "/sonar.cas.casServerLoginUrl=.*/c\sonar.cas.casServerLoginUrl=https://${FQDN}/cas/login" /opt/sonar/conf/sonar.properties
-  sed -i "/sonar.cas.casServerUrlPrefix=.*/c\sonar.cas.casServerUrlPrefix=https://${FQDN}/cas" /opt/sonar/conf/sonar.properties
-  sed -i "/sonar.cas.sonarServerUrl=.*/c\sonar.cas.sonarServerUrl=https://${FQDN}/sonar" /opt/sonar/conf/sonar.properties
-  sed -i "/sonar.cas.casServerLogoutUrl=.*/c\sonar.cas.casServerLogoutUrl=https://${FQDN}/cas/logout" /opt/sonar/conf/sonar.properties
+  sed -i "/sonar.cas.casServerLoginUrl=.*/c\sonar.cas.casServerLoginUrl=https://${FQDN}/cas/login" ${SONAR_PROPERTIESFILE}
+  sed -i "/sonar.cas.casServerUrlPrefix=.*/c\sonar.cas.casServerUrlPrefix=https://${FQDN}/cas" ${SONAR_PROPERTIESFILE}
+  sed -i "/sonar.cas.sonarServerUrl=.*/c\sonar.cas.sonarServerUrl=https://${FQDN}/sonar" ${SONAR_PROPERTIESFILE}
+  sed -i "/sonar.cas.casServerLogoutUrl=.*/c\sonar.cas.casServerLogoutUrl=https://${FQDN}/cas/logout" ${SONAR_PROPERTIESFILE}
+
+  setProxyConfiguration
 
   # fire it up
   exec su - sonar -c "exec /opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar"

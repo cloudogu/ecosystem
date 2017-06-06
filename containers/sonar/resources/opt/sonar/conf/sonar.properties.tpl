@@ -2,7 +2,7 @@
 # See http://docs.oracle.com/javase/1.5.0/docs/api/java/util/Properties.html#load(java.io.InputStream)
 #
 # Property values can:
-# - reference an environment variable, for example sonar.jdbc.url= ${env:SONAR_JDBC_URL}
+# - reference an environment variable
 # - be encrypted. See http://redirect.sonarsource.com/doc/settings-encryption.html
 
 
@@ -336,4 +336,4 @@ sonar.cas.fullNameAttribute=displayName
 sonar.log.console=true
 
 # java opts
-sonar.web.javaAdditionalOpts=-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Djavax.net.ssl.trustStore=/etc/ssl/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit
+sonar.web.javaAdditionalOpts=-Djava.security.egd=file:/dev/./urandom -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Djavax.net.ssl.trustStore=/etc/ssl/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit -Djdk.http.auth.tunneling.disabledSchemes=""
