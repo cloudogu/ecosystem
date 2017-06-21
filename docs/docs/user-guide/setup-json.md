@@ -1,5 +1,5 @@
 ## Automatisierung des Cloudogu Ecosystem Setupprozesses
-Der Setupmechanismus des Cloudogu Ecosystem lässt sich mithilfe einer **setup.json** benannten Konfigutarionsdatei automatisieren. Diese muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen.
+Der Setupmechanismus des Cloudogu Ecosystems lässt sich auf verschiedene Arten ausführen. Ein Weg führt über die Oberfläche im Browser, in der man alle relevanten Daten eingeben und Optionen auswählen kann. Des weiteren kann man mithilfe einer **setup.json** benannten Konfigurationsdatei die Felder im Setup vorbefüllen. Diese Datei muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen. Sind alle Daten und Einstellungen für das Setup im Voraus klar, kann man das Setup auch komplett automatisch ablaufen lassen. Dafür ist für jeden Schritt die Eigenschaft _completed_ zu setzen (siehe unten).
 
 Beispiel:
 ````
@@ -27,7 +27,7 @@ Beispiel:
 ````
 
 ### Setupschritte
-Der Inhalt der setup.json besteht aus Objekten, die den Titel des jeweiligen Setupschritts (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, die die Werte beschreiben, die dem jeweiligen Setupschritt übergeben werden sollen. Ist das _completed_-Objekt auf ``true`` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
+Der Inhalt der setup.json besteht aus Objekten, die den Titel des jeweiligen Setupschritts (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, welche die Werte beschreiben, die dem jeweiligen Setupschritt übergeben werden sollen. Ist die _completed_-Eigenschaft auf ``true`` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
 
 #### Region-Schritt
 Objektname: _region_
@@ -59,7 +59,7 @@ Eigenschaften:
 ##### fqdn
 * Datentyp: String
 * Inhalt: Vollständige Domain des Ecosystems
-* Beispiel: ``www.myecosystem.com``
+* Beispiel: ``"www.myecosystem.com"``
 
 ##### hostname
 * Datentyp: String
@@ -246,19 +246,20 @@ Eigenschaften:
 
 
 #### Admin-Schritt
+Diese Einstellungen sind, bis auf _adminGroup_, nur relevant, sofern ein "embedded" User Backend gewählt wurde. Anderenfalls sind die Vorgaben des externen User Backends gültig.
 Objektname: _admin_
 
 Eigenschaften:
-
-##### username
-* Datentyp: String
-* Inhalt: Name des Admin-Kontos
-* Beispiel: ``"admin"``
 
 ##### mail
 * Datentyp: String
 * Inhalt: E-Mail-Adresse des Admin-Kontos
 * Beispiel: ``"admin@mydomain.com"``
+
+##### username
+* Datentyp: String
+* Inhalt: Name des Admin-Kontos
+* Beispiel: ``"admin"``
 
 ##### password
 * Datentyp: String
@@ -271,6 +272,7 @@ Eigenschaften:
 ##### adminGroup
 * Datentyp: String
 * Inhalt: Name der Gruppe im User Backend, die Administratorrechte im Ecosystem erhalten soll
+* Diese Einstellung ist auch zu setzen, wenn ein externes User Backend gewählt wurde
 * Beispiel: ``"administrators"``
 
 ##### adminMember
@@ -285,11 +287,11 @@ Eigenschaften:
 
 
 #### registryConfig (optional)
-Hier lassen sich einige Einstellungen tätigen, die nicht über die Weboberfläche des Setupprozesses abgefragt werden. Diese werden unter ``/config/`` in der registry des Ecosystems abgelegt.
+An dieser Stelle lassen sich Werte definieren, die direkt in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setupoberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des Ecosystems abgelegt.
 
 Objektname: _registryConfig_
 
-Enthält folgende Objekte:
+Enthält beispielsweise folgende Objekte:
 
 ##### \_global
 * Inhalt: Globale Konfigurationsdaten
@@ -302,6 +304,8 @@ Enthält folgende Objekte:
 ##### jenkins
 * Inhalt: Informationen über die Update-Site-URLs für Jenkins
 * Beispiel:``{
+  "updateSiteUrl": {
 "url1":"jenkinsUpdateSiteURL1",
 "url2":"jenkinsUpdateSiteURL2"
+}
 }``
