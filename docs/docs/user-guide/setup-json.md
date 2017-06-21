@@ -1,5 +1,5 @@
 ## Automatisierung des Cloudogu Ecosystem Setupprozesses
-Der Setupmechanismus des Cloudogu Ecosystem lässt sich mithilfe einer 'setup.json' benannten Konfigutarionsdatei automatisieren. Diese muss im Ordner  ::::: liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen.
+Der Setupmechanismus des Cloudogu Ecosystem lässt sich mithilfe einer **setup.json** benannten Konfigutarionsdatei automatisieren. Diese muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen.
 
 Beispiel:
 ````
@@ -68,18 +68,18 @@ Eigenschaften:
 
 ##### domain
 * Datentyp: String
-* Inhalt: DOmain des Ecosystems
+* Inhalt: Domain des Ecosystems
 * Beispiel: ``"ces.local"``
 
 ##### certificateType
 * Datentyp: String
-* Inhalt: Art des Zertifikats für die Verschlüsselung der HTTP-Verbindung zum Ecosystem
+* Inhalt: Art des Zertifikats für die Verbindung zum Ecosystem
 * ``"selfsigned"`` oder ``"external"``
 
 ##### certificate
 * Nur notwendig, wenn certificateType auf "external" gesetzt wurde
 * Datentyp: String
-* Inhalt: Das Zertifikat für das Ecosystem im PEM-Format
+* Inhalt: Das Zertifikat für das Ecosystem im PEM-Format. Sollte ein Intermediate-Zertifikat eingesetzt werden, muss auch dieses hier eingetragen werden.
 
 ##### certificateKey
 * Nur notwendig, wenn certificateType auf "external" gesetzt wurde
@@ -104,8 +104,7 @@ Eigenschaften:
 
 ##### dsType
 * Datentyp: String
-* Inhalt: Typ des User Backends. Bei Benutzung von ``embedded`` wird ein ldap-Dogu installiert, welches sich dann (optional) mithilfe des Usermanagement-Dogus verwalten lässt. Bei Benutzung von ``external`` sind die Zugangsdaten für ein externes User Backend zu übergeben.
-* ``"external"`` oder ``"embedded"``
+* Inhalt: Typ des User Backends. Bei Benutzung von ``"embedded"`` wird ein ldap-Dogu installiert, welches sich dann (optional) mithilfe des User Management-Dogus verwalten lässt. Bei Benutzung von ``"external"`` sind die Zugangsdaten für ein externes User Backend zu übergeben.
 
 ##### server
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
@@ -114,9 +113,10 @@ Eigenschaften:
 * ``"activeDirectory"`` oder ``"custom"``
 
 ##### attributeID
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
-* Inhalt:
+* Inhalt: Attributname, der im User Backend die User ID beschreibt
+* Muss auf ``"uid"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
+* Muss auf ``"sAMAccountName"`` gesetzt werden, wenn _dsType_ auf "external" und _server_ auf "activeDirectory" gesetzt wurde
 
 ##### attributeGivenName
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
@@ -131,33 +131,33 @@ Eigenschaften:
 * Beispiel: ``"surname"``
 
 ##### attributeFullname
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
 * Inhalt: Attributname, der im User Backend den vollen Namen beschreibt
+* Muss auf ``"cn"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
 * Beispiel: ``"fullname"``
 
 ##### attributeMail
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
 * Inhalt: Attributname, der im User Backend das E-Mail-Attribut beschreibt
+* Muss auf ``"mail"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
 * Beispiel: ``"mail"``
 
 ##### attributeGroup
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
-* Inhalt:
-* Beispiel:
+* Inhalt: Attributname, mit dem im User Backend die Zugehörigkeit eines Users zu einer Gruppe geregelt wird
+* Muss auf ``"memberOf"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
+* Beispiel: ``"memberOf"``
 
 ##### baseDN
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
-* Inhalt: A base dn is the point from where a server will search for users.
-* beispiel: dc=triobs1,dc=local (evtl zu groß)
+* Inhalt: Angabe des Distinguished Name von der aus auf dem Server nach Benutzern gesucht wird
+* beispiel: ``"dc=mycomp1,dc=local"``
 
 ##### searchFilter
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
 * Inhalt: Einschränkung, nach welchen Objektklassen gesucht werden soll
+* Muss auf ``"(objectClass=person)"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
 * Beispiel: ``"(objectClass=person)"``
 
 ##### connectionDN
@@ -172,30 +172,36 @@ Eigenschaften:
 * Inhalt: Angabe des Passworts des unter _connectionDN_ gesetzten Nutzers
 
 ##### host
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
 * Inhalt: Adresse des externen User Backends
+* Muss auf ``"ldap"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
 
 ##### port
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
 * Inhalt: Port, über den das externe User Backend erreicht werden kann
-
-##### loginID
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: siehe _connectionDN_
-
-##### loginPassword
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt:
+* Muss auf ``"389"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
 
 ##### encryption
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
 * Datentyp: String
-* Inhalt:
+* Inhalt: Einstellung ob und ggf. welche Verschlüsselung genutzt werden soll
 * Beispiel: ``"none"``, ``"ssl"``, ``"sslAny"``, ``"startTLS"``, ``"startTLSAny"``
+
+##### groupBaseDN
+* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+* Datentyp: String
+* Inhalt: Angabe des Distinguished Name für das Group Mapping
+
+##### groupSearchFilter
+* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+* Datentyp: String
+* Inhalt: Angabe von Suchfiltern für das Group Mapping
+
+##### groupAttributeName
+* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+* Datentyp: String
+* Inhalt: Angabe des Attributs für das Group Mapping
 
 ##### completed
 * Datentyp: boolean
@@ -204,7 +210,8 @@ Eigenschaften:
 
 ##### useUserConnectionToFetchAttributes
 * Datentyp: boolean
-* Inhalt: Wahrheitswert, ....???
+* Inhalt: Wahrheitswert, ob der jeweils angemeldete Nutzer zur Abfrage der Attribute aus dem User Backend genutzt werden soll
+* Muss auf ``true`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
 * Beispiel: ``true``
 
 
@@ -246,12 +253,12 @@ Eigenschaften:
 ##### username
 * Datentyp: String
 * Inhalt: Name des Admin-Kontos
-* Beispiel: ``admin``
+* Beispiel: ``"admin"``
 
 ##### mail
 * Datentyp: String
 * Inhalt: E-Mail-Adresse des Admin-Kontos
-* Beispiel: ``admin@mydomain.com``
+* Beispiel: ``"admin@mydomain.com"``
 
 ##### password
 * Datentyp: String
@@ -264,7 +271,7 @@ Eigenschaften:
 ##### adminGroup
 * Datentyp: String
 * Inhalt: Name der Gruppe im User Backend, die Administratorrechte im Ecosystem erhalten soll
-* Beispiel: ``administrators``
+* Beispiel: ``"administrators"``
 
 ##### adminMember
 * Datentyp: boolean
@@ -277,8 +284,8 @@ Eigenschaften:
 * Beispiel: ``true``
 
 
-#### registryConfig
-Hier lassen sich einige Einstellungen tätigen, die nicht über die Weboberfläche des Setupprozesses abgefragt werden.
+#### registryConfig (optional)
+Hier lassen sich einige Einstellungen tätigen, die nicht über die Weboberfläche des Setupprozesses abgefragt werden. Diese werden unter ``/config/`` in der registry des Ecosystems abgelegt.
 
 Objektname: _registryConfig_
 
@@ -289,7 +296,7 @@ Enthält folgende Objekte:
 * Beispiel: ``{
 "stage":"development"
 }`` oder ``{
-"stage":"production" ??????????
+"stage":"production"
 }``
 
 ##### jenkins
