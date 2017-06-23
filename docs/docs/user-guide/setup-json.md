@@ -218,6 +218,8 @@ Eigenschaften:
 #### Dogu-Schritt
 Objektname: _dogus_
 
+Die Daten, die in diesem Schritt über die setup.json eingegeben werden, werden im Setupprozess nur übernommen, wenn die _completed_-Eigenschaft auf 'true' gesetzt ist. Anderenfalls ist der Schritt manuell über die Weboberfläche auszufüllen.
+
 Eigenschaften:
 
 ##### defaultDogu
