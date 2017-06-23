@@ -1,7 +1,7 @@
-## Automatisierung des Cloudogu Ecosystem Setupprozesses
-Der Setupmechanismus des Cloudogu Ecosystems lässt sich auf verschiedene Arten ausführen. Ein Weg führt über die Oberfläche im Browser, in der man alle relevanten Daten eingeben und Optionen auswählen kann. Des weiteren kann man mithilfe einer **setup.json** benannten Konfigurationsdatei die Felder im Setup vorbefüllen. Diese Datei muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen. Sind alle Daten und Einstellungen für das Setup im Voraus klar, kann man das Setup auch komplett automatisch ablaufen lassen. Dafür ist für jeden Schritt die Eigenschaft _completed_ zu setzen (siehe unten).
+## Automating the Cloudogu Ecosystem setup process
+The setup mechanism of the Cloudogu Ecosystem can be performed in different ways. One way is to provide all necessary data and set all options via the web interface. Another way is to create a file called **setup.json** which contains some or all configuration data needed. This file has to be placed into the ``/vagrant`` or ``/etc/ces`` folder and needs to be formatted in JSON. All data defined in it will be automatically inserted into the corresponding setup web interface fields. If the entire configuration of the setup is present, the setup can be done fully automatically by setting all _completed_-values to true (see below).
 
-Beispiel:
+Example:
 ````
 {
   "region": {
@@ -26,193 +26,193 @@ Beispiel:
 }
 ````
 
-### Setupschritte
-Der Inhalt der setup.json besteht aus Objekten, die den Titel des jeweiligen Setupschritts (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, welche die Werte beschreiben, die dem jeweiligen Setupschritt übergeben werden sollen. Ist die _completed_-Eigenschaft auf ``true`` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
+### Setup steps
+The setup.json file consists of objects named after the corresponding setup step (e.g. 'region' or 'admin'). These objects contain properties describing the configuration of this setup step. If the _completed_ property is set to ``true``, all properties of the setup.json for this step are accepted and the step will not show up in the web interface.
 
-#### Region-Schritt
-Objektname: _region_
+#### Region step
+Object name: _region_
 
-Eigenschaften:
+Properties:
 
 ##### locale
-* Datentyp: String
-* Inhalt: locale-Einstellung des Ecosystems
-* Beispiel: ``"en_US.utf8"``
+* Data type: String
+* Content: locale settings of the Ecosystem
+* Example: ``"en_US.utf8"``
 
 
 ##### timeZone
-* Datentyp: String
-* Inhalt: Zeitzone des Ecosystems
-* Beispiel: ``"Europe/Berlin"``
+* Data type: String
+* Content: Timezone of the Ecosystem
+* Example: ``"Europe/Berlin"``
 
 ##### completed
-* Datentyp: boolean
-* Inhalt: Wahrheitswert, ob der Region-Schritt komplett ist
-* Beispiel: ``true``
+* Data type: boolean
+* Content: Logical value whcich shows if the _region_ step is completely finished
+* Example: ``true``
 
 
 #### Naming-Schritt
 Objektname: _naming_
 
-Eigenschaften:
+Properties:
 
 ##### fqdn
-* Datentyp: String
-* Inhalt: Vollständige Domain des Ecosystems
-* Beispiel: ``"www.myecosystem.com"``
+* Data type: String
+* Content: Vollständige Domain des Ecosystems
+* Example: ``"www.myecosystem.com"``
 
 ##### hostname
-* Datentyp: String
-* Inhalt: Hostname des Ecosystems
-* Beispiel: ``"ces"``
+* Data type: String
+* Content: Hostname des Ecosystems
+* Example: ``"ces"``
 
 ##### domain
-* Datentyp: String
-* Inhalt: Domain des Ecosystems
-* Beispiel: ``"ces.local"``
+* Data type: String
+* Content: Domain des Ecosystems
+* Example: ``"ces.local"``
 
 ##### certificateType
-* Datentyp: String
-* Inhalt: Art des Zertifikats für die Verbindung zum Ecosystem
-* ``"selfsigned"`` oder ``"external"``
+* Data type: String
+* Content: Art des Zertifikats für die Verbindung zum Ecosystem
+* ``"selfsigned"`` or ``"external"``
 
 ##### certificate
 * Nur notwendig, wenn certificateType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Das Zertifikat für das Ecosystem im PEM-Format. Sollte ein Intermediate-Zertifikat eingesetzt werden, muss auch dieses hier eingetragen werden.
+* Data type: String
+* Content: Das Zertifikat für das Ecosystem im PEM-Format. Sollte ein Intermediate-Zertifikat eingesetzt werden, muss auch dieses hier eingetragen werden.
 
 ##### certificateKey
 * Nur notwendig, wenn certificateType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Der Zertifikatsschlüssel für das Ecosystem im PEM-Format
+* Data type: String
+* Content: Der Zertifikatsschlüssel für das Ecosystem im PEM-Format
 
 ##### relayHost
-* Datentyp: String
-* Inhalt: Der Mail Relay Host für das Ecosystem über den der Mailversand abgewickelt werden soll
-* Beispiel: ``"mail.mydomain.com"``
+* Data type: String
+* Content: Der Mail Relay Host für das Ecosystem über den der Mailversand abgewickelt werden soll
+* Example: ``"mail.mydomain.com"``
 
 ##### completed
-* Datentyp: boolean
-* Inhalt: Wahrheitswert, ob der Naming-Schritt komplett ist
-* Beispiel: ``true``
+* Data type: boolean
+* Content: Logical value whcich shows if the _naming_ step is completely finished
+* Example: ``true``
 
 
 #### Users-Schritt
 Objektname: _userBackend_
 
-Eigenschaften:
+Properties:
 
 ##### dsType
-* Datentyp: String
-* Inhalt: Typ des User Backends. Bei Benutzung von ``"embedded"`` wird ein ldap-Dogu installiert, welches sich dann (optional) mithilfe des User Management-Dogus verwalten lässt. Bei Benutzung von ``"external"`` sind die Zugangsdaten für ein externes User Backend zu übergeben.
+* Data type: String
+* Content: Typ des User Backends. Bei Benutzung von ``"embedded"`` wird ein ldap-Dogu installiert, welches sich dann (optional) mithilfe des User Management-Dogus verwalten lässt. Bei Benutzung von ``"external"`` sind die Zugangsdaten für ein externes User Backend zu übergeben.
 
 ##### server
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Typ des User Backend Servers
-* ``"activeDirectory"`` oder ``"custom"``
+* Data type: String
+* Content: Typ des User Backend Servers
+* ``"activeDirectory"`` or ``"custom"``
 
 ##### attributeID
-* Datentyp: String
-* Inhalt: Attributname, der im User Backend die User ID beschreibt
+* Data type: String
+* Content: Attributname, der im User Backend die User ID beschreibt
 * Muss auf ``"uid"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
 * Muss auf ``"sAMAccountName"`` gesetzt werden, wenn _dsType_ auf "external" und _server_ auf "activeDirectory" gesetzt wurde
 
 ##### attributeGivenName
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Attributname, der im User Backend den Vornamen beschreibt
-* Beispiel: ``"givenname"``
+* Data type: String
+* Content: Attributname, der im User Backend den Vornamen beschreibt
+* Example: ``"givenname"``
 
 ##### attributeSurname
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Attributname, der im User Backend den Nachnamen beschreibt
-* Beispiel: ``"surname"``
+* Data type: String
+* Content: Attributname, der im User Backend den Nachnamen beschreibt
+* Example: ``"surname"``
 
 ##### attributeFullname
-* Datentyp: String
-* Inhalt: Attributname, der im User Backend den vollen Namen beschreibt
+* Data type: String
+* Content: Attributname, der im User Backend den vollen Namen beschreibt
 * Muss auf ``"cn"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``"fullname"``
+* Example: ``"fullname"``
 
 ##### attributeMail
-* Datentyp: String
-* Inhalt: Attributname, der im User Backend das E-Mail-Attribut beschreibt
+* Data type: String
+* Content: Attributname, der im User Backend das E-Mail-Attribut beschreibt
 * Muss auf ``"mail"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``"mail"``
+* Example: ``"mail"``
 
 ##### attributeGroup
-* Datentyp: String
-* Inhalt: Attributname, mit dem im User Backend die Zugehörigkeit eines Users zu einer Gruppe geregelt wird
+* Data type: String
+* Content: Attributname, mit dem im User Backend die Zugehörigkeit eines Users zu einer Gruppe geregelt wird
 * Muss auf ``"memberOf"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``"memberOf"``
+* Example: ``"memberOf"``
 
 ##### baseDN
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Angabe des Distinguished Name von der aus auf dem Server nach Benutzern gesucht wird
-* beispiel: ``"dc=mycomp1,dc=local"``
+* Data type: String
+* Content: Angabe des Distinguished Name von der aus auf dem Server nach Benutzern gesucht wird
+* Example: ``"dc=mycomp1,dc=local"``
 
 ##### searchFilter
-* Datentyp: String
-* Inhalt: Einschränkung, nach welchen Objektklassen gesucht werden soll
+* Data type: String
+* Content: Einschränkung, nach welchen Objektklassen gesucht werden soll
 * Muss auf ``"(objectClass=person)"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``"(objectClass=person)"``
+* Example: ``"(objectClass=person)"``
 
 ##### connectionDN
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Angabe des Distinguished Name eines leseberechtigten Benutzers im User Backend
-* Beispiel: ``"username@mycompany.local"`` oder ``"cn=username,dc=users,dc=mycomp,dc=local"``
+* Data type: String
+* Content: Angabe des Distinguished Name eines leseberechtigten Benutzers im User Backend
+* Example: ``"username@mycompany.local"`` or ``"cn=username,dc=users,dc=mycomp,dc=local"``
 
 ##### password
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Angabe des Passworts des unter _connectionDN_ gesetzten Nutzers
+* Data type: String
+* Content: Angabe des Passworts des unter _connectionDN_ gesetzten Nutzers
 
 ##### host
-* Datentyp: String
-* Inhalt: Adresse des externen User Backends
+* Data type: String
+* Content: Adresse des externen User Backends
 * Muss auf ``"ldap"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
 
 ##### port
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Port, über den das externe User Backend erreicht werden kann
+* Data type: String
+* Content: Port, über den das externe User Backend erreicht werden kann
 * Muss auf ``"389"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
 
 ##### encryption
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Einstellung ob und ggf. welche Verschlüsselung genutzt werden soll
-* Beispiel: ``"none"``, ``"ssl"``, ``"sslAny"``, ``"startTLS"``, ``"startTLSAny"``
+* Data type: String
+* Content: Einstellung ob und ggf. welche Verschlüsselung genutzt werden soll
+* Example: ``"none"``, ``"ssl"``, ``"sslAny"``, ``"startTLS"``, ``"startTLSAny"``
 
 ##### groupBaseDN
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Angabe des Distinguished Name für das Group Mapping
+* Data type: String
+* Content: Angabe des Distinguished Name für das Group Mapping
 
 ##### groupSearchFilter
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Angabe von Suchfiltern für das Group Mapping
+* Data type: String
+* Content: Angabe von Suchfiltern für das Group Mapping
 
 ##### groupAttributeName
 * Nur notwendig, wenn dsType auf "external" gesetzt wurde
-* Datentyp: String
-* Inhalt: Angabe des Attributs für das Group Mapping
+* Data type: String
+* Content: Angabe des Attributs für das Group Mapping
 
 ##### completed
-* Datentyp: boolean
-* Inhalt: Wahrheitswert, ob der Users-Schritt komplett ist
-* Beispiel: ``true``
+* Data type: boolean
+* Content: Logical value whcich shows if the _users_ step is completely finished
+* Example: ``true``
 
 ##### useUserConnectionToFetchAttributes
-* Datentyp: boolean
-* Inhalt: Wahrheitswert, ob der jeweils angemeldete Nutzer zur Abfrage der Attribute aus dem User Backend genutzt werden soll
+* Data type: boolean
+* Content: Wahrheitswert, ob der jeweils angemeldete Nutzer zur Abfrage der Attribute aus dem User Backend genutzt werden soll
 * Muss auf ``true`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``true``
+* Example: ``true``
 
 
 #### Dogu-Schritt
@@ -220,17 +220,17 @@ Objektname: _dogus_
 
 Die Daten, die in diesem Schritt über die setup.json eingegeben werden, werden im Setupprozess nur übernommen, wenn die _completed_-Eigenschaft auf 'true' gesetzt ist. Anderenfalls ist der Schritt manuell über die Weboberfläche auszufüllen.
 
-Eigenschaften:
+Properties:
 
 ##### defaultDogu
-* Datentyp: String
-* Inhalt: Name des Dogus, welches beim Aufruf des Ecosystems im Browser standardmäßig angesteuert wird
-* Beispiel: ``"cockpit"``
+* Data type: String
+* Content: Name des Dogus, welches beim Aufruf des Ecosystems im Browser standardmäßig angesteuert wird
+* Example: ``"cockpit"``
 
 ##### install
-* Datentyp: String Array
-* Inhalt: Liste aller Dogus, die installiert werden sollen
-* Beispiel: ``[
+* Data type: String array
+* Content: Liste aller Dogus, die installiert werden sollen
+* Example: ``[
       "official/cas",
       "official/cockpit",
       "official/nginx",
@@ -242,50 +242,50 @@ Eigenschaften:
     ]``
 
 ##### completed
-* Datentyp: boolean
-* Inhalt: Wahrheitswert, ob der Dogu-Schritt komplett ist
-* Beispiel: ``true``
+* Data type: boolean
+* Content: Logical value whcich shows if the _dogu_ step is completely finished
+* Example: ``true``
 
 
 #### Admin-Schritt
 Diese Einstellungen sind, bis auf _adminGroup_, nur relevant, sofern ein "embedded" User Backend gewählt wurde. Anderenfalls sind die Vorgaben des externen User Backends gültig.
 Objektname: _admin_
 
-Eigenschaften:
+Properties:
 
 ##### mail
-* Datentyp: String
-* Inhalt: E-Mail-Adresse des Admin-Kontos
-* Beispiel: ``"admin@mydomain.com"``
+* Data type: String
+* Content: E-Mail-Adresse des Admin-Kontos
+* Example: ``"admin@mydomain.com"``
 
 ##### username
-* Datentyp: String
-* Inhalt: Name des Admin-Kontos
-* Beispiel: ``"admin"``
+* Data type: String
+* Content: Name des Admin-Kontos
+* Example: ``"admin"``
 
 ##### password
-* Datentyp: String
-* Inhalt: Passwort des Admin-Kontos
+* Data type: String
+* Content: Passwort des Admin-Kontos
 
 ##### confirmPassword
-* Datentyp: String
-* Inhalt: Erneute Eingabe des Passworts des Admin-Kontos zur Bestätigung
+* Data type: String
+* Content: Erneute Eingabe des Passworts des Admin-Kontos zur Bestätigung
 
 ##### adminGroup
-* Datentyp: String
-* Inhalt: Name der Gruppe im User Backend, die Administratorrechte im Ecosystem erhalten soll
+* Data type: String
+* Content: Name der Gruppe im User Backend, die Administratorrechte im Ecosystem erhalten soll
 * Diese Einstellung ist auch zu setzen, wenn ein externes User Backend gewählt wurde
-* Beispiel: ``"administrators"``
+* Example: ``"administrators"``
 
 ##### adminMember
-* Datentyp: boolean
-* Inhalt: Wahrheitswert, ob das angelegte Admin-Konto auch Mitglied der unter _adminGroup_ definierten Gruppe im User Backend werden soll
-* Beispiel: true
+* Data type: boolean
+* Content: Wahrheitswert, ob das angelegte Admin-Konto auch Mitglied der unter _adminGroup_ definierten Gruppe im User Backend werden soll
+* Example: true
 
 ##### completed
-* Datentyp: boolean
-* Inhalt: Wahrheitswert, ob der Admin-Schritt komplett ist
-* Beispiel: ``true``
+* Data type: boolean
+* Content: Logical value whcich shows if the _admin_ step is completely finished
+* Example: ``true``
 
 
 #### registryConfig (optional)
@@ -296,16 +296,16 @@ Objektname: _registryConfig_
 Enthält beispielsweise folgende Objekte:
 
 ##### \_global
-* Inhalt: Globale Konfigurationsdaten
-* Beispiel: ``{
+* Content: Globale Konfigurationsdaten
+* Example: ``{
 "stage":"development"
-}`` oder ``{
+}`` or ``{
 "stage":"production"
 }``
 
 ##### jenkins
-* Inhalt: Informationen über die Update-Site-URLs für Jenkins
-* Beispiel:``{
+* Content: Informationen über die Update-Site-URLs für Jenkins
+* Example:``{
   "updateSiteUrl": {
 "url1":"jenkinsUpdateSiteURL1",
 "url2":"jenkinsUpdateSiteURL2"
