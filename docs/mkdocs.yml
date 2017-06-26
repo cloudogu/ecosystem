@@ -9,4 +9,5 @@ pages:
   - Goss Spec: user-guide/goss.md
   - Migration: user-guide/migration.md
   - Bash Scripting Guideline: user-guide/bash-guideline.md
+  - CES-Image build: user-guide/image-build.md
 - About: about.md
