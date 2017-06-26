@@ -51,7 +51,7 @@ Properties:
 * Example: ``true``
 
 
-#### Naming-Schritt
+#### Naming step
 Object name: _naming_
 
 Properties:
@@ -104,28 +104,28 @@ Properties:
 
 ##### dsType
 * Data type: String
-* Content: User Backend type. If set to ``"embedded"`` the ldap dogu is installed and can (optionally) be administrated using the User Management dogu later on. If set to ``"external"`` the login credentials for an external user backend have to be provided.
+* Content: User Backend type. If set to ``"embedded"`` the ldap dogu is automatically installed via the web interface (or has to be declared in the dogu step below) and can (optionally) be administrated using the User Management dogu later on. If set to ``"external"`` the login credentials for an external user backend have to be provided.
 
 ##### server
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
-* Content: User Backend servers type
+* Content: User backend server type
 * ``"activeDirectory"`` or ``"custom"``
 
 ##### attributeID
 * Data type: String
 * Content: Attribute name which describes the user ID in the user backend
-* Has to be set to ``"uid"``, if dsType is set to "embedded"
+* Has to be set to ``"uid"``, if _dsType_ is set to "embedded"
 * Has to be set to ``"sAMAccountName"``, if _dsType_  is set to "external" and _server_  is set to "activeDirectory"
 
 ##### attributeGivenName
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Attribute name which describes the given name in the user backend
 * Example: ``"givenname"``
 
 ##### attributeSurname
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Attribute name which describes the surname in the user backend
 * Example: ``"surname"``
@@ -133,73 +133,73 @@ Properties:
 ##### attributeFullname
 * Data type: String
 * Content: Attribute name which describes the full name in the user backend
-* Has to be set to ``"cn"``, if dsType is set to "embedded" or _server_ is set to "activeDirectory"
+* Has to be set to ``"cn"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
 * Example: ``"fullname"``
 
 ##### attributeMail
 * Data type: String
 * Content: Attribute name which describes the e-mail in the user backend
-* Has to be set to ``"mail"``, if dsType is set to "embedded" or _server_ is set to "activeDirectory"
+* Has to be set to ``"mail"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
 * Example: ``"mail"``
 
 ##### attributeGroup
 * Data type: String
 * Content: Attribute name which describes the membership of a user in a group in the user backend
-* Has to be set to ``"memberOf"``, if dsType is set to "embedded" or _server_ is set to "activeDirectory"
+* Has to be set to ``"memberOf"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
 * Example: ``"memberOf"``
 
 ##### baseDN
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
-* Content: Declaration otf the Distinguished Name from which users are searched on the server
+* Content: Declaration of the Distinguished Name from which users are searched on the server
 * Example: ``"dc=mycomp1,dc=local"``
 
 ##### searchFilter
 * Data type: String
 * Content: Constraint, which object classes should be searched for
-* Has to be set to ``"(objectClass=person)"``, if dsType is set to "embedded" or _server_ is set to  "activeDirectory"
+* Has to be set to ``"(objectClass=person)"``, if _dsType_ is set to "embedded" or _server_ is set to  "activeDirectory"
 * Example: ``"(objectClass=person)"``
 
 ##### connectionDN
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of the Distinguished Name of a user backend user with read access
 * Example: ``"username@mycompany.local"`` or ``"cn=username,dc=users,dc=mycomp,dc=local"``
 
 ##### password
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Password for the user set in _connectionDN_
 
 ##### host
 * Data type: String
 * Content: Address of the external user backend
-* Has to be set to ``"ldap"``, if dsType is set to "embedded"
+* Has to be set to ``"ldap"``, if _dsType_ is set to "embedded"
 
 ##### port
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Port of the external user backend
-* Has to be set to ``"389"``, if dsType is set to "embedded"
+* Has to be set to ``"389"``, if _dsType_ is set to "embedded"
 
 ##### encryption
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declares if the communication is encrypted
 * Example: ``"none"``, ``"ssl"``, ``"sslAny"``, ``"startTLS"``, ``"startTLSAny"``
 
 ##### groupBaseDN
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of the Distinguished Name for the group mapping
 
 ##### groupSearchFilter
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of search filters for the group mapping
 
 ##### groupAttributeName
-* Only necessary, if dsType is set to "external"
+* Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of the group mapping name attribute
 
@@ -211,7 +211,7 @@ Properties:
 ##### useUserConnectionToFetchAttributes
 * Data type: boolean
 * Content: Logical value which shows if the user connection of the user which is signed in at the time the attributes are fetched should be used to fetch the attributes from the user backend
-* Has to be set to ``true``, if dsType is set to "embedded" or _server_ is set to "activeDirectory"
+* Has to be set to ``true``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
 * Example: ``true``
 
 
@@ -224,7 +224,7 @@ Properties:
 
 ##### defaultDogu
 * Data type: String
-* Content: Name of the dogu which will be opened when the Ecosystem is accessed with the browser
+* Content: Name of the dogu which will be initially opened when the Ecosystem is accessed with the browser
 * Example: ``"cockpit"``
 
 ##### install
@@ -281,7 +281,7 @@ Properties:
 ##### adminMember
 * Data type: boolean
 * Content: Logical value which shows if the created admin account will also become a member of the user backend group defined in _adminGroup_
-* Example: true
+* Example: ``true``
 
 ##### completed
 * Data type: boolean
