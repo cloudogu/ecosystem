@@ -8,7 +8,8 @@ ENV NGINX_VERSION 1.13.1
 
 COPY build.sh /build.sh
 COPY copybin.sh /copybin.sh
-RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base \
+RUN set -x \
+    && apk --update add openssl-dev pcre-dev zlib-dev wget build-base \
     && mkdir /build \
     && cd /build \
     && wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \

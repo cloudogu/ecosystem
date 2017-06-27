@@ -43,7 +43,7 @@ file:
     filetype: directory
   /var/www/html/warp:
     exists: true
-    mode: "0775"
+    mode: "0755"
     owner: root
     group: root
     filetype: directory

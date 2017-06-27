@@ -2,11 +2,13 @@
 FROM registry.cloudogu.com/official/base:3.5-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-ENV CES_CONFD_VERSION=0.1.4 \
-    WARP_MENU_VERSION=0.1.0 \
+ENV CES_CONFD_VERSION=0.2.0 \
+    WARP_MENU_VERSION=0.2.0 \
     CES_THEME_VERSION=bcf04bab10a6bf534a7167a92315cd917de7bcb7
 
-RUN apk --update add openssl pcre zlib \
+RUN set -x \
+ # install required packages
+ && apk --update add openssl pcre zlib \
  # add nginx user
  && adduser nginx -D \
 
