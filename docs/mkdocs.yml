@@ -2,6 +2,7 @@ site_name: Ecosystem Documentation
 pages:
 - Home: index.md
 - User Guide:
+  - Warp Menu: user-guide/warp-menu.md
   - Integration-Tests: user-guide/integration-tests.md
   - Dogu creation: user-guide/dogu-creation.md
   - Dogu upgrades: user-guide/dogu-upgrade.md
