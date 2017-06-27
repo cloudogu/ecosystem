@@ -6,8 +6,7 @@ MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 ENV NGINX_VERSION 1.13.1
 
-COPY build.sh /build.sh
-COPY copybin.sh /copybin.sh
+COPY build /
 RUN set -x \
     && apk --update add openssl-dev pcre-dev zlib-dev wget build-base \
     && mkdir /build \

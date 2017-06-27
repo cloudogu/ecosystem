@@ -38,12 +38,11 @@ RUN set -x \
 
 # copy files
 COPY dist/nginx /usr/sbin/nginx
-COPY etc/nginx /etc/nginx
-COPY etc/ces-confd /etc/ces-confd
-COPY startup.sh /startup.sh
+COPY resources /
 
 
 # Define mountable directories.
+# TODO check if any of the volumes are required
 VOLUME ["/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
 
 # Define working directory.
