@@ -1,76 +1,22 @@
 # registry.cloudogu.com/official/java:8u121-3
-FROM registry.cloudogu.com/official/base:3.5-2
+FROM registry.cloudogu.com/official/base:3.6-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-# based on https://github.com/anapsix/docker-alpine-java/blob/master/8/jre/Dockerfile
+# build arguments, passed from Makefile
+ARG JAVA_ALPINE_VERSION
 
-# Java Version and other ENV
-ENV JAVA_VERSION_MAJOR=8 \
-    JAVA_VERSION_MINOR=121 \
-    JAVA_VERSION_BUILD=13 \
-    JAVA_CHKSUM=e9e7ea248e2c4826b92b3f075a80e441 \
-    JAVA_PACKAGE=jdk \
-    JAVA_HOME=/opt/jdk \
-    PATH=${PATH}:/opt/jdk/bin \
-    LANG=C.UTF-8 \
-    GLIBC_VERSION=2.23-r3
+# environment variables
+ENV \
+  # default to utf-8 encoding
+  LANG="C.UTF-8" \
+  # java home
+  JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk/jre" \
+  # add java binaries to path
+  PATH="$PATH:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin"
 
-# do all in one step
-RUN apk upgrade --update \
-
- # install glibc for alpine
- && apk add --update libstdc++ \
- && curl -Lo /tmp/glibc.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" \
- && apk add --allow-untrusted /tmp/glibc.apk \
- && curl -Lo /tmp/glibc-bin.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
- && apk add --allow-untrusted /tmp/glibc-bin.apk \
- && curl -Lo /tmp/glibc-i18n.apk "https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-i18n-${GLIBC_VERSION}.apk" \
- && apk add --allow-untrusted /tmp/glibc-i18n.apk \
- # do not abort https://github.com/sgerrand/alpine-pkg-glibc/issues/5
- && (/usr/glibc-compat/bin/localedef --force --inputfile POSIX --charmap UTF-8 C.UTF-8 || true ) \
- && echo "export LANG=C.UTF-8" > /etc/profile.d/locale.sh \
- && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib \
- 
- # install oracle java
- && mkdir /opt && curl -jksSLH "Cookie: oraclelicense=accept-securebackup-cookie" -o /tmp/java.tar.gz \
-    http://download.oracle.com/otn-pub/java/jdk/${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-b${JAVA_VERSION_BUILD}/${JAVA_CHKSUM}/${JAVA_PACKAGE}-${JAVA_VERSION_MAJOR}u${JAVA_VERSION_MINOR}-linux-x64.tar.gz \
- && gunzip /tmp/java.tar.gz \
- && tar -C /opt -xf /tmp/java.tar \
- && ln -s /opt/jdk1.${JAVA_VERSION_MAJOR}.0_${JAVA_VERSION_MINOR} /opt/jdk \
- && find /opt/jdk/ -maxdepth 1 -mindepth 1 | grep -v jre | xargs rm -rf \
- && cd /opt/jdk/ && ln -s ./jre/bin ./bin \
- && rm -rf /opt/jdk/jre/plugin \
-           /opt/jdk/jre/bin/javaws \
-           /opt/jdk/jre/bin/jjs \
-           # keep keytool
-           #/opt/jdk/jre/bin/keytool \
-           /opt/jdk/jre/bin/orbd \
-           /opt/jdk/jre/bin/pack200 \
-           /opt/jdk/jre/bin/policytool \
-           /opt/jdk/jre/bin/rmid \
-           /opt/jdk/jre/bin/rmiregistry \
-           /opt/jdk/jre/bin/servertool \
-           /opt/jdk/jre/bin/tnameserv \
-           /opt/jdk/jre/bin/unpack200 \
-           /opt/jdk/jre/lib/javaws.jar \
-           /opt/jdk/jre/lib/deploy* \
-           /opt/jdk/jre/lib/desktop \
-           /opt/jdk/jre/lib/*javafx* \
-           /opt/jdk/jre/lib/*jfx* \
-           /opt/jdk/jre/lib/jfr* \
-           /opt/jdk/jre/lib/amd64/libdecora_sse.so \
-           /opt/jdk/jre/lib/amd64/libprism_*.so \
-           /opt/jdk/jre/lib/amd64/libfxplugins.so \
-           /opt/jdk/jre/lib/amd64/libglass.so \
-           /opt/jdk/jre/lib/amd64/libgstreamer-lite.so \
-           /opt/jdk/jre/lib/amd64/libjavafx*.so \
-           /opt/jdk/jre/lib/amd64/libjfx*.so \
-           /opt/jdk/jre/lib/ext/jfxrt.jar \
-           /opt/jdk/jre/lib/ext/nashorn.jar \
-           /opt/jdk/jre/lib/oblique-fonts \
-           /opt/jdk/jre/lib/plugin.jar \
-           /tmp/* /var/cache/apk/* \
-  && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
+RUN set -x \
+ # install java JAVA_ALPINE_VERSION is define in Makefile
+ && apk add --no-cache openjdk8-jre="${JAVA_ALPINE_VERSION}"
 
 # copy resources
 COPY resources/ /
