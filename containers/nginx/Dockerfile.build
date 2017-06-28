@@ -1,14 +1,14 @@
 # registry.cloudogu.com/official/base
-FROM registry.cloudogu.com/official/base:3.3-2
+FROM registry.cloudogu.com/official/base:3.5-2
 MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 # dockerfile is based on https://github.com/dockerfile/nginx and https://github.com/bellycard/docker-loadbalancer
 
-ENV NGINX_VERSION 1.11.13
+ENV NGINX_VERSION 1.13.1
 
-COPY build.sh /build.sh
-COPY copybin.sh /copybin.sh
-RUN apk --update add openssl-dev pcre-dev zlib-dev wget build-base \
+COPY build /
+RUN set -x \
+    && apk --update add openssl-dev pcre-dev zlib-dev wget build-base \
     && mkdir /build \
     && cd /build \
     && wget http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz \

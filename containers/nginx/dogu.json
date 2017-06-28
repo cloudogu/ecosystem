@@ -1,6 +1,6 @@
 {
   "Name": "official/nginx",
-  "Version": "1.11.13-1",
+  "Version": "1.13.1-2",
   "DisplayName": "Nginx",
   "Description": "Nginx WebServer.",
   "Logo": "https://cloudogu.com/images/dogus/nginx.png",
