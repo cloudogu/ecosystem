@@ -7,11 +7,12 @@
 ### 1. Check out the ecosystem repository
  * `git clone https://github.com/cloudogu/ecosystem.git`
 ### 2. Build the image(s) with packer
-* `packer build <ecosystem-path>/images/template.prod.json`
+* `cd <ecosystem-path>/images/`
+* `packer build template.prod.json`
     * Builds all images for production
     * To get only a specific build for one of the hypervisors, use the`--only=<image-type>` parameter. With it, the image type can be configured to `ecosystem-virtualbox`, `ecosystem-vmware` or `ecosystem-qemu`
     * The default user is `ces-admin` with password `ces-admin` (will be changed in setup process)
-* `packer build <ecosystem-path>/images/template.dev.json`
+* `packer build template.dev.json`
     * Builds an image for development
     * Adds development tools like `htop` and `jq` to the the vm.
     A full list can be found in the following files:
