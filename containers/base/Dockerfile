@@ -1,5 +1,4 @@
-# registry.cloudogu.com/official/base:3.5-2
-FROM alpine:3.5
+FROM alpine:3.6
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 ENV DOGUCTL_VERSION 0.2.2
