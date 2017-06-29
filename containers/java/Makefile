@@ -1,6 +1,12 @@
-JAVA_VERSION="8u131"
-CHANGE_COUNTER="1"
-JAVA_ALPINE_VERSION="8.131.11-r2"
+# at the moment we could not upgrade to java version 8u131 on alpine 3.6, because of a bug
+# in the alpine package. The bug affects the chart rendering of jenkins. We have to wait until
+# alpine 3.6.3 was released.
+# - https://bugs.alpinelinux.org/issues/7372
+# - https://github.com/jenkinsci/docker/issues/508
+
+JAVA_VERSION="8u121"
+CHANGE_COUNTER="4"
+JAVA_ALPINE_VERSION="8.121.13-r0"
 IMAGE_NAME="registry.cloudogu.com/official/java"
 IMAGE_TAG="$(JAVA_VERSION)-$(CHANGE_COUNTER)"
 

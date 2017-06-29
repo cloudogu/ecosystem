@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.5
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 ENV DOGUCTL_VERSION 0.2.2
