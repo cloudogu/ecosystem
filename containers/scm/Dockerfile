@@ -1,5 +1,4 @@
-# cesi/scm
-FROM registry.cloudogu.com/official/java:8u131-1
+FROM registry.cloudogu.com/official/java:8u121-4
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # scm-server environment

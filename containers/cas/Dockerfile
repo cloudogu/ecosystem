@@ -1,5 +1,5 @@
 # registry.cloudogu.com/official/cas
-FROM registry.cloudogu.com/official/java:8u131-1
+FROM registry.cloudogu.com/official/java:8u121-4
 MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 # configure environment
