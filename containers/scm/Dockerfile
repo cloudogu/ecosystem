@@ -1,5 +1,5 @@
 # cesi/scm
-FROM registry.cloudogu.com/official/java:8u121-3
+FROM registry.cloudogu.com/official/java:8u131-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # scm-server environment
@@ -11,11 +11,13 @@ ENV SCM_VERSION=1.54 \
 ENV SCM_PKG_URL=https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 
 ## install scm-server
-RUN apk add --update mercurial jq \
+RUN set -x \
+    && apk add --no-cache mercurial jq \
     && curl -Lks ${SCM_PKG_URL} -o /tmp/scm-server.tar.gz \
     && addgroup -S -g 1000 scm \
     && adduser -S -h /opt/scm-server -s /bin/bash -G scm -u 1000 scm \
     && gunzip /tmp/scm-server.tar.gz \
+    && mkdir /opt \
     && tar -C /opt -xf /tmp/scm-server.tar \
     && cd /tmp \
 
