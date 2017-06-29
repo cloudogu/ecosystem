@@ -1,23 +1,24 @@
 # registry.cloudogu.com/official/cas
-FROM registry.cloudogu.com/official/java:8u121-3
+FROM registry.cloudogu.com/official/java:8u131-1
 MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 # configure environment
 ENV CAS_VERSION=4.0.7.11 \
 	TOMCAT_MAJOR_VERSION=8 \
-	TOMCAT_VERSION=8.0.39 \
+	TOMCAT_VERSION=8.0.44 \
 	CATALINA_BASE=/opt/apache-tomcat \
 	CATALINA_PID=/var/run/tomcat7.pid \
 	CATALINA_SH=/opt/apache-tomcat/bin/catalina.sh \
 	SERVICE_TAGS=webapp
 
 # run installation
-RUN \
+RUN set -x \
  # create group and user for cas
- addgroup -S -g 1000 cas \
+ && addgroup -S -g 1000 cas \
  && adduser -S -h /var/lib/cas -s /bin/bash -G cas -u 1000 cas \
 
  # install tomcat
+ && mkdir /opt \
  && curl --fail --silent --location --retry 3 \
  		http://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
  | gunzip \

@@ -92,4 +92,4 @@ if [[ "$LDAP_TYPE" == 'embedded' ]]; then
 fi
 
 # startup tomcat
-exec su - cas -c "export JAVA_HOME='/opt/jdk' && ${CATALINA_SH} run"
+exec su - cas -c "${CATALINA_SH} run"
