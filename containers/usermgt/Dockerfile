@@ -1,21 +1,24 @@
 # registry.cloudogu.com/official/usermgt
-FROM registry.cloudogu.com/official/java:8u121-3
+FROM registry.cloudogu.com/official/java:8u131-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # mark as webapp for nginx
 ENV SERVICE_TAGS=webapp \
 	# tomcat version
 	TOMCAT_MAJOR_VERSION=8 \
-	TOMCAT_VERSION=8.0.38 \
+	TOMCAT_VERSION=8.0.44 \
 	# usermgt version
 	USERMGT_VERSION=1.3.1 \
 	# home directory
 	UNIVERSEADM_HOME=/var/lib/usermgt/conf
 
 # create user
-RUN addgroup -S -g 1000 tomcat && adduser -S -h /opt/apache-tomcat -s /bin/bash -G tomcat -u 1000 tomcat \
-	# install tomcat
+RUN set -x \
+	&& addgroup -S -g 1000 tomcat \
+	&& mkdir /opt \
+	&& adduser -S -h /opt/apache-tomcat -s /bin/bash -G tomcat -u 1000 tomcat \
 
+	# install tomcat
     && curl --fail --location --retry 3 \
 	http://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_VERSION}/bin/apache-tomcat-${TOMCAT_VERSION}.tar.gz \
 	| gunzip \
@@ -38,13 +41,8 @@ RUN addgroup -S -g 1000 tomcat && adduser -S -h /opt/apache-tomcat -s /bin/bash 
 	# fix permissions
 	&& chown -R tomcat:tomcat /opt/apache-tomcat
 
-
-# copy setenv.sh
-ADD resources/setenv.sh /opt/apache-tomcat/bin/setenv.sh
-# copy resource templates
-ADD resources/conf /resources
-# copy start script
-ADD startup.sh /startup.sh
+# copy required files
+COPY resources /
 
 # expose port
 EXPOSE 8080
