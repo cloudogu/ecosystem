@@ -1,5 +1,5 @@
 # cesi/sonar
-FROM registry.cloudogu.com/official/java:8u121-3
+FROM registry.cloudogu.com/official/java:8u131-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 ENV SONAR_VERSION=5.6.3 \
@@ -7,19 +7,18 @@ ENV SONAR_VERSION=5.6.3 \
     # mark as webapp for nginx
     SERVICE_TAGS=webapp
 
-# there seems to be an ssl problem with curl and bintray.com, that is why the
-# --insecure flag was passed to curl. we should keep this in mind and try to
-# remove it in the future
-RUN apk add --update procps postgresql-client \
+RUN set -x \
+    && apk add --no-cache procps postgresql-client \
+    && mkdir /opt \
     && cd /tmp \
-    && curl --insecure -L -O https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip \
+    && curl -L -O https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-${SONAR_VERSION}.zip \
     && unzip sonarqube-${SONAR_VERSION}.zip \
     && mv sonarqube-${SONAR_VERSION} ${SONARQUBE_HOME} \
     && rm -rf /var/cache/apk/* \
 
     # create user
-    && addgroup -S -g 1000 sonar && adduser -S -h "$SONARQUBE_HOME" -s /bin/bash -G sonar -u 1000 sonar \
-    #RUN useradd -d "$SONARQUBE_HOME" -u 1000 -m -s /bin/bash sonar
+    && addgroup -S -g 1000 sonar \
+    && adduser -S -h "$SONARQUBE_HOME" -s /bin/bash -G sonar -u 1000 sonar \
     && chown -R sonar:sonar ${SONARQUBE_HOME}
 
 # Copy resources
