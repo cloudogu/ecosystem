@@ -15,7 +15,9 @@ function create(){
   CERTIFICATE="$(mktemp)"
   doguctl config --global certificate/server.crt > "${CERTIFICATE}"
 
-  cp /opt/jdk/jre/lib/security/cacerts "${STORE}"
+  cp "${JAVA_HOME}/jre/lib/security/cacerts" "${STORE}"
+  # cacerts keystore is readonly in alpine package
+  chmod 644 "${STORE}"
   keytool -keystore "${STORE}" -storepass "${STOREPASS}" -alias "${CERTALIAS}" \
     -import -file "${CERTIFICATE}" -noprompt
 

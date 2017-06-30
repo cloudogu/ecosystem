@@ -36,11 +36,11 @@ if [ ! -f "${CLI_CONFIG_FILE}" ]; then
 	chmod 0644 "${CLI_CONFIG_FILE}"
 fi
 
-
 # starting jenkins
 java -Djava.awt.headless=true \
   -Djava.net.preferIPv4Stack=true \
   -Djavax.net.ssl.trustStore="${TRUSTSTORE}" \
   -Djavax.net.ssl.trustStorePassword=changeit \
   -Djenkins.install.runSetupWizard=false \
+  -Djava.awt.headless=true \
   -jar /jenkins.war --prefix=/jenkins
