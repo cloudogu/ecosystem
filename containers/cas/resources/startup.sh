@@ -13,6 +13,14 @@ function cfg_or_default {
   echo "${VALUE}"
 }
 
+# same as above, but for global config
+function global_cfg_or_default {
+  if ! VALUE=$(doguctl config --global "${1}"); then
+    VALUE="${2}"
+  fi
+  echo "${VALUE}"
+}
+
 # general variables for templates
 DOMAIN=$(doguctl config --global domain)
 FQDN=$(doguctl config --global fqdn)
@@ -49,7 +57,7 @@ else
   LDAP_BIND_PASSWORD=$(doguctl config -e sa-ldap/password | sed 's@/@\\\\/@g')
 fi
 
-STAGE=$(cfg_or_default '--global stage' '')
+STAGE=$(global_cfg_or_default 'stage' '')
 if [[ "$STAGE" != 'development' ]]; then
   STAGE='production'
 fi
