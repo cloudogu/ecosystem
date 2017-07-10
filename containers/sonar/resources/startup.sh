@@ -116,6 +116,10 @@ if ! [ "$(cat ${SONAR_PROPERTIESFILE} | grep sonar.security.realm)" == "sonar.se
 	if [ -f "/opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar" ]; then
 		mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
 	fi
+  # move german language pack to correct folder
+  if [ -f "/opt/sonar/sonar-l10n-de-plugin-1.2.jar" ]; then
+    mv /opt/sonar/sonar-l10n-de-plugin-1.2.jar /var/lib/sonar/extensions/plugins/
+  fi
 
   setProxyConfiguration
 
