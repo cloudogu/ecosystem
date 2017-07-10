@@ -3,6 +3,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+CUSTOM_INIT_FOLDER="/var/lib/custom.init.groovy.d"
+
 # set state to installing
 doguctl state 'installing'
 
@@ -14,7 +16,12 @@ create_truststore.sh /var/lib/jenkins/truststore.jks > /dev/null
 create-ca-certificates.sh /var/lib/jenkins/ca-certificates.crt
 
 # copy init scripts
+rm -rf /var/lib/jenkins/init.groovy.d
 cp -rf /var/tmp/resources/init.groovy.d /var/lib/jenkins/
+
+if [ "$(ls -A ${CUSTOM_INIT_FOLDER})" ]; then
+  cp "${CUSTOM_INIT_FOLDER}"/* /var/lib/jenkins/init.groovy.d 
+fi
 
 # set initial setting for slave-to-master-security
 # see https://wiki.jenkins-ci.org/display/JENKINS/Slave+To+Master+Access+Control
@@ -26,7 +33,6 @@ if [ ! -f "${SLAVE_TO_MASTER_SECURITY}" ]; then
   fi
   echo 'false' > "${SLAVE_TO_MASTER_SECURITY}"
 fi
-
 
 # Disable CLI over Remoting as advised with Jenkins LTS 2.46.2
 # see https://jenkins.io/blog/2017/04/26/security-advisory/
