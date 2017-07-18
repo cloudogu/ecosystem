@@ -46,24 +46,24 @@ try {
 				System.out.println("Etcd proxy configuration is incomplete (server or port not found).");
 				disableProxy();
 			}
-		}
+	}
 
-		def setProxyAuthenticationSettings(){
+	def setProxyAuthenticationSettings(){
 			// Authentication credentials are optional
-			try{
-				proxyPassword = getValueFromEtcd("config/_global/proxy/password");
-				proxyUser = getValueFromEtcd("config/_global/proxy/username");
-				} catch (FileNotFoundException e){
-					System.out.println("Etcd proxy authentication configuration is incomplete or not existent.");
-				}
-			}
+		try{
+			proxyPassword = getValueFromEtcd("config/_global/proxy/password");
+			proxyUser = getValueFromEtcd("config/_global/proxy/username");
+		} catch (FileNotFoundException e){
+			System.out.println("Etcd proxy authentication configuration is incomplete or not existent.");
+		}
+	}
 
-			def setProxyExcludes(){
-				noProxyHost = getValueFromEtcd("config/_global/fqdn")
-			}
+	def setProxyExcludes(){
+		noProxyHost = getValueFromEtcd("config/_global/fqdn")
+	}
 
-			if(enableProxyInJenkins){
-				def proxyConfiguration = new hudson.ProxyConfiguration(proxyName, proxyPort, proxyUser, proxyPassword, noProxyHost)
-				instance.proxy = proxyConfiguration
-				instance.save()
-			}
+	if(enableProxyInJenkins){
+		def proxyConfiguration = new hudson.ProxyConfiguration(proxyName, proxyPort, proxyUser, proxyPassword, noProxyHost)
+		instance.proxy = proxyConfiguration
+		instance.save()
+	}

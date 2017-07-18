@@ -25,7 +25,6 @@ file:
     - /var/lib/jenkins/ca-certificates.crt
   /startup.sh:
     exists: true
-    mode: "0755"
     owner: root
     group: root
     filetype: file
@@ -118,90 +117,6 @@ file:
     filetype: file
     contains: []
   /var/lib/jenkins/userContent/jenkins-material-theme.css:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init00proxyconfiguration.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init01installplugins.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init02setrealm.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init03setauthorization.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init04configuremailer.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init05configurelocation.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init06mavenopts.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init07mavenautoinstall.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init09configuretheme.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init10configureUpdateSite.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init11disableCoreUpdateMonitor.groovy:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains: []
-  /var/lib/jenkins/init.groovy.d/init99finish.groovy:
     exists: true
     mode: "0644"
     owner: jenkins

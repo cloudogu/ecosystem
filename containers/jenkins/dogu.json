@@ -1,6 +1,6 @@
 {
   "Name": "official/jenkins",
-  "Version": "2.60.1-1",
+  "Version": "2.60.1-2",
   "DisplayName": "Jenkins CI",
   "Description": "Jenkins Continious Integration Server",
   "Category": "Development Apps",
@@ -16,6 +16,12 @@
   "Volumes": [{
     "Name": "data",
     "Path": "/var/lib/jenkins",
+    "Owner": "1000",
+    "Group": "1000"
+  },
+  {
+    "Name": "custom.init.groovy.d",
+    "Path": "/var/lib/custom.init.groovy.d",
     "Owner": "1000",
     "Group": "1000"
   }],
