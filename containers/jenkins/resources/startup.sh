@@ -3,7 +3,10 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-CUSTOM_INIT_FOLDER="/var/lib/custom.init.groovy.d"
+INIT_SCRIPT_FOLDER="/var/lib/jenkins/init.groovy.d"
+# TODO rename resources to jenkins
+MAIN_INIT_SCRIPTS_FOLDER="/var/tmp/resources/init.groovy.d"
+CUSTOM_INIT_SCRIPTS_FOLDER="/var/lib/custom.init.groovy.d"
 
 # set state to installing
 doguctl state 'installing'
@@ -16,11 +19,19 @@ create_truststore.sh /var/lib/jenkins/truststore.jks > /dev/null
 create-ca-certificates.sh /var/lib/jenkins/ca-certificates.crt
 
 # copy init scripts
-rm -rf /var/lib/jenkins/init.groovy.d
-cp -rf /var/tmp/resources/init.groovy.d /var/lib/jenkins/
 
-if [ "$(ls -A ${CUSTOM_INIT_FOLDER})" ]; then
-  cp "${CUSTOM_INIT_FOLDER}"/* /var/lib/jenkins/init.groovy.d 
+# remove old folder to be sure, 
+# that it contains no script which is already removed from custom init script folder
+if [ -d "${INIT_SCRIPT_FOLDER}" ]; then
+  rm -rf "${INIT_SCRIPT_FOLDER}"
+fi
+
+# copy fresh main init scripts
+cp -rf "${MAIN_INIT_SCRIPTS_FOLDER}" "${INIT_SCRIPT_FOLDER}"
+
+# merge custom init scripts, if the volume is not empty
+if [ "$(ls -A ${CUSTOM_INIT_SCRIPTS_FOLDER})" ]; then
+  cp "${CUSTOM_INIT_SCRIPTS_FOLDER}"/* "${INIT_SCRIPT_FOLDER}"
 fi
 
 # set initial setting for slave-to-master-security
