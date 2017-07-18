@@ -1,6 +1,6 @@
 {
   "Name": "official/scm",
-  "Version": "1.54-2",
+  "Version": "1.54-3",
   "DisplayName": "SCM-Manager",
   "Description": "The easiest way to share and manage your Git, Mercurial and Subversion repositories over http.",
   "Category": "Development Apps",
@@ -16,6 +16,12 @@
   "Volumes": [{
     "Name": "data",
     "Path": "/var/lib/scm",
+    "Owner": "1000",
+    "Group": "1000"
+  },
+  {
+    "Name": "custom.init.script.d",
+    "Path": "/var/lib/custom.init.script.d",
     "Owner": "1000",
     "Group": "1000"
   }],

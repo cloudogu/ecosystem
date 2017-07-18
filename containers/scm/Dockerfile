@@ -3,6 +3,8 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # scm-server environment
 ENV SCM_VERSION=1.54 \
+    SCM_SCRIPT_PLUGIN=1.6 \
+    GROOVY_VERSION=2.4.12 \
     SCM_HOME=/var/lib/scm \
     SSL_CERT_FILE=/opt/scm-server/conf/ca-certificates.crt \
     # mark as webapp for nginx
@@ -22,8 +24,8 @@ RUN set -x \
 
     # install scm-script-plugin
     && mkdir -p WEB-INF/lib \
-    && curl -Lks http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.6/groovy-all-2.4.6.jar -o /tmp/WEB-INF/lib/groovy-all-2.4.6.jar \
-    && curl -Lks http://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/plugins/scm-script-plugin/1.5/scm-script-plugin-1.5.jar -o /tmp/WEB-INF/lib/scm-script-plugin-1.5.jar \
+    && curl -Lks http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/${GROOVY_VERSION}/groovy-all-${GROOVY_VERSION}.jar -o /tmp/WEB-INF/lib/groovy-all-${GROOVY_VERSION}.jar \
+    && curl -Lks http://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/plugins/scm-script-plugin/${SCM_SCRIPT_PLUGIN}/scm-script-plugin-${SCM_SCRIPT_PLUGIN}.jar -o /tmp/WEB-INF/lib/scm-script-plugin-${SCM_SCRIPT_PLUGIN}.jar \
     && zip -u /opt/scm-server/var/webapp/scm-webapp.war WEB-INF/lib/* \
 
     # cleanup
