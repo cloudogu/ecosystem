@@ -3,9 +3,9 @@ FROM registry.cloudogu.com/official/base:3.5-2
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 ENV CES_CONFD_VERSION=0.2.0 \
-    WARP_MENU_VERSION=0.3.0 \
+    WARP_MENU_VERSION=0.4.0 \
     CES_ABOUT_VERSION=0.1.0 \
-    CES_THEME_VERSION=bcf04bab10a6bf534a7167a92315cd917de7bcb7
+    CES_THEME_VERSION=f7fdeb77bc7f7b51588628bacaf7532ddac464bb
 
 RUN set -x \
  # install required packages
