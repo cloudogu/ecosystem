@@ -1,5 +1,40 @@
 #!/bin/bash
-source /etc/ces/functions.sh
+set -o errexit
+set -o nounset
+set -o pipefail
+
+TYPE_FILE="/etc/ces/type"
+
+function get_ip() {
+  TYPE=$(get_type)
+  if [ "${TYPE}" = "vagrant" ]; then
+    get_ip_vagrant 
+  else
+    get_ip_of_gateway_interface
+  fi
+}
+
+function get_type() {
+  if [ -f "${TYPE_FILE}" ]; then
+    cat "${TYPE_FILE}"
+  else
+    echo "unknown"
+  fi
+}
+
+function get_ip_vagrant() {
+  # in vagrant we use always eth1 as bridged network
+  get_ip_of_interface "eth1"
+}
+
+function get_ip_of_interface() {
+  /sbin/ifconfig | grep "${1}" -A1 | grep addr: | awk '{print $2}' | awk -F':' '{print $2}' | head -1
+}
+
+function get_ip_of_gateway_interface() {
+  DEV=$(ip -4 route list 0/0 | awk '{print $NF}')
+  get_ip_of_interface "${DEV}"
+}
 
 CURRIP=$(get_ip)
 echo ${CURRIP} > /etc/ces/node_master
