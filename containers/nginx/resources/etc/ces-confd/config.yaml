@@ -3,7 +3,7 @@ warp:
     - path: /dogu
       type: dogus
       tag: warp
-    - path: /externals
+    - path: /config/nginx/externals
       type: externals
   target: /var/www/html/warp/menu.json
   order:
