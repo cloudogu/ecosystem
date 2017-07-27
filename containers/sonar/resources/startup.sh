@@ -116,11 +116,15 @@ if ! [ "$(cat ${SONAR_PROPERTIESFILE} | grep sonar.security.realm)" == "sonar.se
 	if [ -f "/opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar" ]; then
 		mv /opt/sonar/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar /var/lib/sonar/extensions/plugins/
 	fi
+  # move german language pack to correct folder
+  if [ -f "/opt/sonar/sonar-l10n-de-plugin-1.2.jar" ]; then
+    mv /opt/sonar/sonar-l10n-de-plugin-1.2.jar /var/lib/sonar/extensions/plugins/
+  fi
 
   setProxyConfiguration
 
 	# start in background
-	su - sonar -c "/opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar" &
+	su - sonar -c "java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar" &
 
   echo "wait until sonarqube has finished database migration"
   N=0
@@ -172,5 +176,5 @@ else
   setProxyConfiguration
 
   # fire it up
-  exec su - sonar -c "exec /opt/jdk/bin/java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar"
+  exec su - sonar -c "exec java -jar /opt/sonar/lib/sonar-application-$SONAR_VERSION.jar"
 fi

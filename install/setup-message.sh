@@ -5,10 +5,15 @@ set -o pipefail
 
 source /etc/ces/functions.sh
 
-# write current ip
-source /etc/environment
-export PATH
+URL="http://$(get_ip):8080"
 
-URL=http://$(get_ip):8080
-echo "the setup daemon has started and can be accessed at $URL"
-echo "The setup runs in background and writes its logs to /var/log/upstart/ces-setup.log"
+cat << EOF
+Setup daemon has started and can be accessed at ${URL}
+Logs can be viewed by running the following command:
+
+journalctl -u ces-setup.service
+
+To follow the logs append the "-f" flag:
+
+journalctl -u ces-setup.service -f
+EOF

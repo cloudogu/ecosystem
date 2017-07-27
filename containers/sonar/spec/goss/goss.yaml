@@ -6,12 +6,6 @@ file:
     group: root
     filetype: file
     contains: []
-  /var/lib/sonar/extensions/plugins/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar:
-    exists: true
-    mode: "0644"
-    size: 512981
-    filetype: file
-    contains: []
   /startup.sh:
     exists: true
     mode: "0755"
@@ -19,11 +13,21 @@ file:
     group: root
     filetype: file
     contains: []
+  /var/lib/sonar/extensions/plugins/sonar-cas-plugin-0.3-TRIO-SNAPSHOT.jar:
+    exists: true
+    mode: "0644"
+    size: 512981
+    filetype: file
+    contains: []
+  /var/lib/sonar/extensions/plugins/sonar-l10n-de-plugin-1.2.jar:
+    exists: true
+    mode: "0644"
+    size: 34576
+    filetype: file
+    contains: []
 package:
   postgresql-client:
     installed: true
-    versions:
-    - 9.6.2-r0
   procps:
     installed: true
     versions:

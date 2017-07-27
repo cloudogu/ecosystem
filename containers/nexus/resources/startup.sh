@@ -123,6 +123,9 @@ kill $!
 echo "render_template"
 # update cas url
 render_template "/opt/sonatype/nexus/resources/cas-plugin.xml.tpl" > "/var/lib/nexus/conf/cas-plugin.xml"
+
 /configuration.sh "$ADMUSR" "$ADMPW" "$ADMINGROUP" &
+/claim.sh &
+
 doguctl state ready
 exec $START_NEXUS

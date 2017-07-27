@@ -25,7 +25,6 @@ file:
     - /var/lib/jenkins/ca-certificates.crt
   /startup.sh:
     exists: true
-    mode: "0755"
     owner: root
     group: root
     filetype: file
@@ -46,14 +45,6 @@ file:
     contains:
     - <jenkins.CLI>
     - <enabled>false</enabled>
-  /var/lib/jenkins/jenkins.security.UpdateSiteWarningsConfiguration.xml:
-    exists: true
-    mode: "0644"
-    owner: jenkins
-    group: jenkins
-    filetype: file
-    contains:
-    - SECURITY-488
   /var/lib/jenkins/plugins/cas-plugin:
     exists: true
     mode: "0755"
@@ -132,97 +123,20 @@ file:
     group: jenkins
     filetype: file
     contains: []
-  /var/tmp/resources/init.groovy.d/init00proxyconfiguration.groovy:
+  /var/lib/jenkins/config.xml:
+    exists: true
+    filetype: file
+    owner: jenkins
+    owner: jenkins
+    contains:
+    - disabledAdministrativeMonitors
+    - <string>hudson.model.UpdateCenter$CoreUpdateMonitor</string>
+  /usr/glibc-compat/lib/libc.so:
     exists: true
     mode: "0644"
     owner: root
     group: root
     filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init01installplugins.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init02setrealm.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init03setauthorization.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init04configuremailer.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init05configurelocation.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init06mavenopts.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init07mavenautoinstall.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init08javaautoinstall.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init09configuretheme.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init10configureUpdateSite.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init11disableCasPluginWarning.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
-  /var/tmp/resources/init.groovy.d/init99finish.groovy:
-    exists: true
-    mode: "0644"
-    owner: root
-    group: root
-    filetype: file
-    contains: []
 package:
   git:
     installed: true
@@ -231,6 +145,14 @@ package:
   openssh-client:
     installed: true
   subversion:
+    installed: true
+  libstdc++:
+    installed: true
+  glibc:
+    installed: true
+  glibc-bin:
+    installed: true
+  glibc-i18n:
     installed: true
 port:
   tcp:8080:

@@ -1,4 +1,3 @@
-# registry.cloudogu.com/official/base:3.5-2
 FROM alpine:3.5
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 

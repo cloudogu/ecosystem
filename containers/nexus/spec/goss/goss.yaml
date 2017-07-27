@@ -60,6 +60,10 @@ file:
     group: nexus
     filetype: directory
     contains: []
+  /usr/bin/nexus-claim:
+    exists: true
+    mode: "0755"
+    filetype: file
 user:
   nexus:
     exists: true

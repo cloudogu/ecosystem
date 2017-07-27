@@ -1,9 +1,10 @@
-# cesi/scm
-FROM registry.cloudogu.com/official/java:8u121-3
+FROM registry.cloudogu.com/official/java:8u121-4
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # scm-server environment
-ENV SCM_VERSION=1.53 \
+ENV SCM_VERSION=1.54 \
+    SCM_SCRIPT_PLUGIN=1.6 \
+    GROOVY_VERSION=2.4.12 \
     SCM_HOME=/var/lib/scm \
     SSL_CERT_FILE=/opt/scm-server/conf/ca-certificates.crt \
     # mark as webapp for nginx
@@ -11,18 +12,20 @@ ENV SCM_VERSION=1.53 \
 ENV SCM_PKG_URL=https://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/scm-server/${SCM_VERSION}/scm-server-${SCM_VERSION}-app.tar.gz
 
 ## install scm-server
-RUN apk add --update mercurial jq \
+RUN set -x \
+    && apk add --no-cache mercurial jq \
     && curl -Lks ${SCM_PKG_URL} -o /tmp/scm-server.tar.gz \
     && addgroup -S -g 1000 scm \
     && adduser -S -h /opt/scm-server -s /bin/bash -G scm -u 1000 scm \
     && gunzip /tmp/scm-server.tar.gz \
+    && mkdir /opt \
     && tar -C /opt -xf /tmp/scm-server.tar \
     && cd /tmp \
 
     # install scm-script-plugin
     && mkdir -p WEB-INF/lib \
-    && curl -Lks http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/2.4.6/groovy-all-2.4.6.jar -o /tmp/WEB-INF/lib/groovy-all-2.4.6.jar \
-    && curl -Lks http://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/plugins/scm-script-plugin/1.5/scm-script-plugin-1.5.jar -o /tmp/WEB-INF/lib/scm-script-plugin-1.5.jar \
+    && curl -Lks http://repo1.maven.org/maven2/org/codehaus/groovy/groovy-all/${GROOVY_VERSION}/groovy-all-${GROOVY_VERSION}.jar -o /tmp/WEB-INF/lib/groovy-all-${GROOVY_VERSION}.jar \
+    && curl -Lks http://maven.scm-manager.org/nexus/content/repositories/releases/sonia/scm/plugins/scm-script-plugin/${SCM_SCRIPT_PLUGIN}/scm-script-plugin-${SCM_SCRIPT_PLUGIN}.jar -o /tmp/WEB-INF/lib/scm-script-plugin-${SCM_SCRIPT_PLUGIN}.jar \
     && zip -u /opt/scm-server/var/webapp/scm-webapp.war WEB-INF/lib/* \
 
     # cleanup

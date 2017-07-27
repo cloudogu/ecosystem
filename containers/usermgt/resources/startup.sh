@@ -43,4 +43,4 @@ if ! doguctl healthy --wait --timeout 120 ldap; then
 fi
 
 # start tomcat as user tomcat
-su - tomcat -c "export JAVA_HOME='/opt/jdk' && /opt/apache-tomcat/bin/catalina.sh run"
+su - tomcat -c "exec /opt/apache-tomcat/bin/catalina.sh run"
