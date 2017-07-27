@@ -312,3 +312,14 @@ The following objects are examples:
 "url2":"jenkinsUpdateSiteURL2"
 }
 }``
+
+##### external warp-menu entries
+* Content: External Links
+* Example:
+````
+"nginx": {
+      "externals": {
+        "golem": "{\"DisplayName\": \"Golem\",\"Description\": \"Description\",\"Category\": \"External Links\",\"URL\": \"https://www.golem.de/\"}"
+      }
+    }
+````
