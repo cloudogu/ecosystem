@@ -315,7 +315,7 @@ Enthält beispielsweise folgende Objekte:
 ##### nginx/externals
 * Inhalt: Externe Links, die im Warp-Menü auftauchen sollen
 * Beispiel:``{
-  "golem": {
+  "cloudogu": {
     "DisplayName": "Cloudogu",
     "Description": "Beschreibungstext für Cloudogu Webseite",
     "Category": "External Links",
