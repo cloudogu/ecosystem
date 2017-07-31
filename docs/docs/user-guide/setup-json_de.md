@@ -331,26 +331,26 @@ Enthält beispielsweise folgende Objekte:
 ````
 {
   "once":
-    "repository "apache-snapshots" {
-    _state = "absent"
+    "repository \"apache-snapshots\" {
+    _state = \"absent\"
     }
-    repository "central-m1" {
-    _state = "absent"
+    repository \"central-m1\" {
+    _state = \"absent\"
     }
-    repository "thirdparty" {
-    name = "Third Party"
-    _state = "present"
+    repository \"thirdparty\" {
+    name = \"Third Party\"
+    _state = \"present\"
     }",
   "always":
-    "repository "apache-snapshots" {
-    _state = "absent"
+    "repository \"apache-snapshots\" {
+    _state = \"absent\"
     }
-    repository "central-m1" {
-    _state = "absent"
+    repository \"central-m1\" {
+    _state = \"absent\"
     }
-    repository "thirdparty" {
-    name = "Third Party"
-    _state = "present"
+    repository \"thirdparty\" {
+    name = \"Third Party\"
+    _state = \"present\"
     }"
 }
 ````
