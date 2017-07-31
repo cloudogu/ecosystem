@@ -325,7 +325,7 @@ Enthält beispielsweise folgende Objekte:
 
 ##### nexus/claim
 * Datentyp: String, HCL/JSON formatiert
-* Inhalt: Konfiguration der Sonatype Nexus-Repositories. Diese Einstellung wird beim ersten ("once") bzw. jedem ("always") Start von Sonatype Nexus hergestellt.
+* Inhalt: Konfiguration der Sonatype Nexus-Repositories. Diese Einstellung wird beim ersten ("once") bzw. jedem ("always") Start von Sonatype Nexus hergestellt. Die genaue Definition der Nexus-Properties ist der Nexus-Dokumentation zu entnehmen.
 * Weitere Informationen: https://github.com/cloudogu/nexus-claim
 * Beispiel:
 ````
