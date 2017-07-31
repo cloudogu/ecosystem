@@ -312,13 +312,42 @@ Enthält beispielsweise folgende Objekte:
 }
 }``
 
-#### nginx/externals
+##### nginx/externals
 * Inhalt: Externe Links, die im Warp-Menü auftauchen sollen
 * Beispiel:``{
   "golem": {
-    "DisplayName": "Cloudogu", 
+    "DisplayName": "Cloudogu",
     "Description": "Beschreibungstext für Cloudogu Webseite",
     "Category": "External Links",
     "URL": "https://www.cloudogu.com/"
   }
+}``
+
+##### nexus/claim
+* Datentyp: String, HCL/JSON formatiert
+* Inhalt: Konfiguration der Sonatype Nexus-Repositories. Diese Einstellung wird beim ersten ("once") bzw. jedem ("always") Start von Sonatype Nexus hergestellt.
+* Weitere Informationen: https://github.com/cloudogu/nexus-claim
+* Beispiel:``{
+  "once":
+  "repository "apache-snapshots" {
+  _state = "absent"
+  }
+  repository "central-m1" {
+  _state = "absent"
+  }
+  repository "thirdparty" {
+  name = "Third Party"
+  _state = "present"
+  }",
+  "always":
+  "repository "apache-snapshots" {
+  _state = "absent"
+  }
+  repository "central-m1" {
+  _state = "absent"
+  }
+  repository "thirdparty" {
+  name = "Third Party"
+  _state = "present"
+  }"
 }``
