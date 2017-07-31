@@ -354,3 +354,4 @@ Enthält beispielsweise folgende Objekte:
     }"
 }
 ````
+* _state: Je nach gesetztem State werden Repositories hinzugefügt/geändert oder entfernt. Ist der State auf "absent" gesetzt, wird ein ggf. vorhandenes Repository mit der genannten ID gelöscht. Ist der State auf "present" gesetzt, wird ein neues Repository angelegt, falls es noch nicht existiert. Sollte es schon existieren, werden nur die Eigenschaften, bspw. der Name, angepasst.
