@@ -327,27 +327,30 @@ Enthält beispielsweise folgende Objekte:
 * Datentyp: String, HCL/JSON formatiert
 * Inhalt: Konfiguration der Sonatype Nexus-Repositories. Diese Einstellung wird beim ersten ("once") bzw. jedem ("always") Start von Sonatype Nexus hergestellt.
 * Weitere Informationen: https://github.com/cloudogu/nexus-claim
-* Beispiel:``{
+* Beispiel:
+````
+{
   "once":
-  "repository "apache-snapshots" {
-  _state = "absent"
-  }
-  repository "central-m1" {
-  _state = "absent"
-  }
-  repository "thirdparty" {
-  name = "Third Party"
-  _state = "present"
-  }",
+    "repository "apache-snapshots" {
+    _state = "absent"
+    }
+    repository "central-m1" {
+    _state = "absent"
+    }
+    repository "thirdparty" {
+    name = "Third Party"
+    _state = "present"
+    }",
   "always":
-  "repository "apache-snapshots" {
-  _state = "absent"
-  }
-  repository "central-m1" {
-  _state = "absent"
-  }
-  repository "thirdparty" {
-  name = "Third Party"
-  _state = "present"
-  }"
-}``
+    "repository "apache-snapshots" {
+    _state = "absent"
+    }
+    repository "central-m1" {
+    _state = "absent"
+    }
+    repository "thirdparty" {
+    name = "Third Party"
+    _state = "present"
+    }"
+}
+````
