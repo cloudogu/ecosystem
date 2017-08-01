@@ -5,9 +5,9 @@ MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 ENV SERVICE_TAGS=webapp \
 	# tomcat version
 	TOMCAT_MAJOR_VERSION=8 \
-	TOMCAT_VERSION=8.0.44 \
+	TOMCAT_VERSION=8.0.45 \
 	# usermgt version
-	USERMGT_VERSION=1.3.1 \
+	USERMGT_VERSION=1.3.2 \
 	# home directory
 	UNIVERSEADM_HOME=/var/lib/usermgt/conf
 
