@@ -17,15 +17,22 @@ class AuthSourceCas < AuthSource
 
   def add_user_to_group(groupname, user)
     begin
-      @group = Group.find_by(lastname: groupname.downcase)
-      if @group.to_s == ''  # group does not exist
+      logger.info "add_user_to_group: " + groupname + ", " + user.to_s
+      @group = Group.find_by(lastname: groupname)
+      if @group == nil
         # create group and add user
         create_group_with_user(groupname, user)
       else
+        logger.info 'group "' + @group.to_s + '" already exists'
+
         # if not already: add user to existing group
         @groupusers = User.active.in_group(@group).all()
         if not(@groupusers.include?(user))
+          logger.info 'add "' + user.to_s + '" to group ' + @group.to_s
           @group.users << user
+          @group.save
+        else
+          logger.info '"' + user.to_s + '" is already member of "' + @group.to_s + '"'
         end
       end
     rescue Exception => e
@@ -158,6 +165,7 @@ class AuthSourceCas < AuthSource
   end
 
   def create_group_with_user(group, user)
+    logger.info 'create new group "' + group + '" and add member "' + user.to_s + '"'
     # create group and add user
     @newgroup = Group.new(:lastname => group, :firstname => 'cas')
     @newgroup.users << user
