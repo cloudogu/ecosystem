@@ -4,7 +4,8 @@ MAINTAINER Robert Auer <robert.auer@cloudogu.com>
 
 # set environment variables
 ENV REDMINE_VERSION=3.3.2 \
-    RMCASPLUGINVERSION=1.2.10 \
+    CAS_PLUGIN_VERSION=1.2.11 \
+    ACTIVERECORD_SESSION_STORE_PLUGIN_VERSION=0.0.1 \
     RUBYCASVERSION=2.3.13 \
     USER=redmine \
     BASEDIR=/usr/share/webapps \
@@ -14,9 +15,12 @@ ENV REDMINE_VERSION=3.3.2 \
 # copy resource files
 COPY resources/ /
 
-RUN \
+# install theme, before the ownership is changed
+ADD packages/cloudogu.tar.gz ${WORKDIR}/public/themes
+
+RUN set -x \
  # add user and group
- addgroup -S "${USER}" \
+ && addgroup -S "${USER}" \
  && adduser -S -G "${USER}" -u 1000 "${USER}" \
 
  # install runtime packages
@@ -79,6 +83,17 @@ RUN \
  && gem build rubycas-client.gemspec \
  && gem install rubycas-client-${RUBYCASVERSION}.gem \
  && cd ..; rm -rf rubycas-client \
+
+ # install core plugins to a temporary location
+ # besure plugin name does not contain a minus or dots,
+ # because the minus separates the version from the package name
+ && mkdir -p /var/tmp/redmine/plugins \
+ && curl -sL \
+    https://github.com/cloudogu/redmine_cas/archive/${CAS_PLUGIN_VERSION}.tar.gz \
+    -o /var/tmp/redmine/plugins/redmine_cas-${CAS_PLUGIN_VERSION}.tar.gz \
+ && curl -sL \
+    https://github.com/pencil/redmine_activerecord_session_store/archive/v${ACTIVERECORD_SESSION_STORE_PLUGIN_VERSION}.tar.gz \
+    -o /var/tmp/redmine/plugins/redmine_activerecord_session_store-${ACTIVERECORD_SESSION_STORE_PLUGIN_VERSION}.tar.gz \
 
  # fix permissions
  && chown -R ${USER}:${USER} ${BASEDIR} \

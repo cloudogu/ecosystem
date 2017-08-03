@@ -7,19 +7,58 @@ source /etc/ces/functions.sh
 
 # get variables for templates
 FQDN=$(doguctl config --global fqdn)
+DOMAIN=$(doguctl config --global domain)
+ADMIN_GROUP=$(doguctl config --global 'admin_group')
+RELAYHOST="postfix"
+
+# database connection
 DATABASE_TYPE=postgresql
 DATABASE_IP=postgresql
 DATABASE_USER=$(doguctl config -e sa-postgresql/username)
 DATABASE_USER_PASSWORD=$(doguctl config -e sa-postgresql/password)
 DATABASE_DB=$(doguctl config -e sa-postgresql/database)
-ADMIN_GROUP=$(doguctl config --global 'admin_group')
+
+# redmine environment
 RAILS_ENV=production
 REDMINE_LANG=en
-DOMAIN=$(doguctl config --global domain)
-RELAYHOST="postfix"
+
+# plugin locations
+PLUGIN_STORE="/var/tmp/redmine/plugins"
+PLUGIN_DIRECTORY="${WORKDIR}/plugins"
+
 function sql(){
   PGPASSWORD="${DATABASE_USER_PASSWORD}" psql --host "${DATABASE_IP}" --username "${DATABASE_USER}" --dbname "${DATABASE_DB}" -1 -c "${1}"
-  return $?
+}
+
+function exec_rake() {
+  RAILS_ENV="${RAILS_ENV}" REDMINE_LANG="${REDMINE_LANG}" rake --trace -f ${WORKDIR}/Rakefile $*
+}
+
+function install_plugins(){
+  echo "installing plugins"
+  for PLUGIN_PACKAGE in $(ls "${PLUGIN_STORE}"); do
+    install_plugin "${PLUGIN_PACKAGE}"
+  done
+
+  # Install Plugins
+  echo "running plugin migrations..."
+  exec_rake redmine:plugins:migrate
+  echo "plugin migrations... done"
+}
+
+# installs or upgrades the given plugin
+function install_plugin(){
+  PACKAGE="${1}"
+  NAME=$(echo "${PACKAGE}" | awk -F'-' '{print $1}')
+  VERSION=$(echo "${PACKAGE}" | awk -F'-' '{print $NF}' | sed -e 's/\.tar\.gz//g')
+  DIRECTORY="${PLUGIN_DIRECTORY}/${NAME}"
+
+  echo "install plugin ${NAME} in version ${VERSION}"
+  if [ -d "${DIRECTORY}" ]; then
+    rm -rf "${DIRECTORY}"  
+  fi
+
+  tar xvfz "${PLUGIN_STORE}/${PACKAGE}" -C "${PLUGIN_DIRECTORY}" > /dev/null 2>&1
 }
 
 # adjust redmine database.yml
@@ -48,17 +87,16 @@ sleep 10
 if 2>/dev/null 1>&2 sql "select count(*) from settings;"; then
   echo "Redmine (database) has been installed already."
   # update FQDN in settings
-  sql "UPDATE settings SET value=E'--- !ruby/hash:ActionController::Parameters \nenabled: 1 \ncas_url: https://${FQDN}/cas \nattributes_mapping: firstname=givenName&lastname=surname&mail=mail \nautocreate_users: 1' WHERE name='plugin_redmine_cas';"
+  sql "UPDATE settings SET value=E'--- !ruby/hash:ActionController::Parameters \nenabled: 1 \ncas_url: https://${FQDN}/cas \nattributes_mapping: firstname=givenName&lastname=surname&mail=mail \nautocreate_users: 1' WHERE name='plugin_redmine_cas';" > /dev/null 2>&1
 else
 
   # Create the database structure
   echo "Creating database structure..."
-  RAILS_ENV=$RAILS_ENV rake db:migrate --trace -f ${WORKDIR}/Rakefile
+  exec_rake db:migrate
 
-  # Insert default configuration data into database
-  # Adjust to your language at REDMINE_LANG parameter above
+  # insert default configuration data into database
   echo "Inserting default configuration data into database..."
-  RAILS_ENV=$RAILS_ENV REDMINE_LANG="$REDMINE_LANG" rake redmine:load_default_data --trace -f ${WORKDIR}/Rakefile
+  exec_rake redmine:load_default_data
 
   echo "Writing cas plugin settings to database..."
   sql "INSERT INTO settings (name, value, updated_on) VALUES ('plugin_redmine_cas', E'--- !ruby/hash:ActionController::Parameters \nenabled: 1 \ncas_url: https://${FQDN}/cas \nattributes_mapping: firstname=givenName&lastname=surname&mail=mail \nautocreate_users: 1', now());"
@@ -71,7 +109,7 @@ else
   sql "INSERT INTO auth_sources VALUES (DEFAULT, 'AuthSourceCas', 'Cas', 'cas.example.com', 1234, 'myDbUser', 'myDbPass', 'dbAdapter:dbName', 'name', 'firstName', 'lastName', 'email', true, false, null, null);"
 
   # Write base url to database
-  sql "INSERT INTO settings (name, value, updated_on) VALUES ('host_name','https://$FQDN/redmine/', now());"
+  sql "INSERT INTO settings (name, value, updated_on) VALUES ('host_name','https://${FQDN}/redmine/', now());"
 
   # set theme to cloudogu, do this only on installation not on a upgrade
   # because the user should be able to change the theme
@@ -86,28 +124,7 @@ else
 fi
 
 # Install base plugins for cloudogu
-if [ $(ls -l ${WORKDIR}/plugins/ | grep "redmine_activerecord" | wc -l) -eq 0 ]; then
-  # Install redmine_activerecord_session_store plugin to make Single Sign-Out work
-  echo "installing redmine_activerecord_session_store plugin"
-  curl -L -o redmine_AR_session_store.tar.gz https://github.com/pencil/redmine_activerecord_session_store/archive/v0.0.1.tar.gz \
-    && tar -xzf redmine_AR_session_store.tar.gz \
-    && mv redmine_activerecord_session_store-0.0.1 ${WORKDIR}/plugins/redmine_activerecord_session_store \
-    && rm redmine_AR_session_store.tar.gz
-fi
-if [ $(ls -l ${WORKDIR}/plugins/ | grep "redmine_cas" | wc -l) -eq 0 ]; then
-  # Install Redmine CAS plugin
-  echo "installing CAS plugin"
-  curl -L -o casplugin${RMCASPLUGINVERSION}.tar.gz https://github.com/cloudogu/redmine_cas/archive/${RMCASPLUGINVERSION}.tar.gz \
-    && tar -xzf casplugin${RMCASPLUGINVERSION}.tar.gz \
-    && mv redmine_cas-${RMCASPLUGINVERSION} ${WORKDIR}/plugins/redmine_cas \
-    && rm casplugin${RMCASPLUGINVERSION}.tar.gz
-fi
-
-# Install Plugins
-echo "running plugins migrations..."
-  rake redmine:plugins:migrate RAILS_ENV=$RAILS_ENV -f ${WORKDIR}/Rakefile
-echo "plugins migrations... done"
-
+install_plugins
 
 # Create links
 if [ ! -e ${WORKDIR}/public/redmine ]; then
@@ -125,10 +142,6 @@ RPID="${WORKDIR}/tmp/pids/server.pid"
 if [ -f "${RPID}" ]; then
   rm -f "${RPID}"
 fi
-
-# unzip theme
-mkdir -p /usr/share/webapps/redmine/public/themes/Cloudogu
-unzip -o /usr/share/webapps/redmine/public/themes/Cloudogu.zip -d /usr/share/webapps/redmine/public/themes/Cloudogu
 
 # Start redmine
 echo "Starting redmine..."
