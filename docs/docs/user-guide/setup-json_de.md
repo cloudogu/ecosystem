@@ -45,6 +45,13 @@ Eigenschaften:
 * Inhalt: Zeitzone des Ecosystems
 * Beispiel: ``"Europe/Berlin"``
 
+
+##### keyboardLayout
+* Datentyp: String
+* Inhalt: Keyboard Layout für die CES Instanz
+* Beispiel: ``"de"``
+
+
 ##### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Region-Schritt komplett ist
