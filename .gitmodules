@@ -4,3 +4,6 @@
 [submodule "containers/smeagol"]
 	path = containers/smeagol
 	url = https://github.com/cloudogu/smeagol
+[submodule "containers/sonar"]
+	path = containers/sonar
+	url = git@github.com:cloudogu/sonar.git
