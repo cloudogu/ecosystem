@@ -7,3 +7,6 @@
 [submodule "containers/sonar"]
 	path = containers/sonar
 	url = git@github.com:cloudogu/sonar.git
+[submodule "containers/redmine"]
+	path = containers/redmine
+	url = git@github.com:cloudogu/redmine.git
