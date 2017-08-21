@@ -17,5 +17,5 @@ The entries must be a json struct of the following form:
 The entries can be inserted with etcdctl e.g.:
 
 ```bash
-etcdctl set externals/cloudogu '{"DisplayName": "Cloudogu","Description": "Home of Cloudogu", "Category": "External Links", "URL": "https://cloudogu.com/"}'
+etcdctl set config/nginx/externals/cloudogu '{"DisplayName": "Cloudogu","Description": "Home of Cloudogu", "Category": "External Links", "URL": "https://cloudogu.com/"}'
 ```
