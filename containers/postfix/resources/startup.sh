@@ -24,8 +24,8 @@ postconf -e smtputf8_enable=no
 postconf -e relayhost="${MAILRELAY}"
 postconf -e smtpd_recipient_restrictions="permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination"
 if [ $(doguctl config smtp_tls_security_level) ]; then
-  encrypt=$(doguctl config smtp_tls_security_level)
-  postconf -e smtp_tls_security_level="${encrypt}"
+  smtp_tls_security_level=$(doguctl config smtp_tls_security_level)
+  postconf -e smtp_tls_security_level="${smtp_tls_security_level}"
 fi
 
 # START POSTFIX
