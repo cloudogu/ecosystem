@@ -13,3 +13,6 @@
 [submodule "containers/postfix"]
 	path = containers/postfix
 	url = git@github.com:cloudogu/postfix.git
+[submodule "containers/jenkins"]
+	path = containers/jenkins
+	url = git@github.com:cloudogu/jenkins.git
