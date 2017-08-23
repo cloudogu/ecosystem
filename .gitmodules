@@ -10,3 +10,6 @@
 [submodule "containers/redmine"]
 	path = containers/redmine
 	url = git@github.com:cloudogu/redmine.git
+[submodule "containers/postfix"]
+	path = containers/postfix
+	url = git@github.com:cloudogu/postfix.git
