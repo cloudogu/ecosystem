@@ -314,13 +314,73 @@ The following objects are examples:
 }``
 
 ##### postfix
-* Content: Set smtp_tls_security_level parameter here (optional)
+* Content: Set smtp_tls_security_level parameter here
 * Example:``{
-  "postfix": {
     "smtp_tls_security_level": "encrypt"
-}
 }``
 
+##### cockpit
+* Content: Set configuration of welcome-dashboard here
+* Example:``{
+  "welcomeDashboard" :
+  "{
+    \"title\": \"Custom Welcome Dashboard\",
+    \"structure\": \"12/4-4-4\",
+    \"rows\":
+    [
+    {
+      \"columns\":
+      [
+      {
+        \"styleClass\": \"col-md-12\",
+        \"widgets\": [ ],
+        \"cid\": \"1495540024138-67\"
+      }
+      ]
+      },
+      {
+        \"columns\":
+        [
+        {
+          \"styleClass\": \"col-md-4\",
+          \"widgets\":
+          [
+          {
+            \"type\": \"clock\",
+            \"config\":
+            {
+              \"timePattern\": \"HH:mm:ss\",
+              \"datePattern\": \"YYYY-MM-DD\"
+              },
+              \"title\": \"Clock\",
+              \"titleTemplateUrl\": \"../src/templates/widget-title.html\",
+              \"editTemplateUrl\": \"../src/templates/widget-edit.html\",
+              \"wid\": \"1495540110609-91\"
+              },
+              {
+                \"type\": \"linklist\",
+                \"config\": { \"links\":
+                [
+                {
+                  \"title\": \"Custom Link\",
+                  \"href\": \"https://custom.com\"
+                }
+                ]
+                },
+                \"title\": \"Links\",
+                \"titleTemplateUrl\": \"../src/templates/widget-title.html\",
+                \"editTemplateUrl\": \"../src/templates/widget-edit.html\",
+                \"wid\": \"1495526407267-47\"
+              }
+              ],
+              \"cid\": \"1495540024149-69\"
+            }
+            ]
+          }
+          ],
+          \"titleTemplateUrl\": \"app/dashboard/partials/custom-dashboard-title.html\"
+          }"
+}``
 
 ##### external warp-menu entries
 * Content: External Links
