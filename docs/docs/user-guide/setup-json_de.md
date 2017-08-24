@@ -387,6 +387,7 @@ Enthält beispielsweise folgende Objekte:
           \"titleTemplateUrl\": \"app/dashboard/partials/custom-dashboard-title.html\"
           }"
 }``
+* Anmerkung: Die maximale Größe, die die JSON-Beschreibung des Dashboards haben darf, ist 2MB.
 
 ##### nginx/externals
 * Inhalt: Externe Links, die im Warp-Menü auftauchen sollen
