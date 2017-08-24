@@ -381,6 +381,7 @@ The following objects are examples:
           \"titleTemplateUrl\": \"app/dashboard/partials/custom-dashboard-title.html\"
           }"
 }``
+* Note: If this is not set or not in correct JSON format, the default dashboard will be displayed.
 * Note: The size of the JSON-definition of the dashboard must not exceed 2MB.
 
 ##### external warp-menu entries

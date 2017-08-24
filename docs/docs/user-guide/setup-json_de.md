@@ -387,6 +387,7 @@ Enthält beispielsweise folgende Objekte:
           \"titleTemplateUrl\": \"app/dashboard/partials/custom-dashboard-title.html\"
           }"
 }``
+* Anmerkung: Wenn diese Definition nicht oder nicht in korrektem JSON-Format gesetzt ist, wird das default-Dashboard angezeigt.
 * Anmerkung: Die maximale Größe, die die JSON-Beschreibung des Dashboards haben darf, ist 2MB.
 
 ##### nginx/externals
