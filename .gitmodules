@@ -16,3 +16,6 @@
 [submodule "containers/jenkins"]
 	path = containers/jenkins
 	url = git@github.com:cloudogu/jenkins.git
+[submodule "containers/nginx"]
+	path = containers/nginx
+	url = git@github.com:cloudogu/nginx.git
