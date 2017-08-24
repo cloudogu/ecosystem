@@ -319,6 +319,14 @@ Enthält beispielsweise folgende Objekte:
 }
 }``
 
+##### postfix
+* Inhalt: Der smtp_tls_security_level-Parameter kann hier gesetzt werden (optional)
+* Example:``{
+  "postfix": {
+    "smtp_tls_security_level": "encrypt"
+  }
+}``
+
 ##### nginx/externals
 * Inhalt: Externe Links, die im Warp-Menü auftauchen sollen
 * Beispiel:``{

@@ -313,6 +313,15 @@ The following objects are examples:
 }
 }``
 
+##### postfix
+* Content: Set smtp_tls_security_level parameter here (optional)
+* Example:``{
+  "postfix": {
+    "smtp_tls_security_level": "encrypt"
+}
+}``
+
+
 ##### external warp-menu entries
 * Content: External Links
 * Example:
