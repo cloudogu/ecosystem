@@ -21,7 +21,7 @@ export -f get_config
 
 function get_config_local(){
   KEY=$1
-  RV=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY" 2>/dev/null)
+  RV=$(etcdctl --peers //$(cat /etc/ces/node_master):4001 get "/config/$(hostname)/$KEY" 2>/dev/null)
   if [ $? -eq 0 ]; then
     echo "$RV"
   else
@@ -33,14 +33,14 @@ export -f get_config_local
 
 function del_config_local(){
   KEY=$1
-  $(etcdctl --peers $(cat /etc/ces/node_master):4001 rm "/config/$(hostname)/$KEY")
+  $(etcdctl --peers //$(cat /etc/ces/node_master):4001 rm "/config/$(hostname)/$KEY")
 }
 
 export -f del_config_local
 
 function get_config_global(){
   KEY=$1
-  RV=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get "/config/_global/$KEY" 2>/dev/null)
+  RV=$(etcdctl --peers //$(cat /etc/ces/node_master):4001 get "/config/_global/$KEY" 2>/dev/null)
   if [ $? -eq 0 ]; then
     echo "$RV"
   else
@@ -63,7 +63,7 @@ function set_config(){
   KEY=$1
   VALUE=$2
   SERVICE_NAME=$(hostname)
-  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/$SERVICE_NAME/$KEY" "$VALUE"
+  etcdctl --peers //$(cat /etc/ces/node_master):4001 set "/config/$SERVICE_NAME/$KEY" "$VALUE"
 }
 
 export -f set_config
@@ -80,7 +80,7 @@ export -f set_enc_config
 function set_config_global(){
   KEY=$1
   VALUE=$2
-  etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/$KEY" "$VALUE"
+  etcdctl --peers //$(cat /etc/ces/node_master):4001 set "/config/_global/$KEY" "$VALUE"
 }
 
 export -f set_config_global
@@ -267,7 +267,7 @@ function get_service(){
   NAME=$1
   PORT=$2
 
-  etcdctl --peers $(cat /etc/ces/node_master):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
+  etcdctl --peers //$(cat /etc/ces/node_master):4001 get "/services/$NAME/registrator:$NAME:$PORT" | sed -e 's@.*"service"\s*:\s*"\([0-9\.:]*\)".*@\1@g'
 }
 
 export -f get_service

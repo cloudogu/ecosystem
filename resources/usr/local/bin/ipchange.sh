@@ -4,11 +4,11 @@ source /etc/ces/functions.sh
 CURRIP=$(get_ip)
 echo ${CURRIP} > /etc/ces/node_master
 end=$((SECONDS+20)) # wait for max. 20 seconds
-LASTIP=$(etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
+LASTIP=$(etcdctl --peers //${CURRIP}:4001 get /config/_global/fqdn)
 while [ $SECONDS -lt $end ] && [ -z $LASTIP ]; do
   echo "$(date +%T): etcd unavailable, trying again..."
   sleep 0.25
-  LASTIP=$(etcdctl --peers ${CURRIP}:4001 get /config/_global/fqdn)
+  LASTIP=$(etcdctl --peers //${CURRIP}:4001 get /config/_global/fqdn)
   CURRIP=$(get_ip)
   echo ${CURRIP} > /etc/ces/node_master
 done
@@ -37,12 +37,12 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ] && $(valid_ip ${LASTIP}); 
   # IP changed
   if $(valid_ip ${CURRIP}) ; then
     echo "$(date +%T): ${CURRIP} is a valid IP; setting fqdn"
-    etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
+    etcdctl --peers //$(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
     ETCDCTL_EXIT=$?
     end=$((SECONDS+20)) # wait for max. 20 seconds
     while [ "${ETCDCTL_EXIT}" -ne "0" ] && [ $SECONDS -lt $end ]; do # etcd is not ready yet
       echo "$(date +%T): Redo setting fqdn"
-      etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
+      etcdctl --peers //$(cat /etc/ces/node_master):4001 set "/config/_global/fqdn" "${CURRIP}"
       ETCDCTL_EXIT=$?
       sleep 0.25
     done
@@ -50,7 +50,7 @@ if [ "${LASTIP}" != "${CURRIP}" ] && [ ! -z $LASTIP ] && $(valid_ip ${LASTIP}); 
     echo "$(date +%T): ${CURRIP} is no valid IP!"
   fi
   # Reinstall certificates if self-signed
-  CERT_TYPE=$(etcdctl --peers $(cat /etc/ces/node_master):4001 get /config/_global/certificate/type)
+  CERT_TYPE=$(etcdctl --peers //$(cat /etc/ces/node_master):4001 get /config/_global/certificate/type)
   if [ "$CERT_TYPE" == "selfsigned" ]; then
     echo "$(date +%T): certificate type is selfsigned"
     source /etc/environment;
