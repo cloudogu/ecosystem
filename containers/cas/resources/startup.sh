@@ -35,7 +35,7 @@ LDAP_ATTRIBUTE_USERNAME=$(doguctl config ldap/attribute_id)
 LDAP_ATTRIBUTE_FULLNAME=$(doguctl config ldap/attribute_fullname)
 LDAP_ATTRIBUTE_MAIL=$(doguctl config ldap/attribute_mail)
 LDAP_ATTRIBUTE_GROUP=$(doguctl config ldap/attribute_group)
-LDAP_STARTTLS='false'
+LDAP_ENCRYPTION=$(doguctl config ldap/encryption) # ssl, sslAny, startTLS, startTLSAny or none
 
 LDAP_GROUP_BASE_DN=$(cfg_or_default 'ldap/group_base_dn' '')
 LDAP_GROUP_SEARCH_FILTER=$(cfg_or_default 'ldap/group_search_filter' '' | sed 's@&@\\\&@g')
@@ -57,6 +57,23 @@ else
   LDAP_BIND_PASSWORD=$(doguctl config -e sa-ldap/password | sed 's@/@\\\\/@g')
 fi
 
+if [[ "$LDAP_ENCRYPTION" == 'startTLS' || "$LDAP_ENCRYPTION" == 'startTLSAny' ]]; then
+  LDAP_STARTTLS='true'
+  LDAP_PROTOCOL='ldap'
+  elif [[ "$LDAP_ENCRYPTION" == 'ssl' || "$LDAP_ENCRYPTION" == 'sslAny' ]]; then
+  LDAP_STARTTLS='false'
+  LDAP_PROTOCOL='ldaps'
+  else # none
+  LDAP_STARTTLS='false'
+  LDAP_PROTOCOL='ldap'
+fi
+
+if [[ "$LDAP_ENCRYPTION" == 'startTLSAny' || "$LDAP_ENCRYPTION" == 'sslAny' ]]; then
+  LDAP_ACCEPT_ANY='true'
+else
+  LDAP_ACCEPT_ANY='false'
+fi
+
 STAGE=$(global_cfg_or_default 'stage' '')
 if [[ "$STAGE" != 'development' ]]; then
   STAGE='production'
@@ -72,8 +89,10 @@ s@%LDAP_STARTTLS%@$LDAP_STARTTLS@g;\
 s@%FQDN%@$FQDN@g;\
 s@%STAGE%@$STAGE@g;\
 s@%REQUIRE_SECURE%@$REQUIRE_SECURE@g;\
+s@%LDAP_PROTOCOL%@$LDAP_PROTOCOL@g;\
 s@%LDAP_HOST%@$LDAP_HOST@g;\
 s@%LDAP_PORT%@$LDAP_PORT@g;\
+s@%LDAP_ACCEPT_ANY%@$LDAP_ACCEPT_ANY@g;\
 s@%LDAP_SEARCH_FILTER%@$LDAP_SEARCH_FILTER@g;\
 s@%LDAP_BASE_DN%@$LDAP_BASE_DN@g;\
 s?%LDAP_BIND_DN%?$LDAP_BIND_DN?g;\
@@ -92,7 +111,7 @@ create_truststore.sh > /dev/null
 
 if [[ "$LDAP_TYPE" == 'embedded' ]]; then
   # wait until ldap passed all health checks
-  echo "wait unit ldap passes all health checks"
+  echo "wait until ldap passes all health checks"
   if ! doguctl healthy --wait --timeout 120 ldap; then
     echo "timeout reached by waiting of ldap to get healthy"
     exit 1
