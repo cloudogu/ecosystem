@@ -188,7 +188,7 @@ ldap.authn.groups.attribute.name=%LDAP_GROUP_ATTRIBUTE_NAME%
 # use the connection after bind with user dn to fetch attributes
 ldap.authn.useUserConnectionToFetchAttributes = %LDAP_USE_USER_CONNECTION%
 
-ldap.acceptAny=%LDAP_ACCEPT_ANY%
+ldap.trustManager=%LDAP_TRUST_MANAGER%
 # set deployment stage
 stage = %STAGE%
 requireSecure = %REQUIRE_SECURE%

@@ -69,9 +69,9 @@ if [[ "$LDAP_ENCRYPTION" == 'startTLS' || "$LDAP_ENCRYPTION" == 'startTLSAny' ]]
 fi
 
 if [[ "$LDAP_ENCRYPTION" == 'startTLSAny' || "$LDAP_ENCRYPTION" == 'sslAny' ]]; then
-  LDAP_ACCEPT_ANY='true'
+  LDAP_TRUST_MANAGER='org.ldaptive.ssl.AllowAnyTrustManager'
 else
-  LDAP_ACCEPT_ANY='false'
+  LDAP_TRUST_MANAGER='org.ldaptive.ssl.DefaultTrustManager'
 fi
 
 STAGE=$(global_cfg_or_default 'stage' '')
@@ -92,7 +92,7 @@ s@%REQUIRE_SECURE%@$REQUIRE_SECURE@g;\
 s@%LDAP_PROTOCOL%@$LDAP_PROTOCOL@g;\
 s@%LDAP_HOST%@$LDAP_HOST@g;\
 s@%LDAP_PORT%@$LDAP_PORT@g;\
-s@%LDAP_ACCEPT_ANY%@$LDAP_ACCEPT_ANY@g;\
+s@%LDAP_TRUST_MANAGER%@$LDAP_TRUST_MANAGER@g;\
 s@%LDAP_SEARCH_FILTER%@$LDAP_SEARCH_FILTER@g;\
 s@%LDAP_BASE_DN%@$LDAP_BASE_DN@g;\
 s?%LDAP_BIND_DN%?$LDAP_BIND_DN?g;\
