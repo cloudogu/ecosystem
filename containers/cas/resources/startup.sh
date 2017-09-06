@@ -35,7 +35,7 @@ LDAP_ATTRIBUTE_USERNAME=$(doguctl config ldap/attribute_id)
 LDAP_ATTRIBUTE_FULLNAME=$(doguctl config ldap/attribute_fullname)
 LDAP_ATTRIBUTE_MAIL=$(doguctl config ldap/attribute_mail)
 LDAP_ATTRIBUTE_GROUP=$(doguctl config ldap/attribute_group)
-LDAP_ENCRYPTION=$(doguctl config ldap/encryption) # ssl, sslAny, startTLS, startTLSAny or none
+LDAP_ENCRYPTION=$(doguctl config ldap/encryption) || LDAP_ENCRYPTION="none" # ssl, sslAny, startTLS, startTLSAny or none
 
 LDAP_GROUP_BASE_DN=$(cfg_or_default 'ldap/group_base_dn' '')
 LDAP_GROUP_SEARCH_FILTER=$(cfg_or_default 'ldap/group_search_filter' '' | sed 's@&@\\\&@g')
