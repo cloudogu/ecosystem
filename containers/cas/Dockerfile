@@ -3,7 +3,7 @@ FROM registry.cloudogu.com/official/java:8u121-4
 MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
 
 # configure environment
-ENV CAS_VERSION=4.0.7.13 \
+ENV CAS_VERSION=4.0.7.14 \
 	TOMCAT_MAJOR_VERSION=8 \
 	TOMCAT_VERSION=8.0.44 \
 	CATALINA_BASE=/opt/apache-tomcat \
