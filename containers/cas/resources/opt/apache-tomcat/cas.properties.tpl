@@ -110,7 +110,7 @@ host.name=cas.%DOMAIN%
 #========================================
 # General properties
 #========================================
-ldap.url=ldap://%LDAP_HOST%:%LDAP_PORT%
+ldap.url=%LDAP_PROTOCOL%://%LDAP_HOST%:%LDAP_PORT%
 
 # LDAP connection timeout in milliseconds
 ldap.connectTimeout=3000
@@ -188,6 +188,7 @@ ldap.authn.groups.attribute.name=%LDAP_GROUP_ATTRIBUTE_NAME%
 # use the connection after bind with user dn to fetch attributes
 ldap.authn.useUserConnectionToFetchAttributes = %LDAP_USE_USER_CONNECTION%
 
+ldap.trustManager=%LDAP_TRUST_MANAGER%
 # set deployment stage
 stage = %STAGE%
 requireSecure = %REQUIRE_SECURE%
