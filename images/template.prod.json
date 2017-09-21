@@ -142,6 +142,7 @@
 				"scripts/commons/update.sh",
 				"scripts/commons/dependencies.sh",
 				"scripts/commons/sshd.sh",
+				"scripts/commons/sshd_security.sh",
 				"scripts/commons/grub.sh",
 				"scripts/commons/subvolumes.sh",
 				"scripts/commons/guestadditions.sh",
