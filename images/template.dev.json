@@ -59,7 +59,7 @@
         "scripts/commons/networking.sh",
         "scripts/commons/cleanup.sh",
         "scripts/commons/minimize.sh",
-        "sripts/commons/firewall.sh"
+        "scripts/commons/firewall.sh"
       ]
     }
   ],
