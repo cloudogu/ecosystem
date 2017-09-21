@@ -150,7 +150,8 @@
 				"../install.sh",
 				"scripts/commons/networking.sh",
 				"scripts/commons/cleanup.sh",
-				"scripts/commons/minimize.sh"
+				"scripts/commons/minimize.sh",
+				"scripts/commons/firewall.sh"
 			]
 		}
 	],

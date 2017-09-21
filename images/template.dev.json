@@ -58,7 +58,8 @@
         "scripts/commons/etcd.sh",
         "scripts/commons/networking.sh",
         "scripts/commons/cleanup.sh",
-        "scripts/commons/minimize.sh"
+        "scripts/commons/minimize.sh",
+        "sripts/commons/firewall.sh"
       ]
     }
   ],
