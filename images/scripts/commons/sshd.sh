@@ -4,7 +4,7 @@ set -o nounset
 set -o pipefail
 
 # Tweak sshd to prevent DNS resolution (speed up logins)
-#echo 'UseDNS no' >> /etc/ssh/sshd_config
+echo 'UseDNS no' >> /etc/ssh/sshd_config
 
 # Setting for Security
 echo 'AllowTcpForwarding no' >> /etc/ssh/sshd_config
