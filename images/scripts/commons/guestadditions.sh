@@ -8,7 +8,11 @@ case "$PACKER_BUILDER_TYPE" in
 virtualbox-iso)
   mkdir -p /mnt/virtualbox
   mount -o loop  ${HOME_DIR}/VBoxGuest*.iso /mnt/virtualbox
-  sh /mnt/virtualbox/VBoxLinuxAdditions.run
+  # encapsulate execution because of false positve (https://github.com/dotless-de/vagrant-vbguest/issues/168)
+  if sh /mnt/virtualbox/VBoxLinuxAdditions.run 
+  then
+  echo "VBoxLinuxAdditions.run was successful"
+  fi
   ln -s /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
   umount /mnt/virtualbox
   rm -rf ${HOME_DIR}/VBoxGuest*.iso

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function checkPlural {
+	if [ $2 -eq 1 ]; then
+		echo ${1}
+	else
+		echo ${1}s
+	fi
+}
+
+NUM_UPDATES=$(cesapp list-upgrades | awk 'BEGIN{i=-1}{if($3) i++;}END{print i}')
+if [ $NUM_UPDATES -gt 0 ]; then
+  MOTD_TEXT="Found $NUM_UPDATES $(checkPlural upgrade $NUM_UPDATES) for your installed dogus. \n
+  See more with <cesapp list-upgrades>"
+else
+  MOTD_TEXT="No upgrades for your installed dogus found."
+fi
+cat /etc/ces/cloudoguascii > /etc/motd
+echo -e $MOTD_TEXT >> /etc/motd
