@@ -38,8 +38,8 @@ echo "install ces packages"
 $INSTALL_HOME/install/install-ces-packages.sh
 
 # building firewall
-#echo "building up a firewall"
-#$INSTALL_HOME/install/firewall.sh
+echo "building up a firewall"
+$INSTALL_HOME/install/firewall.sh
 
 # restart docker
 echo "restart docker with new config"
