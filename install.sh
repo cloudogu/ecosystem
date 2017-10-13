@@ -15,6 +15,10 @@ if [ -z ${INSTALL_HOME+x} ]; then
 fi
 export INSTALL_HOME
 
+# install ces packages
+echo "install ces packages"
+$INSTALL_HOME/install/install-ces-packages.sh
+
 # snyc resources
 echo "sync files"
 $INSTALL_HOME/install/sync-files.sh
@@ -32,10 +36,6 @@ $INSTALL_HOME/install/create-network.sh
 # prepare environment
 echo "prepare environment"
 $INSTALL_HOME/install/prepare-environment.sh
-
-# install ces packages
-echo "install ces packages"
-$INSTALL_HOME/install/install-ces-packages.sh
 
 # restart docker
 echo "restart docker with new config"
