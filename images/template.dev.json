@@ -40,6 +40,7 @@
   "provisioners": [
     {
       "type": "shell",
+      "expect_disconnect": true,
       "execute_command": "echo {{user `password`}} | {{.Vars}} sudo -S -E /bin/bash -eux '{{.Path}}'",
       "environment_vars": [
         "INSTALL_HOME=/vagrant",

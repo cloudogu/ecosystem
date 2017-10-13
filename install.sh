@@ -37,6 +37,10 @@ $INSTALL_HOME/install/create-network.sh
 echo "prepare environment"
 $INSTALL_HOME/install/prepare-environment.sh
 
+# building firewall
+echo "building up a firewall"
+$INSTALL_HOME/install/firewall.sh
+
 # restart docker
 echo "restart docker with new config"
 systemctl restart docker.service
