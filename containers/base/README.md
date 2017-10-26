@@ -6,7 +6,7 @@
 
 example
 
-    docker build -t official/base:3.5-2 .
+    docker build -t official/base:3.6-1 .
 
 
 NOTE: _alpine linux version_ see FROM statement in Dockerfile
@@ -18,5 +18,5 @@ NOTE: _alpine linux version_ and _cloudogu revision_ should be mentioned on the 
 
 ### doguctl
 
-origin is https://github.com/cloudogu/doguctl/releases/download/v0.2.2/doguctl-0.2.2.tar.gz
+origin is https://github.com/cloudogu/doguctl/releases/download/v0.3.0/doguctl-0.3.0.tar.gz
 cached in packages directory to avoid download
