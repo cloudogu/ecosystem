@@ -13,9 +13,7 @@ RUN apk add --update postgresql \
 ENV LANG en_US.utf8
 ENV PGDATA /var/lib/postgresql
 
-# Add PostgreSQL RUN
-COPY startup.sh /startup.sh
-COPY create-sa.sh /create-sa.sh
+COPY resources/ /
 
 # VOLUMES
 VOLUME "/var/lib/postgresql"
