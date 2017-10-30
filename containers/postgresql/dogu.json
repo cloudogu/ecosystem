@@ -1,6 +1,6 @@
 {
   "Name": "official/postgresql",
-  "Version": "9.4.11-2",
+  "Version": "9.6.5-1",
   "DisplayName": "PostgreSQL",
   "Description": "PostgreSQL Database.",
   "Url": "https://www.postgresql.org/",
@@ -24,6 +24,12 @@
       "Name": "service-account-create",
       "Description": "Creates a new service account",
       "Command": "/create-sa.sh"
+    },{
+      "Name": "pre-upgrade",
+      "Command": "/pre-upgrade.sh"
+    },{
+      "Name": "post-upgrade",
+      "Command": "/post-upgrade.sh"
     }
   ],
   "HealthChecks": [
