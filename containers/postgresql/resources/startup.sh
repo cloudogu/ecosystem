@@ -40,39 +40,68 @@ function create_hba() {
   done
 }
 
+function initializePostgreSQL() {
+
+    # set stage for health check
+    doguctl state installing
+
+    # install database
+    gosu postgres initdb
+
+    # postgres user
+    POSTGRES_USER="postgres"
+
+    # store the user
+    doguctl config user "${POSTGRES_USER}"
+
+    # create random password
+    POSTGRES_PASSWORD=$(doguctl random)
+
+    # store the password encrypted
+    doguctl config -e password "${POSTGRES_PASSWORD}"
+
+    # open port
+    sed -ri "s/^#(listen_addresses\s*=\s*)\S+/\1'*'/" "$PGDATA"/postgresql.conf
+
+    # set generated password
+    echo "ALTER USER ${POSTGRES_USER} WITH SUPERUSER PASSWORD '${POSTGRES_PASSWORD}';" | 2>/dev/null 1>&2 gosu postgres postgres --single -jE
+
+    # create /run/postgresql
+    mkdir -p /run/postgresql
+    chown postgres:postgres /run/postgresql
+
+    # generate pg_hba.conf
+    create_hba > ${PGDATA}/pg_hba.conf
+}
+
 chown -R postgres "$PGDATA"
 if [ -z "$(ls -A "$PGDATA")" ]; then
-
-  # set stage for health check
-  doguctl state installing
-
-  # install database
-  gosu postgres initdb
-
-  # postgres user
-  POSTGRES_USER="postgres"
-
-  # store the user
-  doguctl config user "${POSTGRES_USER}"
-
-  # create random password
-  POSTGRES_PASSWORD=$(doguctl random)
-
-  # store the password encrypted
-  doguctl config -e password "${POSTGRES_PASSWORD}"
-
-  # open port
-  sed -ri "s/^#(listen_addresses\s*=\s*)\S+/\1'*'/" "$PGDATA"/postgresql.conf
-
-  # set generated password
-  echo "ALTER USER ${POSTGRES_USER} WITH SUPERUSER PASSWORD '${POSTGRES_PASSWORD}';" | 2>/dev/null 1>&2 gosu postgres postgres --single -jE
+  echo "DEBUG: PGDATA is empty"
+  initializePostgreSQL
+elif [ -e ${PGDATA}/postgresqlFullBackup.dump ]; then
+  echo "DEBUG: DATABASE DUMP EXISTS"
+  mv ${PGDATA}/postgresqlFullBackup.dump /tmp/postgresqlFullBackup.dump
+  rm -rf ${PGDATA:?}/*
+  ls -la ${PGDATA}
+  echo "DEBUG: INITIALIZE POSTGRESQL"
+  initializePostgreSQL
+  echo "DEBUG: RESTORING DATABASE DUMP"
+  gosu postgres postgres &
+  PID=$!
+  echo "DEBUG: STARTED POSTGRES WITH PID ${PID}"
+  sleep 5
+  psql -U postgres -f /tmp/postgresqlFullBackup.dump postgres
+  rm /tmp/postgresqlFullBackup.dump
+  sleep 3
+  echo "DEBUG: KILLING PID ${PID}"
+  kill ${PID}
+  sleep 7
+  ps ax
 fi
-
-# generate pg_hba.conf
-create_hba > "$PGDATA"/pg_hba.conf
 
 # set stage for health check
 doguctl state ready
 
 # start database
+echo "DEBUG: START POSTGRESQL"
 exec gosu postgres postgres
