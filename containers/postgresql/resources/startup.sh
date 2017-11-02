@@ -80,23 +80,32 @@ if [ -z "$(ls -A "$PGDATA")" ]; then
   initializePostgreSQL
 elif [ -e ${PGDATA}/postgresqlFullBackup.dump ]; then
   echo "DEBUG: DATABASE DUMP EXISTS"
+  # Moving backup and emptying PGDATA directory
   mv ${PGDATA}/postgresqlFullBackup.dump /tmp/postgresqlFullBackup.dump
   rm -rf ${PGDATA:?}/*
-  ls -la ${PGDATA}
   echo "DEBUG: INITIALIZE POSTGRESQL"
   initializePostgreSQL
   echo "DEBUG: RESTORING DATABASE DUMP"
+  # Start postgres to restore backup
   gosu postgres postgres &
   PID=$!
   echo "DEBUG: STARTED POSTGRES WITH PID ${PID}"
-  sleep 5
+  while ! pg_isready > /dev/null; do
+    # Postgres is not ready yet to accept connections
+    echo "DEBUG: POSTGRES NOT READY YET"
+    sleep 1
+  done
+  # Restore backup
   psql -U postgres -f /tmp/postgresqlFullBackup.dump postgres
   rm /tmp/postgresqlFullBackup.dump
-  sleep 3
+  # Kill postgres
   echo "DEBUG: KILLING PID ${PID}"
   kill ${PID}
-  sleep 7
-  ps ax
+  while pgrep -x postgres > /dev/null ; do
+    # Postgres is still running
+    echo "DEBUG: POSTGRES STILL RUNNING"
+    sleep 1
+  done
 fi
 
 # set stage for health check
