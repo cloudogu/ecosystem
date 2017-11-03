@@ -1,5 +1,0 @@
-#!/bin/bash
-EXTRA_JVM_ARGUMENTS="$EXTRA_JVM_ARGUMENTS -Djava.net.preferIPv4Stack=true"
-EXTRA_JVM_ARGUMENTS="$EXTRA_JVM_ARGUMENTS -Djavax.net.ssl.trustStore=/opt/scm-server/conf/truststore.jks"
-EXTRA_JVM_ARGUMENTS="$EXTRA_JVM_ARGUMENTS -Djavax.net.ssl.trustStorePassword=changeit"
-EXTRA_JVM_ARGUMENTS="$EXTRA_JVM_ARGUMENTS -Dsonia.scm.init.script.d=/opt/scm-server/init.script.d"
