@@ -1,0 +1,14 @@
+{
+  "name": "selenium",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "chromedriver": "^2.33.2",
+    "jest": "^21.2.1",
+    "selenium-webdriver": "^3.6.0",
+    "supertest": "^3.0.0"
+  }
+}
