@@ -88,7 +88,7 @@ elif [ -e ${PGDATA}/postgresqlFullBackup.dump ]; then
   PID=$!
   while ! pg_isready > /dev/null; do
     # Postgres is not ready yet to accept connections
-    sleep 1
+    sleep 0.1
   done
   # Restore backup
   psql -U postgres -f /tmp/postgresqlFullBackup.dump postgres
@@ -97,7 +97,7 @@ elif [ -e ${PGDATA}/postgresqlFullBackup.dump ]; then
   kill ${PID}
   while pgrep -x postgres > /dev/null ; do
     # Postgres is still running
-    sleep 1
+    sleep 0.1
   done
 fi
 
