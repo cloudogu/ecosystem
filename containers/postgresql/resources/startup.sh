@@ -74,6 +74,20 @@ function initializePostgreSQL() {
     create_hba > ${PGDATA}/pg_hba.conf
 }
 
+function waitForPostgreSQLStartup() {
+  while ! pg_isready > /dev/null; do
+    # Postgres is not ready yet to accept connections
+    sleep 0.1
+  done
+}
+
+function waitForPostgreSQLShutdown() {
+  while pgrep -x postgres > /dev/null ; do
+    # Postgres is still running
+    sleep 0.1
+  done
+}
+
 chown -R postgres "$PGDATA"
 if [ -z "$(ls -A "$PGDATA")" ]; then
   initializePostgreSQL
@@ -86,19 +100,13 @@ elif [ -e ${PGDATA}/postgresqlFullBackup.dump ]; then
   # Start postgres to restore backup
   gosu postgres postgres &
   PID=$!
-  while ! pg_isready > /dev/null; do
-    # Postgres is not ready yet to accept connections
-    sleep 0.1
-  done
+  waitForPostgreSQLStartup
   # Restore backup
   psql -U postgres -f /tmp/postgresqlFullBackup.dump postgres
   rm /tmp/postgresqlFullBackup.dump
   # Kill postgres
   kill ${PID}
-  while pgrep -x postgres > /dev/null ; do
-    # Postgres is still running
-    sleep 0.1
-  done
+  waitForPostgreSQLShutdown
 fi
 
 # set stage for health check
