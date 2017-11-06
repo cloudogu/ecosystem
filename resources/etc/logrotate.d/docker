@@ -1,4 +1,5 @@
 /var/log/docker/*.log {
+    copytruncate
     size 100M
     rotate 2
     missingok
