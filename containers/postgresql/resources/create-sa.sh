@@ -1,4 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 {
     SERVICE="$1"

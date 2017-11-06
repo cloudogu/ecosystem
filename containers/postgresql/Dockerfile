@@ -1,6 +1,3 @@
-#
-# DO NOT USE base:3.5 RIGHT NOW TO AVOID DATABASE UPDATE
-#
 FROM registry.cloudogu.com/official/base:3.6-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
