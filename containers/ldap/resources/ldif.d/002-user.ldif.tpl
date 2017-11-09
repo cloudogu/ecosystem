@@ -12,5 +12,6 @@ objectClass: organizationalPerson
 objectClass: inetOrgPerson
 sn: ${ADMIN_SURNAME}
 cn: ${ADMIN_DISPLAYNAME}
+displayName: ${ADMIN_DISPLAYNAME}
 mail: ${ADMIN_MAIL}
 userPassword: ${ADMIN_PASSWORD_ENC}

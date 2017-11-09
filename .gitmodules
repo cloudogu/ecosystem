@@ -19,3 +19,6 @@
 [submodule "containers/nginx"]
 	path = containers/nginx
 	url = git@github.com:cloudogu/nginx.git
+[submodule "containers/scm"]
+	path = containers/scm
+	url = https://github.com/cloudogu/scm
