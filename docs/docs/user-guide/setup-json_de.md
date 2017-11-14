@@ -293,6 +293,8 @@ Eigenschaften:
 * Beispiel: ``true``
 
 #### Unixuser
+Objektname: _unixUser_
+
 Mit dieser Einstellung können die Credentials für den im Setup erzeugten Systemadministrator konfiguriert werden.
 Ohne diese Einstellung wird ein Nutzer mit dem Namen ``ces-admin`` und einem zufällig generiertem Passwort erzeugt, welches am Ende des Setups angezeigt wird. Über die Oberfläche ist der Systemadministrator nicht konfigurierbar.
 
