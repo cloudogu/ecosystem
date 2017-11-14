@@ -294,6 +294,19 @@ Eigenschaften:
 * Inhalt: Wahrheitswert, ob der Admin-Schritt komplett ist
 * Beispiel: ``true``
 
+#### Unixuser
+Mit dieser Einstellung können die Credentials für den im Setup erzeugten Systemadministrator konfiguriert werden.
+Ohne diese Einstellung wird ein Nutzer mit dem Namen ``ces-admin`` und einem zufällig generiertem Passwort erzeugt, welches am Ende des Setups angezeigt wird. Über die Oberfläche ist der Systemadministrator nicht konfigurierbar.
+
+##### Name
+* Datentyp: string
+* Inhalt: Name des Unixusers
+* Beispiel: ``ces-admin``
+
+##### Password
+* Datentyp: string
+* Inhalt: Password des Unixusers
+* Beispiel: ``ces-password``
 
 #### registryConfig (optional)
 An dieser Stelle lassen sich Werte definieren, die direkt in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setupoberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des Ecosystems abgelegt.
