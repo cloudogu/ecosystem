@@ -212,15 +212,15 @@ Eigenschaften:
 * Datentyp: String
 * Inhalt: Angabe des Attributs für das Group Mapping
 
-##### completed
-* Datentyp: boolean
-* Inhalt: Wahrheitswert, ob der Users-Schritt komplett ist
-* Beispiel: ``true``
-
 ##### useUserConnectionToFetchAttributes
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der jeweils angemeldete Nutzer zur Abfrage der Attribute aus dem User Backend genutzt werden soll
 * Muss auf ``true`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
+* Beispiel: ``true``
+
+##### completed
+* Datentyp: boolean
+* Inhalt: Wahrheitswert, ob der Users-Schritt komplett ist
 * Beispiel: ``true``
 
 
