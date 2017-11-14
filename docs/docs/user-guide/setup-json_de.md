@@ -67,6 +67,8 @@ Eigenschaften:
 * Datentyp: String
 * Inhalt: Vollständige Domain des Ecosystems
 * Beispiel: ``"www.myecosystem.com"``
+* Es ist möglich für die fqdn den Platzhalter ``<<ip>>`` einzutragen. Dadurch wird beim Ausführen des Setups
+die IP-Adresse des EcoSystems an dieser Stelle verwendet.
 
 ##### hostname
 * Datentyp: String
