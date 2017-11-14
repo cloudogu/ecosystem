@@ -106,7 +106,7 @@ die IP-Adresse des EcoSystems an dieser Stelle verwendet.
 * Beispiel: ``true``
 
 
-#### Users-Schritt
+#### UserBackend-Schritt
 Objektname: _userBackend_
 
 Eigenschaften:
