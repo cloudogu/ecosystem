@@ -276,10 +276,6 @@ Eigenschaften:
 * Datentyp: String
 * Inhalt: Passwort des Admin-Kontos
 
-##### confirmPassword
-* Datentyp: String
-* Inhalt: Erneute Eingabe des Passworts des Admin-Kontos zur Bestätigung
-
 ##### adminGroup
 * Datentyp: String
 * Inhalt: Name der Gruppe im User Backend, die Administratorrechte im Ecosystem erhalten soll
