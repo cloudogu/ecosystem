@@ -4,7 +4,7 @@ set -o nounset
 set -o pipefail
 
 # sync resources to fs
-rsync -rav $INSTALL_HOME/resources/* /
+rsync -rav --chown=root:root $INSTALL_HOME/resources/* /
 
 # space for privilege adjustment
 chmod u+x /etc/ces/*.sh
