@@ -33,9 +33,9 @@ function create_hba() {
   echo 'host    all             all             ::1/128                 trust'
   echo '# container networks'
   for NETWITHMASK in $(netstat -nr | tail -n +3 | grep -v '^0' | awk '{print $1"/"$3}'); do
-    NET=$(echo ${NETWITHMASK} | awk -F'/' '{print $1}')
-    MASK=$(echo ${NETWITHMASK} | awk -F'/' '{print $2}')
-    CIDR=$(mask2cidr $MASK)
+    NET=$(echo "${NETWITHMASK}" | awk -F'/' '{print $1}')
+    MASK=$(echo "${NETWITHMASK}" | awk -F'/' '{print $2}')
+    CIDR=$(mask2cidr "$MASK")
     echo "host    all             all             ${NET}/${CIDR}  password"
   done
 }
@@ -71,7 +71,7 @@ function initializePostgreSQL() {
     chown postgres:postgres /run/postgresql
 
     # generate pg_hba.conf
-    create_hba > ${PGDATA}/pg_hba.conf
+    create_hba > "${PGDATA}"/pg_hba.conf
 }
 
 function waitForPostgreSQLStartup() {
@@ -91,10 +91,10 @@ function waitForPostgreSQLShutdown() {
 chown -R postgres "$PGDATA"
 if [ -z "$(ls -A "$PGDATA")" ]; then
   initializePostgreSQL
-elif [ -e ${PGDATA}/postgresqlFullBackup.dump ]; then
+elif [ -e "${PGDATA}"/postgresqlFullBackup.dump ]; then
   # Moving backup and emptying PGDATA directory
-  mv ${PGDATA}/postgresqlFullBackup.dump /tmp/postgresqlFullBackup.dump
-  rm -rf ${PGDATA:?}/*
+  mv "${PGDATA}"/postgresqlFullBackup.dump /tmp/postgresqlFullBackup.dump
+  rm -rf "${PGDATA:?}"/*
   initializePostgreSQL
   echo "Restoring database dump..."
   # Start postgres to restore backup
