@@ -2,6 +2,8 @@ FROM registry.cloudogu.com/official/base:3.6-1
 MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
 # install postgresql and gosu
+# Note: the current postgresql version from alpine is installed
+# https://pkgs.alpinelinux.org/packages?name=postgresql&branch=v3.6&repo=&arch=x86_64
 RUN apk add --update postgresql \
  && curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.2/gosu-amd64" \
  && chmod +x /usr/local/bin/gosu \
