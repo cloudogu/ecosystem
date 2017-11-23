@@ -1,4 +1,7 @@
-#!/bin/bash -e
+#!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
 
 {
     SERVICE="$1"
@@ -18,10 +21,10 @@
     ADMIN_USERNAME=$(doguctl config user)
 
     # create role
-    psql -U ${ADMIN_USERNAME} -c "CREATE USER ${USER} WITH PASSWORD '${PASSWORD}';"
+    psql -U "${ADMIN_USERNAME}" -c "CREATE USER ${USER} WITH PASSWORD '${PASSWORD}';"
 
     # create database
-    psql -U ${ADMIN_USERNAME} -c "CREATE DATABASE ${DATABASE} OWNER ${USER};"
+    psql -U "${ADMIN_USERNAME}" -c "CREATE DATABASE ${DATABASE} OWNER ${USER};"
 
 } >/dev/null 2>&1
 
