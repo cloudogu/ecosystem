@@ -11,7 +11,7 @@ This is the repository of the cloudogu ecosystem. It contains all docker contain
 * Checkout ecosystem repository `git clone https://github.com/cloudogu/ecosystem`
 * `cd ecosystem`
 * `vagrant up` to run ecosystem in a virtual machine
-* Choose a network interface to bridge to (typically your ethernet or wireless interface)
+* Depending on your OS, you might have to choose a network interface to bridge to (typically your ethernet or wireless interface)
 * Check the console output for a URL. Look for something like this:  
   `==> default: Setup daemon has started and can be accessed at http://192.168.123.456:8080`
 * Enter this URL in your browser
