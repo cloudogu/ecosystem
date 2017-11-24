@@ -9,7 +9,24 @@ This is the repository of the cloudogu ecosystem. It contains all docker contain
 * Install [virtualbox](https://www.virtualbox.org/)
 * Install [vagrant](https://www.vagrantup.com/docs/getting-started/)
 * Checkout ecosystem repository `git clone https://github.com/cloudogu/ecosystem`
+* `cd ecosystem`
 * `vagrant up` to run ecosystem in a virtual machine
+* Choose a network interface to bridge to (typically your ethernet or wireless interface)
+* Check the console output for a URL. Look for something like this:  
+  `==> default: Setup daemon has started and can be accessed at http://192.168.123.456:8080`
+* Enter this URL in your browser
+* Follow the steps of the setup wizard
+
+### Troubleshooting
+
+By default our vagrant configuration uses a bridged network, which makes the ecosystem also accessible for other machines in your network.  
+If this does not work in your network, or you prefer a host-only network, you can change this behavior in the [`Vagrantfile`](Vagrantfile). To do so,
+* remove the `public_network` line and 
+* uncomment the `private_network` line.
+
+Next time you start the VM, it will use the address `192.168.42.2` that is accessible for your host only. That is, you can reach the setup wizard at http://192.168.42.2:8080 in your browser.
+
+By the way, you can shut down the VM by calling `vagrant halt`.
 
 ---
 ### What is Cloudogu?
