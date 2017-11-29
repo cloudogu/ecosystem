@@ -24,9 +24,12 @@ If this does not work in your network, or you prefer a host-only network, you ca
 * remove the `public_network` line and 
 * uncomment the `private_network` line.
 
-Next time you start the VM, it will use the address `192.168.42.2` that is accessible for your host only. That is, you can reach the setup wizard at http://192.168.42.2:8080 in your browser.
+Next time you start the VM with `vagrant up`, it will use the address `192.168.42.2` that is accessible for your host only. That is, you can reach the setup wizard at http://192.168.42.2:8080 in your browser.  
+Note that under Windows you will need administrative priviledges the first time you start the VM, when the host-only network adapter is created. For all subsequent starts, normal user priviledges will suffice.
 
-By the way, you can shut down the VM by calling `vagrant halt`.
+By the way:
+* You can shut down the VM by calling `vagrant halt`.  
+* If you want to start over with a clean slate call `vagrant destroy`.
 
 ---
 ### What is Cloudogu?
