@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "ces"
   config.vm.box_version = "0.6.0"
 
-  # use bridged netword
+  # use bridged network
   # to get the ip use vagrant ssh -c ifconfig
   config.vm.network "public_network"
 
