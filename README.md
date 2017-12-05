@@ -11,21 +11,18 @@ This is the repository of the cloudogu ecosystem. It contains all docker contain
 * Checkout ecosystem repository `git clone https://github.com/cloudogu/ecosystem`
 * `cd ecosystem`
 * `vagrant up` to run ecosystem in a virtual machine
-* Depending on your OS, you might have to choose a network interface to bridge to (typically your ethernet or wireless interface)
-* Check the console output for a URL. Look for something like this:  
-  `==> default: Setup daemon has started and can be accessed at http://192.168.123.456:8080`
-* Enter this URL in your browser
+* When vagrant is done, enter the following URL in your browser : http://192.168.56.2:8080
 * Follow the steps of the setup wizard
 
-### Troubleshooting
+#### Bridged Network
 
-By default our vagrant configuration uses a bridged network, which makes the ecosystem also accessible for other machines in your network.  
-If this does not work in your network, or you prefer a host-only network, you can change this behavior in the [`Vagrantfile`](Vagrantfile). To do so,
-* remove the `public_network` line and 
-* uncomment the `private_network` line.
+By default our vagrant configuration uses a host-only network, which makes the ecosystem only accessible from your machine. 
 
-Next time you start the VM with `vagrant up`, it will use the address `192.168.42.2` that is accessible for your host only. That is, you can reach the setup wizard at http://192.168.42.2:8080 in your browser.  
-Note that under Windows you will need administrative priviledges the first time you start the VM, when the host-only network adapter is created. For all subsequent starts, normal user priviledges will suffice.
+If you want it to be accessible from other hosts in your network, you can change this behavior in the [`Vagrantfile`](Vagrantfile). To do so,
+* remove the `private_network` line and 
+* uncomment the `public_network` line.
+
+Next time you start the VM, it will use a bridged network and try to get an IP address from the network your host is in. 
 
 By the way:
 * You can shut down the VM by calling `vagrant halt`.  
