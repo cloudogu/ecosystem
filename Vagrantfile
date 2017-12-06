@@ -13,10 +13,12 @@ Vagrant.configure(2) do |config|
 
   # use bridged network
   # to get the ip use vagrant ssh -c ifconfig
-  config.vm.network "public_network"
+  # config.vm.network "public_network"
 
   # private network configuration
-  # config.vm.network "private_network", ip: "192.168.42.2"
+  # 192.168.56.x is the network provided by the default host-only adapter for VirtualBox in Windows.
+  # Using it does not require administrative privileges. It also works on Linux.
+  config.vm.network "private_network", ip: "192.168.56.2"
 
   # create flag file to set appliance type to vagrant
   config.vm.provision "shell",
@@ -32,7 +34,8 @@ Vagrant.configure(2) do |config|
     # v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
-  # load custom configurations
+  # load custom configurations. Allows for changes (e.g. for development) without changing Vagrantfile, i.e. the Git repo.
+  # See https://github.com/cloudogu/ecosystem/wiki/Tips-and-Tricks
   if File.file?(".vagrant.rb")
     eval File.read(".vagrant.rb")
   end
