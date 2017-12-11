@@ -1,12 +1,13 @@
 {
-  "Name": "usermgt",
-  "Version": "1.3.0-1",
+  "Name": "official/usermgt",
+  "Version": "1.3.2-1",
   "DisplayName": "User Management",
   "Description": "User and Group Management.",
   "Category": "Administration Apps",
   "Tags": [
     "warp", "users", "groups"
   ],
+  "Logo": "https://cloudogu.com/images/dogus/usermanagement.png",
   "Url": "https://github.com/cloudogu/usermgt",
   "Image": "registry.cloudogu.com/official/usermgt",
   "Dependencies": [
@@ -17,6 +18,10 @@
     "Path": "/var/lib/usermgt",
     "Owner": "1000",
     "Group": "1000"
+  }],
+  "ServiceAccounts": [{
+    "Type": "ldap",
+    "Params": ["rw"]
   }],
   "HealthCheck": {
     "Type": "tcp",

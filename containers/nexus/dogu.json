@@ -1,10 +1,10 @@
 {
-  "Name": "nexus",
-  "Version": "2.11.4-1",
+  "Name": "official/nexus",
+  "Version": "2.14.3-5",
   "DisplayName": "Sonatype Nexus",
   "Description": "The Nexus Repository is like the local warehouse where all of the parts and finished goods used in your software supply chain are stored and distributed.",
   "Url": "http://www.sonatype.org/nexus",
-  "Logo": "http://dogu.cloudogu.com/images/logos/nexus.png",
+  "Logo": "https://cloudogu.com/images/dogus/nexus.png",
   "Category": "Development Apps",
   "Tags": [
     "warp", "build", "artifact", "maven"
@@ -19,8 +19,13 @@
     "Owner": "1000",
     "Group": "1000"
   }],
-  "HealthCheck": {
-    "Type": "tcp",
-    "Port": 8081
-  }
+  "HealthChecks": [
+    {
+      "Type": "tcp",
+      "Port": 8081
+    },
+    {
+      "Type": "state"
+    }
+  ]
 }

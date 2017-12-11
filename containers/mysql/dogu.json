@@ -1,6 +1,6 @@
 {
-  "Name": "mysql",
-  "Version": "10.1.11-1",
+  "Name": "official/mysql",
+  "Version": "10.1.22-2",
   "DisplayName": "MySQL/MariaDB",
   "Description": "MySQL/MariaDB Database.",
   "Url": "https://mariadb.com/",
@@ -8,7 +8,7 @@
   "Tags": [
     "database", "db"
   ],
-  "Logo": "http://dogu.cloudogu.com/images/logos/mysql.png",
+  "Logo": "https://cloudogu.com/images/dogus/mysql.png",
   "Image": "registry.cloudogu.com/official/mysql",
   "Volumes": [{
     "Name": "data",
@@ -16,8 +16,15 @@
     "Owner": "1000",
     "Group": "1000"
   }],
-  "HealthCheck": {
+  "ExposedCommands": [{
+    "Name": "service-account-create",
+    "Description": "Creates a new service account",
+    "Command": "/create-sa.sh"
+  }],
+  "HealthChecks": [{
     "Type": "tcp",
     "Port": 3306
-  }
+  },{
+    "Type": "state"
+  }]
 }

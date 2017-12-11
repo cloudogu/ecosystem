@@ -1,43 +1,48 @@
 #!/bin/bash
+set -o errexit
+set -o nounset
+set -o pipefail
+
 source /etc/ces/functions.sh
 
 # write current ip
 source /etc/environment
 export PATH
 
+echo "writing ip to master node file"
 get_ip > /etc/ces/node_master
-# set_config_global domain $(cat /etc/ces/domain)
-# set_config_global fqdn $(get_ip)
-# set_config_global admin_group "universalAdmin"
-/opt/ces/bin/etcdctl --peers $(cat /etc/ces/node_master):4001 set "/config/postfix/relayhost" "192.168.115.24"
 
 # prepare syslog and restart
-mkdir /var/log/docker
+echo "prepare syslog and restart rsyslog service"
+if [ ! -d /var/log/docker ]; then
+  mkdir /var/log/docker
+fi
 chown syslog /var/log/docker
-service rsyslog restart
+systemctl restart rsyslog.service
 
 # modify sudoers save path
 echo "modify sudoers"
 if [ -f "/etc/sudoers" ]; then
-  grep "/opt/ces/bin" /etc/sudoers &>/dev/null
-  if [ $? != 0 ]; then
-    sed 's@secure_path="/usr@secure_path="/opt/ces/bin:@g' /etc/sudoers > /tmp/sudoers.new
-    if [ $? = 0 ]; then
-      visudo -c -f /tmp/sudoers.new &>/dev/null
-      if [ $? = 0 ]; then
+  if ! grep "/opt/ces/bin" /etc/sudoers &>/dev/null; then
+    if sed 's@secure_path="/usr@secure_path="/opt/ces/bin:@g' /etc/sudoers > /tmp/sudoers.new; then
+      if visudo -c -f /tmp/sudoers.new &>/dev/null; then
         cp /tmp/sudoers.new /etc/sudoers
         chown root:root /etc/sudoers
         chmod 0440 /etc/sudoers
       else
-        echo 'ERR: sudoers file is not valid'
+        >&2 echo 'ERR: sudoers file is not valid'
       fi
     else
-      echo "ERR: failed to modify sudoers"
+      >&2 echo "ERR: failed to modify sudoers"
     fi
     rm -f /tmp/sudoers.new
   else
-    echo 'sudoers file is already prepared'
+    >&2 echo 'sudoers file is already prepared'
   fi
 else
-  echo 'ERR: sudoers file does not exists'
+  >&2 echo 'ERR: sudoers file does not exists'
 fi
+
+# Enable IP change check service
+systemctl daemon-reload
+systemctl enable ipchangecheck.service

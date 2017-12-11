@@ -1,16 +1,13 @@
-# registry.cloudogu.com/official/base:3.3-1
-FROM alpine:3.3
-MAINTAINER Sebastian Sdorra <sebastian.sdorra@triology.de>
+FROM alpine:3.6
+MAINTAINER Sebastian Sdorra <sebastian.sdorra@cloudogu.com>
 
-# etcd version
-ENV CES_ETCD_VERSION 2.1.3
+ENV DOGUCTL_VERSION 0.3.0
 
-ADD github_download /usr/bin/github_download
+# copy resource
+COPY resources/ /
 
-# install etcd
-RUN apk add --update bash curl openssl wget curl zip unzip mysql-client ca-certificates jq \
-    && curl -L https://github.com/coreos/etcd/releases/download/v${CES_ETCD_VERSION}/etcd-v${CES_ETCD_VERSION}-linux-amd64.tar.gz -o /tmp/etcd.tar.gz \
-    && mkdir /tmp/etcd \
-    && tar xzvf /tmp/etcd.tar.gz -C /tmp/etcd \
-    && mv /tmp/etcd/etcd-v${CES_ETCD_VERSION}-linux-amd64/etcdctl /bin \
-    && rm -rf /tmp/etcd* /var/cache/apk/*
+# install doguctl
+ADD packages/doguctl-${DOGUCTL_VERSION}.tar.gz /usr/bin/
+
+# install dependencies
+RUN apk add --no-cache bash curl openssl wget tar zip unzip ca-certificates jq

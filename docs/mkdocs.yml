@@ -1,0 +1,15 @@
+site_name: Ecosystem Documentation
+pages:
+- Home: index.md
+- User Guide:
+  - Warp Menu: user-guide/warp-menu.md
+  - Integration-Tests: user-guide/integration-tests.md
+  - Dogu creation: user-guide/dogu-creation.md
+  - Dogu upgrades: user-guide/dogu-upgrade.md
+  - Dogu configuration: user-guide/dogu-configuration.md
+  - Goss Spec: user-guide/goss.md
+  - Migration: user-guide/migration.md
+  - Bash Scripting Guideline: user-guide/bash-guideline.md
+  - CES-Image build: user-guide/image-build.md
+  - Setup Automation via JSON: user-guide/setup-json.md
+- About: about.md

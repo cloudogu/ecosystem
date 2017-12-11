@@ -1,0 +1,12 @@
+# keep linux linebreaks, since text files will be used within linux-vm
+* eol=lf
+
+#however, exclude binary files
+*.jar binary
+*.zip binary
+*.gz binary
+*.tgz binary
+*.png binary
+*.pdf binary
+*.hpi binary
+*.jpi binary

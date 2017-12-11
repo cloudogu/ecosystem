@@ -1,6 +1,6 @@
 {
-  "Name": "ldap",
-  "Version": "2.4.43-1",
+  "Name": "official/ldap",
+  "Version": "2.4.44-3",
   "DisplayName": "OpenLDAP",
   "Description": "OpenLDAP server for user and group management.",
   "Url": "http://www.openldap.org",
@@ -8,7 +8,7 @@
   "Tags": [
     "authentication", "ldap", "users", "groups"
   ],
-  "Logo": "http://dogu.cloudogu.com/images/logos/openldap.png",
+  "Logo": "https://cloudogu.com/images/dogus/openldap.png",
   "Image": "registry.cloudogu.com/official/ldap",
   "Volumes": [{
     "Name": "config",
@@ -21,8 +21,15 @@
     "Owner": "102",
     "Group": "102"
 	}],
-  "HealthCheck": {
-    "Type": "tcp",
-    "Port": 389
-  }
+  "ExposedCommands": [{
+    "Name": "service-account-create",
+    "Description": "Creates a new service account",
+    "Command": "/srv/openldap/create-sa.sh"
+  }],
+  "HealthChecks": [{
+  "Type": "tcp",
+  "Port": 389
+},{
+  "Type": "state"
+}]
 }
