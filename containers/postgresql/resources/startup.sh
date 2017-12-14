@@ -94,8 +94,12 @@ if [ -z "$(ls -A "$PGDATA")" ]; then
 elif [ -e "${PGDATA}"/postgresqlFullBackup.dump ]; then
   # Moving backup and emptying PGDATA directory
   mv "${PGDATA}"/postgresqlFullBackup.dump /tmp/postgresqlFullBackup.dump
+  # New PostgreSQL version requires completely empty folder
   rm -rf "${PGDATA:?}"/*
+  rm -rf "${PGDATA:?}"/.[^.] .??*
+
   initializePostgreSQL
+
   echo "Restoring database dump..."
   # Start postgres to restore backup
   gosu postgres postgres &
