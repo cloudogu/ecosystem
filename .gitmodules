@@ -22,3 +22,6 @@
 [submodule "containers/scm"]
 	path = containers/scm
 	url = https://github.com/cloudogu/scm.git
+[submodule "containers/postgresql"]
+	path = containers/postgresql
+	url = git@github.com:cloudogu/postgresql.git
