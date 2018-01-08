@@ -4,18 +4,26 @@ set -o nounset
 set -o pipefail
 
 # Install docker
-# see https://docs.docker.com/engine/installation/linux/ubuntulinux/
+# See https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
 
-DOCKER_VERSION=17.05.0~ce-0~ubuntu-xenial
+DOCKER_VERSION=17.12.0~ce-0~ubuntu
 
 export DEBIAN_FRONTEND=noninteractive
 
 echo "installing docker"
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" > /etc/apt/sources.list.d/docker.list
-# update docker repository only
-apt-get -y update -o Dir::Etc::sourcelist="sources.list.d/docker.list" -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
-# DEBIAN_FRONTEND=noninteractive apt-get -y update
-apt-cache policy docker-engine
-apt-get -y install docker-engine=$DOCKER_VERSION
+# Add Docker’s official GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# Verify key
+KEY=$(sudo apt-key fingerprint 0EBFCD88)
+if [ -z "${KEY}" ]; then
+  echo "Docker key has not been added successfully";
+  exit 1
+fi
+# Add stable repository
+sudo add-apt-repository "deb [arch=amd64] \
+https://download.docker.com/linux/ubuntu xenial stable"
+# Install Docker
+apt-get -y update
+apt-get -y install docker-ce=${DOCKER_VERSION}
+
 echo "install docker - end"
