@@ -4,7 +4,10 @@
 		"username": "ces-admin",
 		"password": "ces-admin",
 		"memory": "4096",
-		"cpus": "2"
+		"cpus": "2",
+		"iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso",
+		"iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
+		"iso_checksum_type": "sha256"
 	},
 	"builders": [
 		{
@@ -14,10 +17,10 @@
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "Ubuntu_64",
 			"iso_urls": [
-				"http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
+				"{{user `iso_url`}}"
 			],
-			"iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
-			"iso_checksum_type": "sha256",
+			"iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
 			"ssh_username": "{{user `username`}}",
 			"ssh_password": "{{user `password`}}",
 			"ssh_wait_timeout": "10000s",
@@ -65,10 +68,10 @@
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "ubuntu-64",
 			"iso_urls": [
-				"http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
+				"{{user `iso_url`}}"
 			],
-			"iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
-			"iso_checksum_type": "sha256",
+			"iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
 			"ssh_username": "{{user `username`}}",
 			"ssh_password": "{{user `password`}}",
 			"ssh_wait_timeout": "10000s",
@@ -97,10 +100,10 @@
       "vm_name": "{{user `vm_name`}}",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
-        "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
+        "{{user `iso_url`}}"
       ],
-      "iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
-      "iso_checksum_type": "sha256",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "ssh_username": "{{user `username`}}",
       "ssh_password": "{{user `password`}}",
       "ssh_wait_timeout": "10000s",
@@ -137,10 +140,10 @@
 			"format": "qcow2",
 			"vm_name": "{{user `vm_name`}}",
 			"iso_urls": [
-				"http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
+				"{{user `iso_url`}}"
 			],
-			"iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
-			"iso_checksum_type": "sha256",
+			"iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
 			"ssh_username": "{{user `username`}}",
 			"ssh_password": "{{user `password`}}",
 			"ssh_wait_timeout": "10000s",
@@ -212,7 +215,7 @@
 	"post-processors": [
 		{
 			"type": "checksum",
-			"checksum_types": [ "sha256" ],
+			"checksum_types": [ "{{user `iso_checksum_type`}}" ],
 			"output": "build/SHA256SUMS"
 		},
 		{
