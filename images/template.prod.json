@@ -90,6 +90,47 @@
 			"shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now"
 
 		},
+    {
+      "name": "ecosystem-vmware-esxi",
+      "type": "vmware-iso",
+      "format": "ova",
+      "vm_name": "{{user `vm_name`}}",
+      "guest_os_type": "ubuntu-64",
+      "iso_urls": [
+        "http://releases.ubuntu.com/16.04/ubuntu-16.04.3-server-amd64.iso"
+      ],
+      "iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "{{user `username`}}",
+      "ssh_password": "{{user `password`}}",
+      "ssh_wait_timeout": "10000s",
+      "http_directory": "http",
+      "headless": false,
+      "tools_upload_flavor": "linux",
+      "boot_wait": "5s",
+      "boot_command": [
+        "<enter><wait><f6><esc>",
+        "/install/vmlinuz ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/prod/preseed.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{user `vm_name`}} ",
+        "fb=false debconf/frontend=noninteractive net.ifnames=0 ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "vmx_data_post": {
+        "cpuid.coresPerSocket": "1",
+        "memsize": "8192",
+        "numvcpus": "4",
+        "ethernet0.connectiontype": "bridged",
+        "ide1:0.clientdevice": "FALSE",
+        "ide1:0.devicetype": "cdrom-raw",
+        "ide1:0.filename": "auto detect",
+        "ide1:0.present": "FALSE"
+      },
+      "shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now"
+    },
 		{
 			"name": "ecosystem-qemu",
 			"type": "qemu",
