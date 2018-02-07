@@ -64,7 +64,6 @@
 		{
 			"name": "ecosystem-vmware",
 			"type": "vmware-iso",
-			"format": "ova",
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "ubuntu-64",
 			"iso_urls": [
@@ -96,7 +95,6 @@
     {
       "name": "ecosystem-vmware-esxi",
       "type": "vmware-iso",
-      "format": "ova",
       "vm_name": "{{user `vm_name`}}",
       "guest_os_type": "ubuntu-64",
       "iso_urls": [
