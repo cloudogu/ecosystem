@@ -26,7 +26,7 @@ done
 # dist upgrade
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y update
-apt-get -y upgrade
+apt-get -y upgrade -o Dpkg::Options::="--force-confnew"
 
 reboot
 sleep 60
