@@ -308,6 +308,10 @@ Ohne diese Einstellung wird ein Nutzer mit dem Namen ``ces-admin`` und einem zuf
 * Inhalt: Password des Unixusers
 * Beispiel: ``ces-password``
 
+#### sequentialDoguStart (optional)
+
+Ist dieser boolsche Wert auf 'true' gesetzt, werden die Dogus am Ende des Setups nicht parallel alle auf einmal gestartet, sondern einzeln. Es wird dabei so lange auf das startende Dogu gewartet, bis es sich in einem 'healthy' state befindet.
+
 #### registryConfig (optional)
 An dieser Stelle lassen sich Werte definieren, die direkt in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setupoberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des Ecosystems abgelegt.
 

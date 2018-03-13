@@ -288,6 +288,9 @@ Properties:
 * Content: Logical value which shows if the _admin_ step is completely finished
 * Example: ``true``
 
+#### sequentialDoguStart (optional)
+
+Is this boolean value set to 'true', the start of the dogus at the end of the setup will be sequential instead of parallel. The setup will wait for a starting dogu to reach its 'healthy' state before starting the next one.
 
 #### registryConfig (optional)
 Here you can define values which will be written directly to the registry (=etcd, at the moment). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.
