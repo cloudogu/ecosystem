@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
 
   # configure virtual hardware
   config.vm.provider "virtualbox" do |v|
-    v.memory = 3072
+    v.memory = 4096
     # v.cpus = 2
 
     # enable dns host resolver
