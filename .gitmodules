@@ -25,3 +25,6 @@
 [submodule "containers/postgresql"]
 	path = containers/postgresql
 	url = git@github.com:cloudogu/postgresql.git
+[submodule "containers/ldap"]
+	path = containers/ldap
+	url = git@github.com:cloudogu/ldap.git
