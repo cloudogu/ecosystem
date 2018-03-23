@@ -25,3 +25,6 @@
 [submodule "containers/postgresql"]
 	path = containers/postgresql
 	url = git@github.com:cloudogu/postgresql.git
+[submodule "containers/base"]
+	path = containers/base
+	url = git@github.com:cloudogu/base.git
