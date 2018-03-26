@@ -5,7 +5,7 @@
 # - https://github.com/jenkinsci/docker/issues/508
 
 JAVA_VERSION="8u151"
-CHANGE_COUNTER="2n"
+CHANGE_COUNTER="2"
 JAVA_ALPINE_VERSION="8.151.12-r0"
 IMAGE_NAME="registry.cloudogu.com/official/java"
 IMAGE_TAG="$(JAVA_VERSION)-$(CHANGE_COUNTER)"
@@ -18,7 +18,7 @@ info:
 	@echo "Java Version  : $(JAVA_VERSION)"
 	@echo "Change Counter: $(CHANGE_COUNTER)"
 	@echo "Apk Version   : $(JAVA_ALPINE_VERSION)"
-	@echo "Image Name    : $(IMAGE_NAME)"
+	@echo "Image Name    : $(IMAGE_NAME)"l
 	@echo "Image Tag     : $(IMAGE_TAG)"
 	@echo "Image         : $(IMAGE_NAME):$(IMAGE_TAG)"
 
