@@ -18,7 +18,7 @@ info:
 	@echo "Java Version  : $(JAVA_VERSION)"
 	@echo "Change Counter: $(CHANGE_COUNTER)"
 	@echo "Apk Version   : $(JAVA_ALPINE_VERSION)"
-	@echo "Image Name    : $(IMAGE_NAME)"l
+	@echo "Image Name    : $(IMAGE_NAME)"
 	@echo "Image Tag     : $(IMAGE_TAG)"
 	@echo "Image         : $(IMAGE_NAME):$(IMAGE_TAG)"
 
