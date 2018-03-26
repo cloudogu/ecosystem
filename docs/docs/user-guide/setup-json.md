@@ -91,6 +91,12 @@ Properties:
 * Content: The mail relay host of the Ecosystem
 * Example: ``"mail.mydomain.com"``
 
+##### mailAddress
+* Optional
+* Data type: String
+* Content: The mail address used by all dogus to send mails (the 'From:'-Field)
+* Example: ``"mail@mydomain.com"``
+
 ##### completed
 * Data type: boolean
 * Content: Logical value which shows if the _naming_ step is completely finished
