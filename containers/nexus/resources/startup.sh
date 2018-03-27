@@ -3,22 +3,12 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# return global config value or default value
-# param1 config key
-# param2 default value
-function global_cfg_or_default {
-  if ! VALUE=$(doguctl config --global "${1}"); then
-    VALUE="${2}"
-  fi
-  echo "${VALUE}"
-}
-
 # variables
 ADMUSR="admin"
 ADMDEFAULTPW="admin123"
 ADMINGROUP=$(doguctl config --global admin_group)
 DOMAIN=$(doguctl config --global domain)
-MAIL_ADDRESS=$(global_cfg_or_default 'mail_address' "nexus@${DOMAIN}")
+MAIL_ADDRESS=$(doguctl config -d "nexus@${DOMAIN}" --global mail_address)
 FQDN=$(doguctl config --global fqdn)
 
 function set_random_admin_password {
