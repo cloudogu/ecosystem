@@ -308,7 +308,8 @@ The following objects are examples:
 ##### \_global
 * Content: Global configuration data
 * Example: ``{
-"stage":"development"
+"stage":"development",
+"manager_group": "cesManager"
 }`` or ``{
 "stage":"production"
 }``
