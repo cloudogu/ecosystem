@@ -100,6 +100,12 @@ die IP-Adresse des EcoSystems an dieser Stelle verwendet.
 * Inhalt: Der Mail Relay Host für das Ecosystem über den der Mailversand abgewickelt werden soll
 * Beispiel: ``"mail.mydomain.com"``
 
+##### mailAddress
+* Optional
+* Datentyp: String
+* Inhalt: Die Mail-Adresse, welche von allen Dogus verwendet wird, um Mails zu versenden (das 'From:'-Feld)
+* Beispiel: ``"mail@mydomain.com"``
+
 ##### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Naming-Schritt komplett ist
@@ -322,7 +328,8 @@ Enthält beispielsweise folgende Objekte:
 ##### \_global
 * Inhalt: Globale Konfigurationsdaten
 * Beispiel: ``{
-"stage":"development"
+"stage":"development",
+"manager_group": "cesManager"
 }`` oder ``{
 "stage":"production"
 }``
