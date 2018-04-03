@@ -33,4 +33,4 @@
 	url = git@github.com:cloudogu/ldap.git
 [submodule "containers/usermgt"]
 	path = containers/usermgt
-	url = git@github.com/cloudogu/usermgt.git
+	url = git@github.com:cloudogu/usermgt.git
