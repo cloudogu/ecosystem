@@ -457,3 +457,16 @@ Enthält beispielsweise folgende Objekte:
 }
 ````
 * _state: Je nach gesetztem State werden Repositories hinzugefügt/geändert oder entfernt. Ist der State auf "absent" gesetzt, wird ein ggf. vorhandenes Repository mit der genannten ID gelöscht. Ist der State auf "present" gesetzt, wird ein neues Repository angelegt, falls es noch nicht existiert. Sollte es schon existieren, werden nur die Eigenschaften, bspw. der Name, angepasst.
+
+#### registryConfigEncrypted (optional)
+An dieser Stelle lassen sich Werte definieren, die in verschlüsselter Form in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setupoberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des Ecosystems abgelegt. Anders als bei _registryConfig_, können sich in der ersten Ebene nur installierte(bzw. während dem Setup installierte) Dogus befinden, da nur für diese eine Verschlüsselung möglich ist.
+
+Objektname: _registryConfigEncrypted_
+
+Enthält beispielsweise folgende Objekte:
+
+##### postfix
+* Der Inhalt des smtp_tls_key_files kann hier gesetzt werden
+* Beispiel:``{
+    "smtp_tls_key_file": "<Certificate>"
+}``
