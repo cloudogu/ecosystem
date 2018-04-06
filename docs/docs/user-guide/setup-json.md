@@ -404,3 +404,17 @@ The following objects are examples:
       }
     }
 ````
+#### registryConfigEncrypted (optional)
+Here you can define values which will be written encrypted to the registry (=etcd, at the moment). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.
+In the first level only Dogus which will be installed during the setup are possible. For other entries there is no key for encryption.
+
+Object name: _registryConfigEncrypted_
+
+The following objects are examples:
+
+##### postfix
+* Set content of the smtp_tls_key_file here.
+* Example:``{
+    "smtp_tls_key_file": "<Certificate>"
+}``
+
