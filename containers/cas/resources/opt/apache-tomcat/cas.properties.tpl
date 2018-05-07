@@ -192,3 +192,11 @@ ldap.trustManager=%LDAP_TRUST_MANAGER%
 # set deployment stage
 stage = %STAGE%
 requireSecure = %REQUIRE_SECURE%
+
+#========================================
+# Limit Login Attempts
+#========================================
+# Setting login.limit.maxNumber to 0 disabled feature
+login.limit.maxNumber=%LOGIN_LIMIT_MAX_NUMBER%
+login.limit.failureStoreTime=%LOGIN_LIMIT_FAILURE_STORE_TIME%
+login.limit.lockTime=%LOGIN_LIMIT_LOCK_TIME%
