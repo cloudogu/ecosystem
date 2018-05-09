@@ -83,6 +83,10 @@ if [[ "$STAGE" == 'development' ]]; then
   REQUIRE_SECURE='false'
 fi
 
+LOGIN_LIMIT_MAX_NUMBER=$(cfg_or_default 'limit/max_number' '0')
+LOGIN_LIMIT_FAILURE_STORE_TIME=$(cfg_or_default 'limit/failure_store_time' '0')
+LOGIN_LIMIT_LOCK_TIME=$(cfg_or_default 'limit/lock_time' '0')
+
 # render templates
 sed "s@%DOMAIN%@$DOMAIN@g;\
 s@%LDAP_STARTTLS%@$LDAP_STARTTLS@g;\
@@ -103,7 +107,10 @@ s@%LDAP_ATTRIBUTE_GROUP%@$LDAP_ATTRIBUTE_GROUP@g;\
 s@%LDAP_GROUP_BASE_DN%@$LDAP_GROUP_BASE_DN@g;\
 s@%LDAP_GROUP_SEARCH_FILTER%@$LDAP_GROUP_SEARCH_FILTER@g;\
 s@%LDAP_GROUP_ATTRIBUTE_NAME%@$LDAP_GROUP_ATTRIBUTE_NAME@g;\
-s@%LDAP_USE_USER_CONNECTION%@$LDAP_USE_USER_CONNECTION@g"\
+s@%LDAP_USE_USER_CONNECTION%@$LDAP_USE_USER_CONNECTION@g;\
+s@%LOGIN_LIMIT_MAX_NUMBER%@$LOGIN_LIMIT_MAX_NUMBER@g;\
+s@%LOGIN_LIMIT_FAILURE_STORE_TIME%@$LOGIN_LIMIT_FAILURE_STORE_TIME@g;\
+s@%LOGIN_LIMIT_LOCK_TIME%@$LOGIN_LIMIT_LOCK_TIME@g"\
  /opt/apache-tomcat/cas.properties.tpl > /opt/apache-tomcat/webapps/cas/WEB-INF/cas.properties
 
 # create truststore, which is used in the setenv.sh
