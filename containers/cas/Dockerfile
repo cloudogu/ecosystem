@@ -1,9 +1,9 @@
 # registry.cloudogu.com/official/cas
 FROM registry.cloudogu.com/official/java:8u151-1
-MAINTAINER Michael Behlendorf <michael.behlendorf@cloudogu.com>
+LABEL maintainer="michael.behlendorf@cloudogu.com"
 
 # configure environment
-ENV CAS_VERSION=4.0.7.18 \
+ENV CAS_VERSION=4.0.7.19 \
 	TOMCAT_MAJOR_VERSION=8 \
 	TOMCAT_VERSION=8.0.50 \
 	CATALINA_BASE=/opt/apache-tomcat \
