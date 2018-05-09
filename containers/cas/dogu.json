@@ -16,6 +16,19 @@
   "OptionalDependencies": [
     "ldap"
   ],
+  "Configuration": [{
+    "Name": "limit/max_number",
+    "Description": "Max number of login retries (0 means disabled)",
+    "Optional": true
+  }, {
+    "Name": "limit/failure_store_time",
+    "Description": "Max time to store failed logins (in seconds)",
+    "Optional": true
+  }, {
+    "Name": "limit/lock_time",
+    "Description": "Time to lock an account if limit/max_number is reached (in seconds)",
+    "Optional": true
+  }],
   "Volumes": [{
     "Name": "data",
     "Path": "/var/lib/cas",
