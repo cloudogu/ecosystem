@@ -22,11 +22,11 @@
     "Optional": true
   }, {
     "Name": "limit/failure_store_time",
-    "Description": "Max time to store failed logins (in seconds)",
+    "Description": "Max time to store failed logins (in seconds); has to be set > 0 when limit/max_number is > 0",
     "Optional": true
   }, {
     "Name": "limit/lock_time",
-    "Description": "Time to lock an account if limit/max_number is reached (in seconds)",
+    "Description": "Time to lock an account if limit/max_number is reached (in seconds); has to be set > 0 when limit/max_number is > 0",
     "Optional": true
   }],
   "Volumes": [{
