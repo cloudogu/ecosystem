@@ -135,21 +135,23 @@
       "communicator":"ssh",
       "http_directory": "http",
       "headless": false,
-      "boot_wait": "5s",
+      "boot_wait": "15s",
       "boot_command": [
-        "<enter><wait><f6><esc>",
-        "/install/vmlinuz ",
+        "<esc><wait10><esc><esc><enter><wait>",
+        "linux /install/vmlinuz ",
         "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/prod/preseed.cfg ",
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
         "hostname={{user `vm_name`}} ",
         "fb=false debconf/frontend=noninteractive net.ifnames=0 ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false  <enter>",
+        "initrd /install/initrd.gz<enter>",
+        "boot<enter>"
       ],
       "shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now",
       "generation": 2,
-      "switch_name":"{{user `hyperv_switchname`}}",
+      "ram_size": "{{user `memory`}}",
+      "cpu": "{{user `cpus`}}",
       "enable_secure_boot":false
     }
   ],
