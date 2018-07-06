@@ -25,6 +25,10 @@ vmware-iso)
 
 qemu)
   ;;
+  
+hyperv-iso)
+  #guest additions already installed during ubuntu-preseed, since they are already needed during the packer build
+  ;;
 
 *)
   echo "Unknown Packer Builder Type >>$PACKER_BUILDER_TYPE<< selected."

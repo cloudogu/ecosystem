@@ -2,6 +2,8 @@
 .bundle
 .vagrant.rb
 
+images/output-*/
+
 #IDEA related
 .idea/
 *.iml

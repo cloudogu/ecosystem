@@ -35,6 +35,41 @@
       ],
       "shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now",
       "hard_drive_interface": "sata"
+    },
+    {
+      "name": "ecosystem-basebox-hyperv",
+      "type": "hyperv-iso",
+      "vm_name": "{{user `vm_name`}}",
+      "iso_urls": [
+        "http://releases.ubuntu.com/xenial/ubuntu-16.04.4-server-amd64.iso"
+      ],
+      "iso_checksum": "0a03608988cfd2e50567990dc8be96fb3c501e198e2e6efcb846d89efc7b89f2",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "{{user `username`}}",
+      "ssh_password": "{{user `password`}}",
+      "ssh_timeout": "10000s",
+      "communicator":"ssh",
+      "http_directory": "http",
+      "headless": false,
+      "boot_wait": "10s",
+      "boot_command": [
+        "<enter><wait><f6><esc>",
+        "/install/vmlinuz ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/dev/preseed-hyperv.cfg ",
+        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+        "hostname={{user `vm_name`}} ",
+        "fb=false debconf/frontend=noninteractive net.ifnames=0 ",
+        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ],
+      "shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now",
+      "ram_size": "{{user `memory`}}",
+      "cpu": "{{user `cpus`}}",
+      "guest_additions_mode": "disable",
+      "switch_name": "packer-external",
+      "generation": 1,
+      "enable_secure_boot":false
     }
   ],
   "provisioners": [
