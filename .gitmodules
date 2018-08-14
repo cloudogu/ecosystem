@@ -37,3 +37,6 @@
 [submodule "containers/nexus"]
 	path = containers/nexus
 	url = git@github.com:cloudogu/nexus.git
+[submodule "containers/cas"]
+	path = containers/cas
+	url = git@github.com:cloudogu/cas.git
