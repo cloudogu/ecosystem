@@ -1,6 +1,6 @@
 # registry.cloudogu.com/official/registrator:0.7.0
 # dockerfile is based on https://github.com/progrium/registrator
-FROM registry.cloudogu.com/official/base:3.7-3
+FROM registry.cloudogu.com/official/base:3.7-4
 LABEL maintainer="sebastian.sdorra@cloudogu.com" \
       NAME="official/registrator" \
       VERSION="0.7.0-1"
