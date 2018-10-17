@@ -40,3 +40,6 @@
 [submodule "containers/cas"]
 	path = containers/cas
 	url = git@github.com:cloudogu/cas.git
+[submodule "containers/java"]
+	path = containers/java
+	url = git@github.com:cloudogu/java.git
