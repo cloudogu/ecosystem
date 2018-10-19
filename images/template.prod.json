@@ -4,7 +4,10 @@
 		"username": "ces-admin",
 		"password": "ces-admin",
 		"memory": "4096",
-		"cpus": "2"
+		"cpus": "2",
+		"iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04.5-server-amd64.iso",
+		"iso_checksum": "c94de1cc2e10160f325eb54638a5b5aa38f181d60ee33dae9578d96d932ee5f8",
+		"iso_checksum_type": "sha256"
 	},
 	"builders": [
 		{
@@ -14,10 +17,10 @@
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "Ubuntu_64",
 			"iso_urls": [
-				"http://releases.ubuntu.com/xenial/ubuntu-16.04.5-server-amd64.iso"
+				"{{user `iso_url`}}"
 			],
-			"iso_checksum": "c94de1cc2e10160f325eb54638a5b5aa38f181d60ee33dae9578d96d932ee5f8",
-			"iso_checksum_type": "sha256",
+			"iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
 			"ssh_username": "{{user `username`}}",
 			"ssh_password": "{{user `password`}}",
 			"ssh_wait_timeout": "10000s",
@@ -65,10 +68,10 @@
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "ubuntu-64",
 			"iso_urls": [
-				"http://releases.ubuntu.com/xenial/ubuntu-16.04.5-server-amd64.iso"
+				"{{user `iso_url`}}"
 			],
-			"iso_checksum": "c94de1cc2e10160f325eb54638a5b5aa38f181d60ee33dae9578d96d932ee5f8",
-			"iso_checksum_type": "sha256",
+			"iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
 			"ssh_username": "{{user `username`}}",
 			"ssh_password": "{{user `password`}}",
 			"ssh_wait_timeout": "10000s",
@@ -96,10 +99,10 @@
 			"format": "qcow2",
 			"vm_name": "{{user `vm_name`}}",
 			"iso_urls": [
-				"http://releases.ubuntu.com/xenial/ubuntu-16.04.5-server-amd64.iso"
+				"{{user `iso_url`}}"
 			],
-			"iso_checksum": "c94de1cc2e10160f325eb54638a5b5aa38f181d60ee33dae9578d96d932ee5f8",
-			"iso_checksum_type": "sha256",
+			"iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
 			"ssh_username": "{{user `username`}}",
 			"ssh_password": "{{user `password`}}",
 			"ssh_wait_timeout": "10000s",
