@@ -6,10 +6,12 @@ Vagrant.require_version ">= 1.9.0"
 
 Vagrant.configure(2) do |config|
 
-  # https://atlas.hashicorp.com/cloudogu/boxes/ecosystem-basebox
   config.vm.box = "cloudogu/ecosystem-basebox"
+  config.vm.box_url = "https://storage.googleapis.com/cloudogu-ecosystem/basebox/virtualbox/v0.6.2/basebox-virtualbox-v0.6.2.box"
+  config.vm.box_download_checksum = "9a5dfc47b56525bc0a3c8182bc179476a0f0d1821ce9a4f7fce160c5c198cf91"
+  config.vm.box_download_checksum_type = "sha256"
+
   config.vm.hostname = "ces"
-  config.vm.box_version = "0.6.2"
 
   # use bridged network
   # to get the ip use vagrant ssh -c ifconfig
