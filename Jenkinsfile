@@ -119,6 +119,9 @@ config.vm.networks.each do |n|
   end
 end
 
+# increase boot timeout
+config.vm.boot_timeout = 600
+
 config.vm.provider "virtualbox" do |v|
 	v.memory = 8192
 	v.cpus = 2
