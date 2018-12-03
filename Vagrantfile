@@ -28,6 +28,7 @@ Vagrant.configure(2) do |config|
 
   # configure virtual hardware
   config.vm.provider "virtualbox" do |v|
+    v.name = "ecosystem-" + Time.now.to_f.to_s
     v.memory = 3072
     # v.cpus = 2
 
