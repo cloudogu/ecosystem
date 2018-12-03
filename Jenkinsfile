@@ -122,7 +122,7 @@ end
 config.vm.provider "virtualbox" do |v|
 	v.memory = 8192
 	v.cpus = 2
-	v.linked_clone = true
+	# v.linked_clone = true
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 end
