@@ -22,7 +22,7 @@ node('vagrant') {
     try {
 
         stage('Provision') {
-            timeout(5) {
+            timeout(15) {
                 writeVagrantConfiguration()
                 sh 'rm -f setup.staging.json setup.json'
                 sh 'vagrant up'
