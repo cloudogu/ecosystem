@@ -37,6 +37,7 @@ For additional resources of the new dogu, a `resources` folder can be created.
  * ExposedCommands (JSON array):
  * HealthChecks (JSON array): 
  * Volumes (JSON array): Directories in the ecosystem, which are also accessible from inside the dogu
+ * Volumes-> Volume-> NeedsBackup (bool): Indicator for the backup. Set to false when volume data is not important for backup
  * ServiceAccounts (JSON array): 
 
 ### 3. Create your dogu
