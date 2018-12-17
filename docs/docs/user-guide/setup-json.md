@@ -329,6 +329,12 @@ The following objects are examples:
     "smtp_tls_security_level": "encrypt"
 }``
 
+##### nexus
+* Content: Option to deactivate default docker registry creation
+* Example:``{
+    "installDefaultDockerRegistry": "false"
+}``
+
 ##### cockpit
 * Content: Set configuration of welcome-dashboard here
 * Example:``{

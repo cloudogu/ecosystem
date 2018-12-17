@@ -349,6 +349,12 @@ Enthält beispielsweise folgende Objekte:
     "smtp_tls_security_level": "encrypt"
 }``
 
+##### nexus
+* Inhalt: Option zum Verhindern der Erstellung der Default Docker Registry
+* Example:``{
+    "installDefaultDockerRegistry": "false"
+}``
+
 ##### cockpit
 * Inhalt: Die Konfiguration des welcome-Dashboard kann hier gesetzt werden
 * Beispiel:``{
