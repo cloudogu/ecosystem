@@ -101,7 +101,7 @@ timestamps{
 
     } finally {
         stage('Clean') {
-            sh 'vagrant destroy -f'
+            ecoSystem.destroy()
         }
     }
 }
