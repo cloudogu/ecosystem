@@ -1,5 +1,10 @@
 #!groovy
 
+@Library(['github.com/cloudogu/dogu-build-lib@1e5e2a6', 'github.com/cloudogu/zalenium-build-lib@eba8a3b']) _
+
+import com.cloudogu.ces.dogubuildlib.*
+
+
 // todo
 // - setup output
 
@@ -8,6 +13,7 @@
 
 node('vagrant') {
 
+timestamps{
     properties([
             // Keep only the last x builds to preserve space
             buildDiscarder(logRotator(numToKeepStr: '10')),
@@ -23,9 +29,12 @@ node('vagrant') {
 
         stage('Provision') {
             timeout(15) {
-                writeVagrantConfiguration()
-                sh 'rm -f setup.staging.json setup.json'
-                sh 'vagrant up'
+                //writeVagrantConfiguration()
+                //sh 'rm -f setup.staging.json setup.json'
+                //sh 'vagrant up'
+                stage('Provision') {
+                ecoSystem.provision("/dogu");
+            }
             }
         }
 
@@ -93,6 +102,7 @@ node('vagrant') {
             sh 'vagrant destroy -f'
         }
     }
+}
 
 }
 
