@@ -58,9 +58,10 @@ timestamps{
         stage('Start Dogus') {
             timeout(15) {
                 // TODO wait for all
+                echo "Waiting for dogus to become healthy..."
                 vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast cas")
-                //sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast jenkins"'
-                //sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast scm"'
+                vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast jenkins")
+                vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast scm")
             }
         }
 
