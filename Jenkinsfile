@@ -60,8 +60,19 @@ timestamps{
                 // TODO wait for all
                 echo "Waiting for dogus to become healthy..."
                 ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast cas")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast cockpit")
                 ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast jenkins")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast nginx")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast ldap")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast postfix")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast postgresql")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast redmine")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast registrator")
                 ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast scm")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast smeagol")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast sonar")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast nexus")
+                ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast usermgt")
             }
         }
 
