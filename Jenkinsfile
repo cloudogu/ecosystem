@@ -42,14 +42,16 @@ timestamps{
 
         stage('Setup') {
             timeout(5) {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
+                /*withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
                     sh "vagrant ssh -c \"sudo cesapp login ${env.TOKEN_ID} ${env.TOKEN_SECRET}\""
                 }
                 writeSetupStagingJSON()
                 sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.staging.json"'
                 sh 'vagrant ssh -c "sudo mv /etc/ces/setup.staging.json /etc/ces/setup.json"'
                 sh 'vagrant ssh -c "while sudo pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
-                sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"'
+                sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"' */
+                ecoSystem.loginBackend('cesmarvin-setup')
+                ecoSystem.setup()
             }
         }
 
