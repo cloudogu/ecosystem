@@ -32,9 +32,7 @@ timestamps{
                 //writeVagrantConfiguration()
                 //sh 'rm -f setup.staging.json setup.json'
                 //sh 'vagrant up'
-                stage('Provision') {
                 ecoSystem.provision("/dogu");
-            }
             }
         }
 
