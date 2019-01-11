@@ -21,6 +21,10 @@ timestamps{
             disableConcurrentBuilds()
     ])
 
+
+        EcoSystem ecoSystem = new EcoSystem(this, "gcloud-ces-operations-internal-packer", "jenkins-gcloud-ces-operations-internal")
+
+
     stage('Checkout') {
         checkout scm
     }
