@@ -22,7 +22,7 @@ timestamps{
     ])
 
 
-        EcoSystem ecoSystem = new EcoSystem(this, "gcloud-ces-operations-internal-packer", "jenkins-gcloud-ces-operations-internal")
+    EcoSystem ecoSystem = new EcoSystem(this, "gcloud-ces-operations-internal-packer", "jenkins-gcloud-ces-operations-internal")
 
 
     stage('Checkout') {
@@ -54,7 +54,7 @@ timestamps{
                 ecoSystem.setup([ additionalDependencies: [ 'official/postgresql',
                 "official/cas",
                 "official/cockpit",
-                "official/jenkins",
+                'official/jenkins',
                 "official/nginx",
                 "official/ldap",
                 "official/postfix",
@@ -70,7 +70,7 @@ timestamps{
             }
         }
 
-        stage('Start Dogus') {
+        stage('Startup Dogus') {
             timeout(15) {
                 echo "Waiting for dogus to become healthy..."
                 ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast cas")
@@ -101,7 +101,9 @@ timestamps{
                 try {
 
                     def seleniumChromeIP = containerIP(seleniumChromeContainer)
-                    def cesIP = getCesIP()
+                    echo "seleniumChromeIP: ${seleniumChromeIP}"
+                    def cesIP = getCesIP(ecoSystem)
+                    echo "cesIP: ${cesIP}"
 
                     docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${cesIP}") {
                         sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
@@ -136,9 +138,9 @@ timestamps{
 
 }
 
-String getCesIP() {
+String getCesIP(EcoSystem ecoSystem) {
     // log into vagrant vm and get the ip from the eth1, which should the configured private network
-    sh "vagrant ssh -c \"ip addr show dev eth1\" | grep 'inet ' | awk '{print \$2}' | awk -F'/' '{print \$1}' > vagrant.ip"
+    ecoSystem.vagrant.ssh("ip addr show dev eth1 | grep 'inet ' | awk '{print \$2}' | awk -F'/' '{print \$1}' > vagrant.ip")
     return readFile('vagrant.ip').trim()
 }
 
