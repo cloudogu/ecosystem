@@ -51,13 +51,27 @@ timestamps{
                 sh 'vagrant ssh -c "while sudo pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
                 sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"' */
                 ecoSystem.loginBackend('cesmarvin-setup')
-                ecoSystem.setup()
+                ecoSystem.setup([ additionalDependencies: [ 'official/postgresql',
+                "official/cas",
+                "official/cockpit",
+                "official/jenkins",
+                "official/nginx",
+                "official/ldap",
+                "official/postfix",
+                "official/postgresql",
+                "official/redmine",
+                "official/registrator",
+                "official/scm",
+                "official/smeagol",
+                "official/sonar",
+                "official/nexus",
+                "official/usermgt"
+                ] ])
             }
         }
 
         stage('Start Dogus') {
             timeout(15) {
-                // TODO wait for all
                 echo "Waiting for dogus to become healthy..."
                 ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast cas")
                 ecoSystem.vagrant.ssh("sudo cesapp healthy --wait --timeout 600 --fail-fast cockpit")
