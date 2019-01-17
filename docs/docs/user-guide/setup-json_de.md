@@ -244,16 +244,16 @@ Eigenschaften:
 
 ##### install
 * Datentyp: String Array
-* Inhalt: Liste aller Dogus, die installiert werden sollen
+* Inhalt: Liste aller Dogus, die installiert werden sollen. Einträge können die zu installierende Version enthalten; wenn keine Version gesetzt ist, wird die aktuellste Version installiert.
 * Beispiel: ``[
       "official/cas",
       "official/cockpit",
-      "official/nginx",
-      "official/ldap",
+      "official/nginx:1.13.11-7",
+      "official/ldap:2.4.44-5",
       "official/postfix",
       "official/postgresql",
       "official/registrator",
-      "official/usermgt"
+      "official/usermgt:1.3.4-3"
     ]``
 
 ##### completed

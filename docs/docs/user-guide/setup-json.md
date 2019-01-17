@@ -235,16 +235,16 @@ Properties:
 
 ##### install
 * Data type: String array
-* Content: List of all dogus to install
+* Content: List of all dogus to install. May include version information; if no version tag is set, the latest version is installed.
 * Example: ``[
       "official/cas",
       "official/cockpit",
-      "official/nginx",
-      "official/ldap",
+      "official/nginx:1.13.11-7",
+      "official/ldap:2.4.44-5",
       "official/postfix",
       "official/postgresql",
       "official/registrator",
-      "official/usermgt"
+      "official/usermgt:1.3.4-3"
     ]``
 
 ##### completed
