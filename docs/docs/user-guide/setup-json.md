@@ -335,6 +335,34 @@ The following objects are examples:
     "installDefaultDockerRegistry": "false"
 }``
 
+* Content: Options to import HTTP/HTTPS proxy settings and excluded hosts
+* Example:
+````
+"proxyConfiguration": {
+        "http": {
+          "host": "testHTTPhost",
+          "port": "1234",
+          "authentication": {
+            "username": "testHTTPuser",
+            "password": "testHTTPpassword",
+            "ntlmHost": "ntlm HTTPhostname",
+            "domain": "ntlm HTTPdomain"
+          }
+        },
+        "https": {
+          "host": "testHTTPShost",
+          "port": "4321",
+          "authentication": {
+            "username": "testHTTPSuser",
+            "password": "testHTTPSpassword",
+            "ntlmHost": "ntlm HTTPShostname",
+            "domain": "ntlm HTTPSdomain"
+          }
+        },
+        "nonProxyHosts": "nonhost1,nonhost2,nonhost123456nope.nopetown"
+      }
+````
+
 ##### cockpit
 * Content: Set configuration of welcome-dashboard here
 * Example:``{

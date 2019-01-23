@@ -363,9 +363,37 @@ Enthält beispielsweise folgende Objekte:
 
 #### nexus
 * Inhalt: Option zum Verhindern der Erstellung der Default Docker Registry
-* Example:``{
+* Beispiel:``{
     "installDefaultDockerRegistry": "false"
 }``
+
+* Inhalt: Optionen zum Importieren von HTTP/HTTPS-Proxy-Einstellungen und davon ausgenommenen Hosts
+* Beispiel:
+````
+"proxyConfiguration": {
+        "http": {
+          "host": "testHTTPhost",
+          "port": "1234",
+          "authentication": {
+            "username": "testHTTPuser",
+            "password": "testHTTPpassword",
+            "ntlmHost": "ntlm HTTPhostname",
+            "domain": "ntlm HTTPdomain"
+          }
+        },
+        "https": {
+          "host": "testHTTPShost",
+          "port": "4321",
+          "authentication": {
+            "username": "testHTTPSuser",
+            "password": "testHTTPSpassword",
+            "ntlmHost": "ntlm HTTPShostname",
+            "domain": "ntlm HTTPSdomain"
+          }
+        },
+        "nonProxyHosts": "nonhost1,nonhost2,nonhost123456nope.nopetown"
+      }
+````
 
 #### cockpit
 * Inhalt: Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
