@@ -488,33 +488,9 @@ Enthält beispielsweise folgende Objekte:
 * Datentyp: String, HCL/JSON formatiert
 * Inhalt: Konfiguration der Sonatype Nexus-Repositories. Diese Einstellung wird beim ersten ("once") bzw. jedem ("always") Start von Sonatype Nexus hergestellt. Die genaue Definition der Nexus-Properties ist der Nexus-Dokumentation zu entnehmen.
 * Weitere Informationen: https://github.com/cloudogu/nexus-claim
-* Beispiel:
-````
-{
-  "once":
-    "repository \"apache-snapshots\" {
-    _state = \"absent\"
-    }
-    repository \"central-m1\" {
-    _state = \"absent\"
-    }
-    repository \"thirdparty\" {
-    name = \"Third Party\"
-    _state = \"present\"
-    }",
-  "always":
-    "repository \"apache-snapshots\" {
-    _state = \"absent\"
-    }
-    repository \"central-m1\" {
-    _state = \"absent\"
-    }
-    repository \"thirdparty\" {
-    name = \"Third Party\"
-    _state = \"present\"
-    }"
-}
-````
+* Beispiel für Nexus 2: https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus2/nexus-initial-example.hcl
+* Beispiel für Nexus 3: https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus3/nexus_custom.hcl
+
 * _state: Je nach gesetztem State werden Repositories hinzugefügt/geändert oder entfernt. Ist der State auf ``"absent"`` gesetzt, wird ein ggf. vorhandenes Repository mit der genannten ID gelöscht. Ist der State auf ``"present"`` gesetzt, wird ein neues Repository angelegt, falls es noch nicht existiert. Sollte es schon existieren, werden nur die Eigenschaften, bspw. der Name, angepasst.
 
 ### registryConfigEncrypted (optional)
