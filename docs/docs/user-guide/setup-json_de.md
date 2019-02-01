@@ -367,6 +367,11 @@ Enthält beispielsweise folgende Objekte:
     "installDefaultDockerRegistry": "false"
 }``
 
+* Inhalt: Option zum Aktivieren von Repository Sandboxing
+* Beispiel:``{
+    "nexus.repository.sandbox.enable": "true"
+}``
+
 * Inhalt: Optionen zum Importieren von HTTP/HTTPS-Proxy-Einstellungen und davon ausgenommenen Hosts
 * Beispiel:
 ````
