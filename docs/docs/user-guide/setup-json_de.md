@@ -327,6 +327,15 @@ Ist dieser boolsche Wert auf ``true`` gesetzt, werden die Dogus am Ende des Setu
 
 Objektname: _sequentialDoguStart_
 
+#### extendedConfiguration (optional)
+
+Dieser Bereich enthält erweriterte Konfigurationsoptionen für das ces-setup.
+
+##### ignoreCriticalHealthCheck (optional)
+* Datentyp: boolean
+* Inhalt: Diese Option sorgt dafür, dass healthcheck-Fehler, die während des Starts von Dogus am Ende des Setup auftreten, nur geloggt werden, aber nicht zu einem Abbruch des Setups führen.
+* Beispiel: ``{ "ignoreCriticalHealthCheck": true }``
+
 ### registryConfig (optional)
 An dieser Stelle lassen sich Werte definieren, die direkt in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry (etcd) des EcoSystem abgelegt.
 

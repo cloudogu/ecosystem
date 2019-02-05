@@ -298,6 +298,15 @@ Properties:
 
 Is this boolean value set to 'true', the start of the dogus at the end of the setup will be sequential instead of parallel. The setup will wait for a starting dogu to reach its 'healthy' state before starting the next one.
 
+#### extendedConfiguration (optional)
+
+This section holds additional configuration for ces-setup.
+
+##### ignoreCriticalHealthCheck (optional)
+* Data type: boolean
+* Content: If this is set to true, health check errors during dogu startup at the end of the setup are logged, but the setup does not fail.
+* Example: ``{ "ignoreCriticalHealthCheck": true }``
+
 #### registryConfig (optional)
 Here you can define values which will be written directly to the registry (=etcd, at the moment). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.
 
