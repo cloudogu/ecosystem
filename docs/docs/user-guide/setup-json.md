@@ -338,6 +338,12 @@ The following objects are examples:
     "smtp_tls_security_level": "encrypt"
 }``
 
+##### sonar
+* Content: Set custom SonarQube UpdateCenter URL here
+* Example:``{
+    "sonar.updatecenter.url": "http://customupdatecenter.com"
+}``
+
 ##### nexus
 * Content: Option to deactivate default docker registry creation
 * Example:``{

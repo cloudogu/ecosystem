@@ -370,6 +370,12 @@ Enthält beispielsweise folgende Objekte:
     "smtp_tls_security_level": "encrypt"
 }``
 
+##### sonar
+* Inhalt: Hier kann die SonarQube UpdateCenter URL gesetzt werden
+* Beispiel:``{
+    "sonar.updatecenter.url": "http://customupdatecenter.com"
+}``
+
 #### nexus
 * Inhalt: Option zum Verhindern der Erstellung der Default Docker Registry
 * Beispiel:``{
