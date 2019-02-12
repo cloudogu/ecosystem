@@ -101,7 +101,7 @@ Eigenschaften:
 * Inhalt: Der Mail Relay Host für das EcoSystem über den der Mailversand abgewickelt werden soll
 * Beispiel: ``"mail.mydomain.com"``
 
-#### mail_address
+#### mailAddress
 * Optional
 * Datentyp: String
 * Inhalt: Die Mail-Adresse, welche von allen Dogus verwendet wird, um Mails zu versenden (das 'From:'-Feld)
