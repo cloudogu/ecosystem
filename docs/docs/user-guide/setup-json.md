@@ -383,6 +383,12 @@ The following objects are examples:
       }
 ````
 
+##### cas
+* Content: Option to configure info text for 'Forgot Password'
+* Example:``{
+    "forgot_password_text": "If you forgot your password , do ..."
+}``
+
 ##### cockpit
 * Content: Set configuration of welcome-dashboard here
 * Example:``{
