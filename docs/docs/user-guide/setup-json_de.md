@@ -414,6 +414,11 @@ Enthält beispielsweise folgende Objekte:
         "nonProxyHosts": "nonhost1,nonhost2,nonhost123456nope.nopetown"
       }
 ````
+#### cas
+* Inhalt: Konfiguration der 'Passwort vergessen' Info
+* Example:``{
+    "forgot_password_text": "Wenn sie ihr Passwort vergessen haben ..."
+}``
 
 #### cockpit
 * Inhalt: Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
