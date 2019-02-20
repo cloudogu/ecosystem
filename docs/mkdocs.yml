@@ -12,4 +12,5 @@ pages:
   - Bash Scripting Guideline: user-guide/bash-guideline.md
   - CES-Image build: user-guide/image-build.md
   - Setup Automation via JSON: user-guide/setup-json.md
+  - Using SonarQube: user-guide/sonar.md
 - About: about.md
