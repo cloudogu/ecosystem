@@ -416,7 +416,7 @@ Enthält beispielsweise folgende Objekte:
 ````
 #### cas
 * Inhalt: Konfiguration der 'Passwort vergessen' Info
-* Example:``{
+* Beispiel:``{
     "forgot_password_text": "Wenn sie ihr Passwort vergessen haben ..."
 }``
 
