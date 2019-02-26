@@ -1,7 +1,7 @@
 ## Beschränkung von Login-Versuchen
 
 Login-Versuche können beschränkt werden, indem Benutzerkonten nach einer gewissen Anzahl an fehlgeschlagenen
-Anmeldeversuchen innerhalb bestimmter Zeitgrenzen temprär gesperrt werden können. Ist ein Konto gesperrt, wird
+Anmeldeversuchen innerhalb bestimmter Zeitgrenzen temporär gesperrt werden können. Ist ein Konto gesperrt, wird
 der Benutzer auf eine entsprechende Seite umgeleitet. Hierbei wird nicht geprüft, ob ein Benutzerkonto existiert
 (d. h. auch für nicht existierende Konten wird die Sperre durchgeführt).
 
