@@ -1,8 +1,9 @@
 # Automatisierung des Cloudogu EcoSystem Setup-Prozesses
-Der Setupmechanismus des Cloudogu EcoSystem lässt sich auf verschiedene Arten ausführen. Ein Weg führt über die Oberfläche im Browser, in der man alle relevanten Daten eingeben und Optionen auswählen kann. Des weiteren kann man mithilfe einer **setup.json** benannten Konfigurationsdatei die Felder im Setup vorbefüllen. Diese Datei muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen. Sind alle Daten und Einstellungen für das Setup im Voraus klar, kann man das Setup auch komplett automatisch ablaufen lassen. Dafür ist für jeden Schritt die Eigenschaft _completed_ zu setzen (siehe unten).
+Der Setupmechanismus des Cloudogu EcoSystem lässt sich auf verschiedene Arten ausführen. Ein Weg führt über die Oberfläche im Browser, in der man alle relevanten Daten eingeben und Optionen auswählen kann. Des weiteren kann man mithilfe einer `setup.json` benannten Konfigurationsdatei die Felder im Setup vorbefüllen. Diese Datei muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen. Sind alle Daten und Einstellungen für das Setup im Voraus klar, kann man das Setup auch komplett automatisch ablaufen lassen. Dafür ist für jeden Schritt die Eigenschaft _completed_ zu setzen (siehe unten).
 
 Beispiel:
-````
+
+```
 {
   "region": {
     "completed": true,
@@ -24,12 +25,15 @@ Beispiel:
     "adminGroup": "Administrators",
   }
 }
-````
+```
 
-## Setup-Schritte
-Der Inhalt der setup.json besteht aus Objekten, die den Titel des jeweiligen Setup-Schrittes (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, welche die Werte beschreiben, die dem jeweiligen Setup-Schritt übergeben werden sollen. Ist die _completed_-Eigenschaft auf ``true`` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
+Der Inhalt der `setup.json` besteht aus Objekten, die den Titel des jeweiligen Setup-Schrittes (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, welche die Werte beschreiben, die dem jeweiligen Setup-Schritt übergeben werden sollen. Ist die _completed_-Eigenschaft auf ``true`` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
 
-### Region-Schritt
+Darüber hinaus existieren weitere Konfigurationsmöglichkeiten innerhalb der `setup.json`, die keinen äquivalenten Bereich im Browser-Setup besitzen und damit nur über die Datei vorkonfiguriert werden können. Im Folgenden finden sich alle Anpassungsmöglichkeiten je nach Konfigurationstyp.
+
+## Konfigurationsschritte des Setups
+
+### Bereich "Region"
 
 Objektname: _region_
 
@@ -59,7 +63,7 @@ Eigenschaften:
 * Beispiel: ``true``
 
 
-### Naming-Schritt
+### Bereich "Naming"
 
 Objektname: _naming_
 
@@ -77,6 +81,7 @@ Eigenschaften:
 * Beispiel: ``"ces"``
 
 #### domain
+
 * Datentyp: String
 * Inhalt: Domain des EcoSystem
 * Beispiel: ``"ces.local"``
@@ -97,6 +102,7 @@ Eigenschaften:
 * Inhalt: Der Zertifikatsschlüssel für das EcoSystem im PEM-Format
 
 #### relayHost
+
 * Datentyp: String
 * Inhalt: Der Mail Relay Host für das EcoSystem über den der Mailversand abgewickelt werden soll
 * Beispiel: ``"mail.mydomain.com"``
@@ -113,7 +119,7 @@ Eigenschaften:
 * Beispiel: ``true``
 
 
-### UserBackend-Schritt
+### Bereich "UserBackend"
 
 Objektname: _userBackend_
 
@@ -200,6 +206,7 @@ Eigenschaften:
 * Muss auf ``"389"`` gesetzt werden, wenn ``dsType`` auf ``"embedded"`` gesetzt wurde
 
 #### encryption
+
 * Nur notwendig, wenn ``dsType`` auf ``"external"`` gesetzt wurde
 * Datentyp: String
 * Inhalt: Einstellung ob und ggf. welche Verschlüsselung genutzt werden soll
@@ -231,7 +238,7 @@ Eigenschaften:
 * Inhalt: Wahrheitswert, ob der User-Schritt komplett ist
 * Beispiel: ``true``
 
-### Dogu-Schritt
+### Bereich "Dogus"
 
 Die Daten, die in diesem Schritt über die setup.json eingegeben werden, werden im Setup-Prozess nur übernommen, wenn die _completed_-Eigenschaft auf ``true`` gesetzt ist. Anderenfalls ist der Schritt manuell über die Weboberfläche auszufüllen.
 
@@ -266,7 +273,7 @@ Eigenschaften:
 * Inhalt: Wahrheitswert, ob der Dogu-Schritt komplett ist
 * Beispiel: ``true``
 
-### Admin-Schritt
+### Bereich "Admin"
 
 Diese Einstellungen sind, bis auf ``adminGroup``, nur relevant, sofern ein ``"embedded"`` User Backend gewählt wurde. Anderenfalls sind die Vorgaben des externen User Backends gültig.
 
@@ -295,6 +302,7 @@ Eigenschaften:
 * Beispiel: ``"administrators"``
 
 #### adminMember
+
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob das angelegte Admin-Konto auch Mitglied der unter _adminGroup_ definierten Gruppe im User Backend werden soll
 * Beispiel: true
@@ -304,7 +312,7 @@ Eigenschaften:
 * Inhalt: Wahrheitswert, ob der Admin-Schritt komplett ist
 * Beispiel: ``true``
 
-### UnixUser
+### Bereich "UnixUser"
 
 Mit dieser Einstellung können die Credentials für den im Setup erzeugten Systemadministrator konfiguriert werden.
 Ohne diese Einstellung wird ein Nutzer mit dem Namen ``"ces-admin"`` und einem zufällig generiertem Passwort erzeugt, welches am Ende des Setups angezeigt wird. Über die Oberfläche ist der Systemadministrator nicht konfigurierbar.
@@ -312,16 +320,20 @@ Ohne diese Einstellung wird ein Nutzer mit dem Namen ``"ces-admin"`` und einem z
 Objektname: _unixUser_
 
 #### Name
+
 * Datentyp: string
 * Inhalt: Name des Unixusers
 * Beispiel: ``"ces-admin"``
 
 #### Password
+
 * Datentyp: string
 * Inhalt: Password des Unixusers
 * Beispiel: ``"ces-password"``
 
-### sequentialDoguStart (optional)
+## Zusätzliche Konfigurationsparameter
+
+#### sequentialDoguStart (optional)
 
 Ist dieser boolsche Wert auf ``true`` gesetzt, werden die Dogus am Ende des Setups nicht parallel alle auf einmal gestartet, sondern einzeln. Es wird dabei so lange auf das startende Dogu gewartet, bis es sich in einem _healthy_ state befindet.
 
@@ -329,21 +341,21 @@ Objektname: _sequentialDoguStart_
 
 #### extendedConfiguration (optional)
 
-Dieser Bereich enthält erweriterte Konfigurationsoptionen für das ces-setup.
+Dieser Bereich enthält erweiterte Konfigurationsoptionen für das CES-setup.
 
 ##### ignoreCriticalHealthCheck (optional)
-* Datentyp: boolean
-* Inhalt: Diese Option sorgt dafür, dass healthcheck-Fehler, die während des Starts von Dogus am Ende des Setup auftreten, nur geloggt werden, aber nicht zu einem Abbruch des Setups führen.
-* Beispiel: ``{ "ignoreCriticalHealthCheck": true }``
+Diese boolsche Option sorgt dafür, dass Healthcheck-Fehler, die während des Starts von Dogus am Ende des Setup auftreten, nur geloggt werden, aber nicht zu einem Abbruch des Setups führen.
 
-### registryConfig (optional)
+Objektname: _ignoreCriticalHealthCheck_
+
+#### registryConfig (optional)
 An dieser Stelle lassen sich Werte definieren, die direkt in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry (etcd) des EcoSystem abgelegt.
 
 Objektname: _registryConfig_
 
 Enthält beispielsweise folgende Objekte:
 
-#### \_global
+##### \_global
 * Inhalt: Globale Konfigurationsdaten
 * Beispiel: ``{
 "stage":"development",
@@ -352,75 +364,63 @@ Enthält beispielsweise folgende Objekte:
 "stage":"production"
 }``
 
-#### jenkins
-* Inhalt: Informationen über die Update-Site-URLs für Jenkins
-* Beispiel:
-````
+##### backup
+
+- Inhalt: Konfiguration des Backup- und Restore-Mechanimus
+- Beispiel: 
+
+```{
 {
-  "updateSiteUrl": {
-    "url1":"jenkinsUpdateSiteURL1",
-    "url2":"jenkinsUpdateSiteURL2"
+  "registryConfig": {
+    "backup": {
+      "active": "true",
+      "time": "{\"Times\":[\"12:30:00\"]}",
+      "encryption_key": "secret_123",
+      "backup_type": "SFTP",
+      "sftp_config": {
+        "address": "sftp:root@192.168.56.1:/root/repo"
+      },
+      "retention_enabled": "true",
+      "retention_strategy": "removeAllButKeepLatest",
+      "metrics_token": "metrics_123",
+      "rest_token": "rest_123",
+      "admin_role": "backupAdmins"
+    }
   }
 }
-````
+```
 
-#### postfix
-* Inhalt: Der smtp_tls_security_level-Parameter kann hier gesetzt werden
-* Beispiel:``{
-    "smtp_tls_security_level": "encrypt"
-}``
+##### cas
 
-##### sonar
-* Inhalt: Hier kann die SonarQube UpdateCenter URL gesetzt werden
-* Beispiel:``{
-    "sonar.updatecenter.url": "http://customupdatecenter.com"
-}``
+- Key: ` limit/max_number`
 
-#### nexus
-* Inhalt: Option zum Verhindern der Erstellung der Default Docker Registry
-* Beispiel:``{
-    "installDefaultDockerRegistry": "false"
-}``
+  Setzt die maximal erlaubte Anzahl an Fehlversuchen pro Benutzerkonto.
+  Wird diese Anzahl innerhalb der mit den weiteren Parametern definierten zeitlichen Rahmen
+  überschritten, wird das Konto temporär gesperrt.
 
-* Inhalt: Option zum Aktivieren von Repository Sandboxing
-* Beispiel:``{
-    "nexus.repository.sandbox.enable": "true"
-}``
+  Wird der Wert auf `0` gesetzt, ist das Feature deaktiviert und es findet keine Limitierung statt.
+  Bei einem Wert größer Null müssen die anderen Parameter auf sinnvolle Werte gesetzt werden. 
 
-* Inhalt: Optionen zum Importieren von HTTP/HTTPS-Proxy-Einstellungen und davon ausgenommenen Hosts
-* Beispiel:
-````
-"proxyConfiguration": {
-        "http": {
-          "host": "testHTTPhost",
-          "port": "1234",
-          "authentication": {
-            "username": "testHTTPuser",
-            "password": "testHTTPpassword",
-            "ntlmHost": "ntlm HTTPhostname",
-            "domain": "ntlm HTTPdomain"
-          }
-        },
-        "https": {
-          "host": "testHTTPShost",
-          "port": "4321",
-          "authentication": {
-            "username": "testHTTPSuser",
-            "password": "testHTTPSpassword",
-            "ntlmHost": "ntlm HTTPShostname",
-            "domain": "ntlm HTTPSdomain"
-          }
-        },
-        "nonProxyHosts": "nonhost1,nonhost2,nonhost123456nope.nopetown"
-      }
-````
-#### cas
-* Inhalt: Konfiguration der 'Passwort vergessen' Info
-* Beispiel:``{
-    "forgot_password_text": "Wenn sie ihr Passwort vergessen haben ..."
-}``
+- Key: `limit/failure_store_time`
 
-#### cockpit
+  Spezifiziert die Zeitdauer, für die die Anzahl der Fehlschläge seit dem letzten
+  fehlgeschlagenen Anmeldeversuch gespeichert werden soll. Wird diese Zeit zwischen zwei Anmeldeversuchen überschritten,
+  werden die Fehlschläge zurückgesetzt.
+
+  Die Zeit wird in Sekunden angegeben und muss größer Null sein, wenn das Feature aktiviert ist.
+
+- Key: `limit/lock_time`
+
+  Gibt an, wie lange das Konto im Falle einer Überschreitung der Anmeldeversuche gesperrt werden
+  soll.
+
+  Die Zeit wird in Sekunden angegeben und muss größer Null sein, wenn das Feature aktiviert ist.
+
+- Key: `forget_password_text`
+
+  Der anzuzeigende Text bei Klick auf "Passwort vergessen" innerhalb der Anmeldemaske.
+  
+##### cockpit
 * Inhalt: Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
 * Beispiel:
 ````
@@ -488,7 +488,58 @@ Enthält beispielsweise folgende Objekte:
 * Anmerkung: Wenn diese Definition nicht oder nicht in korrektem JSON-Format gesetzt ist, wird das default-Dashboard angezeigt.
 * Anmerkung: Die maximale Größe, die die JSON-Beschreibung des Dashboards haben darf, ist 2MB.
 
-#### nginx/externals
+##### jenkins
+* Inhalt: Informationen über die Update-Site-URLs für Jenkins
+* Beispiel:
+````
+{
+  "updateSiteUrl": {
+    "url1":"jenkinsUpdateSiteURL1",
+    "url2":"jenkinsUpdateSiteURL2"
+  }
+}
+````
+
+##### nexus
+* Inhalt: Option zum Verhindern der Erstellung der Default Docker Registry
+* Beispiel:``{
+    "installDefaultDockerRegistry": "false"
+}``
+
+* Inhalt: Option zum Aktivieren von Repository Sandboxing
+* Beispiel:``{
+    "nexus.repository.sandbox.enable": "true"
+}``
+
+* Inhalt: Optionen zum Importieren von HTTP/HTTPS-Proxy-Einstellungen und davon ausgenommenen Hosts
+* Beispiel:
+````
+"proxyConfiguration": {
+        "http": {
+          "host": "testHTTPhost",
+          "port": "1234",
+          "authentication": {
+            "username": "testHTTPuser",
+            "password": "testHTTPpassword",
+            "ntlmHost": "ntlm HTTPhostname",
+            "domain": "ntlm HTTPdomain"
+          }
+        },
+        "https": {
+          "host": "testHTTPShost",
+          "port": "4321",
+          "authentication": {
+            "username": "testHTTPSuser",
+            "password": "testHTTPSpassword",
+            "ntlmHost": "ntlm HTTPShostname",
+            "domain": "ntlm HTTPSdomain"
+          }
+        },
+        "nonProxyHosts": "nonhost1,nonhost2,nonhost123456nope.nopetown"
+      }
+````
+
+##### nginx/externals
 
 * Inhalt: Externe Links, die im Warp-Menü auftauchen sollen
 * Beispiel:
@@ -503,17 +554,42 @@ Enthält beispielsweise folgende Objekte:
 }
 ````
 
-#### nexus/claim
+##### nexus/claim
 
 * Datentyp: String, HCL/JSON formatiert
 * Inhalt: Konfiguration der Sonatype Nexus-Repositories. Diese Einstellung wird beim ersten ("once") bzw. jedem ("always") Start von Sonatype Nexus hergestellt. Die genaue Definition der Nexus-Properties ist der Nexus-Dokumentation zu entnehmen.
 * Weitere Informationen: https://github.com/cloudogu/nexus-claim
-* Beispiel für Nexus 2: https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus2/nexus-initial-example.hcl
-* Beispiel für Nexus 3: https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus3/nexus_custom.hcl
+* [Beispiel für Nexus 2 \[Link\]](https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus2/nexus-initial-example.hcl)
+* [Beispiel für Nexus 3 \[Link\]](https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus3/nexus_custom.hcl)
 
 * _state: Je nach gesetztem State werden Repositories hinzugefügt/geändert oder entfernt. Ist der State auf ``"absent"`` gesetzt, wird ein ggf. vorhandenes Repository mit der genannten ID gelöscht. Ist der State auf ``"present"`` gesetzt, wird ein neues Repository angelegt, falls es noch nicht existiert. Sollte es schon existieren, werden nur die Eigenschaften, bspw. der Name, angepasst.
 
-### registryConfigEncrypted (optional)
+##### postfix
+* Inhalt: Konfiguration der TLS-Verschlüsselung des Postfix SMTP Client
+* Für weiterführende Informationen siehe [offizielle Postfix Dokumentation](http://www.postfix.org/documentation.html)
+
+- Verwendung innerhalb der setup.json:
+
+```
+"registryConfig":{
+	"postfix" : {
+		"smtp_tls_security_level": "encrypt",
+		"smtp_tls_CAfile": "<CERTIFICATE>",
+		"smtp_tls_exclude_ciphers": "...",
+		"smtp_tls_loglevel": "...",
+		"smtp_tls_mandatory_ciphers": "...",
+		"smtp_tls_mandatory_protocols": "..."
+	}
+}
+```
+
+##### sonar
+* Inhalt: Hier kann die SonarQube UpdateCenter URL gesetzt werden
+* Beispiel:``{
+    "sonar.updatecenter.url": "http://customupdatecenter.com"
+}``
+
+#### registryConfigEncrypted (optional)
 
 An dieser Stelle lassen sich Werte definieren, die in verschlüsselter Form in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des EcoSystem abgelegt. Anders als bei ``registryConfig``, können sich in der ersten Ebene nur installierte (bzw. während dem Setup installierte) Dogus befinden, da nur für diese eine Verschlüsselung möglich ist.
 
@@ -521,11 +597,21 @@ Objektname: _registryConfigEncrypted_
 
 Enthält beispielsweise folgende Objekte:
 
-#### postfix
-* Der Inhalt des smtp_tls_key_files kann hier gesetzt werden
-* Beispiel:
+##### postfix
+* Inhalt: Postfix SMTP Client RSA Zertifikat im PEM-Format
+* Beispiel: `{
+  "smtp_tls_cert_file": "<CERTIFICATE>"
+  }`
+* Inhalt: Postfix SMTP Client RSA Private Key im PEM-Format
+* Beispiel: `{
+  "smtp_tls_key_file": "<PRIVATE KEY>"
+  }`
+* Verwendung innerhalb der setup.json:
 ````
-{
-    "smtp_tls_key_file": "<Certificate>"
+"registryConfigEncrypted":{
+	"postfix" : {
+		"smtp_tls_cert_file": "<CERTIFICATE>",
+		"smtp_tls_key_file": "<PRIVATE KEY>"
+	}
 }
 ````
