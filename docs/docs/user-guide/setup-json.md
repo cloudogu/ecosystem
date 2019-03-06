@@ -1,4 +1,4 @@
-## Automating the Cloudogu EcoSystem Setup Process
+# Automating the Cloudogu EcoSystem Setup Process
 The setup mechanism of the Cloudogu EcoSystem can be performed in different ways. One way is to provide all necessary data and set all options via the web interface. Another way is to create a file called **setup.json** which contains some or all configuration data needed. This file has to be placed into the ``/vagrant`` or ``/etc/ces`` folder and needs to be formatted in JSON. All data defined in that file will be automatically inserted into the corresponding setup web interface fields. If the entire configuration of the setup is present, the setup can be done fully automatically by setting all _completed_-values to true (see below).
 
 Example:
@@ -26,281 +26,319 @@ Example:
 }
 ````
 
-### Setup steps
-The setup.json file consists of objects named after the corresponding setup step (e.g. 'region' or 'admin'). These objects contain properties describing the configuration of this setup step. If the _completed_ property is set to ``true``, all properties of the setup.json for this step are accepted and the step will not show up in the web interface.
+The `setup.json` file consists of objects named after the corresponding setup step (e.g. 'region' or 'admin'). These objects contain properties describing the configuration of this setup step. If the _completed_ property is set to ``true``, all properties for this step are accepted and the step will not show up during the setup process in the web interface.
 
-#### Region step
+Besides these configuration steps that represent a similar setup step, the `setup.json` provides advanced configuration options that are not accessible or settable trough the web setup process. All possible configuration is shown below, ordered by configuration type.
+
+## Setup configuration steps
+
+### Section 'region'
 Object name: _region_
 
 Properties:
 
-##### locale
+#### locale
 * Data type: String
 * Content: locale settings of the Ecosystem
 * Example: ``"en_US.utf8"``
 
 
-##### timeZone
+#### timeZone
 * Data type: String
 * Content: Timezone of the Ecosystem
 * Example: ``"Europe/Berlin"``
 
-##### completed
+#### keyboardLayout
+
+- Data type: String
+- Content: Keyboard layout for CES instance
+- Example: ``"de"``
+
+#### completed
 * Data type: boolean
 * Content: Logical value which shows if the _region_ step is completely finished
 * Example: ``true``
 
 
-#### Naming step
+### Step 'naming'
 Object name: _naming_
 
 Properties:
 
-##### fqdn
+#### fqdn
 * Data type: String
 * Content: Fully qualified domain name of the Ecosystem
 * Example: ``"www.myecosystem.com"``
 
-##### hostname
+#### hostname
 * Data type: String
 * Content: Hostname of the Ecosystem
 * Example: ``"ces"``
 
-##### domain
+#### domain
 * Data type: String
 * Content: Domain of the Ecosystem
 * Example: ``"ces.local"``
 
-##### certificateType
+#### certificateType
 * Data type: String
 * Content: Certificate type for the connection to the Ecosystem
 * ``"selfsigned"`` or ``"external"``
 
-##### certificate
+#### certificate
 * Only necessary, if certificateType is set to "external"
 * Data type: String
 * Content: The certificate of the Ecosystem in PEM format. If an intermediate certificate is used it also has to be entered here
 
-##### certificateKey
+#### certificateKey
 * Only necessary, if certificateType is set to "external"
 * Data type: String
 * Content: The certificate key of the Ecosystem in PEM format
 
-##### relayHost
+#### relayHost
 * Data type: String
 * Content: The mail relay host of the Ecosystem
 * Example: ``"mail.mydomain.com"``
 
-##### mailAddress
+#### mailAddress
 * Optional
 * Data type: String
 * Content: The mail address used by all dogus to send mails (the 'From:'-Field)
 * Example: ``"mail@mydomain.com"``
 
-##### completed
+#### completed
 * Data type: boolean
 * Content: Logical value which shows if the _naming_ step is completely finished
 * Example: ``true``
 
 
-#### Users step
+### Section 'UserBackend'
 Object name: _userBackend_
 
 Properties:
 
-##### dsType
+#### dsType
 * Data type: String
 * Content: User Backend type. If set to ``"embedded"`` the ldap dogu is automatically installed via the web interface (or has to be declared in the dogu step below) and can (optionally) be administrated using the User Management dogu later on. If set to ``"external"`` the login credentials for an external user backend have to be provided.
 
-##### server
+#### server
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: User backend server type
 * ``"activeDirectory"`` or ``"custom"``
 
-##### attributeID
+#### attributeID
 * Data type: String
 * Content: Attribute name which describes the user ID in the user backend
 * Has to be set to ``"uid"``, if _dsType_ is set to "embedded"
 * Has to be set to ``"sAMAccountName"``, if _dsType_  is set to "external" and _server_  is set to "activeDirectory"
 
-##### attributeGivenName
+#### attributeGivenName
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Attribute name which describes the given name in the user backend
 * Example: ``"givenname"``
 
-##### attributeSurname
+#### attributeSurname
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Attribute name which describes the surname in the user backend
 * Example: ``"surname"``
 
-##### attributeFullname
+#### attributeFullname
 * Data type: String
 * Content: Attribute name which describes the full name in the user backend
 * Has to be set to ``"cn"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
 * Example: ``"fullname"``
 
-##### attributeMail
+#### attributeMail
 * Data type: String
 * Content: Attribute name which describes the e-mail in the user backend
 * Has to be set to ``"mail"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
 * Example: ``"mail"``
 
-##### attributeGroup
+#### attributeGroup
 * Data type: String
 * Content: Attribute name which describes the membership of a user in a group in the user backend
 * Has to be set to ``"memberOf"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
 * Example: ``"memberOf"``
 
-##### baseDN
+#### baseDN
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of the Distinguished Name from which users are searched on the server
 * Example: ``"dc=mycomp1,dc=local"``
 
-##### searchFilter
+#### searchFilter
 * Data type: String
 * Content: Constraint, which object classes should be searched for
 * Has to be set to ``"(objectClass=person)"``, if _dsType_ is set to "embedded" or _server_ is set to  "activeDirectory"
 * Example: ``"(objectClass=person)"``
 
-##### connectionDN
+#### connectionDN
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of the Distinguished Name of a user backend user with read access
 * Example: ``"username@mycompany.local"`` or ``"cn=username,dc=users,dc=mycomp,dc=local"``
 
-##### password
+#### password
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Password for the user set in _connectionDN_
 
-##### host
+#### host
 * Data type: String
 * Content: Address of the external user backend
 * Has to be set to ``"ldap"``, if _dsType_ is set to "embedded"
 
-##### port
+#### port
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Port of the external user backend
 * Has to be set to ``"389"``, if _dsType_ is set to "embedded"
 
-##### encryption
+#### encryption
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declares if the communication is encrypted
 * Example: ``"none"``, ``"ssl"``, ``"sslAny"``, ``"startTLS"``, ``"startTLSAny"``
 
-##### groupBaseDN
+#### groupBaseDN
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of the Distinguished Name for the group mapping
 
-##### groupSearchFilter
+#### groupSearchFilter
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of search filters for the group mapping
 
-##### groupAttributeName
+#### groupAttributeName
 * Only necessary, if _dsType_ is set to "external"
 * Data type: String
 * Content: Declaration of the group mapping name attribute
 
-##### completed
+#### useUserConnectionToFetchAttributes
+
+- Data type: boolean
+- Content: Logical value that states if the logged on user shall be used for attribute queries from the user backend
+- Has to be set to `true` if *dsType* was set to `embedded` or *server* was set to `activeDirectory`
+- Beispiel: `true`
+
+#### completed
 * Data type: boolean
 * Content: Logical value which shows if the _users_ step is completely finished
 * Example: ``true``
 
-##### useUserConnectionToFetchAttributes
+#### useUserConnectionToFetchAttributes
 * Data type: boolean
 * Content: Logical value which shows if the user connection of the user which is signed in at the time the attributes are fetched should be used to fetch the attributes from the user backend
 * Has to be set to ``true``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
 * Example: ``true``
 
 
-#### Dogu step
-Object name: _dogus_
-
+### Section 'dogus'
 The information provided in this section of the setup.json will only be used in the setup process if the _completed_ property is set to 'true'. Otherwise, this step has to be handled manually via the web interface.
+
+Object name: *dogus*
 
 Properties:
 
-##### defaultDogu
+#### defaultDogu
 * Data type: String
 * Content: Name of the dogu which will be initially opened when the Ecosystem is accessed with the browser
 * Example: ``"cockpit"``
 
-##### install
+#### install
 * Data type: String array
 * Content: List of all dogus to install. May include version information; if no version tag is set, the latest version is installed.
-* Example: ``[
-      "official/cas",
-      "official/cockpit",
-      "official/nginx:1.13.11-7",
-      "official/ldap:2.4.44-5",
-      "official/postfix",
-      "official/postgresql",
-      "official/registrator",
-      "official/usermgt:1.3.4-3"
-    ]``
+* Example: 
 
-##### completed
+```[
+[
+    "official/cas",
+    "official/cockpit",
+    "official/nginx:1.13.11-7",
+    "official/ldap:2.4.44-5",
+    "official/postfix",
+    "official/postgresql",
+    "official/registrator",
+    "official/usermgt:1.3.4-3"
+]
+```
+
+#### completed
 * Data type: boolean
 * Content: Logical value which shows if the _dogu_ step is completely finished
 * Example: ``true``
 
 
-#### Admin step
+### Section 'admin'
 The properties set here, except for _adminGroup_, are only relevant, if an "embedded" user backend is used. Otherwise the settings of the external user backend take effect.
 
 Object name: _admin_
 
 Properties:
 
-##### mail
+#### mail
 * Data type: String
 * Content: E-mail address of the admin account
 * Example: ``"admin@mydomain.com"``
 
-##### username
+#### username
 * Data type: String
 * Content: Name of the admin account
 * Example: ``"admin"``
 
-##### password
+#### password
 * Data type: String
 * Content: Password of the admin account
 
-##### confirmPassword
-* Data type: String
-* Content: Password of the admin account again, for confirmation
-
-##### adminGroup
+#### adminGroup
 * Data type: String
 * Content: Name of the user backend group which will get administration rights in the Ecosystem
 * This property has to be set even when an external user backend is used.
 * Example: ``"administrators"``
 
-##### adminMember
+#### adminMember
 * Data type: boolean
 * Content: Logical value which shows if the created admin account will also become a member of the user backend group defined in _adminGroup_
 * Example: ``true``
 
-##### completed
+#### completed
 * Data type: boolean
 * Content: Logical value which shows if the _admin_ step is completely finished
 * Example: ``true``
 
+### Section 'unixUser'
+
+In this section, the credentials for the system administrator created within the setup process can be configured. If this step is skipped a user called "ces-admin" with a random generated password will be created and shown at the end of the setup process. This configuration of the system admin ist not possible via web interface.
+
+Object name: _unixUser_
+
+#### Name
+
+- Data type: string
+- Content: Name of the unix user
+- Example: ``"ces-admin"``
+
+#### Password
+
+- Data type: string
+- Content: Password oft the unix user
+- Example: ``"ces-password"``
+
+## Extended Configuration Parameters
+
 #### sequentialDoguStart (optional)
 
-Is this boolean value set to 'true', the start of the dogus at the end of the setup will be sequential instead of parallel. The setup will wait for a starting dogu to reach its 'healthy' state before starting the next one.
+Is this boolean value set to 'true', the start of the dogus at the end of the setup will be sequential instead of parallel. The setup will wait for a starting dogu to reach its *healthy* state before starting the next one.
+
+Object name: *sequentialDoguStart*
 
 #### extendedConfiguration (optional)
 
-This section holds additional configuration for ces-setup.
+This section holds additional configuration for the ces-setup.
 
 ##### ignoreCriticalHealthCheck (optional)
 * Data type: boolean
@@ -308,90 +346,74 @@ This section holds additional configuration for ces-setup.
 * Example: ``{ "ignoreCriticalHealthCheck": true }``
 
 #### registryConfig (optional)
-Here you can define values which will be written directly to the registry (=etcd, at the moment). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.
+Here you can define values which will be written directly to the registry. This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry (*etcd*) of the EcoSystem.
 
-Object name: _registryConfig_
+Object name: *registryConfig*
 
 The following objects are examples:
 
 ##### \_global
 * Content: Global configuration data
 * Example: ``{
-"stage":"development",
-"manager_group": "cesManager"
-}`` or ``{
-"stage":"production"
-}``
+  "stage":"development",
+  "manager_group": "cesManager"
+  }`` or ``{
+  "stage":"production"
+  }``
 
-##### jenkins
-* Content: Information about the jenkins update site URLs
-* Example:``{
-  "updateSiteUrl": {
-"url1":"jenkinsUpdateSiteURL1",
-"url2":"jenkinsUpdateSiteURL2"
+##### backup
+
+- Content: Configuration of the backup and restore mechanisms of the EcoSystem
+- Example: 
+
+```{
+{
+  "registryConfig": {
+    "backup": {
+      "active": "true",
+      "time": "{\"Times\":[\"12:30:00\"]}",
+      "encryption_key": "secret_123",
+      "backup_type": "SFTP",
+      "sftp_config": {
+        "address": "sftp:root@192.168.56.1:/root/repo"
+      },
+      "retention_enabled": "true",
+      "retention_strategy": "removeAllButKeepLatest",
+      "metrics_token": "metrics_123",
+      "rest_token": "rest_123",
+      "admin_role": "backupAdmins"
+    }
+  }
 }
-}``
-
-##### postfix
-* Content: Set smtp_tls_security_level parameter here
-* Example:``{
-    "smtp_tls_security_level": "encrypt"
-}``
-
-##### sonar
-* Content: Set custom SonarQube UpdateCenter URL here
-* Example:``{
-    "sonar.updatecenter.url": "http://customupdatecenter.com"
-}``
-
-##### nexus
-* Content: Option to deactivate default docker registry creation
-* Example:``{
-    "installDefaultDockerRegistry": "false"
-}``
-
-* Content: Option to enable repository sandboxing
-* Example:``{
-    "nexus.repository.sandbox.enable": "true"
-}``
-
-* Content: Options to import HTTP/HTTPS proxy settings and excluded hosts
-* Example:
-````
-"proxyConfiguration": {
-        "http": {
-          "host": "testHTTPhost",
-          "port": "1234",
-          "authentication": {
-            "username": "testHTTPuser",
-            "password": "testHTTPpassword",
-            "ntlmHost": "ntlm HTTPhostname",
-            "domain": "ntlm HTTPdomain"
-          }
-        },
-        "https": {
-          "host": "testHTTPShost",
-          "port": "4321",
-          "authentication": {
-            "username": "testHTTPSuser",
-            "password": "testHTTPSpassword",
-            "ntlmHost": "ntlm HTTPShostname",
-            "domain": "ntlm HTTPSdomain"
-          }
-        },
-        "nonProxyHosts": "nonhost1,nonhost2,nonhost123456nope.nopetown"
-      }
-````
+```
 
 ##### cas
-* Content: Option to configure info text for 'Forgot Password'
-* Example:``{
-    "forgot_password_text": "If you forgot your password , do ..."
-}``
+
+- Key: ` limit/max_number`
+
+  Specifies the maximum amount of login failures per user account. The account will be disabled for a limited time if this number of attempts is exceeded during the given failure store time (see below).
+
+  If the Key's value is set to `0`, this functionality will be deactivated and no limitation is implemented. If it is set to a value greater than `0`, all other attributes of cas have to be set to appropriate values.
+
+- Key: `limit/failure_store_time`
+
+  Specifies the time duration since the last login failure where all failed login attempts are saved. If this time passes by between two login attempts the amount of all saved login failures is resetted.
+
+- Key: `limit/lock_time`
+
+  Specifies the account lock time if the maximum number of login failures has been reached. During this time period no login is possible. This key's value is taken as seconds and has to be greater than `0` if this functionality is activated.
+
+- Key: `forget_password_text`
+
+  Specifies the content of the text message that shows up when clicking on 'Forgot password?' inside the logon screen.
 
 ##### cockpit
-* Content: Set configuration of welcome-dashboard here
-* Example:``{
+
+- Content: Configuration of the welcome dashboard of the cloudogu ecosystem
+- Example:
+
+```
+{
   "welcomeDashboard" :
   "{
     \"title\": \"Custom Welcome Dashboard\",
@@ -449,32 +471,144 @@ The following objects are examples:
           }
           ],
           \"titleTemplateUrl\": \"app/dashboard/partials/custom-dashboard-title.html\"
-          }"
-}``
-* Note: If this is not set or not in correct JSON format, the default dashboard will be displayed.
-* Note: The size of the JSON-definition of the dashboard must not exceed 2MB.
+  }"
+}
+```
 
-##### external warp-menu entries
-* Content: External Links
+- Note: If this definition is not set at all or if this definition is not in a correct JSON state, the default dashboard is shown.
+- Note: The maximum possible size of a JSON dashboard description is 2 MB.
+
+##### jenkins
+* Content: Information about the jenkins update site URLs
+* Example:
+
+```
+{
+  "updateSiteUrl": {
+    "url1":"jenkinsUpdateSiteURL1",
+    "url2":"jenkinsUpdateSiteURL2"
+  }
+}
+```
+
+##### nexus
+* Content: Option to deactivate default docker registry creation
+* Example:``{
+    "installDefaultDockerRegistry": "false"
+}``
+
+* Content: Option to enable repository sandboxing
+* Example:``{
+    "nexus.repository.sandbox.enable": "true"
+}``
+
+* Content: Options to import HTTP/HTTPS proxy settings and excluded hosts
 * Example:
 ````
-"nginx": {
-      "externals": {
-        "golem": "{\"DisplayName\": \"Golem\",\"Description\": \"Description\",\"Category\": \"External Links\",\"URL\": \"https://www.golem.de/\"}"
+"proxyConfiguration": {
+        "http": {
+          "host": "testHTTPhost",
+          "port": "1234",
+          "authentication": {
+            "username": "testHTTPuser",
+            "password": "testHTTPpassword",
+            "ntlmHost": "ntlm HTTPhostname",
+            "domain": "ntlm HTTPdomain"
+          }
+        },
+        "https": {
+          "host": "testHTTPShost",
+          "port": "4321",
+          "authentication": {
+            "username": "testHTTPSuser",
+            "password": "testHTTPSpassword",
+            "ntlmHost": "ntlm HTTPShostname",
+            "domain": "ntlm HTTPSdomain"
+          }
+        },
+        "nonProxyHosts": "nonhost1,nonhost2,nonhost123456nope.nopetown"
       }
-    }
 ````
+
+##### nginx/externals
+
+- Content: configuration of external links inside the warp menue
+- Beispiel:
+
+```
+{
+  "cloudogu": "{
+    \"DisplayName\": \"Cloudogu\",
+    \"Description\": \"Beschreibungstext für Cloudogu Webseite\",
+    \"Category\": \"External Links\",
+    \"URL\": \"https://www.cloudogu.com/\"
+  }"
+}
+```
+
+##### nexus/claim
+
+- Data type: string, HCL/JSON format
+- Content: Configuration of sonatype nexus repositories
+- Note: This configuration set can be triggered 'once' or 'always' when the nexus dogu starts. The exact definition of the nexus properties can be found in the official nexus documentation
+- Further information: https://github.com/cloudogu/nexus-claim
+- [Nexus 2 example \[Link\]](https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus2/nexus-initial-example.hcl)
+- [Nexus 3 example \[Link\]](https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus3/nexus_custom.hcl)
+- _state: Repositories will be added, edited or deleted depending on which state is set. If the state is set to `absent` a potentially existing repository with the given ID will be deleted. If the state is set to `present` and the defined repository is non-existing it will be created. If it exists, its properties like name will be edited.
+
+##### postfix
+
+- Content: Configuration of the TLS encryption of the postfix smtp client
+- For further information see [official postfix documentation](http://www.postfix.org/documentation.html)
+- Example usage inside setup.json:
+
+```
+"registryConfig":{
+	"postfix" : {
+		"smtp_tls_security_level": "encrypt",
+		"smtp_tls_CAfile": "<CERTIFICATE>",
+		"smtp_tls_exclude_ciphers": "...",
+		"smtp_tls_loglevel": "...",
+		"smtp_tls_mandatory_ciphers": "...",
+		"smtp_tls_mandatory_protocols": "..."
+	}
+}
+```
+
+##### 
+
+##### sonar
+
+- Content: Set custom SonarQube UpdateCenter URL here
+- Example:`{
+  "sonar.updatecenter.url": "http://customupdatecenter.com"
+  }`
+
 #### registryConfigEncrypted (optional)
-Here you can define values which will be written encrypted to the registry (=etcd, at the moment). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.
+Here you can define values which will be written encrypted to the registry (etcd). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.
 In the first level only Dogus which will be installed during the setup are possible. For other entries there is no key for encryption.
 
 Object name: _registryConfigEncrypted_
 
-The following objects are examples:
+Can consist the following objects:
 
 ##### postfix
-* Set content of the smtp_tls_key_file here.
-* Example:``{
-    "smtp_tls_key_file": "<Certificate>"
-}``
+* Content: Postfix SMTP client RSA certificate in PEM format
+* Example: `{
+    "smtp_tls_cert_file": "<CERTIFICATE>"
+    }`
+* Content: Postfix SMTP client RSA private key in PEM format
+* Example: `{
+    "smtp_tls_key_file": "<PRIVATE KEY>"
+    }`
+* Example usage inside setup.json:
+
+```
+"registryConfigEncrypted":{
+	"postfix" : {
+		"smtp_tls_cert_file": "<CERTIFICATE>",
+		"smtp_tls_key_file": "<PRIVATE KEY>"
+	}
+}
+```
 

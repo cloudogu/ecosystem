@@ -395,7 +395,7 @@ Enthält beispielsweise folgende Objekte:
 - Key: ` limit/max_number`
 
   Setzt die maximal erlaubte Anzahl an Fehlversuchen pro Benutzerkonto.
-  Wird diese Anzahl innerhalb der mit den weiteren Parametern definierten zeitlichen Rahmen
+  Wird diese Anzahl innerhalb des mit den weiteren Parametern definierten zeitlichen Rahmen
   überschritten, wird das Konto temporär gesperrt.
 
   Wird der Wert auf `0` gesetzt, ist das Feature deaktiviert und es findet keine Limitierung statt.
@@ -615,3 +615,4 @@ Enthält beispielsweise folgende Objekte:
 	}
 }
 ````
+
