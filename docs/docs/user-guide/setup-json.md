@@ -1,5 +1,5 @@
 # Automating the Cloudogu EcoSystem Setup Process
-The setup mechanism of the Cloudogu EcoSystem can be performed in different ways. One way is to provide all necessary data and set all options via the web interface. Another way is to create a file called **setup.json** which contains some or all configuration data needed. This file has to be placed into the ``/vagrant`` or ``/etc/ces`` folder and needs to be formatted in JSON. All data defined in that file will be automatically inserted into the corresponding setup web interface fields. If the entire configuration of the setup is present, the setup can be done fully automatically by setting all _completed_-values to true (see below).
+The setup mechanism of the Cloudogu EcoSystem can be performed in different ways. One way is to provide all necessary data and set all options via the web interface. Another way is to create a file called **setup.json** which contains some or all configuration data needed. This file has to be placed into the ``/vagrant`` or ``/etc/ces`` folder and needs to be formatted in JSON. All data defined in that file will be automatically inserted into the corresponding setup web interface fields. If the entire configuration of the setup is present, the setup can be done fully automatically by setting all *"completed"*-values to true (see below).
 
 Example:
 ````
@@ -26,9 +26,9 @@ Example:
 }
 ````
 
-The `setup.json` file consists of objects named after the corresponding setup step (e.g. 'region' or 'admin'). These objects contain properties describing the configuration of this setup step. If the _completed_ property is set to ``true``, all properties for this step are accepted and the step will not show up during the setup process in the web interface.
+The setup.json file consists of objects named after the corresponding setup step (e.g. 'region' or 'admin'). These objects contain properties describing the configuration of this setup step. If the *"completed"* property is set to `"true"`, all properties for this step are accepted and the step will not show up during the setup process in the web interface.
 
-Besides these configuration steps that represent a similar setup step, the `setup.json` provides advanced configuration options that are not accessible or settable trough the web setup process. All possible configuration is shown below, ordered by configuration type.
+Besides these configuration steps that represent a similar setup step, the setup.json provides advanced configuration options that are not accessible or settable trough the web setup process. All possible configuration is shown below, ordered by configuration type.
 
 ## Setup configuration steps
 
@@ -39,25 +39,25 @@ Properties:
 
 #### locale
 * Data type: String
-* Content: locale settings of the Ecosystem
-* Example: ``"en_US.utf8"``
+* Content: locale settings of the EcoSystem
+* Example: `"en_US.utf8"`
 
 
 #### timeZone
 * Data type: String
-* Content: Timezone of the Ecosystem
-* Example: ``"Europe/Berlin"``
+* Content: Timezone of the EcoSystem
+* Example: `"Europe/Berlin"`
 
 #### keyboardLayout
 
 - Data type: String
 - Content: Keyboard layout for CES instance
-- Example: ``"de"``
+- Example: `"de"`
 
 #### completed
 * Data type: boolean
-* Content: Logical value which shows if the _region_ step is completely finished
-* Example: ``true``
+* Content: Logical value which shows if the *region step* is completely finished
+* Example: `"true"`
 
 
 ### Step 'naming'
@@ -67,49 +67,50 @@ Properties:
 
 #### fqdn
 * Data type: String
-* Content: Fully qualified domain name of the Ecosystem
-* Example: ``"www.myecosystem.com"``
+* Content: Fully qualified domain name of the EcoSystem
+* Example: `"www.myEcoSystem.com"`
+* Note: It is possible to set the wildcard value `"<<ip>>"` for this key.  In this case the setup uses the ip address of the EcoSystem at this point.
 
 #### hostname
 * Data type: String
-* Content: Hostname of the Ecosystem
-* Example: ``"ces"``
+* Content: Hostname of the EcoSystem
+* Example: `"ces"`
 
 #### domain
 * Data type: String
-* Content: Domain of the Ecosystem
-* Example: ``"ces.local"``
+* Content: Domain of the EcoSystem
+* Example: `"ces.local"`
 
 #### certificateType
 * Data type: String
-* Content: Certificate type for the connection to the Ecosystem
-* ``"selfsigned"`` or ``"external"``
+* Content: Certificate type for the connection to the EcoSystem
+* Example: `"selfsigned"` or `"external"`
 
 #### certificate
-* Only necessary, if certificateType is set to "external"
+* Only necessary if *"certificateType"* is set to `"external"`
 * Data type: String
-* Content: The certificate of the Ecosystem in PEM format. If an intermediate certificate is used it also has to be entered here
+* Content: The certificate of the EcoSystem in PEM format. If an intermediate certificate is used it also has to be entered here.
 
 #### certificateKey
-* Only necessary, if certificateType is set to "external"
+* Only necessary if *"certificateType"* is set to `"external"`
 * Data type: String
-* Content: The certificate key of the Ecosystem in PEM format
+* Content: The certificate key of the EcoSystem in PEM format
 
 #### relayHost
 * Data type: String
-* Content: The mail relay host of the Ecosystem
-* Example: ``"mail.mydomain.com"``
+* Content: The mail relay host of the EcoSystem
+* Example: `"mail.mydomain.com"`
 
 #### mailAddress
 * Optional
 * Data type: String
 * Content: The mail address used by all dogus to send mails (the 'From:'-Field)
-* Example: ``"mail@mydomain.com"``
+* Example: `"mail@mydomain.com"`
 
 #### completed
 * Data type: boolean
-* Content: Logical value which shows if the _naming_ step is completely finished
-* Example: ``true``
+* Content: Logical value which shows if the *naming step* is completely finished
+* Example: `"true`
 
 
 ### Section 'UserBackend'
@@ -119,102 +120,105 @@ Properties:
 
 #### dsType
 * Data type: String
-* Content: User Backend type. If set to ``"embedded"`` the ldap dogu is automatically installed via the web interface (or has to be declared in the dogu step below) and can (optionally) be administrated using the User Management dogu later on. If set to ``"external"`` the login credentials for an external user backend have to be provided.
+* Content: User Backend type. If set to `"embedded"` the ldap dogu is automatically installed via the web interface (or has to be declared in the dogu step below) and can (optionally) be administrated using the User Management dogu later on. If set to `"external"` the login credentials for an external user backend have to be provided.
 
 #### server
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
 * Content: User backend server type
-* ``"activeDirectory"`` or ``"custom"``
+* `"activeDirectory"` or `"custom"`
 
 #### attributeID
 * Data type: String
 * Content: Attribute name which describes the user ID in the user backend
-* Has to be set to ``"uid"``, if _dsType_ is set to "embedded"
-* Has to be set to ``"sAMAccountName"``, if _dsType_  is set to "external" and _server_  is set to "activeDirectory"
+* Has to be set to ``"uid"``, if _dsType_ is set to `"embedded"`
+* Has to be set to ``"sAMAccountName"`` if *"dsType"*  is set to `"external"` and *"server"* is set to `"activeDirectory"`
 
 #### attributeGivenName
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* ist set to `"external"` 
 * Data type: String
 * Content: Attribute name which describes the given name in the user backend
-* Example: ``"givenname"``
+* Example: `"givenname"`
 
 #### attributeSurname
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* ist set to `"external"` 
 * Data type: String
 * Content: Attribute name which describes the surname in the user backend
-* Example: ``"surname"``
+* Example: `"surname"`
 
 #### attributeFullname
-* Data type: String
-* Content: Attribute name which describes the full name in the user backend
-* Has to be set to ``"cn"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
-* Example: ``"fullname"``
+Data type: String
+
+Content: Attribute name which describes the full name in the user backend
+
+Has to be set to ``"cn"`` if *"dsType"* is set to `"embedded"` or *"server"* is set to `"activeDirectory"`
+
+Example: `"fullname"`
 
 #### attributeMail
 * Data type: String
 * Content: Attribute name which describes the e-mail in the user backend
-* Has to be set to ``"mail"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
-* Example: ``"mail"``
+* Has to be set to `"mail"` if *"dsType"* is set to `"embedded"` or *"server"* is set to `"activeDirectory"`
+* Example: `"mail"`
 
 #### attributeGroup
 * Data type: String
 * Content: Attribute name which describes the membership of a user in a group in the user backend
-* Has to be set to ``"memberOf"``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
-* Example: ``"memberOf"``
+* Has to be set to `"memberOf"` if *"dsType"* is set to `"embedded"` or *"server"* is set to `"activeDirectory"`
+* Example: `"memberOf"`
 
 #### baseDN
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
 * Content: Declaration of the Distinguished Name from which users are searched on the server
-* Example: ``"dc=mycomp1,dc=local"``
+* Example: `"dc=mycomp1,dc=local"`
 
 #### searchFilter
 * Data type: String
-* Content: Constraint, which object classes should be searched for
-* Has to be set to ``"(objectClass=person)"``, if _dsType_ is set to "embedded" or _server_ is set to  "activeDirectory"
-* Example: ``"(objectClass=person)"``
+* Content: Constraint that defines which object classes should be searched for
+* Has to be set to `"(objectClass=person)"` if *"dsType"* is set to `"embedded"` or *"server"* is set to `"activeDirectory"`
+* Example: `"(objectClass=person)"`
 
 #### connectionDN
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
 * Content: Declaration of the Distinguished Name of a user backend user with read access
-* Example: ``"username@mycompany.local"`` or ``"cn=username,dc=users,dc=mycomp,dc=local"``
+* Example: `"username@mycompany.local"` or `"cn=username,dc=users,dc=mycomp,dc=local"`
 
 #### password
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
-* Content: Password for the user set in _connectionDN_
+* Content: Password for the user set in *"connectionDN"*
 
 #### host
 * Data type: String
 * Content: Address of the external user backend
-* Has to be set to ``"ldap"``, if _dsType_ is set to "embedded"
+* Has to be set to `"ldap"` if *"dsType"* is set to `"embedded"` 
 
 #### port
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
 * Content: Port of the external user backend
-* Has to be set to ``"389"``, if _dsType_ is set to "embedded"
+* Has to be set to `"389"` if *"dsType"* is set to `"embedded"` 
 
 #### encryption
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
 * Content: Declares if the communication is encrypted
-* Example: ``"none"``, ``"ssl"``, ``"sslAny"``, ``"startTLS"``, ``"startTLSAny"``
+* Example: `"none"`, `"ssl"`, `"sslAny"`, `"startTLS"`, `"startTLSAny"`
 
 #### groupBaseDN
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
 * Content: Declaration of the Distinguished Name for the group mapping
 
 #### groupSearchFilter
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
 * Content: Declaration of search filters for the group mapping
 
 #### groupAttributeName
-* Only necessary, if _dsType_ is set to "external"
+* Only necessary if *"dsType"* is set to `"external"` 
 * Data type: String
 * Content: Declaration of the group mapping name attribute
 
@@ -222,19 +226,13 @@ Properties:
 
 - Data type: boolean
 - Content: Logical value that states if the logged on user shall be used for attribute queries from the user backend
-- Has to be set to `true` if *dsType* was set to `embedded` or *server* was set to `activeDirectory`
-- Beispiel: `true`
+- Has to be set to `"true"` if *"dsType"* was set to `embedded` or *"server"* was set to `"activeDirectory"`
+- Example: `"true"`
 
 #### completed
 * Data type: boolean
-* Content: Logical value which shows if the _users_ step is completely finished
-* Example: ``true``
-
-#### useUserConnectionToFetchAttributes
-* Data type: boolean
-* Content: Logical value which shows if the user connection of the user which is signed in at the time the attributes are fetched should be used to fetch the attributes from the user backend
-* Has to be set to ``true``, if _dsType_ is set to "embedded" or _server_ is set to "activeDirectory"
-* Example: ``true``
+* Content: Logical value which shows if the *"users step"* is completely finished
+* Example: `"true"`
 
 
 ### Section 'dogus'
@@ -246,8 +244,8 @@ Properties:
 
 #### defaultDogu
 * Data type: String
-* Content: Name of the dogu which will be initially opened when the Ecosystem is accessed with the browser
-* Example: ``"cockpit"``
+* Content: Name of the dogu which will be initially opened when the EcoSystem is accessed with the browser
+* Example: `"cockpit"`
 
 #### install
 * Data type: String array
@@ -269,12 +267,12 @@ Properties:
 
 #### completed
 * Data type: boolean
-* Content: Logical value which shows if the _dogu_ step is completely finished
-* Example: ``true``
+* Content: Logical value which shows if the *dogu step* is completely finished
+* Example: `true`
 
 
 ### Section 'admin'
-The properties set here, except for _adminGroup_, are only relevant, if an "embedded" user backend is used. Otherwise the settings of the external user backend take effect.
+The properties set here, except for *"adminGroup"*, are only relevant, if an "embedded" user backend is used. Otherwise the settings of the external user backend take effect.
 
 Object name: _admin_
 
@@ -283,12 +281,12 @@ Properties:
 #### mail
 * Data type: String
 * Content: E-mail address of the admin account
-* Example: ``"admin@mydomain.com"``
+* Example: `"admin@mydomain.com"`
 
 #### username
 * Data type: String
 * Content: Name of the admin account
-* Example: ``"admin"``
+* Example: `"admin"`
 
 #### password
 * Data type: String
@@ -296,23 +294,23 @@ Properties:
 
 #### adminGroup
 * Data type: String
-* Content: Name of the user backend group which will get administration rights in the Ecosystem
+* Content: Name of the user backend group which will get administration rights in the EcoSystem
 * This property has to be set even when an external user backend is used.
-* Example: ``"administrators"``
+* Example: `"administrators"`
 
 #### adminMember
 * Data type: boolean
-* Content: Logical value which shows if the created admin account will also become a member of the user backend group defined in _adminGroup_
-* Example: ``true``
+* Content: Logical value which shows if the created admin account will also become a member of the user backend group defined in *"adminGroup"*
+* Example: `"true"`
 
 #### completed
 * Data type: boolean
-* Content: Logical value which shows if the _admin_ step is completely finished
-* Example: ``true``
+* Content: Logical value which shows if the *admin step* is completely finished
+* Example: `"true"`
 
 ### Section 'unixUser'
 
-In this section, the credentials for the system administrator created within the setup process can be configured. If this step is skipped a user called "ces-admin" with a random generated password will be created and shown at the end of the setup process. This configuration of the system admin ist not possible via web interface.
+In this section, the credentials for the system administrator created within the setup process can be configured. If this step is skipped a user called *ces-admin* with a random generated password will be created and shown at the end of the setup process. This configuration of the system admin ist not possible via web interface.
 
 Object name: _unixUser_
 
@@ -320,13 +318,13 @@ Object name: _unixUser_
 
 - Data type: string
 - Content: Name of the unix user
-- Example: ``"ces-admin"``
+- Example: `"ces-admin"`
 
 #### Password
 
 - Data type: string
-- Content: Password oft the unix user
-- Example: ``"ces-password"``
+- Content: Password of the unix user
+- Example: `"ces-password"`
 
 ## Extended Configuration Parameters
 
@@ -343,7 +341,7 @@ This section holds additional configuration for the ces-setup.
 ##### ignoreCriticalHealthCheck (optional)
 * Data type: boolean
 * Content: If this is set to true, health check errors during dogu startup at the end of the setup are logged, but the setup does not fail.
-* Example: ``{ "ignoreCriticalHealthCheck": true }``
+* Example: `{ "ignoreCriticalHealthCheck": true }`
 
 #### registryConfig (optional)
 Here you can define values which will be written directly to the registry. This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry (*etcd*) of the EcoSystem.
@@ -354,12 +352,12 @@ The following objects are examples:
 
 ##### \_global
 * Content: Global configuration data
-* Example: ``{
+* Example: `{
   "stage":"development",
   "manager_group": "cesManager"
-  }`` or ``{
+  }` or `{
   "stage":"production"
-  }``
+  }`
 
 ##### backup
 
@@ -389,27 +387,27 @@ The following objects are examples:
 
 ##### cas
 
-- Key: ` limit/max_number`
+- Key: ` "limit/max_number"`
 
   Specifies the maximum amount of login failures per user account. The account will be disabled for a limited time if this number of attempts is exceeded during the given failure store time (see below).
 
   If the Key's value is set to `0`, this functionality will be deactivated and no limitation is implemented. If it is set to a value greater than `0`, all other attributes of cas have to be set to appropriate values.
 
-- Key: `limit/failure_store_time`
+- Key: `"limit/failure_store_time"`
 
   Specifies the time duration since the last login failure where all failed login attempts are saved. If this time passes by between two login attempts the amount of all saved login failures is resetted.
 
-- Key: `limit/lock_time`
+- Key: `"limit/lock_time"`
 
   Specifies the account lock time if the maximum number of login failures has been reached. During this time period no login is possible. This key's value is taken as seconds and has to be greater than `0` if this functionality is activated.
 
-- Key: `forget_password_text`
+- Key: `"forget_password_text"`
 
   Specifies the content of the text message that shows up when clicking on 'Forgot password?' inside the logon screen.
 
 ##### cockpit
 
-- Content: Configuration of the welcome dashboard of the cloudogu ecosystem
+- Content: Configuration of the welcome dashboard of the cloudogu EcoSystem
 - Example:
 
 ```
@@ -493,14 +491,14 @@ The following objects are examples:
 
 ##### nexus
 * Content: Option to deactivate default docker registry creation
-* Example:``{
+* Example:`{
     "installDefaultDockerRegistry": "false"
-}``
+}`
 
 * Content: Option to enable repository sandboxing
-* Example:``{
+* Example:`{
     "nexus.repository.sandbox.enable": "true"
-}``
+}`
 
 * Content: Options to import HTTP/HTTPS proxy settings and excluded hosts
 * Example:
@@ -554,7 +552,7 @@ The following objects are examples:
 - Further information: https://github.com/cloudogu/nexus-claim
 - [Nexus 2 example \[Link\]](https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus2/nexus-initial-example.hcl)
 - [Nexus 3 example \[Link\]](https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus3/nexus_custom.hcl)
-- _state: Repositories will be added, edited or deleted depending on which state is set. If the state is set to `absent` a potentially existing repository with the given ID will be deleted. If the state is set to `present` and the defined repository is non-existing it will be created. If it exists, its properties like name will be edited.
+- _state: Repositories will be added, edited or deleted depending on which state is set. If the state is set to `"absent"` a potentially existing repository with the given ID will be deleted. If the state is set to `"present"` and the defined repository is non-existing it will be created. If it exists, its properties like name will be edited.
 
 ##### postfix
 
@@ -574,8 +572,6 @@ The following objects are examples:
 	}
 }
 ```
-
-##### 
 
 ##### sonar
 
