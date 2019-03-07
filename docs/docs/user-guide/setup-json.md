@@ -1,5 +1,5 @@
 # Automating the Cloudogu EcoSystem Setup Process
-The setup mechanism of the Cloudogu EcoSystem can be performed in different ways. One way is to provide all necessary data and set all options via the web interface. Another way is to create a file called **setup.json** which contains some or all configuration data needed. This file has to be placed into the ``/vagrant`` or ``/etc/ces`` folder and needs to be formatted in JSON. All data defined in that file will be automatically inserted into the corresponding setup web interface fields. If the entire configuration of the setup is present, the setup can be done fully automatically by setting all *"completed"*-values to true (see below).
+The setup mechanism of the Cloudogu EcoSystem can be performed in different ways. One way is to provide all necessary data and set all options via the web interface. Another way is to create a file called **setup.json** which contains some or all configuration data needed. This file has to be placed into the ``/vagrant`` or ``/etc/ces`` folder and needs to be formatted in JSON. All data defined in that file will be automatically inserted into the corresponding setup web interface fields. If the entire configuration of the setup is present, the setup can be done fully automatically by setting all *"completed"*-values to `true` (see below).
 
 Example:
 ````
@@ -26,7 +26,7 @@ Example:
 }
 ````
 
-The setup.json file consists of objects named after the corresponding setup step (e.g. 'region' or 'admin'). These objects contain properties describing the configuration of this setup step. If the *"completed"* property is set to `"true"`, all properties for this step are accepted and the step will not show up during the setup process in the web interface.
+The setup.json file consists of objects named after the corresponding setup step (e.g. 'region' or 'admin'). These objects contain properties describing the configuration of this setup step. If the *"completed"* property is set to `true`, all properties for this step are accepted and the step will not show up during the setup process in the web interface.
 
 Besides these configuration steps that represent a similar setup step, the setup.json provides advanced configuration options that are not accessible or settable trough the web setup process. All possible configuration is shown below, ordered by configuration type.
 
@@ -57,7 +57,7 @@ Properties:
 #### completed
 * Data type: boolean
 * Content: Logical value which shows if the *region step* is completely finished
-* Example: `"true"`
+* Example: `true`
 
 
 ### Step 'naming'
@@ -69,7 +69,7 @@ Properties:
 * Data type: String
 * Content: Fully qualified domain name of the EcoSystem
 * Example: `"www.myEcoSystem.com"`
-* Note: It is possible to set the wildcard value `"<<ip>>"` for this key.  In this case the setup uses the ip address of the EcoSystem at this point.
+* Note: It is possible to set the wildcard value `"<<ip>>"` for this key.  In this case the setup uses the ip address of the EcoSystem at this point.
 
 #### hostname
 * Data type: String
@@ -110,7 +110,7 @@ Properties:
 #### completed
 * Data type: boolean
 * Content: Logical value which shows if the *naming step* is completely finished
-* Example: `"true`
+* Example: `true`
 
 
 ### Section 'UserBackend'
@@ -132,7 +132,7 @@ Properties:
 * Data type: String
 * Content: Attribute name which describes the user ID in the user backend
 * Has to be set to ``"uid"``, if _dsType_ is set to `"embedded"`
-* Has to be set to ``"sAMAccountName"`` if *"dsType"*  is set to `"external"` and *"server"* is set to `"activeDirectory"`
+* Has to be set to ``"sAMAccountName"`` if *"dsType"*  is set to `"external"` and *"server"* is set to `"activeDirectory"`
 
 #### attributeGivenName
 * Only necessary if *"dsType"* ist set to `"external"` 
@@ -226,13 +226,13 @@ Example: `"fullname"`
 
 - Data type: boolean
 - Content: Logical value that states if the logged on user shall be used for attribute queries from the user backend
-- Has to be set to `"true"` if *"dsType"* was set to `embedded` or *"server"* was set to `"activeDirectory"`
-- Example: `"true"`
+- Has to be set to `true` if *"dsType"* was set to `embedded` or *"server"* was set to `"activeDirectory"`
+- Example: `true`
 
 #### completed
 * Data type: boolean
 * Content: Logical value which shows if the *"users step"* is completely finished
-* Example: `"true"`
+* Example: `true`
 
 
 ### Section 'dogus'
@@ -301,12 +301,12 @@ Properties:
 #### adminMember
 * Data type: boolean
 * Content: Logical value which shows if the created admin account will also become a member of the user backend group defined in *"adminGroup"*
-* Example: `"true"`
+* Example: `true`
 
 #### completed
 * Data type: boolean
 * Content: Logical value which shows if the *admin step* is completely finished
-* Example: `"true"`
+* Example: `true`
 
 ### Section 'unixUser'
 
@@ -340,7 +340,7 @@ This section holds additional configuration for the ces-setup.
 
 ##### ignoreCriticalHealthCheck (optional)
 * Data type: boolean
-* Content: If this is set to true, health check errors during dogu startup at the end of the setup are logged, but the setup does not fail.
+* Content: If this is set to `true`, health check errors during dogu startup at the end of the setup are logged, but the setup does not fail.
 * Example: `{ "ignoreCriticalHealthCheck": true }`
 
 #### registryConfig (optional)

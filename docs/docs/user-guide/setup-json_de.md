@@ -27,7 +27,7 @@ Beispiel:
 }
 ```
 
-Der Inhalt der setup.json besteht aus Objekten, die den Titel des jeweiligen Setup-Schrittes (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, welche die Werte beschreiben, die dem jeweiligen Setup-Schritt übergeben werden sollen. Ist die *"completed"*-Eigenschaft auf `"true"` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
+Der Inhalt der setup.json besteht aus Objekten, die den Titel des jeweiligen Setup-Schrittes (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, welche die Werte beschreiben, die dem jeweiligen Setup-Schritt übergeben werden sollen. Ist die *"completed"*-Eigenschaft auf `true` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
 
 Darüber hinaus existieren weitere Konfigurationsmöglichkeiten innerhalb der setup.json, die keinen äquivalenten Bereich im Browser-Setup besitzen und damit nur über die Datei vorkonfiguriert werden können. Im Folgenden finden sich alle Anpassungsmöglichkeiten je nach Konfigurationstyp.
 
@@ -60,7 +60,7 @@ Eigenschaften:
 #### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Region-Schritt komplett ist
-* Beispiel: `"true"`
+* Beispiel: `true`
 
 
 ### Bereich "Naming"
@@ -73,7 +73,7 @@ Eigenschaften:
 * Datentyp: String
 * Inhalt: Vollständige Domain des EcoSystem
 * Beispiel: `"www.myecosystem.com"`
-* Hinweis: Es ist möglich, für die *"fqdn"* den Platzhalter `"<<ip>>"` einzutragen. Dadurch wird beim Ausführen des Setups die IP-Adresse des EcoSystem an dieser Stelle verwendet.
+* Hinweis: Es ist möglich, für die *"fqdn"* den Platzhalter `"<<ip>>"` einzutragen. Dadurch wird beim Ausführen des Setups die IP-Adresse des EcoSystem an dieser Stelle verwendet.
 
 #### hostname
 * Datentyp: String
@@ -116,7 +116,7 @@ Eigenschaften:
 #### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Naming-Schritt komplett ist
-* Beispiel: `"true"`
+* Beispiel: `true`
 
 
 ### Bereich "UserBackend"
@@ -230,17 +230,17 @@ Eigenschaften:
 #### useUserConnectionToFetchAttributes
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der jeweils angemeldete Nutzer zur Abfrage der Attribute aus dem User Backend genutzt werden soll
-* Muss auf `"true"` gesetzt werden, wenn *"dsType"* auf `"embedded"` oder *"server"* auf `"activeDirectory"` gesetzt wurde
-* Beispiel: `"true"`
+* Muss auf `true` gesetzt werden, wenn *"dsType"* auf `"embedded"` oder *"server"* auf `"activeDirectory"` gesetzt wurde
+* Beispiel: `true`
 
 #### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der User-Schritt komplett ist
-* Beispiel: `"true"`
+* Beispiel: `true`
 
 ### Bereich "Dogus"
 
-Die Daten, die in diesem Schritt über die setup.json eingegeben werden, werden im Setup-Prozess nur übernommen, wenn die _completed_-Eigenschaft auf ``true`` gesetzt ist. Anderenfalls ist der Schritt manuell über die Weboberfläche auszufüllen.
+Die Daten, die in diesem Schritt über die setup.json eingegeben werden, werden im Setup-Prozess nur übernommen, wenn die _completed_-Eigenschaft auf `true` gesetzt ist. Anderenfalls ist der Schritt manuell über die Weboberfläche auszufüllen.
 
 Objektname: _dogus_
 
@@ -305,12 +305,12 @@ Eigenschaften:
 
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob das angelegte Admin-Konto auch Mitglied der unter *"adminGroup"* definierten Gruppe im User Backend werden soll
-* Beispiel: `"true"`
+* Beispiel: `true`
 
 #### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Admin-Schritt komplett ist
-* Beispiel: `"true"`
+* Beispiel: `true`
 
 ### Bereich "UnixUser"
 
@@ -335,7 +335,7 @@ Objektname: *unixUser*
 
 #### sequentialDoguStart (optional)
 
-Ist dieser boolsche Wert auf ``true`` gesetzt, werden die Dogus am Ende des Setups nicht parallel alle auf einmal gestartet, sondern einzeln. Es wird dabei so lange auf das startende Dogu gewartet, bis es sich in einem _healthy_ state befindet.
+Ist dieser boolsche Wert auf `true` gesetzt, werden die Dogus am Ende des Setups nicht parallel alle auf einmal gestartet, sondern einzeln. Es wird dabei so lange auf das startende Dogu gewartet, bis es sich in einem _healthy_ state befindet.
 
 Objektname: _sequentialDoguStart_
 
