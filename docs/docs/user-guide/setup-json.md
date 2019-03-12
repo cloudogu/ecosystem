@@ -401,7 +401,7 @@ The following objects are examples:
 
   Specifies the account lock time if the maximum number of login failures has been reached. During this time period no login is possible. This key's value is taken as seconds and has to be greater than `0` if this functionality is activated.
 
-- Key: `"forget_password_text"`
+- Key: `"forgot_password_text"`
 
   Specifies the content of the text message that shows up when clicking on 'Forgot password?' inside the logon screen.
 
