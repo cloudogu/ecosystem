@@ -416,7 +416,7 @@ Enthält beispielsweise folgende Objekte:
 
   Die Zeit wird in Sekunden angegeben und muss größer Null sein, wenn das Feature aktiviert ist.
 
-- Key: `"forget_password_text"`
+- Key: `"forgot_password_text"`
 
   Der anzuzeigende Text bei Klick auf "Passwort vergessen" innerhalb der Anmeldemaske.
   
