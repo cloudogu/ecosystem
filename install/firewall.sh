@@ -22,6 +22,8 @@ function apply_firewall_rules(){
 	ufw allow http
 	ufw allow https
 	ufw allow 8080
+  # allow scm v2 ssh port
+  ufw allow 2222
 
   GW_NETWORK=$(get_gateway_network)
 
