@@ -14,4 +14,5 @@ pages:
   - Bash Scripting Guideline: user-guide/bash-guideline.md
   - CES-Image build: user-guide/image-build.md
   - Setup Automation via JSON: user-guide/setup-json.md
+  - Etcd Registry structure: user-guide/etcd_registry_structure.md
 - About: about.md
