@@ -6,9 +6,9 @@ Vagrant.require_version ">= 1.9.0"
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "cloudogu/ecosystem-basebox"
-  config.vm.box_url = "https://storage.googleapis.com/cloudogu-ecosystem/basebox/virtualbox/v0.6.2/basebox-virtualbox-v0.6.2.box"
-  config.vm.box_download_checksum = "9a5dfc47b56525bc0a3c8182bc179476a0f0d1821ce9a4f7fce160c5c198cf91"
+  config.vm.box = "cloudogu/ecosystem-basebox-v0.7.0"
+  config.vm.box_url = "https://storage.googleapis.com/cloudogu-ecosystem/basebox/virtualbox/v0.7.0/basebox-virtualbox-v0.7.0.box"
+  config.vm.box_download_checksum = "36fab707ffa20eeae43852800fdb9d27f5d3ec5a974bf6ad80ea3f83c954a6d4"
   config.vm.box_download_checksum_type = "sha256"
 
   config.vm.hostname = "ces"

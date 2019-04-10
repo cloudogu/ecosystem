@@ -15,4 +15,5 @@ pages:
   - CES-Image build: user-guide/image-build.md
   - Setup Automation via JSON: user-guide/setup-json.md
   - Etcd Registry structure: user-guide/etcd_registry_structure.md
+  - Using SonarQube: user-guide/sonar.md
 - About: about.md

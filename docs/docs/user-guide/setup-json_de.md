@@ -1,8 +1,9 @@
-## Automatisierung des Cloudogu EcoSystem Setup-Prozesses
-Der Setupmechanismus des Cloudogu Ecosystems lässt sich auf verschiedene Arten ausführen. Ein Weg führt über die Oberfläche im Browser, in der man alle relevanten Daten eingeben und Optionen auswählen kann. Des weiteren kann man mithilfe einer **setup.json** benannten Konfigurationsdatei die Felder im Setup vorbefüllen. Diese Datei muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen. Sind alle Daten und Einstellungen für das Setup im Voraus klar, kann man das Setup auch komplett automatisch ablaufen lassen. Dafür ist für jeden Schritt die Eigenschaft _completed_ zu setzen (siehe unten).
+# Automatisierung des Cloudogu EcoSystem Setup-Prozesses
+Der Setupmechanismus des Cloudogu EcoSystem lässt sich auf verschiedene Arten ausführen. Ein Weg führt über die Oberfläche im Browser, in der man alle relevanten Daten eingeben und Optionen auswählen kann. Des weiteren kann man mithilfe einer **setup.json** benannten Konfigurationsdatei die Felder im Setup vorbefüllen. Diese Datei muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen. Sind alle Daten und Einstellungen für das Setup im Voraus klar, kann man das Setup auch komplett automatisch ablaufen lassen. Dafür ist für jeden Schritt die Eigenschaft *"completed"* zu setzen (siehe unten).
 
 Beispiel:
-````
+
+```
 {
   "region": {
     "completed": true,
@@ -24,302 +25,331 @@ Beispiel:
     "adminGroup": "Administrators",
   }
 }
-````
+```
 
-### Setupschritte
-Der Inhalt der setup.json besteht aus Objekten, die den Titel des jeweiligen Setupschritts (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, welche die Werte beschreiben, die dem jeweiligen Setupschritt übergeben werden sollen. Ist die _completed_-Eigenschaft auf ``true`` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
+Der Inhalt der setup.json besteht aus Objekten, die den Titel des jeweiligen Setup-Schrittes (bspw. 'region' oder 'admin') tragen. Diese Objekte beinhalten Eigenschaften, welche die Werte beschreiben, die dem jeweiligen Setup-Schritt übergeben werden sollen. Ist die *"completed"*-Eigenschaft auf `true` gesetzt, werden die Eigenschaften übernommen und der Schritt im Setupvorgang nicht mehr angezeigt.
 
-#### Region-Schritt
+Darüber hinaus existieren weitere Konfigurationsmöglichkeiten innerhalb der setup.json, die keinen äquivalenten Bereich im Browser-Setup besitzen und damit nur über die Datei vorkonfiguriert werden können. Im Folgenden finden sich alle Anpassungsmöglichkeiten je nach Konfigurationstyp.
+
+## Konfigurationsschritte des Setups
+
+### Bereich "Region"
+
 Objektname: _region_
 
 Eigenschaften:
 
-##### locale
+#### locale
 * Datentyp: String
-* Inhalt: locale-Einstellung des Ecosystems
-* Beispiel: ``"en_US.utf8"``
+* Inhalt: locale-Einstellung des EcoSystem
+* Beispiel: `"en_US.utf8"`
 
 
-##### timeZone
+#### timeZone
 * Datentyp: String
-* Inhalt: Zeitzone des Ecosystems
-* Beispiel: ``"Europe/Berlin"``
+* Inhalt: Zeitzone des EcoSystem
+* Beispiel: `"Europe/Berlin"`
 
 
-##### keyboardLayout
+#### keyboardLayout
 * Datentyp: String
 * Inhalt: Keyboard Layout für die CES Instanz
-* Beispiel: ``"de"``
+* Beispiel: `"de"`
 
 
-##### completed
+#### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Region-Schritt komplett ist
-* Beispiel: ``true``
+* Beispiel: `true`
 
 
-#### Naming-Schritt
+### Bereich "Naming"
+
 Objektname: _naming_
 
 Eigenschaften:
 
-##### fqdn
+#### fqdn
 * Datentyp: String
-* Inhalt: Vollständige Domain des Ecosystems
-* Beispiel: ``"www.myecosystem.com"``
-* Es ist möglich für die fqdn den Platzhalter ``<<ip>>`` einzutragen. Dadurch wird beim Ausführen des Setups
-die IP-Adresse des EcoSystems an dieser Stelle verwendet.
+* Inhalt: Vollständige Domain des EcoSystem
+* Beispiel: `"www.myecosystem.com"`
+* Hinweis: Es ist möglich, für die *"fqdn"* den Platzhalter `"<<ip>>"` einzutragen. Dadurch wird beim Ausführen des Setups die IP-Adresse des EcoSystem an dieser Stelle verwendet.
 
-##### hostname
+#### hostname
 * Datentyp: String
-* Inhalt: Hostname des Ecosystems
-* Beispiel: ``"ces"``
+* Inhalt: Hostname des EcoSystem
+* Beispiel: `"ces"`
 
-##### domain
+#### domain
+
 * Datentyp: String
-* Inhalt: Domain des Ecosystems
-* Beispiel: ``"ces.local"``
+* Inhalt: Domain des EcoSystem
+* Beispiel: `"ces.local"`
 
-##### certificateType
+#### certificateType
 * Datentyp: String
-* Inhalt: Art des Zertifikats für die Verbindung zum Ecosystem
-* ``"selfsigned"`` oder ``"external"``
+* Inhalt: Art des Zertifikats für die Verbindung zum EcoSystem
+* Beispiel: `"selfsigned"` oder `"external"`
 
-##### certificate
-* Nur notwendig, wenn certificateType auf "external" gesetzt wurde
+#### certificate
+* Nur notwendig, wenn *"certificateType"* auf `"external"` gesetzt wurde
 * Datentyp: String
-* Inhalt: Das Zertifikat für das Ecosystem im PEM-Format. Sollte ein Intermediate-Zertifikat eingesetzt werden, muss auch dieses hier eingetragen werden.
+* Inhalt: Das Zertifikat für das EcoSystem im PEM-Format. Sollte ein Intermediate-Zertifikat eingesetzt werden, muss auch dieses hier eingetragen werden.
 
-##### certificateKey
-* Nur notwendig, wenn certificateType auf "external" gesetzt wurde
+#### certificateKey
+* Nur notwendig, wenn *"certificateType"* auf `"external"` gesetzt wurde
 * Datentyp: String
-* Inhalt: Der Zertifikatsschlüssel für das Ecosystem im PEM-Format
+* Inhalt: Der Zertifikatsschlüssel für das EcoSystem im PEM-Format
 
-##### relayHost
+#### relayHost
+
 * Datentyp: String
-* Inhalt: Der Mail Relay Host für das Ecosystem über den der Mailversand abgewickelt werden soll
-* Beispiel: ``"mail.mydomain.com"``
+* Inhalt: Der Mail Relay Host für das EcoSystem über den der Mailversand abgewickelt werden soll
+* Beispiel: `"mail.mydomain.com"`
 
-##### mailAddress
+#### mailAddress
 * Optional
 * Datentyp: String
 * Inhalt: Die Mail-Adresse, welche von allen Dogus verwendet wird, um Mails zu versenden (das 'From:'-Feld)
-* Beispiel: ``"mail@mydomain.com"``
+* Beispiel: `"mail@mydomain.com"`
 
-##### completed
+#### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Naming-Schritt komplett ist
-* Beispiel: ``true``
+* Beispiel: `true`
 
 
-#### UserBackend-Schritt
+### Bereich "UserBackend"
+
 Objektname: _userBackend_
 
 Eigenschaften:
 
-##### dsType
+#### dsType
 * Datentyp: String
-* Inhalt: Typ des User Backends. Bei Benutzung von ``"embedded"`` wird ein ldap-Dogu installiert, welches sich dann (optional) mithilfe des User Management-Dogus verwalten lässt. Bei Benutzung von ``"external"`` sind die Zugangsdaten für ein externes User Backend zu übergeben.
+* Inhalt: Typ des User Backends. Bei Benutzung von `"embedded"` wird ein ldap-Dogu installiert, welches sich dann (optional) mithilfe des User Management-Dogus verwalten lässt. Bei Benutzung von `"external"` sind die Zugangsdaten für ein externes User Backend zu übergeben.
 
-##### server
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### server
+* Nur notwendig, wenn *"dsType"* auf `"external"` gesetzt wurde
 * Datentyp: String
 * Inhalt: Typ des User Backend Servers
-* ``"activeDirectory"`` oder ``"custom"``
+* `"activeDirectory"` oder `"custom"`
 
-##### attributeID
+#### attributeID
 * Datentyp: String
 * Inhalt: Attributname, der im User Backend die User ID beschreibt
-* Muss auf ``"uid"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
-* Muss auf ``"sAMAccountName"`` gesetzt werden, wenn _dsType_ auf "external" und _server_ auf "activeDirectory" gesetzt wurde
+* Muss auf `"uid"` gesetzt werden, wenn *"dsType"* auf `"embedded"` gesetzt wurde
+* Muss auf `"sAMAccountName"` gesetzt werden, wenn *"dsType"* auf `"external"` und *"server"* auf `"activeDirectory"` gesetzt wurde
 
-##### attributeGivenName
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### attributeGivenName
+* Nur notwendig, wenn *"dsType"* auf `"external"` gesetzt wurde
 * Datentyp: String
 * Inhalt: Attributname, der im User Backend den Vornamen beschreibt
-* Beispiel: ``"givenname"``
+* Beispiel: `"givenname"`
 
-##### attributeSurname
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### attributeSurname
+* Nur notwendig, wenn *"dsType"* auf `"external"` gesetzt wurde
 * Datentyp: String
 * Inhalt: Attributname, der im User Backend den Nachnamen beschreibt
-* Beispiel: ``"surname"``
+* Beispiel: `"surname"`
 
-##### attributeFullname
+#### attributeFullname
 * Datentyp: String
 * Inhalt: Attributname, der im User Backend den vollen Namen beschreibt
-* Muss auf ``"cn"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``"fullname"``
+* Muss auf `"cn"` gesetzt werden, wenn *"dsType"* auf `"embedded"` oder *"server"* auf `"activeDirectory"` gesetzt wurde
+* Beispiel: `"fullname"`
 
-##### attributeMail
+#### attributeMail
 * Datentyp: String
 * Inhalt: Attributname, der im User Backend das E-Mail-Attribut beschreibt
-* Muss auf ``"mail"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``"mail"``
+* Muss auf `"mail"` gesetzt werden, wenn *"dsType"* auf `"embedded"` oder *"server"* auf `"activeDirectory"` gesetzt wurde
+* Beispiel: `"mail"`
 
-##### attributeGroup
+#### attributeGroup
 * Datentyp: String
 * Inhalt: Attributname, mit dem im User Backend die Zugehörigkeit eines Users zu einer Gruppe geregelt wird
-* Muss auf ``"memberOf"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``"memberOf"``
+* Muss auf `"memberOf"` gesetzt werden, wenn *"dsType"* auf `"embedded"` oder *"server"* auf `"activeDirectory"` gesetzt wurde
+* Beispiel: `"memberOf"`
 
-##### baseDN
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### baseDN
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
 * Inhalt: Angabe des Distinguished Name von der aus auf dem Server nach Benutzern gesucht wird
-* beispiel: ``"dc=mycomp1,dc=local"``
+* Beispiel: `"dc=mycomp1,dc=local"`
 
-##### searchFilter
+#### searchFilter
 * Datentyp: String
 * Inhalt: Einschränkung, nach welchen Objektklassen gesucht werden soll
-* Muss auf ``"(objectClass=person)"`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``"(objectClass=person)"``
+* Muss auf `"(objectClass=person)"` gesetzt werden, wenn *"dsType"* auf `"embedded"` oder *"server"* auf `"activeDirectory"` gesetzt wurde
+* Beispiel: `"(objectClass=person)"`
 
-##### connectionDN
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### connectionDN
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
 * Inhalt: Angabe des Distinguished Name eines leseberechtigten Benutzers im User Backend
-* Beispiel: ``"username@mycompany.local"`` oder ``"cn=username,dc=users,dc=mycomp,dc=local"``
+* Beispiel: `"username@mycompany.local"` oder `"cn=username,dc=users,dc=mycomp,dc=local"`
 
-##### password
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### password
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
-* Inhalt: Angabe des Passworts des unter _connectionDN_ gesetzten Nutzers
+* Inhalt: Angabe des Passworts des unter *"connectionDN"* gesetzten Nutzers
 
-##### host
+#### host
 * Datentyp: String
 * Inhalt: Adresse des externen User Backends
-* Muss auf ``"ldap"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
+* Muss auf `"ldap"` gesetzt werden, wenn *"dsType"* auf `"embedded"`  gesetzt wurde
 
-##### port
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### port
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
 * Inhalt: Port, über den das externe User Backend erreicht werden kann
-* Muss auf ``"389"`` gesetzt werden, wenn dsType auf "embedded" gesetzt wurde
+* Muss auf `"389"` gesetzt werden, wenn *"dsType"* auf `"embedded"`  gesetzt wurde
 
-##### encryption
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### encryption
+
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
 * Inhalt: Einstellung ob und ggf. welche Verschlüsselung genutzt werden soll
-* Beispiel: ``"none"``, ``"ssl"``, ``"sslAny"``, ``"startTLS"``, ``"startTLSAny"``
+* Beispiel: `"none"`, `"ssl"`, `"sslAny"`, `"startTLS"`, `"startTLSAny"`
 
-##### groupBaseDN
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### groupBaseDN
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
 * Inhalt: Angabe des Distinguished Name für das Group Mapping
 
-##### groupSearchFilter
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### groupSearchFilter
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
 * Inhalt: Angabe von Suchfiltern für das Group Mapping
 
-##### groupAttributeName
-* Nur notwendig, wenn dsType auf "external" gesetzt wurde
+#### groupAttributeName
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
 * Inhalt: Angabe des Attributs für das Group Mapping
 
-##### useUserConnectionToFetchAttributes
+#### useUserConnectionToFetchAttributes
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der jeweils angemeldete Nutzer zur Abfrage der Attribute aus dem User Backend genutzt werden soll
-* Muss auf ``true`` gesetzt werden, wenn dsType auf "embedded" oder _server_ auf "activeDirectory" gesetzt wurde
-* Beispiel: ``true``
+* Muss auf `true` gesetzt werden, wenn *"dsType"* auf `"embedded"` oder *"server"* auf `"activeDirectory"` gesetzt wurde
+* Beispiel: `true`
 
-##### completed
+#### completed
 * Datentyp: boolean
-* Inhalt: Wahrheitswert, ob der Users-Schritt komplett ist
-* Beispiel: ``true``
+* Inhalt: Wahrheitswert, ob der User-Schritt komplett ist
+* Beispiel: `true`
 
+### Bereich "Dogus"
 
-#### Dogu-Schritt
+Die Daten, die in diesem Schritt über die setup.json eingegeben werden, werden im Setup-Prozess nur übernommen, wenn die _completed_-Eigenschaft auf `true` gesetzt ist. Anderenfalls ist der Schritt manuell über die Weboberfläche auszufüllen.
+
 Objektname: _dogus_
-
-Die Daten, die in diesem Schritt über die setup.json eingegeben werden, werden im Setupprozess nur übernommen, wenn die _completed_-Eigenschaft auf 'true' gesetzt ist. Anderenfalls ist der Schritt manuell über die Weboberfläche auszufüllen.
 
 Eigenschaften:
 
-##### defaultDogu
+#### defaultDogu
 * Datentyp: String
-* Inhalt: Name des Dogus, welches beim Aufruf des Ecosystems im Browser standardmäßig angesteuert wird
-* Beispiel: ``"cockpit"``
+* Inhalt: Name des Dogus, welches beim Aufruf des EcoSystem im Browser standardmäßig angesteuert wird
+* Beispiel: `"cockpit"`
 
-##### install
+#### install
 * Datentyp: String Array
-* Inhalt: Liste aller Dogus, die installiert werden sollen
-* Beispiel: ``[
-      "official/cas",
-      "official/cockpit",
-      "official/nginx",
-      "official/ldap",
-      "official/postfix",
-      "official/postgresql",
-      "official/registrator",
-      "official/usermgt"
-    ]``
+* Inhalt: Liste aller Dogus, die installiert werden sollen. Einträge können die zu installierende Version enthalten; wenn keine Version gesetzt ist, wird die aktuellste Version installiert.
+* Beispiel: 
+````
+[
+  "official/cas",
+  "official/cockpit",
+  "official/nginx:1.13.11-7",
+  "official/ldap:2.4.44-5",
+  "official/postfix",
+  "official/postgresql",
+  "official/registrator",
+  "official/usermgt:1.3.4-3"
+]
+````
 
-##### completed
+#### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Dogu-Schritt komplett ist
-* Beispiel: ``true``
+* Beispiel: `true`
 
+### Bereich "Admin"
 
-#### Admin-Schritt
-Diese Einstellungen sind, bis auf _adminGroup_, nur relevant, sofern ein "embedded" User Backend gewählt wurde. Anderenfalls sind die Vorgaben des externen User Backends gültig.
+Diese Einstellungen sind, bis auf *"adminGroup"*, nur relevant, sofern ein "embedded" User Backend gewählt wurde. Anderenfalls sind die Vorgaben des externen User Backends gültig.
+
 Objektname: _admin_
 
 Eigenschaften:
 
-##### mail
+#### mail
 * Datentyp: String
 * Inhalt: E-Mail-Adresse des Admin-Kontos
-* Beispiel: ``"admin@mydomain.com"``
+* Beispiel: `"admin@mydomain.com"`
 
-##### username
+#### username
 * Datentyp: String
 * Inhalt: Name des Admin-Kontos
-* Beispiel: ``"admin"``
+* Beispiel: `"admin"`
 
-##### password
+#### password
 * Datentyp: String
 * Inhalt: Passwort des Admin-Kontos
 
-##### adminGroup
+#### adminGroup
 * Datentyp: String
-* Inhalt: Name der Gruppe im User Backend, die Administratorrechte im Ecosystem erhalten soll
-* Diese Einstellung ist auch zu setzen, wenn ein externes User Backend gewählt wurde
-* Beispiel: ``"administrators"``
+* Inhalt: Name der Gruppe im User Backend, die Administratorrechte im EcoSystem erhalten soll
+* Diese Einstellung ist auch zu setzen, wenn ein externes User Backend gewählt wurde.
+* Beispiel: `"administrators"`
 
-##### adminMember
+#### adminMember
+
 * Datentyp: boolean
-* Inhalt: Wahrheitswert, ob das angelegte Admin-Konto auch Mitglied der unter _adminGroup_ definierten Gruppe im User Backend werden soll
-* Beispiel: true
+* Inhalt: Wahrheitswert, ob das angelegte Admin-Konto auch Mitglied der unter *"adminGroup"* definierten Gruppe im User Backend werden soll
+* Beispiel: `true`
 
-##### completed
+#### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Admin-Schritt komplett ist
-* Beispiel: ``true``
+* Beispiel: `true`
 
-#### Unixuser
-Objektname: _unixUser_
+### Bereich "UnixUser"
 
 Mit dieser Einstellung können die Credentials für den im Setup erzeugten Systemadministrator konfiguriert werden.
-Ohne diese Einstellung wird ein Nutzer mit dem Namen ``ces-admin`` und einem zufällig generiertem Passwort erzeugt, welches am Ende des Setups angezeigt wird. Über die Oberfläche ist der Systemadministrator nicht konfigurierbar.
+Ohne diese Einstellung wird ein Nutzer mit dem Namen *ces-admin* und einem zufällig generiertem Passwort erzeugt, welches am Ende des Setups angezeigt wird. Über die Oberfläche ist der Systemadministrator nicht konfigurierbar.
 
-##### Name
+Objektname: *unixUser*
+
+#### Name
+
 * Datentyp: string
 * Inhalt: Name des Unixusers
-* Beispiel: ``ces-admin``
+* Beispiel: `"ces-admin"`
 
-##### Password
+#### Password
+
 * Datentyp: string
 * Inhalt: Password des Unixusers
-* Beispiel: ``ces-password``
+* Beispiel: `"ces-password"`
+
+## Zusätzliche Konfigurationsparameter
 
 #### sequentialDoguStart (optional)
 
-Ist dieser boolsche Wert auf 'true' gesetzt, werden die Dogus am Ende des Setups nicht parallel alle auf einmal gestartet, sondern einzeln. Es wird dabei so lange auf das startende Dogu gewartet, bis es sich in einem 'healthy' state befindet.
+Ist dieser boolsche Wert auf `true` gesetzt, werden die Dogus am Ende des Setups nicht parallel alle auf einmal gestartet, sondern einzeln. Es wird dabei so lange auf das startende Dogu gewartet, bis es sich in einem _healthy_ state befindet.
+
+Objektname: _sequentialDoguStart_
+
+#### extendedConfiguration (optional)
+
+Dieser Bereich enthält erweiterte Konfigurationsoptionen für das CES-setup.
+
+##### ignoreCriticalHealthCheck (optional)
+- Datentyp: boolean
+- Inhalt: Diese boolsche Option sorgt dafür, dass Healthcheck-Fehler, die während des Starts von Dogus am Ende des Setup auftreten, nur geloggt werden, aber nicht zu einem Abbruch des Setups führen.
+- Beispiel: `{ "ignoreCriticalHealthCheck": true }`
 
 #### registryConfig (optional)
-An dieser Stelle lassen sich Werte definieren, die direkt in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setupoberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des Ecosystems abgelegt.
+An dieser Stelle lassen sich Werte definieren, die direkt in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry (etcd) des EcoSystem abgelegt.
 
 Objektname: _registryConfig_
 
@@ -327,31 +357,74 @@ Enthält beispielsweise folgende Objekte:
 
 ##### \_global
 * Inhalt: Globale Konfigurationsdaten
-* Beispiel: ``{
+* Beispiel: `{
 "stage":"development",
 "manager_group": "cesManager"
-}`` oder ``{
+}` oder `{
 "stage":"production"
-}``
+}`
 
-##### jenkins
-* Inhalt: Informationen über die Update-Site-URLs für Jenkins
-* Beispiel:``{
-  "updateSiteUrl": {
-"url1":"jenkinsUpdateSiteURL1",
-"url2":"jenkinsUpdateSiteURL2"
+##### backup
+
+- Inhalt: Konfiguration des Backup- und Restore-Mechanimus
+- Beispiel: 
+
+```{
+{
+  "registryConfig": {
+    "backup": {
+      "active": "true",
+      "time": "{\"Times\":[\"12:30:00\"]}",
+      "encryption_key": "secret_123",
+      "backup_type": "SFTP",
+      "sftp_config": {
+        "address": "sftp:root@192.168.56.1:/root/repo"
+      },
+      "retention_enabled": "true",
+      "retention_strategy": "removeAllButKeepLatest",
+      "metrics_token": "metrics_123",
+      "rest_token": "rest_123",
+      "admin_role": "backupAdmins"
+    }
+  }
 }
-}``
+```
 
-##### postfix
-* Inhalt: Der smtp_tls_security_level-Parameter kann hier gesetzt werden
-* Beispiel:``{
-    "smtp_tls_security_level": "encrypt"
-}``
+##### cas
 
+- Key: ` "limit/max_number"`
+
+  Setzt die maximal erlaubte Anzahl an Fehlversuchen pro Benutzerkonto.
+  Wird diese Anzahl innerhalb des mit den weiteren Parametern definierten zeitlichen Rahmen
+  überschritten, wird das Konto temporär gesperrt.
+
+  Wird der Wert auf `0` gesetzt, ist das Feature deaktiviert und es findet keine Limitierung statt.
+  Bei einem Wert größer Null müssen die anderen Parameter auf sinnvolle Werte gesetzt werden. 
+
+- Key: `"limit/failure_store_time"`
+
+  Spezifiziert die Zeitdauer, für die die Anzahl der Fehlschläge seit dem letzten
+  fehlgeschlagenen Anmeldeversuch gespeichert werden soll. Wird diese Zeit zwischen zwei Anmeldeversuchen überschritten,
+  werden die Fehlschläge zurückgesetzt.
+
+  Die Zeit wird in Sekunden angegeben und muss größer Null sein, wenn das Feature aktiviert ist.
+
+- Key: `"limit/lock_time"`
+
+  Gibt an, wie lange das Konto im Falle einer Überschreitung der Anmeldeversuche gesperrt werden
+  soll.
+
+  Die Zeit wird in Sekunden angegeben und muss größer Null sein, wenn das Feature aktiviert ist.
+
+- Key: `"forgot_password_text"`
+
+  Der anzuzeigende Text bei Klick auf "Passwort vergessen" innerhalb der Anmeldemaske.
+  
 ##### cockpit
-* Inhalt: Die Konfiguration des welcome-Dashboard kann hier gesetzt werden
-* Beispiel:``{
+* Inhalt: Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
+* Beispiel:
+````
+{
   "welcomeDashboard" :
   "{
     \"title\": \"Custom Welcome Dashboard\",
@@ -409,64 +482,137 @@ Enthält beispielsweise folgende Objekte:
           }
           ],
           \"titleTemplateUrl\": \"app/dashboard/partials/custom-dashboard-title.html\"
-          }"
-}``
+  }"
+}
+````
 * Anmerkung: Wenn diese Definition nicht oder nicht in korrektem JSON-Format gesetzt ist, wird das default-Dashboard angezeigt.
 * Anmerkung: Die maximale Größe, die die JSON-Beschreibung des Dashboards haben darf, ist 2MB.
 
+##### jenkins
+* Inhalt: Informationen über die Update-Site-URLs für Jenkins
+* Beispiel:
+````
+{
+  "updateSiteUrl": {
+    "url1":"jenkinsUpdateSiteURL1",
+    "url2":"jenkinsUpdateSiteURL2"
+  }
+}
+````
+
+##### nexus
+* Inhalt: Option zum Verhindern der Erstellung der Default Docker Registry
+* Beispiel:`{
+    "installDefaultDockerRegistry": "false"
+}`
+
+* Inhalt: Option zum Aktivieren von Repository Sandboxing
+* Beispiel:`{
+    "nexus.repository.sandbox.enable": "true"
+}`
+
+* Inhalt: Optionen zum Importieren von HTTP/HTTPS-Proxy-Einstellungen und davon ausgenommenen Hosts
+* Beispiel:
+````
+"proxyConfiguration": {
+        "http": {
+          "host": "testHTTPhost",
+          "port": "1234",
+          "authentication": {
+            "username": "testHTTPuser",
+            "password": "testHTTPpassword",
+            "ntlmHost": "ntlm HTTPhostname",
+            "domain": "ntlm HTTPdomain"
+          }
+        },
+        "https": {
+          "host": "testHTTPShost",
+          "port": "4321",
+          "authentication": {
+            "username": "testHTTPSuser",
+            "password": "testHTTPSpassword",
+            "ntlmHost": "ntlm HTTPShostname",
+            "domain": "ntlm HTTPSdomain"
+          }
+        },
+        "nonProxyHosts": "nonhost1,nonhost2,nonhost123456nope.nopetown"
+      }
+````
+
 ##### nginx/externals
+
 * Inhalt: Externe Links, die im Warp-Menü auftauchen sollen
-* Beispiel:``{
+* Beispiel:
+````
+{
   "cloudogu": "{
     \"DisplayName\": \"Cloudogu\",
     \"Description\": \"Beschreibungstext für Cloudogu Webseite\",
     \"Category\": \"External Links\",
     \"URL\": \"https://www.cloudogu.com/\"
   }"
-}``
+}
+````
 
 ##### nexus/claim
+
 * Datentyp: String, HCL/JSON formatiert
 * Inhalt: Konfiguration der Sonatype Nexus-Repositories. Diese Einstellung wird beim ersten ("once") bzw. jedem ("always") Start von Sonatype Nexus hergestellt. Die genaue Definition der Nexus-Properties ist der Nexus-Dokumentation zu entnehmen.
 * Weitere Informationen: https://github.com/cloudogu/nexus-claim
-* Beispiel:
-````
-{
-  "once":
-    "repository \"apache-snapshots\" {
-    _state = \"absent\"
-    }
-    repository \"central-m1\" {
-    _state = \"absent\"
-    }
-    repository \"thirdparty\" {
-    name = \"Third Party\"
-    _state = \"present\"
-    }",
-  "always":
-    "repository \"apache-snapshots\" {
-    _state = \"absent\"
-    }
-    repository \"central-m1\" {
-    _state = \"absent\"
-    }
-    repository \"thirdparty\" {
-    name = \"Third Party\"
-    _state = \"present\"
-    }"
+* [Beispiel für Nexus 2 \[Link\]](https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus2/nexus-initial-example.hcl)
+* [Beispiel für Nexus 3 \[Link\]](https://github.com/cloudogu/nexus-claim/blob/develop/resources/nexus3/nexus_custom.hcl)
+
+* _state: Je nach gesetztem State werden Repositories hinzugefügt/geändert oder entfernt. Ist der State auf `"absent"` gesetzt, wird ein ggf. vorhandenes Repository mit der genannten ID gelöscht. Ist der State auf `"present"` gesetzt, wird ein neues Repository angelegt, falls es noch nicht existiert. Sollte es schon existieren, werden nur die Eigenschaften, bspw. der Name, angepasst.
+
+##### postfix
+* Inhalt: Konfiguration der TLS-Verschlüsselung des Postfix SMTP Client
+* Für weiterführende Informationen siehe [offizielle Postfix Dokumentation](http://www.postfix.org/documentation.html)
+
+- Verwendung innerhalb der setup.json:
+
+```
+"registryConfig":{
+	"postfix" : {
+		"smtp_tls_security_level": "encrypt",
+		"smtp_tls_CAfile": "<CERTIFICATE>",
+		"smtp_tls_exclude_ciphers": "...",
+		"smtp_tls_loglevel": "...",
+		"smtp_tls_mandatory_ciphers": "...",
+		"smtp_tls_mandatory_protocols": "..."
+	}
 }
-````
-* _state: Je nach gesetztem State werden Repositories hinzugefügt/geändert oder entfernt. Ist der State auf "absent" gesetzt, wird ein ggf. vorhandenes Repository mit der genannten ID gelöscht. Ist der State auf "present" gesetzt, wird ein neues Repository angelegt, falls es noch nicht existiert. Sollte es schon existieren, werden nur die Eigenschaften, bspw. der Name, angepasst.
+```
+
+##### sonar
+* Inhalt: Hier kann die SonarQube UpdateCenter URL gesetzt werden
+* Beispiel:`{
+    "sonar.updatecenter.url": "http://customupdatecenter.com"
+}`
 
 #### registryConfigEncrypted (optional)
-An dieser Stelle lassen sich Werte definieren, die in verschlüsselter Form in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setupoberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des Ecosystems abgelegt. Anders als bei _registryConfig_, können sich in der ersten Ebene nur installierte(bzw. während dem Setup installierte) Dogus befinden, da nur für diese eine Verschlüsselung möglich ist.
+
+An dieser Stelle lassen sich Werte definieren, die in verschlüsselter Form in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des EcoSystem abgelegt. Anders als bei ``registryConfig``, können sich in der ersten Ebene nur installierte (bzw. während dem Setup installierte) Dogus befinden, da nur für diese eine Verschlüsselung möglich ist.
 
 Objektname: _registryConfigEncrypted_
 
 Enthält beispielsweise folgende Objekte:
 
 ##### postfix
-* Der Inhalt des smtp_tls_key_files kann hier gesetzt werden
-* Beispiel:``{
-    "smtp_tls_key_file": "<Certificate>"
-}``
+* Inhalt: Postfix SMTP Client RSA Zertifikat im PEM-Format
+* Beispiel: `{
+  "smtp_tls_cert_file": "<CERTIFICATE>"
+  }`
+* Inhalt: Postfix SMTP Client RSA Private Key im PEM-Format
+* Beispiel: `{
+  "smtp_tls_key_file": "<PRIVATE KEY>"
+  }`
+* Verwendung innerhalb der setup.json:
+````
+"registryConfigEncrypted":{
+	"postfix" : {
+		"smtp_tls_cert_file": "<CERTIFICATE>",
+		"smtp_tls_key_file": "<PRIVATE KEY>"
+	}
+}
+````
+
