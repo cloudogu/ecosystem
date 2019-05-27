@@ -500,6 +500,11 @@ The following objects are examples:
     "nexus.repository.sandbox.enable": "true"
 }`
 
+* Content: Option to disable the outreach management capability/ welcome page
+* Example:`{
+    "disableOutreachManagement": "true"
+}`
+
 * Content: Options to import HTTP/HTTPS proxy settings and excluded hosts
 * Example:
 ````
