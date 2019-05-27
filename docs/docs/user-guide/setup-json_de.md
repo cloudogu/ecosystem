@@ -511,6 +511,11 @@ Enthält beispielsweise folgende Objekte:
     "nexus.repository.sandbox.enable": "true"
 }`
 
+* Inhalt: Option zum Deaktivieren der Outreach Management Capability und dadurch des Willkommen-Fensters
+* Beispiel:`{
+    "disableOutreachManagement": "true"
+}`
+
 * Inhalt: Optionen zum Importieren von HTTP/HTTPS-Proxy-Einstellungen und davon ausgenommenen Hosts
 * Beispiel:
 ````
