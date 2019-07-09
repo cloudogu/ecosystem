@@ -37,7 +37,7 @@ Download Packer from https://www.packer.io/downloads.html and move the extracted
 
 Build the VM according to your liking with one of the builders in `images/template.prod.json`.
 
-Hint July 2019 - Caution with 19.04 Disco Dingo and sdl please use following ["qemuargs": [ "display", "-gtk"]](https://github.com/hashicorp/packer/pull/7676) since packer PR is merged.
+Hint July 2019 - Caution with 19.04 Disco Dingo and sdl please use following ["qemuargs": [ "display", "-gtk"]](https://github.com/hashicorp/packer/pull/7676) until packer PR is merged.
 
 ---
 ### What is the Cloudogu EcoSystem?
