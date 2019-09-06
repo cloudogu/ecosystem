@@ -64,9 +64,10 @@
 		{
 			"name": "ecosystem-vmware",
 			"type": "vmware-iso",
-			"format": "ova",
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "ubuntu-64",
+			"cpus": "{{user `cpus`}}",
+			"memory": "{{user `memory`}}",
 			"iso_urls": [
 				"{{user `iso_url`}}"
 			],
