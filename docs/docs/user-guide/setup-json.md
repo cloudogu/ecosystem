@@ -379,11 +379,17 @@ The following objects are examples:
       "retention_strategy": "removeAllButKeepLatest",
       "metrics_token": "metrics_123",
       "rest_token": "rest_123",
-      "admin_role": "backupAdmins"
+      "admin_role": "backupAdmins",
+      "deny_cross_blueprint_restores" : "false"
     }
   }
 }
 ```
+
+- Key: `"deny_cross_blueprint_restores"`
+  
+  When set to `true`, backups are bound to a blueprintId. After a blueprint-Upgrade the backups cannot be restored.
+  When not set or set to `false`, any backup can be restored.
 
 ##### cas
 

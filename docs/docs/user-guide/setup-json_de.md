@@ -384,11 +384,18 @@ Enthält beispielsweise folgende Objekte:
       "retention_strategy": "removeAllButKeepLatest",
       "metrics_token": "metrics_123",
       "rest_token": "rest_123",
-      "admin_role": "backupAdmins"
+      "admin_role": "backupAdmins",
+      "deny_cross_blueprint_restores" : "false"
     }
   }
 }
 ```
+
+- Key: `"deny_cross_blueprint_restores"`
+  
+  Wenn der Wert auf `true` gesetzt ist, sind die Backups an eine blueprintId gebunden. 
+  Nach einem Blueprint-Upgrade können sie nicht wiederhergestellt werden.
+  Wenn der Wert auf `false` oder gar nicht gesetzt ist, können alle Backups wiederhergestellt werden.
 
 ##### cas
 
