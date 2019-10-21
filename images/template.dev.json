@@ -3,8 +3,8 @@
     "vm_name": "ces",
     "username": "vagrant",
     "password": "vagrant",
-    "memory": "3072",
-    "cpus": "1"
+    "memory": "8192",
+    "cpus": "4"
   },
   "builders": [
     {
@@ -12,7 +12,7 @@
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
       "iso_urls": [
-        "http://cdimage.ubuntu.com/releases/18.04.2/release/ubuntu-18.04.2-server-amd64.iso"
+        "http://cdimage.ubuntu.com/releases/18.04.3/release/ubuntu-18.04.3-server-amd64.iso"
       ],
       "iso_checksum": "a2cb36dc010d98ad9253ea5ad5a07fd6b409e3412c48f1860536970b073c98f5",
       "iso_checksum_type": "sha256",
