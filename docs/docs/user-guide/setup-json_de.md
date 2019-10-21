@@ -384,11 +384,18 @@ Enthält beispielsweise folgende Objekte:
       "retention_strategy": "removeAllButKeepLatest",
       "metrics_token": "metrics_123",
       "rest_token": "rest_123",
-      "admin_role": "backupAdmins"
+      "admin_role": "backupAdmins",
+      "deny_cross_blueprint_restores" : "false"
     }
   }
 }
 ```
+
+- Key: `"deny_cross_blueprint_restores"`
+  
+  Wenn der Wert auf `true` gesetzt ist, sind die Backups an eine blueprintId gebunden. 
+  Nach einem Blueprint-Upgrade können sie nicht wiederhergestellt werden.
+  Wenn der Wert auf `false` oder gar nicht gesetzt ist, können alle Backups wiederhergestellt werden.
 
 ##### cas
 
@@ -509,6 +516,11 @@ Enthält beispielsweise folgende Objekte:
 * Inhalt: Option zum Aktivieren von Repository Sandboxing
 * Beispiel:`{
     "nexus.repository.sandbox.enable": "true"
+}`
+
+* Inhalt: Option zum Deaktivieren der Outreach Management Capability und dadurch des Willkommen-Fensters
+* Beispiel:`{
+    "disableOutreachManagement": "true"
 }`
 
 * Inhalt: Optionen zum Importieren von HTTP/HTTPS-Proxy-Einstellungen und davon ausgenommenen Hosts

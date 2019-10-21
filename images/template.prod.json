@@ -1,10 +1,10 @@
 {
 	"variables": {
-		"vm_name": "ces",
+		"vm_name": "CloudoguEcoSystem-{{user `timestamp`}}",
 		"username": "ces-admin",
 		"password": "ces-admin",
-		"memory": "4096",
-		"cpus": "2",
+		"memory": "8192",
+		"cpus": "4",
 		"iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04.6-server-amd64.iso",
 		"iso_checksum": "16afb1375372c57471ea5e29803a89a5a6bd1f6aabea2e5e34ac1ab7eb9786ac",
 		"iso_checksum_type": "sha256"
@@ -64,9 +64,10 @@
 		{
 			"name": "ecosystem-vmware",
 			"type": "vmware-iso",
-			"format": "ova",
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "ubuntu-64",
+			"cpus": "{{user `cpus`}}",
+			"memory": "{{user `memory`}}",
 			"iso_urls": [
 				"{{user `iso_url`}}"
 			],
