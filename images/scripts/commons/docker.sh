@@ -4,9 +4,9 @@ set -o nounset
 set -o pipefail
 
 # Install docker
-# See https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/
+# See https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-DOCKER_VERSION=5:18.09.7~3-0~ubuntu-xenial
+DOCKER_VERSION=5:19.03.4~3-0~ubuntu-bionic
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -21,7 +21,7 @@ if [ -z "${KEY}" ]; then
 fi
 # Add stable repository
 sudo add-apt-repository "deb [arch=amd64] \
-https://download.docker.com/linux/ubuntu xenial stable"
+https://download.docker.com/linux/ubuntu bionic stable"
 # Install Docker
 apt-get -y update
 apt-get -y install docker-ce=${DOCKER_VERSION}

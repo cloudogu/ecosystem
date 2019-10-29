@@ -18,8 +18,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install \
   ca-certificates \
   software-properties-common \
   linux-headers-"$(uname -r)" \
-  linux-image-extra-virtual \
-  virtualbox-guest-dkms
+  linux-image-extra-virtual
 #  dmsetup \
 #  facter \
 #  build-essential \

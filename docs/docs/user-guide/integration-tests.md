@@ -1,4 +1,4 @@
-# Integration-Tests
+# Integration-Tests (outdated)
 
 This repository consists of integration-tests for the cloudogu ecosystem setup via setup.json. The tests are written in Java inside a Maven Project which uses Selenium and Gauge as plugins for testing using automated browser input.
 

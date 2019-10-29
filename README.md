@@ -2,7 +2,7 @@
 # Cloudogu EcoSystem
 https://cloudogu.com
 
-This is the repository of the cloudogu ecosystem. It contains all docker containers, setup scripts and resources to install cloudogu on your machine and start it using vagrant.
+This is the repository of the Cloudogu EcoSystem. It contains all docker containers, setup scripts and resources to install cloudogu on your machine and start it using vagrant.
 
 We also have a public demo instance available. All possibilities and details can be found on our [demo page](https://cloudogu.com/en/index.html#demo)
 
@@ -10,15 +10,15 @@ We also have a public demo instance available. All possibilities and details can
 * Install [git](https://git-scm.com/)
 * Install [virtualbox](https://www.virtualbox.org/)
 * Install [vagrant](https://www.vagrantup.com/docs/getting-started/)
-* Checkout ecosystem repository `git clone https://github.com/cloudogu/ecosystem`
+* Checkout EcoSystem repository `git clone https://github.com/cloudogu/ecosystem`
 * `cd ecosystem`
-* `vagrant up` to run ecosystem in a virtual machine
+* `vagrant up` to run EcoSystem in a virtual machine
 * When vagrant is done, enter the following URL in your browser : http://192.168.56.2:8080
 * Follow the steps of the setup wizard
 
 #### Bridged Network
 
-By default our vagrant configuration uses a host-only network, which makes the ecosystem only accessible from your machine. 
+By default our vagrant configuration uses a host-only network, which makes the EcoSystem only accessible from your machine. 
 
 If you want it to be accessible from other hosts in your network, you can change this behavior in the [`Vagrantfile`](Vagrantfile). To do so,
 * remove the `private_network` line and 
