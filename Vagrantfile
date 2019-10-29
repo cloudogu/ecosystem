@@ -6,10 +6,12 @@ Vagrant.require_version ">= 1.9.0"
 
 Vagrant.configure(2) do |config|
 
-  # https://atlas.hashicorp.com/cloudogu/boxes/ecosystem-basebox
-  config.vm.box = "cloudogu/ecosystem-basebox"
+  config.vm.box = "cloudogu/ecosystem-basebox-v2.0.0"
+  config.vm.box_url = "https://storage.googleapis.com/cloudogu-ecosystem/basebox/virtualbox/v2.0.0/basebox-virtualbox-v2.0.0.box"
+  config.vm.box_download_checksum = "4e2e61403c589910252e02aad3fc09e7a98445b2ddf954f4ad1c1ebc1be81268"
+  config.vm.box_download_checksum_type = "sha256"
+
   config.vm.hostname = "ces"
-  config.vm.box_version = "0.6.0"
 
   # use bridged network
   # to get the ip use vagrant ssh -c ifconfig
@@ -22,12 +24,13 @@ Vagrant.configure(2) do |config|
 
   # create flag file to set appliance type to vagrant
   config.vm.provision "shell",
-    inline: "mkdir /etc/ces && echo 'vagrant' > /etc/ces/type && /vagrant/install.sh"
+    inline: "mkdir -p /etc/ces && echo 'vagrant' > /etc/ces/type && /vagrant/install.sh"
 
   # configure virtual hardware
   config.vm.provider "virtualbox" do |v|
-    v.memory = 3072
-    # v.cpus = 2
+    v.name = "ecosystem-" + Time.now.to_f.to_s
+    v.memory = 8192
+    v.cpus = 4
 
     # enable dns host resolver
     # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]

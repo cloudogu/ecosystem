@@ -22,7 +22,7 @@ node('vagrant') {
     try {
 
         stage('Provision') {
-            timeout(5) {
+            timeout(15) {
                 writeVagrantConfiguration()
                 sh 'rm -f setup.staging.json setup.json'
                 sh 'vagrant up'
@@ -119,10 +119,13 @@ config.vm.networks.each do |n|
   end
 end
 
+# increase boot timeout
+config.vm.boot_timeout = 600
+
 config.vm.provider "virtualbox" do |v|
 	v.memory = 8192
 	v.cpus = 2
-	v.linked_clone = true
+	# v.linked_clone = true
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 end

@@ -16,8 +16,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install \
   btrfs-tools \
   apt-transport-https \
   ca-certificates \
+  software-properties-common \
   linux-headers-"$(uname -r)" \
-  linux-image-extra-"$(uname -r)" \
   linux-image-extra-virtual
 #  dmsetup \
 #  facter \
@@ -29,3 +29,13 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install \
 #  iftop \
 #  ruby \
 #  ruby-dev
+
+# install optional dependency linux-image-extra for the given kernel
+# this package seems to be unavailable in some environments
+IMAGE_EXTRA_PKG=linux-image-extra-"$(uname -r)"
+if apt-cache search ${IMAGE_EXTRA_PKG} | grep ${IMAGE_EXTRA_PKG} &> /dev/null; then
+  echo "installing optional package ${IMAGE_EXTRA_PKG}"
+  DEBIAN_FRONTEND=noninteractive  apt-get -y install ${IMAGE_EXTRA_PKG}
+else
+  echo "WARNING: could not find optional package ${IMAGE_EXTRA_PKG}"
+fi

@@ -1,22 +1,24 @@
 ![Cloudogu logo](https://cloudogu.com/images/logo.png)
-# Cloudogu ecosystem
+# Cloudogu EcoSystem
 https://cloudogu.com
 
-This is the repository of the cloudogu ecosystem. It contains all docker containers, setup scripts and resources to install cloudogu on your machine and start it using vagrant.
+This is the repository of the Cloudogu EcoSystem. It contains all docker containers, setup scripts and resources to install cloudogu on your machine and start it using vagrant.
+
+We also have a public demo instance available. All possibilities and details can be found on our [demo page](https://cloudogu.com/en/index.html#demo)
 
 ### Quick start
 * Install [git](https://git-scm.com/)
 * Install [virtualbox](https://www.virtualbox.org/)
 * Install [vagrant](https://www.vagrantup.com/docs/getting-started/)
-* Checkout ecosystem repository `git clone https://github.com/cloudogu/ecosystem`
+* Checkout EcoSystem repository `git clone https://github.com/cloudogu/ecosystem`
 * `cd ecosystem`
-* `vagrant up` to run ecosystem in a virtual machine
+* `vagrant up` to run EcoSystem in a virtual machine
 * When vagrant is done, enter the following URL in your browser : http://192.168.56.2:8080
 * Follow the steps of the setup wizard
 
 #### Bridged Network
 
-By default our vagrant configuration uses a host-only network, which makes the ecosystem only accessible from your machine. 
+By default our vagrant configuration uses a host-only network, which makes the EcoSystem only accessible from your machine. 
 
 If you want it to be accessible from other hosts in your network, you can change this behavior in the [`Vagrantfile`](Vagrantfile). To do so,
 * remove the `private_network` line and 
@@ -27,6 +29,15 @@ Next time you start the VM, it will use a bridged network and try to get an IP a
 By the way:
 * You can shut down the VM by calling `vagrant halt`.  
 * If you want to start over with a clean slate call `vagrant destroy`.
+
+
+# Building the Cloudogu EcoSystem with Packer
+
+Download Packer from https://www.packer.io/downloads.html and move the extracted binary to `/usr/local/bin/packer`.
+
+Build the VM according to your liking with one of the builders in `images/template.prod.json`.
+
+Hint July 2019 - Caution with 19.04 Disco Dingo and sdl please use following ["qemuargs": [ "display", "-gtk"]](https://github.com/hashicorp/packer/pull/7676) until packer PR is merged.
 
 ---
 ### What is the Cloudogu EcoSystem?

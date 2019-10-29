@@ -9,7 +9,7 @@ if [ ! -d /etc/apt/sources.list.d ]; then
   mkdir -p /etc/apt/sources.list.d
 fi
 
-echo "deb [arch=amd64] https://apt.cloudogu.com/xenial/ xenial main" > /etc/apt/sources.list.d/ces.list
+echo "deb [arch=amd64] https://apt.cloudogu.com/ces/ bionic main" > /etc/apt/sources.list.d/ces.list
 
 # import cloudogu key
 apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0249BCED

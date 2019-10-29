@@ -7,9 +7,13 @@ pages:
   - Dogu creation: user-guide/dogu-creation.md
   - Dogu upgrades: user-guide/dogu-upgrade.md
   - Dogu configuration: user-guide/dogu-configuration.md
+  - CAS login limit: user-guide/cas-login-limit.md
+  - Maintenance mode: user-guide/maintenance_mode.md
   - Goss Spec: user-guide/goss.md
   - Migration: user-guide/migration.md
   - Bash Scripting Guideline: user-guide/bash-guideline.md
   - CES-Image build: user-guide/image-build.md
   - Setup Automation via JSON: user-guide/setup-json.md
+  - Etcd Registry structure: user-guide/etcd_registry_structure.md
+  - Using SonarQube: user-guide/sonar.md
 - About: about.md
