@@ -8,7 +8,7 @@
  * `git clone https://github.com/cloudogu/ecosystem.git`
 ### 2. Build the image(s) with packer
 * `cd <ecosystem-path>/images/`
-* `packer build template.prod.json`
+* `packer build -var "timestamp=$(date +%Y%m%d)" template.prod.json`
     * Builds all images for production
     * To get only a specific build for one of the hypervisors, use the`--only=<image-type>` parameter. With it, the image type can be configured to `ecosystem-virtualbox`, `ecosystem-vmware` or `ecosystem-qemu`
     * The default user is `ces-admin` with password `ces-admin` (will be changed in setup process)
