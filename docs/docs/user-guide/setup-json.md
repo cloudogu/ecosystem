@@ -411,6 +411,19 @@ The following objects are examples:
 
   Specifies the content of the text message that shows up when clicking on 'Forgot password?' inside the logon screen.
 
+- Key: `"legal_urls/terms_of_service"`
+
+   Specifies the terms of service URL to be shown on the CAS login/logout screen. If this key is null or does not exist the corresponding link "Terms of Service" will not be shown. The changes are effective after a restart of the CAS Dogu. 
+ 
+- Key: `"legal_urls/imprint"`
+   
+   Specifies the imprint URL to be shown on the CAS login/logout screen. If this key is null or does not exist the corresponding link "Imprint" will not be shown. The changes are effective after a restart of the CAS Dogu. 
+
+- Key: `"legal_urls/privacy_policy"`
+   
+   Specifies the privacy policy URL to be shown on the CAS login/logout screen. If this key is null or does not exist the corresponding link "Privacy Policy" will not be shown. The changes are effective after a restart of the CAS Dogu. 
+  
+
 ##### cockpit
 
 - Content: Configuration of the welcome dashboard of the cloudogu EcoSystem
