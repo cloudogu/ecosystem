@@ -426,6 +426,19 @@ Enthält beispielsweise folgende Objekte:
 - Key: `"forgot_password_text"`
 
   Der anzuzeigende Text bei Klick auf "Passwort vergessen" innerhalb der Anmeldemaske.
+
+- Key: `"legal_urls/terms_of_service"`
+
+   Enthält URLs für die Nutzungsbedingungen. Wenn der Key nicht existiert oder der Wert leer ist, dann wird der Link "Nutzungsbedingungen" nicht angezeigt. Das CAS Dogu muss neugestartet werden, damit eine geänderte URL wirksam werden kann.
+ 
+- Key: `"legal_urls/imprint"`
+
+   Enthält URLs für das Impressum. Wenn der Key nicht existiert oder der Wert leer ist, dann wird der Link "Impressum" nicht angezeigt. Das CAS Dogu muss neugestartet werden, damit eine geänderte URL wirksam werden kann.
+
+- Key: `"legal_urls/privacy_policy"`
+
+   Enthält URLs für die Datenschutzerklärung. Wenn der Key nicht existiert oder der Wert leer ist, dann wird der Link "Datenschutzerklärung" nicht angezeigt. Das CAS Dogu muss neugestartet werden, damit eine geänderte URL wirksam werden kann.
+  
   
 ##### cockpit
 * Inhalt: Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
