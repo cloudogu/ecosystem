@@ -1,5 +1,5 @@
 # Automating the Cloudogu EcoSystem Setup Process
-The setup mechanism of the Cloudogu EcoSystem can be performed in different ways. One way is to provide all necessary data and set all options via the web interface. Another way is to create a file called **setup.json** which contains some or all configuration data needed. This file has to be placed into the ``/vagrant`` or ``/etc/ces`` folder and needs to be formatted in JSON. All data defined in that file will be automatically inserted into the corresponding setup web interface fields. If the entire configuration of the setup is present, the setup can be done fully automatically by setting all *"completed"*-values to `true` (see below).
+The setup mechanism of the Cloudogu EcoSystem can be performed in different ways. One way is to provide all necessary data and set all options via the web interface. Another way is to create a file called **setup.json** which contains some or all configuration data needed. This file has to be placed into the ``/vagrant`` or ``/etc/ces`` folder and needs to be formatted in JSON. All data defined in that file will be automatically inserted into the corresponding setup web interface fields. If the entire configuration of the setup is present, the setup can be done fully automatically by setting all *"completed"*-values to `true` (see below) if the registration step is done before.
 
 Example:
 ````
@@ -410,6 +410,19 @@ The following objects are examples:
 - Key: `"forgot_password_text"`
 
   Specifies the content of the text message that shows up when clicking on 'Forgot password?' inside the logon screen.
+
+- Key: `"legal_urls/terms_of_service"`
+
+   Specifies the terms of service URL to be shown on the CAS login/logout screen. If this key is null or does not exist the corresponding link "Terms of Service" will not be shown. The changes are effective after a restart of the CAS Dogu. 
+ 
+- Key: `"legal_urls/imprint"`
+   
+   Specifies the imprint URL to be shown on the CAS login/logout screen. If this key is null or does not exist the corresponding link "Imprint" will not be shown. The changes are effective after a restart of the CAS Dogu. 
+
+- Key: `"legal_urls/privacy_policy"`
+   
+   Specifies the privacy policy URL to be shown on the CAS login/logout screen. If this key is null or does not exist the corresponding link "Privacy Policy" will not be shown. The changes are effective after a restart of the CAS Dogu. 
+  
 
 ##### cockpit
 

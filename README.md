@@ -4,7 +4,7 @@ https://cloudogu.com
 
 This is the repository of the Cloudogu EcoSystem. It contains all docker containers, setup scripts and resources to install cloudogu on your machine and start it using vagrant.
 
-We also have a public demo instance available. All possibilities and details can be found on our [demo page](https://cloudogu.com/en/index.html#demo)
+If you have any questions, feel free to request your personal product demonstration of the Cloudogu EcoSystem [Demo appointment page](https://cloudogu.com/en/ecosystem/demo-appointment/)
 
 ### Quick start
 * Install [git](https://git-scm.com/)

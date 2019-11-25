@@ -1,5 +1,5 @@
 # Automatisierung des Cloudogu EcoSystem Setup-Prozesses
-Der Setupmechanismus des Cloudogu EcoSystem lässt sich auf verschiedene Arten ausführen. Ein Weg führt über die Oberfläche im Browser, in der man alle relevanten Daten eingeben und Optionen auswählen kann. Des weiteren kann man mithilfe einer **setup.json** benannten Konfigurationsdatei die Felder im Setup vorbefüllen. Diese Datei muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen. Sind alle Daten und Einstellungen für das Setup im Voraus klar, kann man das Setup auch komplett automatisch ablaufen lassen. Dafür ist für jeden Schritt die Eigenschaft *"completed"* zu setzen (siehe unten).
+Der Setupmechanismus des Cloudogu EcoSystem lässt sich auf verschiedene Arten ausführen. Ein Weg führt über die Oberfläche im Browser, in der man alle relevanten Daten eingeben und Optionen auswählen kann. Des weiteren kann man mithilfe einer **setup.json** benannten Konfigurationsdatei die Felder im Setup vorbefüllen. Diese Datei muss im Ordner ``/vagrant`` oder ``/etc/ces`` liegen und nach dem JSON-Standard formatiert sein. Alle Daten, die in dieser Datei definiert werden, werden automatisch im Setupprozess in die entsprechenden Felder eingetragen. Sind alle Daten und Einstellungen für das Setup im Voraus klar, kann man das Setup auch komplett automatisch ablaufen lassen. Dafür ist für jeden Schritt die Eigenschaft *"completed"* zu setzen (siehe unten) und der Registrierungsschritt im Setup muss bereits vor dem Platzieren der setup.json abgeschlossen sein.
 
 Beispiel:
 
@@ -426,6 +426,19 @@ Enthält beispielsweise folgende Objekte:
 - Key: `"forgot_password_text"`
 
   Der anzuzeigende Text bei Klick auf "Passwort vergessen" innerhalb der Anmeldemaske.
+
+- Key: `"legal_urls/terms_of_service"`
+
+   Enthält URLs für die Nutzungsbedingungen. Wenn der Key nicht existiert oder der Wert leer ist, dann wird der Link "Nutzungsbedingungen" nicht angezeigt. Das CAS Dogu muss neugestartet werden, damit eine geänderte URL wirksam werden kann.
+ 
+- Key: `"legal_urls/imprint"`
+
+   Enthält URLs für das Impressum. Wenn der Key nicht existiert oder der Wert leer ist, dann wird der Link "Impressum" nicht angezeigt. Das CAS Dogu muss neugestartet werden, damit eine geänderte URL wirksam werden kann.
+
+- Key: `"legal_urls/privacy_policy"`
+
+   Enthält URLs für die Datenschutzerklärung. Wenn der Key nicht existiert oder der Wert leer ist, dann wird der Link "Datenschutzerklärung" nicht angezeigt. Das CAS Dogu muss neugestartet werden, damit eine geänderte URL wirksam werden kann.
+  
   
 ##### cockpit
 * Inhalt: Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
