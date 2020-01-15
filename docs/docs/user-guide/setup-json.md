@@ -599,10 +599,14 @@ The following objects are examples:
 
 ##### sonar
 
-- Content: Set custom SonarQube UpdateCenter URL here
-- Example:`{
-  "sonar.updatecenter.url": "http://customupdatecenter.com"
-  }`
+- Content: Set custom SonarQube UpdateCenter URL and a list of default plugins here
+- Example:
+````
+{
+  "sonar.updatecenter.url": "http://customupdatecenter.com",
+  "sonar.plugins.default": "pmd,jacoco"
+}
+````
 
 #### registryConfigEncrypted (optional)
 Here you can define values which will be written encrypted to the registry (etcd). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.

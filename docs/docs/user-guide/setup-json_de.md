@@ -609,10 +609,14 @@ Enthält beispielsweise folgende Objekte:
 ```
 
 ##### sonar
-* Inhalt: Hier kann die SonarQube UpdateCenter URL gesetzt werden
-* Beispiel:`{
-    "sonar.updatecenter.url": "http://customupdatecenter.com"
-}`
+* Inhalt: Hier kann die SonarQube UpdateCenter URL und eine Liste von Standardplugins gesetzt werden
+* Beispiel:
+```
+{
+    "sonar.updatecenter.url": "http://customupdatecenter.com",
+    "sonar.plugins.default": "pmd,jacoco"
+}
+```
 
 #### registryConfigEncrypted (optional)
 
