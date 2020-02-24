@@ -107,6 +107,18 @@ Properties:
 * Content: The mail address used by all dogus to send mails (the 'From:'-Field)
 * Example: `"mail@mydomain.com"`
 
+#### useInternalIp
+* Optional
+* Data type: boolean
+* Content: This switch enables the usage of a specific IP address for internal DNS resolution of the host. A value of `true` mandates a valid value in the field `internalIp`. If this field is not set it will be interpreted as `false` and ignored. 
+* Example: `"useInternalIp": true`
+
+#### internalIp
+* Optional 
+* Data type: String
+* Content: This field contains the IP address that should be used for internal DNS resolution of the host. This is of special interest for installations that use a Split DNS configuration. In a Split DNS configuration the CES instance has a public IP address that is only reachable from the outside. Inside the CES instance a different, private IP address is used to interact with the internal parts of the instance. This field will be only evaluated if `userInternalIp` is set to `true`, otherwise it will be ignored.  
+* Example: `"internalIp": "10.0.2.15"`
+
 #### completed
 * Data type: boolean
 * Content: Logical value which shows if the *naming step* is completely finished

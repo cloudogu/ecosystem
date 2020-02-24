@@ -113,6 +113,18 @@ Eigenschaften:
 * Inhalt: Die Mail-Adresse, welche von allen Dogus verwendet wird, um Mails zu versenden (das 'From:'-Feld)
 * Beispiel: `"mail@mydomain.com"`
 
+#### useInternalIp
+* Optional
+* Datentyp: boolean
+* Inhalt: Dieser Schalter gibt an, ob eine spezifische IP-Adresse für eine interne DNS-Auflösung des Hosts verwendet werden soll. Wenn dieser Schalter auf `true` gesetzt wird, dann erzwingt dies, einen gültigen Wert im Feld `internalIp`. Wenn dieses Feld nicht gesetzt wurde, dann wird es mit `false` interpretiert und ignoriert. 
+* Beispiel: `"useInternalIp": true`
+
+#### internalIp
+* Optional 
+* Datentyp: String
+* Inhalt: Wenn und nur wenn `userInternalIp` wahr ist, wird die hier hinterlegte IP-Adresse für eine interne DNS-Auflösung des Hosts verwendet. Ansonsten wird dieses Feld ignoriert. Dies ist besonders für Installationen mit einer Split-DNS-Konfiguration interessant, d. h. wenn die Instanz von außen mit einer anderen IP-Adresse erreichbar ist, als von innen. 
+* Beispiel: `"internalIp": "10.0.2.15"`
+
 #### completed
 * Datentyp: boolean
 * Inhalt: Wahrheitswert, ob der Naming-Schritt komplett ist
