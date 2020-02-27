@@ -508,7 +508,9 @@ The following objects are examples:
 - Note: The maximum possible size of a JSON dashboard description is 2 MB.
 
 ##### jenkins
-* Content: Information about the jenkins update site URLs
+
+* Key `updateSiteUrl`: Information about the jenkins update site URLs
+* Key `additional.plugins`: Contains a comma separated list with plugin names that are installed on startup
 * Example:
 
 ```
@@ -517,6 +519,7 @@ The following objects are examples:
     "url1":"jenkinsUpdateSiteURL1",
     "url2":"jenkinsUpdateSiteURL2"
   }
+  "additional.plugins": "docker-plugin,docker-workflow"
 }
 ```
 
