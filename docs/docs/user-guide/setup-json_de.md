@@ -521,7 +521,8 @@ Enthält beispielsweise folgende Objekte:
 * Anmerkung: Die maximale Größe, die die JSON-Beschreibung des Dashboards haben darf, ist 2MB.
 
 ##### jenkins
-* Inhalt: Informationen über die Update-Site-URLs für Jenkins
+* Key `updateSiteUrl`: Informationen über die Update-Site-URLs für Jenkins
+* Key `additinal.plugins`: Installation von weiteren Plugins beim Start. Konfiguriert als kommaseparierte Liste.
 * Beispiel:
 ````
 {
@@ -529,6 +530,7 @@ Enthält beispielsweise folgende Objekte:
     "url1":"jenkinsUpdateSiteURL1",
     "url2":"jenkinsUpdateSiteURL2"
   }
+  "additional.plugins": "docker-plugin,docker-workflow"
 }
 ````
 
