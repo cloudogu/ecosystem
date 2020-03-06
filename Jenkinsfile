@@ -1,4 +1,5 @@
 #!groovy
+@Library(['github.com/cloudogu/dogu-build-lib@414bdfd5']) _
 
 // todo
 // - setup output
@@ -18,6 +19,15 @@ node('vagrant') {
     stage('Checkout') {
         checkout scm
     }
+
+    stage('Lint') {
+            shellCheck("./install/create-network.sh")
+            shellCheck("./install/firewall.sh")
+            shellCheck("./install/install-ces-packages.sh")
+            shellCheck("./install/prepare-environment.sh")
+            shellCheck("./install/setup-message.sh")
+            shellCheck("./install/sync-files.sh")
+        }
 
     try {
 
