@@ -437,11 +437,11 @@ The following objects are examples:
 
 - Key: `"session_tgt/max_time_to_live_in_seconds"`
 
-Maximum session timeout - TGT will expire after defined timespan regardless the usage
+   Maximum session timeout - TGT will expire after defined timespan regardless the usage
 
 - Key: `"session_tgt/time_to_kill_in_seconds"`
 
-Idle session timeout -  TGT will expire sooner if no further requests keep the session alive
+   Idle session timeout -  TGT will expire sooner if no further requests keep the session alive
 
 
 ##### cockpit
