@@ -402,6 +402,14 @@ The following objects are examples:
   
   When set to `true`, backups are bound to a blueprintId. After a blueprint-Upgrade the backups cannot be restored.
   When not set or set to `false`, any backup can be restored.
+  
+- Key: `"pre_restore_script"`
+  
+  Set to the path of a bash script. That script is executed before a sheduled restore starts.
+  
+- Key: `"post_restore_script"`
+  
+  Set to the path of a bash script. That script is executed after a sheduled restore finished successfully.
 
 ##### cas
 
