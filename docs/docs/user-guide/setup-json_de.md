@@ -409,6 +409,21 @@ Enthält beispielsweise folgende Objekte:
   Nach einem Blueprint-Upgrade können sie nicht wiederhergestellt werden.
   Wenn der Wert auf `false` oder gar nicht gesetzt ist, können alle Backups wiederhergestellt werden.
 
+  
+- Key: `"pre_restore_script"`
+  
+  Hier kann der Pfad zu einem Bash-Script hinterlegt werden. 
+  Der Pfad darf nicht leer sein. Es muss ein absoluter Pfad sein. Das Script muss existieren und ausführbar sein.
+  Das so hinterlegte Script wird vor jedem Restore ausgeführt.
+  
+- Key: `"post_restore_script"`
+  
+  Hier kann der Pfad zu einem Bash-Script hinterlegt werden. 
+  Der Pfad darf nicht leer sein. Es muss ein absoluter Pfad sein. Das Script muss existieren und ausführbar sein.
+  Das so hinterlegte Script wird nach jedem erfolgreichen Restore ausgeführt.
+  
+  
+  
 ##### cas
 
 - Key: ` "limit/max_number"`

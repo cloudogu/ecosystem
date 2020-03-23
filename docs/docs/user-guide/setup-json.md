@@ -405,11 +405,15 @@ The following objects are examples:
   
 - Key: `"pre_restore_script"`
   
-  Set to the path of a bash script. That script is executed before a sheduled restore starts.
+  This key can be set to a path to a bash script.
+  The path cannot be empty. The path has to be an absolute path. The script must exist and must be executable.
+  The script is automatically executed before each restore.
   
 - Key: `"post_restore_script"`
   
-  Set to the path of a bash script. That script is executed after a sheduled restore finished successfully.
+  This key can be set to a path to a bash script.
+  The path cannot be empty. The path has to be an absolute path. The script must exist and must be executable.
+  The script is automatically executed after each successful restore.
 
 ##### cas
 
