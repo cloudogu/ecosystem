@@ -402,6 +402,18 @@ The following objects are examples:
   
   When set to `true`, backups are bound to a blueprintId. After a blueprint-Upgrade the backups cannot be restored.
   When not set or set to `false`, any backup can be restored.
+  
+- Key: `"pre_restore_script"`
+  
+  This key can be set to a path to a bash script.
+  The path cannot be empty. The path has to be an absolute path. The script must exist and must be executable.
+  The script is automatically executed before each restore.
+  
+- Key: `"post_restore_script"`
+  
+  This key can be set to a path to a bash script.
+  The path cannot be empty. The path has to be an absolute path. The script must exist and must be executable.
+  The script is automatically executed after each successful restore.
 
 ##### cas
 
