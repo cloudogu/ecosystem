@@ -43,3 +43,6 @@
 [submodule "containers/java"]
 	path = containers/java
 	url = git@github.com:cloudogu/java.git
+[submodule "containers/swaggerui"]
+	path = containers/swaggerui
+	url = git@github.com:cloudogu/swaggerui.git
