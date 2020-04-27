@@ -46,3 +46,6 @@
 [submodule "containers/swaggerui"]
 	path = containers/swaggerui
 	url = git@github.com:cloudogu/swaggerui.git
+[submodule "containers/ldap-mapper"]
+	path = containers/ldap-mapper
+	url = git@github.com:cloudogu/ldap-mapper.git
