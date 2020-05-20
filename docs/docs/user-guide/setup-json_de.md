@@ -686,3 +686,11 @@ Enthält beispielsweise folgende Objekte:
 }
 ````
 
+##### jira
+* Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SOFTWARE` erhalten soll.
+* Beispiel:
+```
+{
+    "jira_software_users_group": "my-group-name"
+}
+```

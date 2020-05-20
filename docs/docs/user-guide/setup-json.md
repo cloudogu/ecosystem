@@ -683,3 +683,11 @@ Can consist the following objects:
 }
 ```
 
+##### jira
+* Content: Define a user group from the CES which should get the application role `JIRA SOFTWARE`.
+* Example:
+```
+{
+    "jira_software_users_group": "my-group-name"
+}
+```
