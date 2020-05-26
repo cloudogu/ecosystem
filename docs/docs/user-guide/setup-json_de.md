@@ -686,3 +686,17 @@ Enthält beispielsweise folgende Objekte:
 }
 ````
 
+##### swaggerui
+
+```
+  "registryConfig": {
+    "swaggerui": {
+      "validator.url": "https://validator.swagger.io/validator"
+    }
+  }
+```
+
+- Key: `"validator.url"`
+
+  Die Url zum SwaggerValidator. Zum Nutzen des Standard-Validators muss dieser Wert auf `https://validator.swagger.io/validator`
+  gesetzt werden. Wird der Wert nicht gesetzt oder enthält einen leeren String, wird der SwaggerValidator deaktiviert.

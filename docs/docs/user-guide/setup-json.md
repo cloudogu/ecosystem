@@ -683,3 +683,17 @@ Can consist the following objects:
 }
 ```
 
+##### swaggerui
+
+```
+  "registryConfig": {
+    "swaggerui": {
+      "validator.url": "https://validator.swagger.io/validator"
+    }
+  }
+```
+
+- Key: `"validator.url"`
+  
+  This is the url to the SwaggerValidator. Set this to `https://validator.swagger.io/validator` to use the default
+  SwaggerValidator. Do not set the key or set it to an empty string if you want to disable the SwaggerValidator.
