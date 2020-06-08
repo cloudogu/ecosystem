@@ -659,6 +659,15 @@ Enthält beispielsweise folgende Objekte:
 }
 ```
 
+##### jira
+* Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SOFTWARE` erhalten soll.
+* Beispiel:
+```
+{
+    "jira_software_users_group": "my-group-name"
+}
+```
+
 #### registryConfigEncrypted (optional)
 
 An dieser Stelle lassen sich Werte definieren, die in verschlüsselter Form in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des EcoSystem abgelegt. Anders als bei ``registryConfig``, können sich in der ersten Ebene nur installierte (bzw. während dem Setup installierte) Dogus befinden, da nur für diese eine Verschlüsselung möglich ist.
@@ -686,3 +695,17 @@ Enthält beispielsweise folgende Objekte:
 }
 ````
 
+##### swaggerui
+
+```
+  "registryConfig": {
+    "swaggerui": {
+      "validator_url": "https://validator.swagger.io/validator"
+    }
+  }
+```
+
+- Key: `"validator_url"`
+
+  Die Url zum SwaggerValidator. Zum Nutzen des Standard-Validators muss dieser Wert auf `https://validator.swagger.io/validator`
+  gesetzt werden. Wird der Wert nicht gesetzt oder enthält einen leeren String, wird der SwaggerValidator deaktiviert.

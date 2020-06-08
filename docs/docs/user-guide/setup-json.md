@@ -655,6 +655,15 @@ The following objects are examples:
 }
 ````
 
+##### jira
+* Content: Define a user group from the CES which should get the application role `JIRA SOFTWARE`.
+* Example:
+```
+{
+    "jira_software_users_group": "my-group-name"
+}
+```
+
 #### registryConfigEncrypted (optional)
 Here you can define values which will be written encrypted to the registry (etcd). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.
 In the first level only Dogus which will be installed during the setup are possible. For other entries there is no key for encryption.
@@ -683,3 +692,17 @@ Can consist the following objects:
 }
 ```
 
+##### swaggerui
+
+```
+  "registryConfig": {
+    "swaggerui": {
+      "validator_url": "https://validator.swagger.io/validator"
+    }
+  }
+```
+
+- Key: `"validator_url"`
+  
+  This is the url to the SwaggerValidator. Set this to `https://validator.swagger.io/validator` to use the default
+  SwaggerValidator. Do not set the key or set it to an empty string if you want to disable the SwaggerValidator.
