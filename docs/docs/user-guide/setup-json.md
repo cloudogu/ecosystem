@@ -234,6 +234,16 @@ Example: `"fullname"`
 * Data type: String
 * Content: Declaration of the group mapping name attribute
 
+#### groupAttributeDescription
+* Only necessary if *"dsType"* is set to `"external"` 
+* Data type: String
+* Content: Declaration of the group mapping description attribute
+
+#### groupAttributeMember
+* Only necessary if *"dsType"* is set to `"external"` 
+* Data type: String
+* Content: Declaration of the group mapping member attribute
+
 #### useUserConnectionToFetchAttributes
 
 - Data type: boolean
