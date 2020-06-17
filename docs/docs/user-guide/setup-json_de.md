@@ -237,7 +237,17 @@ Eigenschaften:
 #### groupAttributeName
 * Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
 * Datentyp: String
-* Inhalt: Angabe des Attributs für das Group Mapping
+* Inhalt: Angabe des Attributs name für das Group Mapping
+
+#### groupAttributeDescription
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
+* Datentyp: String
+* Inhalt: Angabe des Attributs description für das Group Mapping
+
+#### groupAttributeMember
+* Nur notwendig, wenn *"dsType"* auf `"external"`  gesetzt wurde
+* Datentyp: String
+* Inhalt: Angabe des Attributs member für das Group Mapping
 
 #### useUserConnectionToFetchAttributes
 * Datentyp: boolean
