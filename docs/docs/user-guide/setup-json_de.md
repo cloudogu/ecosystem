@@ -673,11 +673,21 @@ Enthält beispielsweise folgende Objekte:
 * Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SOFTWARE` erhalten soll.
 * Beispiel:
 ```
-{
-    "jira_software_users_group": "my-group-name"
-}
+  "registryConfig": {
+    "jira": {
+      "jira_software_users_group": "my-group-name"
+    }
+  }
 ```
-
+* Inhalt: Legt das Intervall in Sekunden für die Synchronisierung des LDAP Benutzerverzeichnis-Caches fest. [Standard: 3600]
+* Beispiel:
+```
+  "registryConfig": {
+    "jira": {
+      "ldap/sync_interval": "600"
+    }
+  }
+```
 #### registryConfigEncrypted (optional)
 
 An dieser Stelle lassen sich Werte definieren, die in verschlüsselter Form in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des EcoSystem abgelegt. Anders als bei ``registryConfig``, können sich in der ersten Ebene nur installierte (bzw. während dem Setup installierte) Dogus befinden, da nur für diese eine Verschlüsselung möglich ist.
