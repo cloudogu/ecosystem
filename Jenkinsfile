@@ -1,6 +1,5 @@
 #!groovy
 @Library(['github.com/cloudogu/dogu-build-lib@v1.0.0']) _
-import com.cloudogu.ces.dogubuildlib.*
 
 // required plugins
 // - http://wiki.jenkins-ci.org/display/JENKINS/HTML+Publisher+Plugin
