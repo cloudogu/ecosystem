@@ -30,6 +30,7 @@ node('vagrant') {
             shellCheck("./install/sync-files.sh")
             shellCheck("./install.sh")
             shellCheck("./images/scripts/commons/guestadditions.sh")
+            shellCheck("./images/scripts/commons/dependencies.sh")
         }
 
     // try {
