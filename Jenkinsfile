@@ -28,6 +28,7 @@ node('vagrant') {
             shellCheck("./install/prepare-environment.sh")
             shellCheck("./install/setup-message.sh")
             shellCheck("./install/sync-files.sh")
+            shellCheck("./install.sh")
         }
 
     // try {
