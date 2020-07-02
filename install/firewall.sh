@@ -26,7 +26,7 @@ function apply_firewall_rules(){
   GW_NETWORK=$(get_gateway_network)
 
 	# set gateway network address dynamically so that this rule is always able to work after possible change of gateway network address
-	ufw allow from "$(docker network inspect ${GW_NETWORK} -f '{{(index .IPAM.Config 0).Subnet}}')" to any port 4001
+	ufw allow from "$(docker network inspect "${GW_NETWORK}" -f '{{(index .IPAM.Config 0).Subnet}}')" to any port 4001
 	ufw --force enable
 }
 
