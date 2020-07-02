@@ -17,8 +17,6 @@ node('vagrant') {
             disableConcurrentBuilds()
     ])
 
-    EcoSystem ecoSystem = new EcoSystem(this, "gcloud-ces-operations-internal-packer", "jenkins-gcloud-ces-operations-internal")
-
     stage('Checkout') {
         checkout scm
     }
@@ -32,38 +30,37 @@ node('vagrant') {
             shellCheck("./install/sync-files.sh")
         }
 
-    try {
+    // try {
 
-        stage('Provision') {
-            timeout(15) {
-                writeVagrantConfiguration()
-                ecoSystem.provision("./");
-                //sh 'rm -f setup.staging.json setup.json'
-                //sh 'vagrant up'
-            }
-        }
+        // stage('Provision') {
+        //     timeout(15) {
+        //         writeVagrantConfiguration()
+        //         sh 'rm -f setup.staging.json setup.json'
+        //         sh 'vagrant up'
+        //     }
+        // }
 
-        stage('Setup') {
-            timeout(5) {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
-                    sh "vagrant ssh -c \"sudo cesapp login ${env.TOKEN_ID} ${env.TOKEN_SECRET}\""
-                }
-                writeSetupStagingJSON()
-                sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.staging.json"'
-                sh 'vagrant ssh -c "sudo mv /etc/ces/setup.staging.json /etc/ces/setup.json"'
-                sh 'vagrant ssh -c "while sudo pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
-                sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"'
-            }
-        }
+        // stage('Setup') {
+        //     timeout(5) {
+        //         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'cesmarvin-setup', usernameVariable: 'TOKEN_ID', passwordVariable: 'TOKEN_SECRET']]) {
+        //             sh "vagrant ssh -c \"sudo cesapp login ${env.TOKEN_ID} ${env.TOKEN_SECRET}\""
+        //         }
+        //         writeSetupStagingJSON()
+        //         sh 'vagrant ssh -c "sudo mv /vagrant/setup.staging.json /etc/ces/setup.staging.json"'
+        //         sh 'vagrant ssh -c "sudo mv /etc/ces/setup.staging.json /etc/ces/setup.json"'
+        //         sh 'vagrant ssh -c "while sudo pgrep -u root ces-setup > /dev/null; do sleep 1; done"'
+        //         sh 'vagrant ssh -c "sudo journalctl -u ces-setup -n 100"'
+        //     }
+        // }
 
-        stage('Start Dogus') {
-            timeout(15) {
-                // TODO wait for all
-                sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast cas"'
-                sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast jenkins"'
-                sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast scm"'
-            }
-        }
+        // stage('Start Dogus') {
+        //     timeout(15) {
+        //         // TODO wait for all
+        //         sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast cas"'
+        //         sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast jenkins"'
+        //         sh 'vagrant ssh -c "sudo cesapp healthy --wait --timeout 600 --fail-fast scm"'
+        //     }
+        // }
 
         // stage('Integration Tests') {
         //     timeout(10) {
@@ -101,12 +98,11 @@ node('vagrant') {
         //     }
         // }
 
-    } finally {
-        stage('Clean') {
-            sh 'vagrant destroy -f'
-        }
-    }
-
+    // } finally {
+    //     stage('Clean') {
+    //         sh 'vagrant destroy -f'
+    //     }
+    // }
 }
 
 String getCesIP() {
