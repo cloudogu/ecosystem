@@ -29,8 +29,17 @@ node('vagrant') {
             shellCheck("./install/setup-message.sh")
             shellCheck("./install/sync-files.sh")
             shellCheck("./install.sh")
-            shellCheck("./images/scripts/commons/guestadditions.sh")
+            shellCheck("./images/scripts/commons/cleanup.sh")
             shellCheck("./images/scripts/commons/dependencies.sh")
+            shellCheck("./images/scripts/commons/docker.sh")
+            shellCheck("./images/scripts/commons/etcd.sh")
+            shellCheck("./images/scripts/commons/guestadditions.sh")
+            shellCheck("./images/scripts/commons/minimize.sh")
+            shellCheck("./images/scripts/commons/networking.sh")
+            shellCheck("./images/scripts/commons/sshd.sh")
+            shellCheck("./images/scripts/commons/subvolumes.sh")
+            shellCheck("./images/scripts/commons/update.sh")
+            shellCheck("./images/scripts/dev/dependencies.sh")
         }
 
     // try {
