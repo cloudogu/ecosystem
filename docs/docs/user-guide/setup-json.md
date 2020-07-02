@@ -673,6 +673,13 @@ The following objects are examples:
     "jira_software_users_group": "my-group-name"
 }
 ```
+* Content: Define the interval in seconds to synchronize the LDAP user directory cache. [Default: 3600]
+* Example:
+```
+{
+    "ldap/sync_interval": "600"
+}
+```
 
 #### registryConfigEncrypted (optional)
 Here you can define values which will be written encrypted to the registry (etcd). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.

@@ -17,13 +17,15 @@ export INSTALL_HOME
 
 # install ces packages
 echo "install ces packages"
-$INSTALL_HOME/install/install-ces-packages.sh
+"$INSTALL_HOME"/install/install-ces-packages.sh
 
 # snyc resources
 echo "sync files"
-$INSTALL_HOME/install/sync-files.sh
+"$INSTALL_HOME"/install/sync-files.sh
 
 # source new path environment, to fix missing etcdctl
+# file is in resources/etc/environment
+# shellcheck disable=SC1091
 source /etc/environment
 export PATH
 echo "INSTALL_HOME=\"$INSTALL_HOME\"" >> /etc/environment
@@ -31,19 +33,19 @@ echo "INSTALL_HOME=\"$INSTALL_HOME\"" >> /etc/environment
 # create overlay network
 # errormessages of test may be confusing to read ... perhaps this could be fixed later
 echo "create network"
-$INSTALL_HOME/install/create-network.sh
+"$INSTALL_HOME"/install/create-network.sh
 
 # prepare environment
 echo "prepare environment"
-$INSTALL_HOME/install/prepare-environment.sh
+"$INSTALL_HOME"/install/prepare-environment.sh
 
 # building firewall
 echo "building up a firewall"
-$INSTALL_HOME/install/firewall.sh
+"$INSTALL_HOME"/install/firewall.sh
 
 # restart docker
 echo "restart docker with new config"
 systemctl restart docker.service
 
 # print setup message
-$INSTALL_HOME/install/setup-message.sh
+"$INSTALL_HOME"/install/setup-message.sh
