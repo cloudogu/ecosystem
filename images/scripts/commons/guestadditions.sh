@@ -9,7 +9,7 @@ virtualbox-iso)
   DEBIAN_FRONTEND=noninteractive apt-get -y install \
   gcc make perl
   mkdir -p /mnt/virtualbox
-  mount -o loop  ${HOME_DIR}/VBoxGuest*.iso /mnt/virtualbox
+  mount -o loop  "${HOME_DIR}"/VBoxGuest*.iso /mnt/virtualbox
   # encapsulate execution because of false positve (https://github.com/dotless-de/vagrant-vbguest/issues/168)
   if sh /mnt/virtualbox/VBoxLinuxAdditions.run
   then
@@ -18,7 +18,7 @@ virtualbox-iso)
   # link to guest additions is already present
   #ln -s /opt/VBoxGuestAdditions-*/lib/VBoxGuestAdditions /usr/lib/VBoxGuestAdditions
   umount /mnt/virtualbox
-  rm -rf ${HOME_DIR}/VBoxGuest*.iso
+  rm -rf "${HOME_DIR}"/VBoxGuest*.iso
   ;;
 
 vmware-iso)

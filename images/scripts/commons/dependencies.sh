@@ -33,9 +33,9 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install \
 # install optional dependency linux-image-extra for the given kernel
 # this package seems to be unavailable in some environments
 IMAGE_EXTRA_PKG=linux-image-extra-"$(uname -r)"
-if apt-cache search ${IMAGE_EXTRA_PKG} | grep ${IMAGE_EXTRA_PKG} &> /dev/null; then
+if apt-cache search "${IMAGE_EXTRA_PKG}" | grep "${IMAGE_EXTRA_PKG}" &> /dev/null; then
   echo "installing optional package ${IMAGE_EXTRA_PKG}"
-  DEBIAN_FRONTEND=noninteractive  apt-get -y install ${IMAGE_EXTRA_PKG}
+  DEBIAN_FRONTEND=noninteractive  apt-get -y install "${IMAGE_EXTRA_PKG}"
 else
   echo "WARNING: could not find optional package ${IMAGE_EXTRA_PKG}"
 fi
