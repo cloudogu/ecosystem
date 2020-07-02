@@ -1,5 +1,6 @@
 #!groovy
-@Library(['github.com/cloudogu/dogu-build-lib@414bdfd5']) _
+@Library(['github.com/cloudogu/dogu-build-lib@v1.0.0']) _
+import com.cloudogu.ces.dogubuildlib.*
 
 // todo
 // - setup output
@@ -15,6 +16,8 @@ node('vagrant') {
             // Don't run concurrent builds for a branch, because they use the same workspace directory
             disableConcurrentBuilds()
     ])
+
+    EcoSystem ecoSystem = new EcoSystem(this, "gcloud-ces-operations-internal-packer", "jenkins-gcloud-ces-operations-internal")
 
     stage('Checkout') {
         checkout scm
@@ -34,8 +37,9 @@ node('vagrant') {
         stage('Provision') {
             timeout(15) {
                 writeVagrantConfiguration()
-                sh 'rm -f setup.staging.json setup.json'
-                sh 'vagrant up'
+                ecoSystem.provision("./");
+                //sh 'rm -f setup.staging.json setup.json'
+                //sh 'vagrant up'
             }
         }
 
@@ -61,42 +65,41 @@ node('vagrant') {
             }
         }
 
-        stage('Integration Tests') {
-            timeout(10) {
-                def seleniumChromeImage = docker.image('selenium/standalone-chrome:3.3.0')
-                def seleniumChromeContainer = seleniumChromeImage.run('-p 4444')
+        // stage('Integration Tests') {
+        //     timeout(10) {
+        //         def seleniumChromeImage = docker.image('selenium/standalone-chrome:3.3.0')
+        //         def seleniumChromeContainer = seleniumChromeImage.run('-p 4444')
 
-                // checkout integration-tests into
-                checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'integration-tests']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cloudogu/integration-tests']]])
+        //         // checkout integration-tests into
+        //         checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: 'integration-tests']], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/cloudogu/integration-tests']]])
 
-                try {
+        //         try {
 
-                    def seleniumChromeIP = containerIP(seleniumChromeContainer)
-                    def cesIP = getCesIP()
+        //             def seleniumChromeIP = containerIP(seleniumChromeContainer)
+        //             def cesIP = getCesIP()
 
-                    docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${cesIP}") {
-                        sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
-                    }
+        //             docker.image('cloudogu/gauge-java:latest').inside("-v ${HOME}/.m2:/maven -e BROWSER=REMOTE -e SELENIUM_URL=http://${seleniumChromeIP}:4444/wd/hub -e gauge_jvm_args=-Deco.system=https://${cesIP}") {
+        //                 sh '/startup.sh /bin/bash -c "cd integration-tests && mvn test"'
+        //             }
 
-                } finally {
-                    seleniumChromeContainer.stop()
-                    // archive test results
-                    junit 'integration-tests/reports/xml-report/*.xml'
+        //         } finally {
+        //             seleniumChromeContainer.stop()
+        //             // archive test results
+        //             junit 'integration-tests/reports/xml-report/*.xml'
 
-                    // publish gauge results
-                    publishHTML([
-                            allowMissing         : false,
-                            alwaysLinkToLastBuild: false,
-                            keepAll              : true,
-                            reportDir            : 'integration-tests/reports/html-report',
-                            reportFiles          : 'index.html',
-                            reportName           : 'Integration Test Report'
-                    ])
+        //             // publish gauge results
+        //             publishHTML([
+        //                     allowMissing         : false,
+        //                     alwaysLinkToLastBuild: false,
+        //                     keepAll              : true,
+        //                     reportDir            : 'integration-tests/reports/html-report',
+        //                     reportFiles          : 'index.html',
+        //                     reportName           : 'Integration Test Report'
+        //             ])
 
-                }
-            }
-
-        }
+        //         }
+        //     }
+        // }
 
     } finally {
         stage('Clean') {
