@@ -29,6 +29,7 @@ node('vagrant') {
             shellCheck("./install/setup-message.sh")
             shellCheck("./install/sync-files.sh")
             shellCheck("./install.sh")
+            shellCheck("./images/scripts/commons/guestadditions.sh")
         }
 
     // try {
