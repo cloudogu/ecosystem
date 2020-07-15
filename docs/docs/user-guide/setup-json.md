@@ -549,6 +549,30 @@ The following objects are examples:
 - Note: If this definition is not set at all or if this definition is not in a correct JSON state, the default dashboard is shown.
 - Note: The maximum possible size of a JSON dashboard description is 2 MB.
 
+##### confluence
+
+* Content: Define a user group from the CES which should get the application role `Confluence Users`.
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "confluence_users_group": "my-group-name"
+    }
+}
+```
+
+* Content: Define the interval in seconds to synchronize the LDAP user directory cache. [Default: 3600]
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "ldap/sync_interval": "600"
+    }
+}
+```
+
 ##### jenkins
 
 * Key `updateSiteUrl`: Information about the jenkins update site URLs
@@ -658,23 +682,28 @@ The following objects are examples:
 
 - Content: Set custom SonarQube UpdateCenter URL and a list of default plugins here
 - Example:
-````
+
+```
 {
   "sonar.updatecenter.url": "http://customupdatecenter.com",
   "sonar.plugins.default": "pmd,jacoco"
 }
-````
+```
 
 ##### jira
+
 * Content: Define a user group from the CES which should get the application role `JIRA SOFTWARE`.
 * Example:
+
 ```
 {
     "jira_software_users_group": "my-group-name"
 }
 ```
+
 * Content: Define the interval in seconds to synchronize the LDAP user directory cache. [Default: 3600]
 * Example:
+
 ```
 {
     "ldap/sync_interval": "600"

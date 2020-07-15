@@ -492,7 +492,7 @@ Enthält beispielsweise folgende Objekte:
 ##### cockpit
 * Inhalt: Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
 * Beispiel:
-````
+```
 {
   "welcomeDashboard" :
   "{
@@ -553,11 +553,37 @@ Enthält beispielsweise folgende Objekte:
           \"titleTemplateUrl\": \"app/dashboard/partials/custom-dashboard-title.html\"
   }"
 }
-````
+```
+
 * Anmerkung: Wenn diese Definition nicht oder nicht in korrektem JSON-Format gesetzt ist, wird das default-Dashboard angezeigt.
 * Anmerkung: Die maximale Größe, die die JSON-Beschreibung des Dashboards haben darf, ist 2MB.
 
+##### confluence
+
+* Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Confluence die Rolle `Confluence Users` erhalten soll.
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "confluence_users_group": "my-group-name"
+    }
+}
+```
+
+* Inhalt: Legt das Intervall in Sekunden für die Synchronisierung des LDAP Benutzerverzeichnis-Caches fest. [Standard: 3600]
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "ldap/sync_interval": "600"
+    }
+}
+```
+
 ##### jenkins
+
 * Key `updateSiteUrl`: Informationen über die Update-Site-URLs für Jenkins
 * Key `additinal.plugins`: Installation von weiteren Plugins beim Start. Konfiguriert als kommaseparierte Liste.
 * Beispiel:
@@ -670,8 +696,10 @@ Enthält beispielsweise folgende Objekte:
 ```
 
 ##### jira
+
 * Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SOFTWARE` erhalten soll.
 * Beispiel:
+
 ```
   "registryConfig": {
     "jira": {
@@ -679,8 +707,10 @@ Enthält beispielsweise folgende Objekte:
     }
   }
 ```
+
 * Inhalt: Legt das Intervall in Sekunden für die Synchronisierung des LDAP Benutzerverzeichnis-Caches fest. [Standard: 3600]
 * Beispiel:
+
 ```
   "registryConfig": {
     "jira": {
@@ -688,6 +718,7 @@ Enthält beispielsweise folgende Objekte:
     }
   }
 ```
+
 #### registryConfigEncrypted (optional)
 
 An dieser Stelle lassen sich Werte definieren, die in verschlüsselter Form in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des EcoSystem abgelegt. Anders als bei ``registryConfig``, können sich in der ersten Ebene nur installierte (bzw. während dem Setup installierte) Dogus befinden, da nur für diese eine Verschlüsselung möglich ist.
