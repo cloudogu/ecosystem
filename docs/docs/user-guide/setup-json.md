@@ -690,6 +690,19 @@ The following objects are examples:
 }
 ```
 
+##### scm
+
+- Content: Set custom SCM-Manager Plugin Center URL and a list of default plugins here. Default plugins will be installed on each start, if they are missing.
+- Example:
+
+```
+{
+  "plugin_center_url": "https://plugin-center-api.scm-manager.org/api/v1/plugins/2.0.0",
+  "additional_plugins": "scm-landingpage-plugin,scm-editor-plugin",
+  "update_plugins": "true"
+}
+```
+
 ##### jira
 
 * Content: Define a user group from the CES which should get the application role `JIRA SOFTWARE`.

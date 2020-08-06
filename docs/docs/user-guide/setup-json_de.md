@@ -695,6 +695,19 @@ Enthält beispielsweise folgende Objekte:
 }
 ```
 
+##### scm
+
+* Inhalt: Hier können die Plugin Center Url und die Standard Plugins definiert werden. Die Standard Plugins werden bei jedem Start installiert, falls sie fehlen.
+* Beispiel:
+
+```
+{
+  "plugin_center_url": "https://plugin-center-api.scm-manager.org/api/v1/plugins/2.0.0",
+  "additional_plugins": "scm-landingpage-plugin,scm-editor-plugin",
+  "update_plugins": "true"
+}
+```
+
 ##### jira
 
 * Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SOFTWARE` erhalten soll.
