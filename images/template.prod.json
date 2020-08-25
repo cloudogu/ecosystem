@@ -5,8 +5,8 @@
 		"password": "ces-admin",
 		"memory": "8192",
 		"cpus": "4",
-		"iso_url": "http://cdimage.ubuntu.com/releases/18.04.4/release/ubuntu-18.04.4-server-amd64.iso",
-		"iso_checksum": "e2ecdace33c939527cbc9e8d23576381c493b071107207d2040af72595f8990b",
+		"iso_url": "http://cdimage.ubuntu.com/releases/18.04.5/release/ubuntu-18.04.5-server-amd64.iso",
+		"iso_checksum": "8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996",
 		"iso_checksum_type": "sha256"
 	},
 	"builders": [
