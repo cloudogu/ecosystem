@@ -381,6 +381,21 @@ The following objects are examples:
   "stage":"production"
   }`
 
+##### containers/additional_hosts
+- Content: Host-Entries for all dogus
+- Example:
+```
+"registryConfig": {
+  "_global": {
+    "containers":{
+      "additional_hosts":{
+        "host1": "123.123.123.123",
+        "host2": "123.123.123.123"
+      }
+    }
+  }
+}
+```
 ##### backup
 
 - Content: Configuration of the backup and restore mechanisms of the EcoSystem
