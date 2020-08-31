@@ -402,6 +402,9 @@ Enthält beispielsweise folgende Objekte:
 }
 ```
 
+Hostnamen dürfen nicht mehrfach vorkommen. 
+Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in der globalen Konfiguration konfiguriert sein.
+
 
 ##### backup
 

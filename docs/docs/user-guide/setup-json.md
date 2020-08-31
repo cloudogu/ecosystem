@@ -396,6 +396,11 @@ The following objects are examples:
   }
 }
 ```
+
+Hostnames must not occur multiple times.
+It is also not possible to add the same hostnames as in global configuration in the cesapp configuration.
+
+
 ##### backup
 
 - Content: Configuration of the backup and restore mechanisms of the EcoSystem
