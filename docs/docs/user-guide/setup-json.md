@@ -381,6 +381,26 @@ The following objects are examples:
   "stage":"production"
   }`
 
+##### containers/additional_hosts
+- Content: Host-Entries for all dogus
+- Example:
+```
+"registryConfig": {
+  "_global": {
+    "containers":{
+      "additional_hosts":{
+        "host1": "123.123.123.123",
+        "host2": "123.123.123.123"
+      }
+    }
+  }
+}
+```
+
+Hostnames must not occur multiple times.
+It is also not possible to add the same hostnames as in global configuration in the cesapp configuration.
+
+
 ##### backup
 
 - Content: Configuration of the backup and restore mechanisms of the EcoSystem

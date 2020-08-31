@@ -386,6 +386,26 @@ Enthält beispielsweise folgende Objekte:
 "stage":"production"
 }`
 
+##### containers/additional_hosts
+- Inhalt: Host-Einträge für alle dogus
+- Beispiel:
+```
+"registryConfig": {
+  "_global": {
+    "containers":{
+      "additional_hosts":{
+        "host1": "123.123.123.123",
+        "host2": "123.123.123.123"
+      }
+    }
+  }
+}
+```
+
+Hostnamen dürfen nicht mehrfach vorkommen. 
+Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in der globalen Konfiguration konfiguriert sein.
+
+
 ##### backup
 
 - Inhalt: Konfiguration des Backup- und Restore-Mechanimus
