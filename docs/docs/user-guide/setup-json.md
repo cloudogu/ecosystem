@@ -734,6 +734,17 @@ It is also not possible to add the same hostnames as in global configuration in 
 }
 ```
 
+* Content: Define a valid license key for Jira Software (Server) which is only used for the initial setup of the dogu.
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "license_key": "my-valid-license-key"
+    }
+  }
+```
+
 * Content: Define the interval in seconds to synchronize the LDAP user directory cache. [Default: 3600]
 * Example:
 
@@ -741,6 +752,28 @@ It is also not possible to add the same hostnames as in global configuration in 
 {
     "ldap/sync_interval": "600"
 }
+```
+
+* Content: Define whether custom user scripts should be executed on startup. [Default: false]
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "startup/enable_scripts": "true"
+    }
+  }
+```
+
+* Content: Define whether the custom user scripts should be executed with an background instance of Jira. [Default: false]
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "startup/isolated_scripting_environment": "true"
+    }
+  }
 ```
 
 #### registryConfigEncrypted (optional)
