@@ -741,6 +741,17 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
   }
 ```
 
+* Inhalt: Hier kann eine gültige Lizenz für Jira Software (Server) hinterlegt werden. Diese Lizenz wird nur beim initialen Setup des Dogus verwendet.
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "license_key": "my-valid-license-key"
+    }
+  }
+```
+
 * Inhalt: Legt das Intervall in Sekunden für die Synchronisierung des LDAP Benutzerverzeichnis-Caches fest. [Standard: 3600]
 * Beispiel:
 
@@ -748,6 +759,28 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
   "registryConfig": {
     "jira": {
       "ldap/sync_interval": "600"
+    }
+  }
+```
+
+* Inhalt: Legt fest, ob beim Start des Dogus benutzerdefinierte Skripte ausgeführt werden. [Standard: false]
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "startup/enable_scripts": "true"
+    }
+  }
+```
+
+* Inhalt: Legt fest, ob die benutzerdefinierten Skripte mit einer Hintergrund-Instanz von Jira ausgeführt werden sollen. [Standard: false]
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "startup/isolated_scripting_environment": "true"
     }
   }
 ```
