@@ -582,6 +582,17 @@ It is also not possible to add the same hostnames as in global configuration in 
 }
 ```
 
+* Content: Define a license key which will be applied on the first dogu start.
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "license_key": "my-valid-license-key"
+    }
+}
+```
+
 * Content: Define the interval in seconds to synchronize the LDAP user directory cache. [Default: 3600]
 * Example:
 

@@ -591,6 +591,17 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 }
 ```
 
+* Inhalt: Hier kann ein Lizenzschlüssel angegeben werden, der beim ersten Start des Dogus eingespielt wird.
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "license_key": "my-valid-license-key"
+    }
+}
+```
+
 * Inhalt: Legt das Intervall in Sekunden für die Synchronisierung des LDAP Benutzerverzeichnis-Caches fest. [Standard: 3600]
 * Beispiel:
 
