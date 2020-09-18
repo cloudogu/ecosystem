@@ -613,6 +613,61 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 }
 ```
 
+* Inhalt: Legt die Sprache fest, die bei der Suchindexerstellung verwendet wird. [Standard: english]
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/indexing_language": "english"
+    }
+}
+```
+
+* Inhalt: Legt die globale Standardsprache fest. [Standard: de_DE]
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/global_language": "en_GB"
+    }
+}
+```
+
+* Inhalt: Hier kann definiert werden, ob die Nutzungsanalyse aktiviert sein soll. [Standard: false]
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/enable_analytics": "true"
+    }
+}
+```
+
+* Inhalt: Hier kann definiert werden, ob die Mobile App Zugriff auf Confluence haben soll. [Standard: true]
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/enable_mobile_plugin": "false"
+    }
+}
+```
+
+* Inhalt: Hier können weitere Verknüpfungen als Hilfe für die Erstellung von Links zu anderen Webinhalten angegeben werden.
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/additional_shortcuts": "[{\"name\": \"my-shortcut-name\", \"expandedValue\": \"expample-url\", \"defaultAlias\": \"example-alias\"}]"
+    }
+}
+```
+
 ##### jenkins
 
 * Key `updateSiteUrl`: Informationen über die Update-Site-URLs für Jenkins

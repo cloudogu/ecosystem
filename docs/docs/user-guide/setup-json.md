@@ -604,6 +604,61 @@ It is also not possible to add the same hostnames as in global configuration in 
 }
 ```
 
+* Content: Define the indexing language used for the search index. [Default: english]
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/indexing_language": "english"
+    }
+}
+```
+
+* Content: Define the global language. [Default: de_DE]
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/global_language": "en_GB"
+    }
+}
+```
+
+* Content: Define whether the analytics module is enabled. [Default: false]
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/enable_analytics": "true"
+    }
+}
+```
+
+* Content: Define whether the mobile app should have access to Confluence. [Default: true]
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/enable_mobile_plugin": "false"
+    }
+}
+```
+
+* Content: Configure additional shortcuts which help the users composing links to other websites.
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/additional_shortcuts": "[{\"name\": \"my-shortcut-name\", \"expandedValue\": \"expample-url\", \"defaultAlias\": \"example-alias\"}]"
+    }
+}
+```
+
 ##### jenkins
 
 * Key `updateSiteUrl`: Information about the jenkins update site URLs
