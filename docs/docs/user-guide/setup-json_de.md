@@ -510,7 +510,9 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
   
   
 ##### cockpit
-* Inhalt: Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
+- Key: `"welcomeDashboard"`
+
+Die Konfiguration des Welcome-Dashboards kann hier gesetzt werden
 * Beispiel:
 ```
 {
@@ -577,6 +579,10 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 
 * Anmerkung: Wenn diese Definition nicht oder nicht in korrektem JSON-Format gesetzt ist, wird das default-Dashboard angezeigt.
 * Anmerkung: Die maximale Größe, die die JSON-Beschreibung des Dashboards haben darf, ist 2MB.
+
+- Key: `"pinnedDashboard"`
+
+Die Konfiguration des Pinned-Dashboards kann hier gesetzt werden. Dieses wird jedem Nutzer des Cockpits angezeigt und kann nicht verändert oder verschoben werden. Für Format und Einschränkungen siehe `welcomeDashboard`.
 
 ##### confluence
 
