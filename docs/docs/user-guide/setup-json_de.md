@@ -613,17 +613,6 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 }
 ```
 
-* Inhalt: Legt die Sprache fest, die bei der Suchindexerstellung verwendet wird. [Standard: english]
-* Beispiel:
-
-```
-"registryConfig": {
-    "confluence": {
-      "settings/indexing_language": "english"
-    }
-}
-```
-
 * Inhalt: Legt die globale Standardsprache fest. [Standard: de_DE]
 * Beispiel:
 

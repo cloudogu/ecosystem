@@ -604,17 +604,6 @@ It is also not possible to add the same hostnames as in global configuration in 
 }
 ```
 
-* Content: Define the indexing language used for the search index. [Default: english]
-* Example:
-
-```
-"registryConfig": {
-    "confluence": {
-      "settings/indexing_language": "english"
-    }
-}
-```
-
 * Content: Define the global language. [Default: de_DE]
 * Example:
 
