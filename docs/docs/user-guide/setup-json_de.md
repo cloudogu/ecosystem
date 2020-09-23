@@ -591,6 +591,17 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 }
 ```
 
+* Inhalt: Hier kann ein Lizenzschlüssel angegeben werden, der beim ersten Start des Dogus eingespielt wird.
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "license_key": "my-valid-license-key"
+    }
+}
+```
+
 * Inhalt: Legt das Intervall in Sekunden für die Synchronisierung des LDAP Benutzerverzeichnis-Caches fest. [Standard: 3600]
 * Beispiel:
 
@@ -598,6 +609,50 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 "registryConfig": {
     "confluence": {
       "ldap/sync_interval": "600"
+    }
+}
+```
+
+* Inhalt: Legt die globale Standardsprache fest. [Standard: de_DE]
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/global_language": "en_GB"
+    }
+}
+```
+
+* Inhalt: Hier kann definiert werden, ob die Nutzungsanalyse aktiviert sein soll. [Standard: false]
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/enable_analytics": "true"
+    }
+}
+```
+
+* Inhalt: Hier kann definiert werden, ob die Mobile App Zugriff auf Confluence haben soll. [Standard: true]
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/enable_mobile_plugin": "false"
+    }
+}
+```
+
+* Inhalt: Hier können weitere Verknüpfungen als Hilfe für die Erstellung von Links zu anderen Webinhalten angegeben werden.
+* Beispiel:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/additional_shortcuts": "[{\"name\": \"my-shortcut-name\", \"expandedValue\": \"expample-url\", \"defaultAlias\": \"example-alias\"}]"
     }
 }
 ```

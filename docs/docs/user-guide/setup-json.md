@@ -582,6 +582,17 @@ It is also not possible to add the same hostnames as in global configuration in 
 }
 ```
 
+* Content: Define a license key which will be applied on the first dogu start.
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "license_key": "my-valid-license-key"
+    }
+}
+```
+
 * Content: Define the interval in seconds to synchronize the LDAP user directory cache. [Default: 3600]
 * Example:
 
@@ -589,6 +600,50 @@ It is also not possible to add the same hostnames as in global configuration in 
 "registryConfig": {
     "confluence": {
       "ldap/sync_interval": "600"
+    }
+}
+```
+
+* Content: Define the global language. [Default: de_DE]
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/global_language": "en_GB"
+    }
+}
+```
+
+* Content: Define whether the analytics module is enabled. [Default: false]
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/enable_analytics": "true"
+    }
+}
+```
+
+* Content: Define whether the mobile app should have access to Confluence. [Default: true]
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/enable_mobile_plugin": "false"
+    }
+}
+```
+
+* Content: Configure additional shortcuts which help the users composing links to other websites.
+* Example:
+
+```
+"registryConfig": {
+    "confluence": {
+      "settings/additional_shortcuts": "[{\"name\": \"my-shortcut-name\", \"expandedValue\": \"expample-url\", \"defaultAlias\": \"example-alias\"}]"
     }
 }
 ```
