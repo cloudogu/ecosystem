@@ -772,12 +772,14 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 
 ##### scm
 
-* Inhalt: Hier können die Plugin Center Url und die Standard Plugins definiert werden. Die Standard Plugins werden bei jedem Start installiert, falls sie fehlen.
+* Inhalt: Hier können die Plugin Center URL, die Release Feed URL und die Standard Plugins definiert werden. Die Standard Plugins werden bei jedem Start installiert, falls sie fehlen.
+* Zum deaktivieren der regelmäßigen Suche nach neuen Versionen kann `disable_release_feed` auf `true` gesetzt werden.
 * Beispiel:
 
 ```
 {
   "plugin_center_url": "https://plugin-center-api.scm-manager.org/api/v1/plugins/2.0.0",
+  "release_feed_url": "https://scm-manager.org/download/rss.xml",
   "additional_plugins": "scm-landingpage-plugin,scm-editor-plugin",
   "update_plugins": "true"
 }

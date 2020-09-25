@@ -767,12 +767,14 @@ It is also not possible to add the same hostnames as in global configuration in 
 
 ##### scm
 
-- Content: Set custom SCM-Manager Plugin Center URL and a list of default plugins here. Default plugins will be installed on each start, if they are missing.
+- Content: Set custom SCM-Manager Plugin Center and release feed URL and a list of default plugins here. Default plugins will be installed on each start, if they are missing.
+- To disable the regular check for new versions, you can set `disable_release_feed` to `true`.
 - Example:
 
 ```
 {
   "plugin_center_url": "https://plugin-center-api.scm-manager.org/api/v1/plugins/2.0.0",
+  "release_feed_url": "https://scm-manager.org/download/rss.xml",
   "additional_plugins": "scm-landingpage-plugin,scm-editor-plugin",
   "update_plugins": "true"
 }
