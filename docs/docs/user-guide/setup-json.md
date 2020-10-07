@@ -787,10 +787,20 @@ It is also not possible to add the same hostnames as in global configuration in 
 - Example:
 ```
 {
-  "password_policy": '{"Rules":[
-  {"Description":"Should contain at least 8 characters","Rule":".*[a-z]{8,}.*","Type":"regex"},
-  {"Description":"Should contain at least one digit","Rule":".*[0-9].*","Type":"regex"}
-  ]}'
+  "password_policy": {
+    "Rules": [
+      {
+        "Description": "Should contain at least 8 characters",
+        "Rule": ".*[a-z]{8,}.*",
+        "Type": "regex"
+      },
+      {
+        "Description": "Should contain at least one digit",
+        "Rule": ".*[0-9].*",
+        "Type": "regex"
+      }
+    ]
+  }
 }
 ```
 
