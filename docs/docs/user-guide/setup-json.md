@@ -779,6 +779,20 @@ It is also not possible to add the same hostnames as in global configuration in 
   "update_plugins": "true"
 }
 ```
+##### usermgt
+* Content: Setup password policies to ensure the security of choosen passwords.
+
+- Regular expression must be ECMA Script compatible. It can be checked with eg. [regex101](https://regex101.com/) Flavour: ECMA Script.  
+- If the regular expression is invalid - no user can be added and no password change can be applied.
+- Example:
+```
+{
+  "password_policy": '{"Rules":[
+  {"Description":"Should contain at least 8 characters","Rule":".*[a-z]{8,}.*","Type":"regex"},
+  {"Description":"Should contain at least one digit","Rule":".*[0-9].*","Type":"regex"}
+  ]}'
+}
+```
 
 ##### jira
 
