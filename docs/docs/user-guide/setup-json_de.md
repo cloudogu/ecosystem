@@ -793,10 +793,20 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 - Beispiel:
 ```
 {
-  "password_policy": '{"Rules":[
-  {"Description":"Should contain at least 8 characters","Rule":".*[a-z]{8,}.*","Type":"regex"},
-  {"Description":"Should contain at least one digit","Rule":".*[0-9].*","Type":"regex"}
-  ]}'
+  "password_policy": {
+    "Rules": [
+      {
+        "Description": "Should contain at least 8 characters",
+        "Rule": ".*[a-z]{8,}.*",
+        "Type": "regex"
+      },
+      {
+        "Description": "Should contain at least one digit",
+        "Rule": ".*[0-9].*",
+        "Type": "regex"
+      }
+    ]
+  }
 }
 ```
 
