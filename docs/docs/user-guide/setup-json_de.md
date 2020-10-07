@@ -785,6 +785,31 @@ Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in de
 }
 ```
 
+##### usermgt
+* Inhalt: Hier können Passwort-Richtlinien eingestellt werden, die sicherstellen dass Passwörter einen gewissen Sicherheitsstandard erfüllen.  
+
+- Die regulären Ausdrücke müssen ECMA Script kompatibel sein. Geprüft werden können die Ausdrücke zB. mit [regex101](https://regex101.com/) Flavour: ECMA Script. 
+- Wenn ein reguärer Ausdruck ungültig ist - dann kann kein Nutzer neu angelegt werden sowie keine Passwort geändert werden.
+- Beispiel:
+```
+{
+  "password_policy": {
+    "Rules": [
+      {
+        "Description": "Should contain at least 8 characters",
+        "Rule": ".*[a-z]{8,}.*",
+        "Type": "regex"
+      },
+      {
+        "Description": "Should contain at least one digit",
+        "Rule": ".*[0-9].*",
+        "Type": "regex"
+      }
+    ]
+  }
+}
+```
+
 ##### jira
 
 * Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SOFTWARE` erhalten soll.
