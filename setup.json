@@ -1,12 +1,12 @@
 {
   "region": {
-    "completed": false,
+    "completed": true,
     "locale": "en_US.utf8",
     "timeZone": "Europe/Berlin",
     "keyboardLayout": "de"
   },
   "admin": {
-    "completed": false,
+    "completed": true,
     "username": "admin",
     "password": "admin",
     "mail": "admin@admin.sklein",
@@ -14,7 +14,7 @@
     "adminMember": true
   },
   "naming": {
-    "completed": false,
+    "completed": true,
     "fqdn": "192.168.56.2",
     "hostname": "ces",
     "domain": "ces-local",
