@@ -9,10 +9,10 @@ function get_enabled(){
 if [ "$(get_enabled)" == "true" ]
 then
   echo "collecting https proxy config steps..."
-  HOST="$(etcdctl get config/_global/proxy/host)" || (echo "ERROR: Could not ready from etcd: proxy host" && exit 0)
-  PORT="$(etcdctl get config/_global/proxy/port)" || (echo "ERROR: Could not ready from etcd: proxy host" && exit 0)
-  USERNAME="$(etcdctl get config/_global/proxy/username)" || echo "WARNING: Could not ready from etcd: proxy host"
-  PASSWORD="$(etcdctl get config/_global/proxy/password)" || echo "WARNING: Could not ready from etcd: proxy host"
+  HOST="$(etcdctl get config/_global/proxy/server)" || (echo "ERROR: Could not read from etcd: proxy host" && exit 0)
+  PORT="$(etcdctl get config/_global/proxy/port)" || (echo "ERROR: Could not read from etcd: proxy port" && exit 0)
+  USERNAME="$(etcdctl get config/_global/proxy/username)" || echo "WARNING: Could not read from etcd: proxy host"
+  PASSWORD="$(etcdctl get config/_global/proxy/password)" || echo "WARNING: Could not read from etcd: proxy host"
   AUTH=""
   if [ "${USERNAME}" != "" ] && [ "${USERNAME}" != "" ]
   then
