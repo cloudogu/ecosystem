@@ -1,5 +1,7 @@
 #!/bin/bash
 
+TARGET_FILE=/etc/systemd/system/docker-metadata.service.d/docker-metadata-environment
+
 function get_enabled(){
   etcdctl get config/_global/proxy/enabled || echo "false"
 }
@@ -9,8 +11,8 @@ then
   echo "collecting https proxy config steps..."
   HOST="$(etcdctl get config/_global/proxy/host)" || (echo "ERROR: Could not ready from etcd: proxy host" && exit 0)
   PORT="$(etcdctl get config/_global/proxy/port)" || (echo "ERROR: Could not ready from etcd: proxy host" && exit 0)
-  USERNAME="$(etcdctl get config/_global/proxy/username)" || (echo "WARNING: Could not ready from etcd: proxy host")
-  PASSWORD="$(etcdctl get config/_global/proxy/password)" || (echo "WARNING: Could not ready from etcd: proxy host")
+  USERNAME="$(etcdctl get config/_global/proxy/username)" || echo "WARNING: Could not ready from etcd: proxy host"
+  PASSWORD="$(etcdctl get config/_global/proxy/password)" || echo "WARNING: Could not ready from etcd: proxy host"
   AUTH=""
   if [ "${USERNAME}" != "" ] && [ "${USERNAME}" != "" ]
   then
@@ -25,8 +27,8 @@ then
   HTTPS_CONFIG="HTTPS_PROXY=https://${AUTH}${HOST}:${PORT}"
   echo "https-proxy: ${HTTPS_CONFIG/PASSWORD/******}"
 
-  echo "${HTTPS_CONFIG}" > /etc/systemd/system/docker-metadata.service.d/docker-metadata-environment
-  echo "${HTTP_CONFIG}" >> /etc/systemd/system/docker-metadata.service.d/docker-metadata-environment
+  echo "${HTTPS_CONFIG}" > "${TARGET_FILE}"
+  echo "${HTTP_CONFIG}" >> "${TARGET_FILE}"
 fi
 
 
