@@ -256,6 +256,38 @@ Example: `"fullname"`
 * Content: Logical value which shows if the *"users step"* is completely finished
 * Example: `true`
 
+### Section 'Proxy'
+
+Use this section to configure a proxy server which will be used when downloading dogu images. The settings persist after
+the setup.
+
+#### server
+
+* Data type: string
+* Inhalt: The ip address or hostname of the server (z.B `192.168.56.2` oder `www.example.com`)
+
+#### port
+
+* Data type: string
+* Inhalt: The port of the server (z.B `3128`)
+
+#### username
+
+* Optional
+* Data type: string
+* Inhalt: The username which is used to authenticate with the server
+
+#### password
+
+* Optional
+* Data type: string
+* Inhalt: The password which is used to authenticate with the server
+
+#### noproxy
+
+* Optional
+* Data type: string
+* Inhalt: Comma separated list of hosts which can be reached without the proxy server (e.g. `*.test.example.com,.example2.com'`).
 
 ### Section 'dogus'
 The information provided in this section of the setup.json will only be used in the setup process if the _completed_ property is set to 'true'. Otherwise, this step has to be handled manually via the web interface.

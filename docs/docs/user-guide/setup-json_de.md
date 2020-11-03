@@ -260,6 +260,40 @@ Eigenschaften:
 * Inhalt: Wahrheitswert, ob der User-Schritt komplett ist
 * Beispiel: `true`
 
+### Bereich "Proxy"
+
+Hier kann ein Proxy-Server konfiguriert werden, über den die Images der Dogus heruntergeladen werden. Diese Einstellung
+ist auch nach dem Setup noch wirksam
+
+#### server
+
+* Datentyp: string
+* Inhalt: Die IP-Addresse oder der Hostname des Proxy-Servers (z.B `192.168.56.2` oder `www.example.com`)
+
+#### port
+
+* Datentyp: string
+* Inhalt: Der Port des Servers (z.B `3128`)
+
+#### username
+
+* Optional
+* Datentyp: string
+* Inhalt: Der Benutzername, über den sich im Proxy-Server authentifiziert wird.
+
+#### password
+
+* Optional
+* Datentyp: string
+* Inhalt: Das Passwort, über welches sich im Proxy-Server authentifiziert wird.
+
+#### noproxy
+
+* Optional
+* Datentyp: string
+* Inhalt: Kommaseparierte Liste aus Hosts, welche nicht über den Proxyserver erreicht werden sollen (z.B `*.test.example.com,.example2.com'`)
+
+
 ### Bereich "Dogus"
 
 Die Daten, die in diesem Schritt über die setup.json eingegeben werden, werden im Setup-Prozess nur übernommen, wenn die _completed_-Eigenschaft auf `true` gesetzt ist. Anderenfalls ist der Schritt manuell über die Weboberfläche auszufüllen.
