@@ -405,7 +405,7 @@ Enthält beispielsweise folgende Objekte:
 Hostnamen dürfen nicht mehrfach vorkommen. 
 Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in der globalen Konfiguration konfiguriert sein.
 
-##### Section `config/_global/proxy`
+##### Bereich `config/_global/proxy`
 
 Hier kann ein Proxy-Server konfiguriert werden, der unter anderem für die Kommunikation mit der Dogu-Registry 
 und der Docker-Registry verwendet wird.
