@@ -401,7 +401,7 @@ It is also not possible to add the same hostnames as in global configuration in 
 
 ##### Section `config/_global/proxy`
 
-Use this section to configure a proxy server which currently is used to access the dogu registry, the docker registry.
+Use this section to configure a proxy server which currently is used to access the dogu and docker registry.
 Note: The docker service has to be restarted to apply the proxy to docker.
 
 ###### `server`
