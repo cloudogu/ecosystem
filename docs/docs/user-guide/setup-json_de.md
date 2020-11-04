@@ -414,30 +414,30 @@ Hinweis: Der Docker-Service muss neu gestartet werden, damit die Änderungen Anw
 ###### `server`
 
 * Datentyp: string
-* Inhalt: The ip address or hostname of the server (z.B `192.168.56.2` oder `www.example.com`)
+* Inhalt: Die IP-Addresse des Servers (z.B `192.168.56.2` oder `www.example.com`)
 
 ###### `port`
 
 * Datentyp: string
-* Inhalt: The port of the server (z.B `3128`)
+* Inhalt: Der Port des Servers (z.B `3128`)
 
 ###### `username`
 
 * Optional
 * Datentyp: string
-* Inhalt: The username which is used to authenticate with the server
+* Inhalt: Der Nutzername für die Authentifizierung auf dem Server
 
 ###### `password`
 
 * Optional
 * Datentyp: string
-* Inhalt: The password which is used to authenticate with the server
+* Inhalt: Das Passwort für die Authentifizierung auf dem Server
 
 ###### `no_proxy`
 
 * Optional
 * Datentyp: string
-* Inhalt: Comma separated list of hosts which can be reached without the proxy server (e.g. `*.test.example.com,.example2.com'`).
+* Inhalt: Kommaseparierte Liste mit Hosts, die den Proxy-Server nicht benötigen (z.B. `*.test.example.com,.example2.com'`).
 
 ##### backup
 

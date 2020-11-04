@@ -407,12 +407,12 @@ Note: The docker service has to be restarted to apply the proxy to docker.
 ###### `server`
 
 * Data type: string
-* Content: The ip address or hostname of the server (z.B `192.168.56.2` oder `www.example.com`)
+* Content: The ip address or hostname of the server (e.g. `192.168.56.2` or `www.example.com`)
 
 ###### `port`
 
 * Data type: string
-* Content: The port of the server (z.B `3128`)
+* Content: The port of the server (e.g. `3128`)
 
 ###### `username`
 
