@@ -256,7 +256,6 @@ Example: `"fullname"`
 * Content: Logical value which shows if the *"users step"* is completely finished
 * Example: `true`
 
-
 ### Section 'dogus'
 The information provided in this section of the setup.json will only be used in the setup process if the _completed_ property is set to 'true'. Otherwise, this step has to be handled manually via the web interface.
 
@@ -399,6 +398,44 @@ The following objects are examples:
 
 Hostnames must not occur multiple times.
 It is also not possible to add the same hostnames as in global configuration in the cesapp configuration.
+
+##### Section `config/_global/proxy`
+
+Use this section to configure a proxy server which currently is used to access the dogu and docker registry.
+Note: The docker service has to be restarted to apply the proxy to docker.
+
+###### `enabled`
+
+* Data type: bool
+* Content: Determinates whether the proxy settings are applied (`true`) or not (`false` / not set).
+
+###### `server`
+
+* Data type: string
+* Content: The ip address or hostname of the server (e.g. `192.168.56.2` or `www.example.com`)
+
+###### `port`
+
+* Data type: string
+* Content: The port of the server (e.g. `3128`)
+
+###### `username`
+
+* Optional
+* Data type: string
+* Content: The username which is used to authenticate with the server
+
+###### `password`
+
+* Optional
+* Data type: string
+* Content: The password which is used to authenticate with the server
+
+###### `no_proxy`
+
+* Optional
+* Data type: string
+* Content: Comma separated list of hosts which can be reached without the proxy server (e.g. `*.test.example.com,.example2.com'`).
 
 
 ##### backup

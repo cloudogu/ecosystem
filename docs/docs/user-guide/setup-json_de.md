@@ -405,6 +405,44 @@ Enthält beispielsweise folgende Objekte:
 Hostnamen dürfen nicht mehrfach vorkommen. 
 Außerdem darf derselbe Hostname nicht in der Konfiguration der Cesapp und in der globalen Konfiguration konfiguriert sein.
 
+##### Bereich `config/_global/proxy`
+
+Hier kann ein Proxy-Server konfiguriert werden, der unter anderem für die Kommunikation mit der Dogu-Registry 
+und der Docker-Registry verwendet wird.
+Hinweis: Der Docker-Service muss neu gestartet werden, damit die Änderungen Anwendung finden.
+
+###### `enabled`
+
+* Datentyp: bool
+* Inhalt: Bestimmt, ob die Proxy-Einstellungen übernommen werden (`true`) oder nicht (`false` / nicht gesetzt).
+
+###### `server`
+
+* Datentyp: string
+* Inhalt: Die IP-Addresse des Servers (z.B `192.168.56.2` oder `www.example.com`)
+
+###### `port`
+
+* Datentyp: string
+* Inhalt: Der Port des Servers (z.B `3128`)
+
+###### `username`
+
+* Optional
+* Datentyp: string
+* Inhalt: Der Nutzername für die Authentifizierung auf dem Server
+
+###### `password`
+
+* Optional
+* Datentyp: string
+* Inhalt: Das Passwort für die Authentifizierung auf dem Server
+
+###### `no_proxy`
+
+* Optional
+* Datentyp: string
+* Inhalt: Kommaseparierte Liste mit Hosts, die den Proxy-Server nicht benötigen (z.B. `*.test.example.com,.example2.com'`).
 
 ##### backup
 
