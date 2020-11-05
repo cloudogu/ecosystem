@@ -411,6 +411,11 @@ Hier kann ein Proxy-Server konfiguriert werden, der unter anderem für die Kommu
 und der Docker-Registry verwendet wird.
 Hinweis: Der Docker-Service muss neu gestartet werden, damit die Änderungen Anwendung finden.
 
+###### `enabled`
+
+* Datentyp: bool
+* Inhalt: Bestimmt, ob die Proxy-Einstellungen übernommen werden (`true`) oder nicht (`false` / nicht gesetzt).
+
 ###### `server`
 
 * Datentyp: string
