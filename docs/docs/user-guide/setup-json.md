@@ -256,7 +256,6 @@ Example: `"fullname"`
 * Content: Logical value which shows if the *"users step"* is completely finished
 * Example: `true`
 
-
 ### Section 'dogus'
 The information provided in this section of the setup.json will only be used in the setup process if the _completed_ property is set to 'true'. Otherwise, this step has to be handled manually via the web interface.
 
@@ -396,6 +395,44 @@ The following objects are examples:
 
 Hostnames must not occur multiple times.
 It is also not possible to add the same hostnames as in global configuration in the cesapp configuration.
+
+##### Section `config/_global/proxy`
+
+Use this section to configure a proxy server which currently is used to access the dogu and docker registry.
+Note: The docker service has to be restarted to apply the proxy to docker.
+
+###### `enabled`
+
+* Data type: bool
+* Content: Determinates whether the proxy settings are applied (`true`) or not (`false` / not set).
+
+###### `server`
+
+* Data type: string
+* Content: The ip address or hostname of the server (e.g. `192.168.56.2` or `www.example.com`)
+
+###### `port`
+
+* Data type: string
+* Content: The port of the server (e.g. `3128`)
+
+###### `username`
+
+* Optional
+* Data type: string
+* Content: The username which is used to authenticate with the server
+
+###### `password`
+
+* Optional
+* Data type: string
+* Content: The password which is used to authenticate with the server
+
+###### `no_proxy`
+
+* Optional
+* Data type: string
+* Content: Comma separated list of hosts which can be reached without the proxy server (e.g. `*.test.example.com,.example2.com'`).
 
 
 ##### backup
@@ -777,28 +814,57 @@ It is also not possible to add the same hostnames as in global configuration in 
 }
 ```
 ##### usermgt
-* Content: Setup password policies to ensure the security of choosen passwords.
+* Content: Setup password policies to ensure the security of chosen passwords.
 
 - Regular expression must be ECMA Script compatible. It can be checked with eg. [regex101](https://regex101.com/) Flavour: ECMA Script.  
 - If the regular expression is invalid - no user can be added and no password change can be applied.
-- Example:
+- example from the registry for overview's sake:
 ```
 {
   "password_policy": {
     "Rules": [
       {
         "Description": "Should contain at least 8 characters",
-        "Rule": ".*[a-z]{8,}.*",
+        "Rule": ".{8,}",
         "Type": "regex"
       },
       {
         "Description": "Should contain at least one digit",
-        "Rule": ".*[0-9].*",
+        "Rule": "[0-9]",
+        "Type": "regex"
+      },
+      {
+        "Description": "Should contain at least one super special character",
+        "Rule": "[\\"\\-\\[\\]]",
         "Type": "regex"
       }
     ]
   }
 }
+```
+
+Advanced regular expressions need some careful crafting, especially when characters are used which receive special treatment:
+- Javascript/JSON
+   - `"` as string delimiter
+   - `\` as escape sequence
+      - Heads-up! The ECMAScript standard prohibits escaping of arbitrary characters. If you rely on a certain character in your regex consider ASCII hex conversion below.
+- RegExp syntax
+   - `[`, `]`, `-`, `\`, `|`, and many more
+
+For example a rule which enforces some special characters in a user's password `"-[]` must be escaped to `\\"\\-\\[\\]`. Here, note the double escaping: One time to escape the RegExp special character, and the second time to make the string ECMAScript conform. 
+
+Another way to achieve a comparable result is to encode special characters in the hexadecimal format `\xYY`. After conversion to their respective ASCII values, above characters will look like this (mind the double escape as well): `\\x22\\x2D\\x5B\\x5D`
+
+The `setup.json`'s JSON format does not allow native newlines (`\n\r`) within string properties. Thus, the full example from above must be reduced to a single line. Quotation marks must be escaped as well. Furthermore, each escaped backslash `\\` must be escaped again in order to comply to the JSON format. `\\` must be escaped to `\\\\`.
+
+After all these transformations the above example will end up in the `setup.json` like this:
+
+```
+  "registryConfig": {
+    "usermgt": {
+      "password_policy": "{ \"Rules\": [ { \"Description\": \"Should contain at least 8 characters\", \"Rule\": \".{8,}\", \"Type\": \"regex\" }, { \"Description\": \"Should contain at least one digit\", \"Rule\": \"[0-9]\", \"Type\": \"regex\" }, { \"Description\": \"Should contain at least one super special character\", \"Rule\": \"[\\\\"\\\\-\\\\[\\\\]]\", \"Type\": \"regex\" } ] }"
+    }
+  }
 ```
 
 ##### jira
