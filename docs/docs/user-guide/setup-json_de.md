@@ -336,16 +336,11 @@ Eigenschaften:
 
 ### Bereich "UnixUser"
 
-Mit dieser Einstellung können die Credentials für den im Setup erzeugten Systemadministrator konfiguriert werden.
-Ohne diese Einstellung wird ein Nutzer mit dem Namen *ces-admin* und einem zufällig generiertem Passwort erzeugt, welches am Ende des Setups angezeigt wird. Über die Oberfläche ist der Systemadministrator nicht konfigurierbar.
+Mit dieser Einstellung können sie das Passwort für den im Setup erzeugten Systemadministrator `ces-admin` konfigurieren.
+Ohne diese Einstellung wird ein zufällig generiertes Passwort erzeugt, welches am Ende des Setups angezeigt wird. 
+Über die Oberfläche ist das Passwort des Systemadministrator nicht konfigurierbar.
 
 Objektname: *unixUser*
-
-#### Name
-
-* Datentyp: string
-* Inhalt: Name des Unixusers
-* Beispiel: `"ces-admin"`
 
 #### Password
 

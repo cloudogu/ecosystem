@@ -332,15 +332,12 @@ Properties:
 
 ### Section 'unixUser'
 
-In this section, the credentials for the system administrator created within the setup process can be configured. If this step is skipped a user called *ces-admin* with a random generated password will be created and shown at the end of the setup process. This configuration of the system admin ist not possible via web interface.
+In this section, the password for the system administrator `ces-admin` created within the setup process can be configured. 
+Skipping this configuration generates a random password for the `ces-admin` user. 
+The setup shows the resulting credentials at the end of the process. 
+The configuration for the password of the system admin ist not possible via web interface.
 
 Object name: _unixUser_
-
-#### Name
-
-- Data type: string
-- Content: Name of the unix user
-- Example: `"ces-admin"`
 
 #### Password
 
