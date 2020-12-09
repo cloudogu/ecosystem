@@ -49,3 +49,6 @@
 [submodule "containers/ldap-mapper"]
 	path = containers/ldap-mapper
 	url = git@github.com:cloudogu/ldap-mapper.git
+[submodule "containers/plantuml"]
+	path = containers/plantuml
+	url = git@github.com:cloudogu/plantuml.git
