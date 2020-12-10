@@ -920,6 +920,30 @@ After all these transformations the above example will end up in the `setup.json
   }
 ```
 
+##### postgresql
+
+* Content: Limit the container's memory usage. Use a positive integer value followed by one of these units [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).
+* Example:
+
+```
+  "registryConfig": {
+    "postgresql": {
+      "container_config/memory_limit": "1g"
+    }
+  }
+```
+
+* Content: Limits the container's swap memory usage. Use zero or a positive integer value followed by one of these units [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte). 0 will disable swapping.
+* Example:
+
+```
+  "registryConfig": {
+    "postgresql": {
+      "container_config/swap_limit": "100m"
+    }
+  }
+```
+
 #### registryConfigEncrypted (optional)
 Here you can define values which will be written encrypted to the registry (etcd). This is not possible via the web interface, only via the setup.json file. The values defined here will be written at ``/config/`` into the registry.
 In the first level only Dogus which will be installed during the setup are possible. For other entries there is no key for encryption.

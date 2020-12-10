@@ -927,6 +927,30 @@ Nach all diesen Transformationen sähe das obige Beispiel für die `setup.json` 
   }
 ```
 
+##### postgresql
+
+* Inhalt: Hier kann die maximale Arbeitsspeichernutzung des Containers eingeschränkt werden. Die möglichen Einheiten sind [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).
+* Beispiel:
+
+```
+  "registryConfig": {
+    "postgresql": {
+      "container_config/memory_limit": "1g"
+    }
+  }
+```
+
+* Inhalt: Hier kann ein Limit für den swapping-Bereich eingestellt werden. Die möglichen Einheiten sind [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).
+* Beispiel:
+
+```
+  "registryConfig": {
+    "postgresql": {
+      "container_config/swap_limit": "100m"
+    }
+  }
+```
+
 #### registryConfigEncrypted (optional)
 
 An dieser Stelle lassen sich Werte definieren, die in verschlüsselter Form in die Registry übernommen werden sollen. Hierfür gibt es keinen äquivalenten Schritt in der Setup-Oberfläche. Die hier definierten Werte werden unter ``/config/`` in der Registry des EcoSystem abgelegt. Anders als bei ``registryConfig``, können sich in der ersten Ebene nur installierte (bzw. während dem Setup installierte) Dogus befinden, da nur für diese eine Verschlüsselung möglich ist.
