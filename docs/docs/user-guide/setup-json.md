@@ -533,8 +533,9 @@ Note: The docker service has to be restarted to apply the proxy to docker.
 
 
 ##### cockpit
+- Key: `"welcomeDashboard"`
 
-- Content: Configuration of the welcome dashboard of the cloudogu EcoSystem
+Configuration of the welcome dashboard of the cloudogu EcoSystem
 - Example:
 
 ```
@@ -603,6 +604,9 @@ Note: The docker service has to be restarted to apply the proxy to docker.
 - Note: If this definition is not set at all or if this definition is not in a correct JSON state, the default dashboard is shown.
 - Note: The maximum possible size of a JSON dashboard description is 2 MB.
 
+- Key: `"pinnedDashboard"`
+
+The pinned dashboard is displayed to every user and cannot be changed, moved or removed. The format and restrictions are the same as for the welcome dashboard.
 ##### confluence
 
 * Content: Define a user group from the CES which should get the application role `Confluence Users`.
