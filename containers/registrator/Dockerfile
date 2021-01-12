@@ -9,5 +9,7 @@ ADD startup.sh /startup.sh
 ADD registrator_0.7.0_patched.tgz /bin
 RUN chmod +x /bin/registrator /startup.sh
 
+HEALTHCHECK CMD doguctl healthy registrator || exit 1
+
 ENV DOCKER_HOST unix:///var/run/docker.sock
 CMD ["/startup.sh"]
