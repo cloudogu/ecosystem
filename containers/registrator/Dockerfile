@@ -3,10 +3,10 @@
 FROM registry.cloudogu.com/official/base:3.7-4
 LABEL maintainer="sebastian.sdorra@cloudogu.com" \
       NAME="official/registrator" \
-      VERSION="0.7.0-2"
+      VERSION="0.8.1-1"
 
 ADD startup.sh /startup.sh
-ADD registrator_0.7.0_patched.tgz /bin
+ADD registrator_v0.8.1.tgz /bin
 RUN chmod +x /bin/registrator /startup.sh
 
 HEALTHCHECK CMD doguctl healthy registrator || exit 1

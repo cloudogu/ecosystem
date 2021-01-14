@@ -1,6 +1,6 @@
 {
   "Name": "official/registrator",
-  "Version": "0.7.0-2",
+  "Version": "0.8.1-1",
   "DisplayName": "Registrator",
   "Description": "Service registry bridge for Docker with pluggable adapters",
   "Category": "Base",
