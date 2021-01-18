@@ -439,6 +439,29 @@ Hinweis: Der Docker-Service muss neu gestartet werden, damit die Änderungen Anw
 * Datentyp: string
 * Inhalt: Kommaseparierte Liste mit Hosts, die den Proxy-Server nicht benötigen (z.B. `*.test.example.com,.example2.com'`).
 
+##### Alle Dogus
+
+Einträge in dieser Kategorie lassen sich für alle Dogus konfigurieren. 
+Dafür muss der Konfigurationsschlüssel immer in Relation zum Konfigurationspfad des Dogus erstellt werden.
+
+###### `<dogu_config_path>/container_config/memory_limit`
+
+* Optional
+* Datentyp: string
+* Inhalt: Limitiert den physikalischen Speicher des Dogus.
+  Muss ein positiver Integer mit eine der folgenden Einheiten sein [b,k,m,g] (Byte, Kibibyte, Mebibyte, Gibibyte).
+  (z.B. `2g (2 Gibibyte),750m (750 Mebibyte)'`).
+  
+###### `<dogu_config_path>/container_config/swap_limit`
+
+* Optional
+* Voraussetzung: Wert für `container_config/memory_limit` ist gesetzt
+* Datentyp: string
+* Inhalt: Limitiert den Swap-Bereich des Dogu-Containers.
+  Muss ein positiver Integer mit eine der folgenden Einheiten sein [b,k,m,g] (Byte, Kibibyte, Mebibyte, Gibibyte).
+  (z.B. `2g (2 Gibibyte),750m (750 Mebibyte)'`).
+  Der Wert `0b` deaktiviert den Swap komplett für das Dogu.
+  
 ##### backup
 
 - Inhalt: Konfiguration des Backup- und Restore-Mechanimus
@@ -769,6 +792,22 @@ Die Konfiguration des Pinned-Dashboards kann hier gesetzt werden. Dieses wird je
   }"
 }
 ````
+
+###### `html_content_url`
+
+* Optional
+* Datentyp: string
+* Default: `static`
+* Inhalt: URL-Pfad-Prefix um alle benutzerdefinierte Seiten zu erreichen, welche mit Nginx zur Verfügung gestellt werden
+  URL path to reach all custom html content pages deployed with Nginx.
+
+###### `ignore_service_health`
+
+* Optional
+* Datentyp: Boolean
+* Default: `false`
+* Inhalt: Entscheidet ob Nginx den HealthStatus der Dogus ignoriert und somit den Zugriff auf `unhealty` Dogus ermöglicht. 
+  Standardmäßig sind diese Dogus nicht erreichbar. 
 
 ##### nexus/claim
 

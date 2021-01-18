@@ -434,6 +434,27 @@ Note: The docker service has to be restarted to apply the proxy to docker.
 * Data type: string
 * Content: Comma separated list of hosts which can be reached without the proxy server (e.g. `*.test.example.com,.example2.com'`).
 
+##### All Dogus
+
+Entries in this category can be applied to all dogu. 
+For that, every configation key needs to be created in relation to the configuration path of the dogu.
+
+###### `<dogu_config_path>/container_config/memory_limit`
+
+* Optional
+* Data type: string
+* Content: Limits the container's memory usage. 
+  Use a positive integer value followed by one of these units [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).
+
+###### `<dogu_config_path>/container_config/swap_limit`
+
+* Optional
+* Requires: Value for `container_config/memory_limit` is set.
+* Data type: string
+* Content: Limits the container's swap memory usage. 
+  Use zero or a positive integer value followed by one of these units [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte). 
+  The value `0b` will disable swapping.
+
 
 ##### backup
 
@@ -761,6 +782,20 @@ The pinned dashboard is displayed to every user and cannot be changed, moved or 
   }"
 }
 ```
+
+###### `html_content_url`
+
+* Optional
+* Data type: string
+* Default: `static`
+* Content: URL path to reach all custom html content pages deployed with Nginx.
+
+###### `ignore_service_health`
+
+* Optional
+* Data type: Boolean
+* Default: `false`
+* Content: Option to ignore the health status of all dogus. Makes it possible to access dogus even if they are `unhealthy`.
 
 ##### nexus/claim
 
