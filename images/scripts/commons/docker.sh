@@ -6,7 +6,7 @@ set -o pipefail
 # Install docker
 # See https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-DOCKER_VERSION=5:19.03.12~3-0~ubuntu-bionic
+DOCKER_VERSION=5:20.10.2~3-0~ubuntu-bionic
 
 export DEBIAN_FRONTEND=noninteractive
 
