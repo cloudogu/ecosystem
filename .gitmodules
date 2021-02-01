@@ -52,6 +52,3 @@
 [submodule "containers/plantuml"]
 	path = containers/plantuml
 	url = git@github.com:cloudogu/plantuml.git
-[submodule "containers/registrator"]
-	path = containers/registrator
-	url = git@github.com:cloudogu/registrator.git

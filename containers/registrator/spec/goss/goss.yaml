@@ -1,0 +1,19 @@
+file:
+  /bin/registrator:
+    exists: true
+    mode: "0755"
+    filetype: file
+  /startup.sh:
+    exists: true
+    mode: "0755"
+    owner: root
+    group: root
+    filetype: file
+  /var/run/docker.sock:
+    exists: true
+    mode: "0660"
+    owner: root
+    filetype: file
+process:
+  registrator:
+    running: true

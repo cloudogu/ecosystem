@@ -1,0 +1,32 @@
+{
+  "Name": "official/registrator",
+  "Version": "0.8.1-1",
+  "DisplayName": "Registrator",
+  "Description": "Service registry bridge for Docker with pluggable adapters",
+  "Category": "Base",
+  "Tags": [
+    "register", "container"
+  ],
+  "Logo": "https://cloudogu.com/images/dogus/registrator.png",
+  "Url": "http://gliderlabs.com/registrator/latest/",
+  "Image": "registry.cloudogu.com/official/registrator",
+	"Privileged": true,
+  "Configuration": [
+    {
+      "Name": "container_config/memory_limit",
+      "Description":"Limits the container's memory usage. Use a positive integer value followed by one of these units [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).",
+      "Optional": true,
+      "Validation": {
+        "Type": "BINARY_MEASUREMENT"
+      }
+    },
+    {
+      "Name": "container_config/swap_limit",
+      "Description":"Limits the container's swap memory usage. Use zero or a positive integer value followed by one of these units [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte). 0 will disable swapping.",
+      "Optional": true,
+      "Validation": {
+        "Type": "BINARY_MEASUREMENT"
+      }
+    }
+  ]
+}
