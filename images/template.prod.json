@@ -95,7 +95,7 @@
 			"name": "ecosystem-qemu",
 			"type": "qemu",
 			"format": "qcow2",
-			"vm_name": "{{user `vm_name`}}",
+			"vm_name": "{{user `vm_name`}}.qcow2",
 			"iso_urls": [
 				"{{user `iso_url`}}"
 			],
