@@ -12,7 +12,7 @@ There are three ways to get your Cloudogu EcoSystem. The easiest is to register 
 
 ### 1. Download VirtualBox image from myCloudogu
 * Install [virtualbox](https://www.virtualbox.org/)
-* Register at [myCloudogu](https://my.cloudogu.com/) and download [vm image](https://files.cloudogu.com/file/ces-images/CloudoguEcoSystem-20210106.tar.gz)
+* Register at [myCloudogu](https://my.cloudogu.com/) and download [vm image](https://files.cloudogu.com/file/ces-images/CloudoguEcoSystem-20210203.tar.gz)
   * If you want to verify the integrity of the download, you can also get the [SHA256 hash](https://files.cloudogu.com/file/ces-images/SHA256SUMS)
 * Follow the [quickstart guide](https://cloudogu.com/en/ecosystem/ces-quick-start-guide/) at cloudogu.com.
 
