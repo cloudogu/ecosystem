@@ -159,6 +159,7 @@
 				"scripts/commons/subvolumes.sh",
 				"scripts/commons/guestadditions.sh",
 				"scripts/commons/docker.sh",
+				"scripts/commons/terraform.sh",
 				"scripts/commons/etcd.sh",
 				"../install.sh",
 				"scripts/commons/networking.sh",
