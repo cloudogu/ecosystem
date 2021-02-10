@@ -908,16 +908,32 @@ After all these transformations the above example will end up in the `setup.json
 
 ##### jira
 
-* Content: Define a user group from the CES which should get the application role `JIRA SOFTWARE`.
+* Content: Define a user group from the CES which should get the application role `JIRA SOFTWARE`. [Default: unused]
+* Optional
 * Example:
 
 ```
-{
+  "registryConfig": {
+    "jira": {
     "jira_software_users_group": "my-group-name"
-}
+    }
+  }
 ```
 
-* Content: Define a valid license key for Jira Software (Server) which is only used for the initial setup of the dogu.
+* Content: Define a user group from the CES which should get the application role `JIRA SERVICE DESK`. [Default: unused]
+* Optional
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "jira_service_desk_users_group": "my-group-name"
+    }
+  }
+```
+
+* Content: Define a valid license key for Jira Software (Server) which is only used for the initial setup of the dogu. [Default: an invalid evaluation license]
+* Optional
 * Example:
 
 ```
@@ -928,16 +944,46 @@ After all these transformations the above example will end up in the `setup.json
   }
 ```
 
-* Content: Define the interval in seconds to synchronize the LDAP user directory cache. [Default: 3600]
+
+* Content: Define a valid license key for Jira Service Desk (now: Jira Service Management) which is only used for the initial setup of the dogu. [Default: an invalid evaluation license]
+* Optional
 * Example:
 
 ```
-{
-    "ldap/sync_interval": "600"
-}
+  "registryConfig": {
+    "jira": {
+      "license_key_jsm": "my-valid-license-key"
+    }
+  }
 ```
 
-* Content: Define whether custom user scripts should be executed on startup. [Default: false]
+* Content: Define the interval in seconds to synchronize the LDAP user directory cache. [Default: 3600]
+* Optional
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "ldap/sync_interval": "600"
+    }
+  }
+```
+
+* Content: Configure the logging behaviour. [Default: WARN]
+* Optional
+* Valid values: ERROR, WARN, INFO, DEBUG
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "logging/root": "ERROR"
+    }
+  }
+```
+
+* Content: Define whether custom user scripts should be executed on start-up. [Default: false]
+* Optional
 * Example:
 
 ```
@@ -948,13 +994,54 @@ After all these transformations the above example will end up in the `setup.json
   }
 ```
 
-* Content: Define whether the custom user scripts should be executed with an background instance of Jira. [Default: false]
+* Content: Define whether the custom user scripts should be executed with a background instance of Jira. [Default: false]
+* Optional
 * Example:
 
 ```
   "registryConfig": {
     "jira": {
       "startup/isolated_scripting_environment": "true"
+    }
+  }
+```
+
+* Content: Limit the container's memory usage. [Default: disabled]
+* Optional
+* Valid values: Use a positive integer value followed by one of these units [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "container_config/memory_limit": "1g"
+    }
+  }
+```
+
+
+* Content: Limits the container's swap memory usage. [Default: disabled]
+* Valid values: Use zero or a positive integer value followed by one of these units [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte). 0 will disable swapping.
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "container_config/swap_limit": "100m"
+    }
+  }
+```
+
+
+
+* Content: Limits the heap stack size of the Jira process to the configured percentage of the available physical memory when the container has more than approx. 250 MB of memory available. Is only considered when a `memory_limit` is set. Use a valid float value between 0 and 100 with 1 decimal place (f. ex. 55.0 for 55 %). JIRA requires at least 786 MB as heap size. [Default: 25.0] 
+* Optional
+* Example:
+
+```
+  "registryConfig": {
+    "jira": {
+      "container_config/java_max_ram_percentage": "55.0"
     }
   }
 ```

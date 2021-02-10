@@ -917,7 +917,8 @@ Nach all diesen Transformationen sähe das obige Beispiel für die `setup.json` 
 
 ##### jira
 
-* Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SOFTWARE` erhalten soll.
+* Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SOFTWARE` erhalten soll. [Standard: unbenutzt]
+* Optional
 * Beispiel:
 
 ```
@@ -928,7 +929,20 @@ Nach all diesen Transformationen sähe das obige Beispiel für die `setup.json` 
   }
 ```
 
-* Inhalt: Hier kann eine gültige Lizenz für Jira Software (Server) hinterlegt werden. Diese Lizenz wird nur beim initialen Setup des Dogus verwendet.
+* Inhalt: Hier kann eine Benutzergruppe aus dem CES angegeben werden, die in Jira die Rolle `JIRA SERVICE DESK` erhalten soll. [Standard: unbenutzt]
+* Optional
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "jira_service_desk_users_group": "my-group-name"
+    }
+  }
+```
+
+* Inhalt: Hier kann eine gültige Lizenz für Jira Software (Server) hinterlegt werden. Diese Lizenz wird nur beim initialen Setup des Dogus verwendet. [Standard: eine abgelaufene Testlizenz]
+* Optional
 * Beispiel:
 
 ```
@@ -939,7 +953,20 @@ Nach all diesen Transformationen sähe das obige Beispiel für die `setup.json` 
   }
 ```
 
+* Inhalt: Hier kann eine gültige Lizenz für Jira Service Desk (nun: Jira Service Management) hinterlegt werden. Diese Lizenz wird nur beim initialen Setup des Dogus verwendet. [Standard: eine abgelaufene Testlizenz]
+* Optional
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "license_key_jsm": "my-valid-license-key"
+    }
+  }
+```
+
 * Inhalt: Legt das Intervall in Sekunden für die Synchronisierung des LDAP Benutzerverzeichnis-Caches fest. [Standard: 3600]
+* Optional
 * Beispiel:
 
 ```
@@ -950,7 +977,21 @@ Nach all diesen Transformationen sähe das obige Beispiel für die `setup.json` 
   }
 ```
 
+* Inhalt: Konfiguriert Jiras Loggingverhalten. [Standard: WARN]
+* Optional
+* Gültige Werte: ERROR, WARN, INFO, DEBUG
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "logging/root": "ERROR"
+    }
+  }
+```
+
 * Inhalt: Legt fest, ob beim Start des Dogus benutzerdefinierte Skripte ausgeführt werden. [Standard: false]
+* Optional
 * Beispiel:
 
 ```
@@ -962,6 +1003,7 @@ Nach all diesen Transformationen sähe das obige Beispiel für die `setup.json` 
 ```
 
 * Inhalt: Legt fest, ob die benutzerdefinierten Skripte mit einer Hintergrund-Instanz von Jira ausgeführt werden sollen. [Standard: false]
+* Optional
 * Beispiel:
 
 ```
@@ -971,6 +1013,44 @@ Nach all diesen Transformationen sähe das obige Beispiel für die `setup.json` 
     }
   }
 ```
+
+* Inhalt: Begrenzt den Speicherverbrauch des Containers. [Standard: disabled]
+* Optional
+* Gültige Werte: Eine positive Ganzzahl gefolgt von einer dieser Einheiten [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "container_config/memory_limit": "1g"
+    }
+  }
+```
+
+* Inhalt: Begrenzt den Swap-Verbrauch des Containers. [Standard: disabled]
+* Gültige Werte: Null oder eine positive Ganzzahl gefolgt von einer dieser Einheiten [b,k,m,g]. 0 deaktiviert Swapping.
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "container_config/swap_limit": "100m"
+    }
+  }
+```
+
+* Inhalt: Begrenzt die Größe des Heap-Stacks des Jira-Prozesses auf den konfigurierten Prozentsatz des verfügbaren physischen Speichers, wenn der Container über mehr als ca. 250 MB Speicher verfügt. Wird nur berücksichtigt, wenn ein `memory_limit` gesetzt ist. Verwenden Sie einen gültigen Gleitkommawert zwischen 0 und 100 mit 1 Dezimalstelle (z. B. 55.0 für 55 %). JIRA benötigt mindestens 786 MB als Heap-Größe. [Standard: 25.0]
+* Optional
+* Beispiel:
+
+```
+  "registryConfig": {
+    "jira": {
+      "container_config/java_max_ram_percentage": "55.0"
+    }
+  }
+```
+
 
 ##### postgresql
 
