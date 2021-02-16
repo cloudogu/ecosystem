@@ -1117,3 +1117,43 @@ Enthält beispielsweise folgende Objekte:
 
   Die Url zum SwaggerValidator. Zum Nutzen des Standard-Validators muss dieser Wert auf `https://validator.swagger.io/validator`
   gesetzt werden. Wird der Wert nicht gesetzt oder enthält einen leeren String, wird der SwaggerValidator deaktiviert.
+  
+##### Portainer
+
+###### Log-Level
+* Etcd-Schlüssel-Pfad: `logging/root`
+* Inhalt: Definiert die Granularität der Log-Ausgaben von Portainer
+* Datentyp: String
+* Valide Werte: `ERROR, WARN, INFO, DEBUG`
+
+###### Physisches Speicherlimit
+* Etcd-Schlüssel-Pfad: `container_config/memory_limit`
+* Inhalt: Beschränkt den Speicher (RAM) des Docker-Containers für Portainer
+* Datentyp: Binäre Speicherangabe
+* Valide Werte: Ganzzahl gefolgt von [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte)
+* Beispiel: `1750m` = 1750 MebiByte
+
+###### Physisches Swaplimit
+* Etcd-Schlüssel-Pfad: `container_config/swap_limit`
+* Inhalt: Beschränkt den Swap des Docker-Containers für Portainer
+* Datentyp: Binäre Speicherangabe
+* Valide Werte: Ganzzahl gefolgt von [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte)
+* Beispiel: `1750m` = 1750 MebiByte
+
+###### Portainer Agenten
+* Etcd-Schlüssel-Pfad: `agent_configuration`
+* Inhalt: Beschreibt eine Menge an Portainer Agenten, welche zur Startzeit bei Portainer registriert werden sollen.
+* Datentyp: String (JSON)
+* JSON-Format: 
+```json
+[
+    {
+        "Name":"NAME",
+        "EndpointURL":"ENDPOINTADDRESS:PORT"
+    },
+    {
+        "Name":"ExampleAgent",
+        "EndpointURL":"123.23.3.1:9001"
+    }
+]
+```
