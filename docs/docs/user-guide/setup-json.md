@@ -1112,3 +1112,44 @@ Can consist the following objects:
   
   This is the url to the SwaggerValidator. Set this to `https://validator.swagger.io/validator` to use the default
   SwaggerValidator. Do not set the key or set it to an empty string if you want to disable the SwaggerValidator.
+  
+##### Portainer
+  
+###### Log level
+* Etcd key path: `logging/root`
+* Content: Defines the granularity of Portainer's log output.
+* Data type: String
+* Valid values: `ERROR, WARN, INFO, DEBUG`
+
+###### Physical memory limit
+* Etcd key path: `container_config/memory_limit`
+* Content: limits the memory (RAM) of the Docker container for Portainer.
+* Data type: Binary memory specification.
+* Valid values: integer followed by [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).
+* Example: `1750m` = 1750 MebiByte
+
+###### Physical swap limit
+* Etcd key path: `container_config/swap_limit`
+* Content: limits Docker container swap for portainer.
+* Data type: Binary memory specification.
+* Valid values: integer followed by [b,k,m,g] (byte, kibibyte, mebibyte, gibibyte).
+* Example: `1750m` = 1750 MebiByte
+
+###### Portainer agents
+* Etcd key path: `agent_configuration`
+* Content: describes a set of Portainer agents to be registered with Portainer at start time.
+* Data type: String (JSON).
+* JSON format:
+```json
+  [
+      {
+          "name": "NAME",
+          "endpointURL": "ENDPOINTADDRESS:PORT"
+      },
+      {
+          "name": "ExampleAgent",
+          "EndpointURL":"123.23.3.1:9001"
+      }
+  ]
+```
+
