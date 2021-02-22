@@ -295,6 +295,64 @@ Eigenschaften:
 * Inhalt: Wahrheitswert, ob der Dogu-Schritt komplett ist
 * Beispiel: `true`
 
+### Bereich "Projects"
+
+Objektname: _projects_
+
+Eigenschaften:
+
+#### import
+* Datentyp: Project Array
+* Inhalt: Liste aller Projekte, die importiert werden sollen.
+
+##### Datentyp Project
+###### username
+* Datentyp: string
+* Inhalt: Der Nutzername für die Authentifizierung bei dem Dienst (z.B. GitHub), von dem das zu importierende Projekt abgerufen wird.
+
+###### password
+* Datentyp: string
+* Inhalt: Das Passwort für die Authentifizierung bei dem Dienst (z.B. GitHub), von dem das zu importierende Projekt abgerufen wird.
+
+###### type
+Datentyp: string
+Inhalt: Der Typ des Dienstes, von dem das zu importierende Projekt abgerufen wird.
+Mögliche Werte: "Git"
+
+###### location
+Datentyp: string
+Inhalt: Der Ort, an dem das Projekt gespeichert ist, z.B. eine URL zu einem Git-Repository
+Beispiel: "https://github.com/cloudogu/demo-content-petclinic"
+
+###### branch
+* Datentyp: string
+* Inhalt: Inhalt:
+* Beispiel: feature/123_myBranch
+* Optional
+* Wenn kein Branch angegeben ist, wird der Default-Branch des Repositorys verwendet.
+* Wird nur in Kombination mit dem Typ Git ausgewertet.
+
+##### Beispiel:
+````
+"projects":{
+  "import":[
+    {
+      "username":"<username>",
+      "password":"<password>",
+      "type":"Git",
+      "location":"https://github.com/cloudogu/demo-content-petclinic",
+      "branch":"MyBranch"
+    }
+  ]
+    "completed":true
+````
+
+
+#### completed
+* Datentyp: boolean
+* Inhalt: Wahrheitswert, ob der Projects-Schritt komplett ist
+* Beispiel: `true`
+
 ### Bereich "Admin"
 
 Diese Einstellungen sind, bis auf *"adminGroup"*, nur relevant, sofern ein "embedded" User Backend gewählt wurde. Anderenfalls sind die Vorgaben des externen User Backends gültig.

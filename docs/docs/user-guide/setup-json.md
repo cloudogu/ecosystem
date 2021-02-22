@@ -291,6 +291,63 @@ Properties:
 * Content: Logical value which shows if the *dogu step* is completely finished
 * Example: `true`
 
+### Section 'Projects'
+
+Object name: _projects_
+
+Properties:
+
+#### import
+* Data type: Project Array
+* Contents: List of all projects to be imported.
+
+##### Data type Project
+###### username
+* Data type: string
+* Content: The username for authentication with the service (e.g. GitHub) from which the project to be imported is retrieved.
+
+###### password
+* Data type: string
+* Content: The password for authentication with the service (e.g. GitHub) from which the project to be imported is retrieved.
+
+###### type
+Data type: string
+Content: The type of service from which the project to be imported is retrieved.
+Possible values: "Git"
+
+###### location
+Data type: string
+Content: The location where the project is stored, e.g. a URL to a Git repository.
+Example: "https://github.com/cloudogu/demo-content-petclinic"
+
+###### branch
+* Data type: string
+* Content: Content:
+* Example: feature/123_myBranch
+* Optional
+* If no branch is specified, the default branch of the repository is used.
+* Only evaluated in combination with the type Git.
+
+##### Example:
+````
+"projects":{
+  "import":[
+    {
+      "username":"<username>",
+      "password":"<password>",
+      "type": "Git",
+      "location": "https://github.com/cloudogu/demo-content-petclinic",
+      "branch": "MyBranch"
+    }
+  ]
+    "completed":true
+````
+
+
+#### completed
+* Data type: boolean
+* Content: True value indicating whether the Projects step is complete.
+* Example: `true
 
 ### Section 'admin'
 The properties set here, except for *"adminGroup"*, are only relevant, if an "embedded" user backend is used. Otherwise the settings of the external user backend take effect.
