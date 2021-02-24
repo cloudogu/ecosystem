@@ -315,24 +315,33 @@ Eigenschaften:
 * Inhalt: Das Passwort für die Authentifizierung bei dem Dienst (z.B. GitHub), von dem das zu importierende Projekt abgerufen wird.
 
 ###### type
-Datentyp: string
-Inhalt: Der Typ des Dienstes, von dem das zu importierende Projekt abgerufen wird.
-Mögliche Werte: "Git"
+* Datentyp: string
+* Inhalt: Der Typ des Dienstes, von dem das zu importierende Projekt abgerufen wird.
+* Mögliche Werte: Git
 
 ###### location
-Datentyp: string
-Inhalt: Der Ort, an dem das Projekt gespeichert ist, z.B. eine URL zu einem Git-Repository
-Beispiel: "https://github.com/cloudogu/demo-content-petclinic"
-
-###### branch
 * Datentyp: string
-* Inhalt: Inhalt:
-* Beispiel: feature/123_myBranch
-* Optional
-* Wenn kein Branch angegeben ist, wird der Default-Branch des Repositorys verwendet.
-* Wird nur in Kombination mit dem Typ Git ausgewertet.
+* Inhalt: Der Ort, an dem das Projekt gespeichert ist, z.B. eine URL zu einem Git-Repository
+* Beispiel: https://github.com/cloudogu/demo-content-petclinic
 
-##### Beispiel:
+###### reference
+* Datentyp: Reference
+* Inhalt: Eine Referenz auf einen bestimmten Branch oder einen bestimmten Tag
+* Optional
+* If no reference is specified, the default branch of the repository is used.
+
+##### Datentyp Reference
+###### name
+* Datentyp: string
+* Inhalt: Eine Referenz auf einen Branch oder Tag
+* Beispiel: feature/123_myBranch
+
+###### type
+* Datentyp: string
+* Inhalt: Der Typ der Referenz
+* Mögliche Werte: Tag, Branch
+
+##### Example:
 ````
 "projects":{
   "import":[
@@ -341,12 +350,14 @@ Beispiel: "https://github.com/cloudogu/demo-content-petclinic"
       "password":"<password>",
       "type":"Git",
       "location":"https://github.com/cloudogu/demo-content-petclinic",
-      "branch":"MyBranch"
+      "reference":{
+        "name":"0.0.1",
+        "type":"Tag"
+      }
     }
   ]
-    "completed":true
+  "completed":true
 ````
-
 
 #### completed
 * Datentyp: boolean
