@@ -7,7 +7,7 @@ section: services
 switcher: true
 summary: "Quickstartguide für das Cloudogu EcoSystem: VirtualBox Import, Registrierung, Konfigration und Setup."
 description: "Quickstartguide für das Cloudogu EcoSystem: VirtualBox Import, Registrierung, Konfigration und Setup."
-cardsimage: /images/cesQuickStartGuide/image9.png
+cardsimage: /figures/cesQuickStartGuide/image9.png
 twittervideo: true
 cardsvideo: https://youtu.be/ep3bqSHwI-w
 title: "Cloudogu EcoSystem Quickstartguide"
@@ -17,7 +17,7 @@ crumbcategory: "ecosystem"
 crumbtitle: "Quickstart Guide"
 ---
 
-<img class="icon" alt="Durchstarten mit dem EcoSystem" src="images/cesQuickStartGuide/quickstart.png" />
+<img class="icon" alt="Durchstarten mit dem EcoSystem" src="figures/cesQuickStartGuide/quickstart.png" />
 
 # Cloudogu EcoSystem via VirtualBox installieren
 
@@ -45,15 +45,15 @@ Sollten Sie das Image nicht in einer Serverumgebung betreiben, empfehlen wir die
 
 Über den Reiter „Importieren“ auf der Startseite des Programms bekommen Sie ein Kontextmenü angezeigt. Hier muss der „Expertenmodus“ ausgewählt werden, um die Option „Zuweisen neuer MAC-Adressen für alle Netzwerkkarten“ nutzen zu können.
 
-<img alt="Import der Maschine" src="images/cesQuickStartGuide/image2.png">
+<img alt="Import der Maschine" src="figures/cesQuickStartGuide/image2.png">
 
 Nachdem Sie das heruntergeladene Image angegeben und ggf. Anpassungen durchgeführt haben, können Sie den Import starten.
 
-<img alt="Import der Maschine" src="images/cesQuickStartGuide/image12.png">
+<img alt="Import der Maschine" src="figures/cesQuickStartGuide/image12.png">
 
 Nach einem erfolgreichen Import können Sie die Maschine hochfahren. **Wichtig:** Stellen Sie den Netzwerkadapter der Maschine auf `Netzwerkbrücke`.
 
-<img alt="Maschinenstatus" src="images/cesQuickStartGuide/image16.png">
+<img alt="Maschinenstatus" src="figures/cesQuickStartGuide/image16.png">
 
 ### Die Einrichtung bei einem Hoster
 
@@ -76,35 +76,35 @@ Die Registrierung der Instanz ist notwendig um Zugriff auf die von uns bereitges
 
 Die Maschine steht Ihnen in der Regel über die Website `http://192.168.0.56:8080` für das Setup zur Verfügung. Sollte dies nicht der Fall sein, wurde der Maschine von Ihrem Netzwerk eine andere IP zugewiesen. Um die IP herauszufinden müssen Sie sich über das CLI anmelden. Die Logindaten sind Username `ces-admin` mit dem Passwort `ces-admin`. **Hinweis:** Das Standard-Keyboard-Layout ist Englisch, das "-" ist auf der "ß" -Taste. **Wichtig:** Das Passwort des Users ces-admin wird am Ende des Setup-Prozesses durch eine zufällig generierte Zeichenfolge ersetzt, die Ihnen dann mitgeteilt wird.
 
-<img alt="IP Adresse" src="images/cesQuickStartGuide/ip_address.png">
+<img alt="IP Adresse" src="figures/cesQuickStartGuide/ip_address.png">
 
 Nach dem erfolgreichen Login wird die IP der Maschine angezeigt. Sie können das Setup unter `http://ip-adresse:8080` starten.
 
-<img alt="Registration" src="images/cesQuickStartGuide/image9.png">
+<img alt="Registration" src="figures/cesQuickStartGuide/image9.png">
 
 Dort können Sie den Prozess mit „Register instance“ starten.
 
-<img alt="Login" src="images/cesQuickStartGuide/image10.png">
+<img alt="Login" src="figures/cesQuickStartGuide/image10.png">
 
 Um Ihre Instanz zu registrieren, können Sie Ihren myCloudogu Account nutzen. Alternativ können Sie sich auch mit einem GitHub- oder Google-Account anmelden oder einen neuen Account registrieren.
 
-<img alt="Abschließen der Registrierung" src="images/cesQuickStartGuide/image11.png">
+<img alt="Abschließen der Registrierung" src="figures/cesQuickStartGuide/image11.png">
 
 Bestätigen Sie anschließend die Registrierung Ihrer Instanz unter Ihrem Account.
 
-<img alt="Erfolgreiche Registrierung" src="images/cesQuickStartGuide/image8.png">
+<img alt="Erfolgreiche Registrierung" src="figures/cesQuickStartGuide/image8.png">
 
 ### Region (Set region specific settings)
 
 Nach der Registrierung beginnt die Konfiguration Ihrer Instanz. Der erste Schritt ist die Festlegung der Region Ihrer Instanz.
 
-<img alt="Region Einstellungen" src="images/cesQuickStartGuide/image7.png">
+<img alt="Region Einstellungen" src="figures/cesQuickStartGuide/image7.png">
 
 ### Naming (FQDN, Hostname, Domain and Certificates)
 
 Im nächsten Schritt werden Informationen zur Erreichbarkeit Ihrer Instanz und dem E-Mail-Versand benötigt.
 
-<img alt="Naming" src="images/cesQuickStartGuide/image6.png">
+<img alt="Naming" src="figures/cesQuickStartGuide/image6.png">
 
 **Hinweis FQDN:** Die „FQDN“ zeigt standardmäßig die IP-Adresse des virtuellen Systems an. Sie können die „FQDN“ auch ändern, indem Sie z.B. eine firmeneigene URL eintragen. Empfehlenswert ist eine Zusammensetzung aus „Hostname“ und „Domain“. Wenn kein FQDN angegeben wird, ist das CES nur über die IP erreichbar.
 
@@ -117,13 +117,13 @@ Im nächsten Schritt werden Informationen zur Erreichbarkeit Ihrer Instanz und d
 
 Wählen Sie bitte die gewünschte Nutzerverwaltungsdatenbank. Wir liefern Ihnen eine implementierte Version direkt mit. Sollten Sie bereits ein eigenes LDAP oder Active Directory zur Verfügung haben, können Sie dieses selbstverständlich anbinden und konfigurieren.
 
-<img alt="User Backend" src="images/cesQuickStartGuide/image5.png">
+<img alt="User Backend" src="figures/cesQuickStartGuide/image5.png">
 
 ### Dogu (Choose your Dogus)
 
 Suchen Sie Ihre Werkzeuge (Dogus) aus und legen Sie ein Dogu als Startseite nach dem Login (Default Dogu) fest.
 
-<img alt="Dogu Auswahl" src="images/cesQuickStartGuide/image4.png">
+<img alt="Dogu Auswahl" src="figures/cesQuickStartGuide/image4.png">
 
 Details zu den Dogus finden Sie in unserem <a target="_self" title="Dogus – Cloudogu Glossar" href="/de/glossar/dogu">Glossar</a>.
 
@@ -136,7 +136,7 @@ In dem Default Dogu Feld können Sie auswählen welches Dogu nach dem Login an I
 ### Admin (Configure the Administrator)
 Im letzten Schritt der Konfiguration legen Sie den ersten User Ihres Cloudogu EcoSystem und einen Gruppennamen für Administratoren fest.
 
-<img alt="Administrator Konfiguration" src="images/cesQuickStartGuide/image17.png">
+<img alt="Administrator Konfiguration" src="figures/cesQuickStartGuide/image17.png">
 
 **Hinweis:** Die Administratorengruppe (Admin Group) ist eine voreingestellte Gruppe des eingebetteten Directory Service, welche den Mitgliedern Administrationszugriff auf die installierten Tools gibt.
 
@@ -150,11 +150,11 @@ Wenn Sie einen gültigen Mail Relay Host angegeben haben, können Sie optional d
 
 In der letzten Phase sehen Sie, wie die Installation mit der von Ihnen vorgenommen Konfiguration Schritt für Schritt  abgearbeitet wird.
 
-<img alt="Setupprozess" src="images/cesQuickStartGuide/image18.png">
+<img alt="Setupprozess" src="figures/cesQuickStartGuide/image18.png">
 
 Nach Vollendung des Setup-Prozesses werden Ihnen einmalig Ihre UNIX-Zugangsdaten angezeigt. **Sichern Sie sich diese Daten sorgfältig.**
 
-<img alt="Zugangsdaten" src="images/cesQuickStartGuide/image19.png">
+<img alt="Zugangsdaten" src="figures/cesQuickStartGuide/image19.png">
 
 Sie können über den angebotenen Link direkt ins Cloudogu EcoSystem navigieren. Je nachdem wie performant ihre Maschine ist, kann es einige Minuten dauern bis alle Dogus gestartet sind und Sie sich anmelden können.
 
@@ -168,4 +168,4 @@ Je nachdem welche Dogus sie ausgewählt haben, steht Ihnen nun eine umfangreiche
 
 **Wichtig:** Beachten Sie den Pfeil am rechten mittleren Bildschirmrand. Mit dieser Seitennavigationsleiste gelangen Sie auf die installierten Dogus.
 
-<img alt="CES WarpMenu" src="images/cesQuickStartGuide/Setup_Navigation.png">
+<img alt="CES WarpMenu" src="figures/cesQuickStartGuide/Setup_Navigation.png">
