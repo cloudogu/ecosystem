@@ -1120,12 +1120,6 @@ Enthält beispielsweise folgende Objekte:
   
 ##### Portainer
 
-###### Log-Level
-* Etcd-Schlüssel-Pfad: `logging/root`
-* Inhalt: Definiert die Granularität der Log-Ausgaben von Portainer
-* Datentyp: String
-* Valide Werte: `ERROR, WARN, INFO, DEBUG`
-
 ###### Physisches Speicherlimit
 * Etcd-Schlüssel-Pfad: `container_config/memory_limit`
 * Inhalt: Beschränkt den Speicher (RAM) des Docker-Containers für Portainer
