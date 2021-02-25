@@ -1114,12 +1114,6 @@ Can consist the following objects:
   SwaggerValidator. Do not set the key or set it to an empty string if you want to disable the SwaggerValidator.
   
 ##### Portainer
-  
-###### Log level
-* Etcd key path: `logging/root`
-* Content: Defines the granularity of Portainer's log output.
-* Data type: String
-* Valid values: `ERROR, WARN, INFO, DEBUG`
 
 ###### Physical memory limit
 * Etcd key path: `container_config/memory_limit`
