@@ -355,8 +355,9 @@ Eigenschaften:
         "type":"Tag"
       }
     }
-  ]
+  ],
   "completed":true
+},
 ````
 
 #### completed

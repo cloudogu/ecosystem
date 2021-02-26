@@ -352,8 +352,9 @@ Properties:
         "type":"Tag"
       }
     }
-  ]
+  ],
   "completed":true
+},
 ````
 
 #### completed
