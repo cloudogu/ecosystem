@@ -13,7 +13,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y install \
   mg \
   jq \
   unzip \
-  btrfs-tools \
+  btrfs-progs \
   apt-transport-https \
   ca-certificates \
   software-properties-common \
