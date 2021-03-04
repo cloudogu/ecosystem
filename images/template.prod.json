@@ -5,8 +5,8 @@
 		"password": "ces-admin",
 		"memory": "8192",
 		"cpus": "4",
-		"iso_url": "http://cdimage.ubuntu.com/releases/18.04.5/release/ubuntu-18.04.5-server-amd64.iso",
-		"iso_checksum": "sha256:8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996"
+		"iso_url": "https://releases.ubuntu.com/20.04.2/ubuntu-20.04.2-live-server-amd64.iso",
+		"iso_checksum": "sha256:d1f2bf834bbe9bb43faf16f9be992a6f3935e65be0edece1dee2aa6eb1767423"
 	},
 	"builders": [
 		{
@@ -15,9 +15,7 @@
 			"format": "ova",
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "Ubuntu_64",
-			"iso_urls": [
-				"{{user `iso_url`}}"
-			],
+			"iso_url": "{{user `iso_url`}}",
 			"iso_checksum": "{{user `iso_checksum`}}",
 			"ssh_username": "{{user `username`}}",
 			"ssh_password": "{{user `password`}}",
@@ -26,15 +24,9 @@
 			"headless": false,
 			"boot_wait": "5s",
 			"boot_command": [
-				"<enter><wait><f6><esc>",
-				"/install/vmlinuz ",
-				"preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/prod/preseed.cfg ",
-				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-				"hostname={{user `vm_name`}} ",
-				"fb=false debconf/frontend=noninteractive net.ifnames=0 ",
-				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-				"keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-				"initrd=/install/initrd.gz -- <enter>"
+				"<enter><enter><f6><esc><wait> ",
+				"autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
+				"<enter>"
 			],
 			"shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now",
 			"hard_drive_interface": "sata",
@@ -156,7 +148,6 @@
 				"scripts/commons/dependencies.sh",
 				"scripts/commons/sshd.sh",
 				"scripts/commons/grub.sh",
-				"scripts/commons/subvolumes.sh",
 				"scripts/commons/guestadditions.sh",
 				"scripts/commons/docker.sh",
 				"scripts/commons/terraform.sh",
