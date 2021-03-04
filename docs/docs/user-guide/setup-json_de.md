@@ -309,24 +309,41 @@ Eigenschaften:
 ###### username
 * Datentyp: string
 * Inhalt: Der Nutzername für die Authentifizierung bei dem Dienst (z.B. GitHub), von dem das zu importierende Projekt abgerufen wird.
+* Wenn der `type` `Archive` ist und das Archiv ohne Authentifizierung heruntergeladen werden kann, braucht kein Benutzername angegeben werden.
 
 ###### password
 * Datentyp: string
 * Inhalt: Das Passwort für die Authentifizierung bei dem Dienst (z.B. GitHub), von dem das zu importierende Projekt abgerufen wird.
+* Wenn der `type` `Archive` ist und das Archiv ohne Authentifizierung heruntergeladen werden kann, braucht kein Passwort angegeben werden.
 
 ###### type
 * Datentyp: string
-* Inhalt: Der Typ des Dienstes, von dem das zu importierende Projekt abgerufen wird.
-* Mögliche Werte: Git
+* Inhalt: Der Typ des Projektes
+* Mögliche Werte:
+  * Archive
+    * für ein ZIP-Archiv
+    * das in `location` angegebene ZIP-Archiv wird heruntergeladen und entpackt
+  * Git
+    * für ein Git-Repository
+    * das in `location` angegebene Git-Repository wird geclont
 
 ###### location
 * Datentyp: string
 * Inhalt: Der Ort, an dem das Projekt gespeichert ist, z.B. eine URL zu einem Git-Repository
 * Beispiel: https://github.com/cloudogu/demo-content-petclinic
+* Abhängig vom `type` des Projektes.
+  * Git:
+    * Angabe eines Git-Repositories
+    * Beispiel: https://github.com/cloudogu/demo-content-petclinic
+  * Archive:
+    * Angabe eines ZIP-Archivs
+    * Das ZIP-Archiv kann sich auf einem beliebigen Web-Server befinden
+    * Beispiel: https://stagex.cloudogu.com/nexus/repository/Cloudogu-Docs/terraform-projects/demo-content-petclinic.zip
 
 ###### reference
 * Datentyp: Reference
 * Inhalt: Eine Referenz auf einen bestimmten Branch oder einen bestimmten Tag
+* Wird nur ausgewertet, wenn der `type` des Projekts `Git` ist
 * Optional
 * If no reference is specified, the default branch of the repository is used.
 

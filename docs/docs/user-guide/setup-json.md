@@ -305,24 +305,40 @@ Properties:
 ###### username
 * Data type: string
 * Content: The username for authentication with the service (e.g. GitHub) from which the project to be imported is retrieved.
+* If the `type` is `Archive` and the archive can be downloaded without authentication, no username needs to be specified.
 
 ###### password
 * Data type: string
 * Content: The password for authentication with the service (e.g. GitHub) from which the project to be imported is retrieved.
+* If the `type` is `Archive` and the archive can be downloaded without authentication, no password needs to be specified.
 
 ###### type
 * Data type: string
-* Content: The type of service from which the project to be imported is retrieved.
-* Possible values: "Git"
+* Content: The type of the project
+* Possible values:
+  * Archive
+    * for a ZIP archive
+    * the ZIP archive specified in `location` is downloaded and unpacked
+  * Git
+    * for a Git repository
+    * the Git repository specified in `location` is cloned
 
 ###### location
 * Data type: string
 * Content: The location where the project is stored, e.g. a URL to a Git repository.
-* Example: "https://github.com/cloudogu/demo-content-petclinic"
+* Depending on the `type` of the project.
+  * Git:
+    * Specification of a Git repository.
+    * Example: https://github.com/cloudogu/demo-content-petclinic
+  * Archives:
+    * Specification of a ZIP archive.
+    * The ZIP archive can be located on any web server.
+    * Example: https://stagex.cloudogu.com/nexus/repository/Cloudogu-Docs/terraform-projects/demo-content-petclinic.zip
 
 ###### reference
 * Data type: Reference
 * Content: A reference to a specific branch or a specific tag
+* Only evaluated if the `type` of the project is `Git`
 * Optional
 * If no reference is specified, the default branch of the repository is used.
 
