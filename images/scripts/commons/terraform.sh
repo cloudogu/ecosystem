@@ -6,7 +6,7 @@ set -o pipefail
 # Install terraform
 # See https://learn.hashicorp.com/tutorials/terraform/install-cli
 
-TERRAFORM_VERSION=0.14.6
+TERRAFORM_VERSION=0.14.7
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -20,7 +20,7 @@ if [ -z "${KEY}" ]; then
   exit 1
 fi
 # Add repository
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com bionic main"
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com focal main"
 # Install Terraform
 apt-get -y update
 apt-get -y install terraform=${TERRAFORM_VERSION}
