@@ -296,6 +296,15 @@ Properties:
 Object name: _projects_
 
 Properties:
+#### external_admin_username
+* Data type: `String`
+* Optional: Required when using an external LDAP.
+* Content: The username of the CES admin user.
+
+#### external_admin_password
+* Data type: `String`
+* Optional: Required when using an external LDAP.
+* Content: The password of the CES admin user.
 
 #### import
 * Data type: Project Array
@@ -357,6 +366,8 @@ Properties:
 ##### Example:
 ````
 "projects":{
+  "external_admin_username": "<Username>",
+  "external_admin_password": "<Password>",
   "import":[
     {
       "username":"<username>",
