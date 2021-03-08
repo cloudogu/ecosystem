@@ -21,31 +21,45 @@ autoinstall:
     authorized-keys: []
     install-server: true
   storage:
+    swap:
+      size: 8G
     config:
-      - grub_device: true
-        id: disk-sda
+      - id: disk-sda
+        grub_device: true
         path: /dev/sda
         ptable: gpt
         type: disk
         wipe: superblock-recursive
-      - device: disk-sda
+
+      - id: partition-0
+        device: disk-sda
         flag: bios_grub
-        id: partition-0
         number: 1
         size: 1048576
         type: partition
-      - device: disk-sda
-        id: partition-1
+      - id: partition-1
+        device: disk-sda
         number: 2
+        size: 1048576
+        type: partition
+      - id: partition-2
+        device: disk-sda
+        number: 3
         size: -1
         type: partition
         wipe: superblock
-      - fstype: btrfs
-        id: format-0
+
+      - id: format-boot-partition
+        fstype: ext4
         type: format
         volume: partition-1
-      - device: format-0
-        id: mount-0
+      - id: format-root-partition
+        fstype: btrfs
+        type: format
+        volume: partition-2
+
+      - id: mount-root-partition
+        device: format-root-partition
         path: /
         type: mount
   version: 1
