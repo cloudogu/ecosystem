@@ -10,7 +10,7 @@ autoinstall:
       uri: http://ports.ubuntu.com/ubuntu-ports
   identity: {hostname: ces-2021-03-04, password: $6$eXtrTEXrpV8WK64H$pvrncLTd2VyZ8sOk8hHc1PGl1ACmtv9Bu7Fsv69m0hu8ELYNipZcjwd9dfZzwMdlYuUYgiiA/rXYK.2v6Wi.X0,
     realname: ces-admin, username: ces-admin}
-  keyboard: {layout: us, toggle: null, variant: ''}
+  keyboard: {layout: de, toggle: null, variant: ''}
   locale: en_US
   network:
     ethernets:
@@ -21,45 +21,48 @@ autoinstall:
     authorized-keys: []
     install-server: true
   storage:
-    swap:
-      size: 8G
+    version: 1
     config:
-      - id: disk-sda
-        grub_device: true
-        path: /dev/sda
-        ptable: gpt
+      - id: sda
         type: disk
-        wipe: superblock-recursive
+        ptable: gpt
+        path: /dev/sda
+        wipe: superblock
+        grub_device: true
 
-      - id: partition-0
-        device: disk-sda
-        flag: bios_grub
+      - id: sda1
+        device: sda
+        type: partition
         number: 1
-        size: 1048576
+        size: 1MB
+        flag: bios_grub
+      - id: sda2
+        device: sda
         type: partition
-      - id: partition-1
-        device: disk-sda
         number: 2
-        size: 1048576
+        size: 256M
+        flag: boot
+      - id: sda3
+        device: sda
         type: partition
-      - id: partition-2
-        device: disk-sda
         number: 3
         size: -1
-        type: partition
-        wipe: superblock
 
-      - id: format-boot-partition
+      - id: sda2-ext4
+        type: format
+        volume: sda2
         fstype: ext4
+      - id: sda3-btrfs
         type: format
-        volume: partition-1
-      - id: format-root-partition
+        volume: sda3
         fstype: btrfs
-        type: format
-        volume: partition-2
 
-      - id: mount-root-partition
-        device: format-root-partition
-        path: /
+      - id: mount-sda3-root
         type: mount
+        path: /
+        device: sda3-btrfs
+      - id: mount-sda2-boot
+        type: mount
+        path: /boot
+        device: sda2-ext4
   version: 1
