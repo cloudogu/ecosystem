@@ -40,7 +40,7 @@ autoinstall:
         size: -1
         type: partition
         wipe: superblock
-      - fstype: ext4
+      - fstype: btrfs
         id: format-0
         type: format
         volume: partition-1
