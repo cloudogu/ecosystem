@@ -44,9 +44,8 @@ echo "building up a firewall"
 "$INSTALL_HOME"/install/firewall.sh
 
 # restart docker
-# TODO: Reintegrate the following command:
-#echo "restart docker with new config"
-#systemctl restart docker.service
+echo "restart docker with new config"
+systemctl restart docker.service
 
 # print setup message
 "$INSTALL_HOME"/install/setup-message.sh
