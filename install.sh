@@ -33,8 +33,8 @@ echo "INSTALL_HOME=\"$INSTALL_HOME\"" >> /etc/environment
 # create overlay network
 # errormessages of test may be confusing to read ... perhaps this could be fixed later
 # TODO: Reintegrate the following script:
-#echo "create network"
-#"$INSTALL_HOME"/install/create-network.sh
+echo "create network"
+"$INSTALL_HOME"/install/create-network.sh
 
 # prepare environment
 echo "prepare environment"

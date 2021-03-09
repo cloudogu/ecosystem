@@ -149,7 +149,7 @@
 				"scripts/commons/dependencies.sh",
 				"scripts/commons/sshd.sh",
 				"scripts/commons/grub.sh",
-        "scripts/commons/subvolumes.sh",
+				"scripts/commons/subvolumes.sh",
 				"scripts/commons/guestadditions.sh",
 				"scripts/commons/docker.sh",
 				"scripts/commons/terraform.sh",
