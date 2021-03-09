@@ -21,8 +21,6 @@ autoinstall:
     authorized-keys: []
     install-server: true
   storage:
-    swap:
-      size: 8G
     version: 1
     config:
       - id: sda
@@ -32,39 +30,53 @@ autoinstall:
         wipe: superblock
         grub_device: true
 
-      - id: sda1
+      - id: sda1-bios
         device: sda
         type: partition
         number: 1
         size: 1MB
         flag: bios_grub
-      - id: sda2
+      - id: sda2-boot
         device: sda
         type: partition
         number: 2
         size: 1GB
         flag: boot
-      - id: sda3
+      - id: sda3-swap
         device: sda
         type: partition
         number: 3
+        size: 8G
+        flag: swap
+      - id: sda4-root
+        device: sda
+        type: partition
+        number: 4
         size: -1
 
-      - id: sda2-ext4
+      - id: sda2-boot-ext4
         type: format
-        volume: sda2
+        volume: sda2-boot
         fstype: ext4
-      - id: sda3-btrfs
+      - id: sda3-swap-swap
         type: format
-        volume: sda3
+        volume: sda3-swap
+        fstype: swap
+      - id: sda4-root-btrfs
+        type: format
+        volume: sda4-root
         fstype: btrfs
 
+      - id: mount-sda4-root
+        type: mount
+        path: /
+        device: sda4-root-btrfs
       - id: mount-sda2-boot
         type: mount
         path: /boot
-        device: sda2-ext4
-      - id: mount-sda3-root
+        device: sda2-boot-ext4
+      - id: mount-sda3-swap
         type: mount
-        path: /
-        device: sda3-btrfs
+        path: /swap.img
+        device: sda3-swap-swap
   version: 1
