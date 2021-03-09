@@ -32,7 +32,6 @@ echo "INSTALL_HOME=\"$INSTALL_HOME\"" >> /etc/environment
 
 # create overlay network
 # errormessages of test may be confusing to read ... perhaps this could be fixed later
-# TODO: Reintegrate the following script:
 echo "create network"
 "$INSTALL_HOME"/install/create-network.sh
 
@@ -41,9 +40,8 @@ echo "prepare environment"
 "$INSTALL_HOME"/install/prepare-environment.sh
 
 # building firewall
-# TODO: Reintegrate the following script:
-#echo "building up a firewall"
-#"$INSTALL_HOME"/install/firewall.sh
+echo "building up a firewall"
+"$INSTALL_HOME"/install/firewall.sh
 
 # restart docker
 # TODO: Reintegrate the following command:
