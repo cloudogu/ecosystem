@@ -18,6 +18,8 @@ autoinstall:
     install-server: true
   storage:
     version: 1
+    swap:
+        size: 0
     config:
       - id: sda
         type: disk
