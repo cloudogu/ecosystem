@@ -157,8 +157,8 @@
 				"../install.sh",
 				"scripts/commons/networking.sh",
 				"scripts/prod/sshd_security.sh",
-        "scripts/commons/cleanup.sh",
-        "scripts/commons/minimize.sh"
+				"scripts/commons/cleanup.sh",
+				"scripts/commons/minimize.sh"
 			]
 		}
 	],

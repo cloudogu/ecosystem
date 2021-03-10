@@ -20,7 +20,7 @@ apt-get update -o Dir::Etc::sourcelist="sources.list.d/ces.list" -o Dir::Etc::so
 # install etcd
 apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages ces-etcd
 
-# Start etcd
-systemctl start etcd.service
+# Starting etcd is not necessary, because it is done in the postinst script of the etcd package
+# See https://github.com/cloudogu/etcd/blob/develop/deb/DEBIAN/postinst#L16
 
 echo "installing etcd - end"

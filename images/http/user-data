@@ -8,14 +8,10 @@ autoinstall:
       uri: http://de.archive.ubuntu.com/ubuntu
     - arches: [default]
       uri: http://ports.ubuntu.com/ubuntu-ports
-  identity: {hostname: ces-2021-03-04, password: $6$eXtrTEXrpV8WK64H$pvrncLTd2VyZ8sOk8hHc1PGl1ACmtv9Bu7Fsv69m0hu8ELYNipZcjwd9dfZzwMdlYuUYgiiA/rXYK.2v6Wi.X0,
+  identity: {hostname: ces, password: $6$eXtrTEXrpV8WK64H$pvrncLTd2VyZ8sOk8hHc1PGl1ACmtv9Bu7Fsv69m0hu8ELYNipZcjwd9dfZzwMdlYuUYgiiA/rXYK.2v6Wi.X0,
     realname: ces-admin, username: ces-admin}
   keyboard: {layout: us, toggle: null, variant: ''}
   locale: en_US
-  network:
-    ethernets:
-      enp0s3: {dhcp4: true}
-    version: 2
   ssh:
     allow-pw: true
     authorized-keys: []
