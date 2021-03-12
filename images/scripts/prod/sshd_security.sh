@@ -3,13 +3,14 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-# Setting for Security
-echo 'AllowTcpForwarding no' >> /etc/ssh/sshd_config
-echo 'ClientAliveCountMax 2' >> /etc/ssh/sshd_config
-echo 'Compression no' >> /etc/ssh/sshd_config
-echo 'MaxAuthTries 2' >> /etc/ssh/sshd_config
-echo 'MaxSessions 2' >> /etc/ssh/sshd_config
-echo 'AllowAgentForwarding no' >> /etc/ssh/sshd_config
+# Settings for sshd security
+{
+    echo 'AllowTcpForwarding no'
+    echo 'ClientAliveCountMax 2'
+    echo 'Compression no'
+    echo 'MaxSessions 2'
+    echo 'AllowAgentForwarding no'
+} >> /etc/ssh/sshd_config
 
 # lines starting with "LogLevel" are changed to "LogLevel VERBOSE"
 sed -i 's/^LogLevel.*$/LogLevel VERBOSE/' /etc/ssh/sshd_config
