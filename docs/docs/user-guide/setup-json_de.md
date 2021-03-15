@@ -295,6 +295,104 @@ Eigenschaften:
 * Inhalt: Wahrheitswert, ob der Dogu-Schritt komplett ist
 * Beispiel: `true`
 
+### Bereich "Projects"
+
+Objektname: _projects_
+
+Eigenschaften:
+#### external_admin_username
+* Datentyp: `String`
+* Optional: Wird bei der Verwendung eines externen LDAP benötigt.
+* Inhalt: Der Benutzername des CES-Admin-Users.
+
+#### external_admin_password
+* Datentyp: `String`
+* Optional: Wird bei der Verwendung eines externen LDAP benötigt.
+* Inhalt: Das Passwort des CES-Admin-Users.
+* 
+#### import
+* Datentyp: Project Array
+* Inhalt: Liste aller Projekte, die importiert werden sollen.
+
+##### Datentyp Project
+###### username
+* Datentyp: string
+* Inhalt: Der Nutzername für die Authentifizierung bei dem Dienst (z.B. GitHub), von dem das zu importierende Projekt abgerufen wird.
+* Wenn der `type` `Archive` ist und das Archiv ohne Authentifizierung heruntergeladen werden kann, braucht kein Benutzername angegeben werden.
+
+###### password
+* Datentyp: string
+* Inhalt: Das Passwort für die Authentifizierung bei dem Dienst (z.B. GitHub), von dem das zu importierende Projekt abgerufen wird.
+* Wenn der `type` `Archive` ist und das Archiv ohne Authentifizierung heruntergeladen werden kann, braucht kein Passwort angegeben werden.
+
+###### type
+* Datentyp: string
+* Inhalt: Der Typ des Projektes
+* Mögliche Werte:
+  * Archive
+    * für ein ZIP-Archiv
+    * das in `location` angegebene ZIP-Archiv wird heruntergeladen und entpackt
+  * Git
+    * für ein Git-Repository
+    * das in `location` angegebene Git-Repository wird geclont
+
+###### location
+* Datentyp: string
+* Inhalt: Der Ort, an dem das Projekt gespeichert ist, z.B. eine URL zu einem Git-Repository
+* Beispiel: https://github.com/cloudogu/demo-content-petclinic
+* Abhängig vom `type` des Projektes.
+  * Git:
+    * Angabe eines Git-Repositories
+    * Beispiel: https://github.com/cloudogu/demo-content-petclinic
+  * Archive:
+    * Angabe eines ZIP-Archivs
+    * Das ZIP-Archiv kann sich auf einem beliebigen Web-Server befinden
+    * Beispiel: https://stagex.cloudogu.com/nexus/repository/Cloudogu-Docs/terraform-projects/demo-content-petclinic.zip
+
+###### reference
+* Datentyp: Reference
+* Inhalt: Eine Referenz auf einen bestimmten Branch oder einen bestimmten Tag
+* Wird nur ausgewertet, wenn der `type` des Projekts `Git` ist
+* Optional
+* If no reference is specified, the default branch of the repository is used.
+
+##### Datentyp Reference
+###### name
+* Datentyp: string
+* Inhalt: Eine Referenz auf einen Branch oder Tag
+* Beispiel: feature/123_myBranch
+
+###### type
+* Datentyp: string
+* Inhalt: Der Typ der Referenz
+* Mögliche Werte: Tag, Branch
+
+##### Example:
+````
+"projects":{
+  "external_admin_username": "<Benutzername>",
+  "external_admin_password": "<Passwort>",
+  "import":[
+    {
+      "username":"<username>",
+      "password":"<password>",
+      "type":"Git",
+      "location":"https://github.com/cloudogu/demo-content-petclinic",
+      "reference":{
+        "name":"0.0.1",
+        "type":"Tag"
+      }
+    }
+  ],
+  "completed":true
+},
+````
+
+#### completed
+* Datentyp: boolean
+* Inhalt: Wahrheitswert, ob der Projects-Schritt komplett ist
+* Beispiel: `true`
+
 ### Bereich "Admin"
 
 Diese Einstellungen sind, bis auf *"adminGroup"*, nur relevant, sofern ein "embedded" User Backend gewählt wurde. Anderenfalls sind die Vorgaben des externen User Backends gültig.
