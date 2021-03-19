@@ -1,25 +1,45 @@
 #cloud-config
 autoinstall:
+  # Version of the autoinstall-specification
+  version: 1
+
+  # Settings for the apt repositories
   apt:
     geoip: true
     preserve_sources_list: false
     primary:
-    - arches: [amd64, i386]
-      uri: http://de.archive.ubuntu.com/ubuntu
-    - arches: [default]
-      uri: http://ports.ubuntu.com/ubuntu-ports
-  identity: {hostname: ces, password: $6$eXtrTEXrpV8WK64H$pvrncLTd2VyZ8sOk8hHc1PGl1ACmtv9Bu7Fsv69m0hu8ELYNipZcjwd9dfZzwMdlYuUYgiiA/rXYK.2v6Wi.X0,
-    realname: ces-admin, username: ces-admin}
-  keyboard: {layout: us, toggle: null, variant: ''}
+      - arches: [ amd64, i386 ]
+        uri: http://de.archive.ubuntu.com/ubuntu
+      - arches: [ default ]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+
+  # Settings for the user and groups
+  identity:
+    hostname: ces
+    password: $6$eXtrTEXrpV8WK64H$pvrncLTd2VyZ8sOk8hHc1PGl1ACmtv9Bu7Fsv69m0hu8ELYNipZcjwd9dfZzwMdlYuUYgiiA/rXYK.2v6Wi.X0
+    realname: ces-admin
+    username: ces-admin
+
+  # Contains the settings for the keyboard
+  keyboard:
+    layout: us
+    toggle: null
+    variant: ''
+
+  # The target locale
   locale: en_US
+
+  # Contains settings for the ssh server
   ssh:
     allow-pw: true
-    authorized-keys: []
+    authorized-keys: [ ]
     install-server: true
+
+  # Contains the definition of the systems partitions
   storage:
     version: 1
     swap:
-        size: 0
+      size: 0
     config:
       - id: sda
         type: disk
@@ -77,4 +97,7 @@ autoinstall:
         type: mount
         path: /swap.img
         device: sda3-swap-swap
-  version: 1
+
+  # Contains commands that are executed after the installation and before the reboot
+  late-commands:
+    - curtin in-target --target=/target -- ln -sf /dev/null /etc/systemd/network/99-default.link
