@@ -98,7 +98,3 @@ autoinstall:
         type: mount
         path: /swap.img
         device: sda3-swap-swap
-
-  # Contains commands that are executed after the installation and before the reboot
-  late-commands:
-    - curtin in-target --target=/target -- ln -sf /dev/null /etc/systemd/network/99-default.link
