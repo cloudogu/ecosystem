@@ -14,6 +14,7 @@ autoinstall:
         uri: http://ports.ubuntu.com/ubuntu-ports
 
   # Settings for the user and groups
+  # The password is "ces-admin"
   identity:
     hostname: ces
     password: $6$eXtrTEXrpV8WK64H$pvrncLTd2VyZ8sOk8hHc1PGl1ACmtv9Bu7Fsv69m0hu8ELYNipZcjwd9dfZzwMdlYuUYgiiA/rXYK.2v6Wi.X0
