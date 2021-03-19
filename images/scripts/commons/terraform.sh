@@ -6,7 +6,7 @@ set -o pipefail
 # Install terraform
 # See https://learn.hashicorp.com/tutorials/terraform/install-cli
 
-TERRAFORM_VERSION=0.14.7
+TERRAFORM_VERSION=0.14.8
 
 export DEBIAN_FRONTEND=noninteractive
 
