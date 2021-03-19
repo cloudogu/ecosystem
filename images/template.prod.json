@@ -133,6 +133,7 @@
 				"HOME_DIR=/home/{{user `username`}}"
 			],
 			"scripts": [
+				"scripts/commons/ces_apt.sh",
 				"scripts/commons/update.sh"
 			]
 		},
