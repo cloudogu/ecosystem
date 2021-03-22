@@ -1,1 +1,1 @@
-deb [arch=amd64] https://apt.cloudogu.com/ces/ bionic main
+deb [arch=amd64] https://apt.cloudogu.com/ces/ focal main
