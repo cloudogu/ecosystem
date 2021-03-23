@@ -323,5 +323,5 @@ In the *Manage Jenkins* area, all installed Jenkins plugins can be accessed via 
 
 Users with administration rights can uninstall plugins here according to their dependencies. Please note that the **CAS plugin is operationally necessary** and must therefore never be uninstalled. If this plugin is removed, it will no longer be possible to start the Jenkins Dogus.
 
-![CAS Plugin in Jenkins](figures/jenkins/Jenkins_CAS.png)
+![CAS Plugin in Jenkins](figures/administration/Jenkins_CAS.png)
 

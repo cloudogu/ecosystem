@@ -317,4 +317,4 @@ Im Bereich *Jenkins verwalten* sind über den Unterpunkt *Plugins verwalten* all
 
 Benutzer mit Administrationsberechtigungen können an dieser Stelle Plugins entsprechend ihrer Abhängigkeiten deinstallieren. Hierbei ist besonders darauf zu achten, dass das **CAS Plugin betriebsnotwendig** ist und damit niemals deinstalliert werden darf. Sollte dieses dennoch entfernt werden, ist ein Start des Jenkins Dogus nicht mehr möglich.
 
-![CAS Plugin im Jenkins](figures/jenkins/Jenkins_CAS.png)
+![CAS Plugin im Jenkins](figures/administration/Jenkins_CAS.png)
