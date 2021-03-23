@@ -1,7 +1,8 @@
-# Glossar
 ---
 title: "Glossar"
 ---
+
+# Glossar
 
 **Branch**\newline
 Teil eines Repository. Ein Repository kann mehrere Branches haben, auf denen gearbeitet wird. Diese Branches können bei Bedarf zusammengeführt werden.\newline
