@@ -4,44 +4,44 @@ title: "Glossar"
 
 # Glossar
 
-**Branch**\newline
-Teil eines Repository. Ein Repository kann mehrere Branches haben, auf denen gearbeitet wird. Diese Branches können bei Bedarf zusammengeführt werden.\newline
+**Branch**
+Teil eines Repository. Ein Repository kann mehrere Branches haben, auf denen gearbeitet wird. Diese Branches können bei Bedarf zusammengeführt werden.
 
-**CAS**\newline
-Central Authentication Service, das zentrale Authentifizierungssystem für Single Sign-On im Cloudogu EcoSystem.\newline
+**CAS**
+Central Authentication Service, das zentrale Authentifizierungssystem für Single Sign-On im Cloudogu EcoSystem.
 
-**Cockpit**\newline
-Übersichts-Dogu im Cloudogu EcoSystem, das mit Hilfe von individuellen Dashboards gestaltet werden kann.\newline
+**Cockpit**
+Übersichts-Dogu im Cloudogu EcoSystem, das mit Hilfe von individuellen Dashboards gestaltet werden kann.
 
-**Dashboard**\newline
-Informationsblock oder -Seite zur übersichtlichen Anzeige von bestimmten Daten.\newline
+**Dashboard**
+Informationsblock oder -Seite zur übersichtlichen Anzeige von bestimmten Daten.
 
-**Dogu**\newline
-Japanisch für "Werkzeug". Im Cloudogu EcoSystem repräsentiert ein Dogu eine Anwendung in Form eines Containers.\newline
+**Dogu**
+Japanisch für "Werkzeug". Im Cloudogu EcoSystem repräsentiert ein Dogu eine Anwendung in Form eines Containers.
 
-**iframe**\newline
-Komponente zur Einbindung von Webinhalten in ein Dokument oder eine Webseite.\newline
+**iframe**
+Komponente zur Einbindung von Webinhalten in ein Dokument oder eine Webseite.
 
-**Markdown**\newline
-Einfach konzipierte Sprache, um Texte im Web zu formatieren.\newline
+**Markdown**
+Einfach konzipierte Sprache, um Texte im Web zu formatieren.
 
-**PlantUML**\newline
-Tool zur einfachen und schnellen Erstellung von UML-Diagrammen und zur Einbindung in Wikis o.ä. einzubinden.\newline
+**PlantUML**
+Tool zur einfachen und schnellen Erstellung von UML-Diagrammen und zur Einbindung in Wikis o.ä. einzubinden.
 
-**Repository**\newline
-Englisch für "Lager", spezielle Datenbank zur systematischen Ablage von Modellen und deren Bestandteilen.\newline
+**Repository**
+Englisch für "Lager", spezielle Datenbank zur systematischen Ablage von Modellen und deren Bestandteilen.
 
-**Single Sign-on**\newline
-Ermöglichung des dauerhaften Zugriffs auf mehrere Applikationen durch eine zentrale Anmeldung am System.\newline
+**Single Sign-on**
+Ermöglichung des dauerhaften Zugriffs auf mehrere Applikationen durch eine zentrale Anmeldung am System.
 
-**Smeagol**\newline
-Wiki zur Dokumentation eines Repository. Alle Änderungen in einem Wiki werden nach dem Speichern von Smeagol direkt an das Repository gepusht. Damit ist die Dokumentation immer auf dem neusten Stand.\newline
+**Smeagol**
+Wiki zur Dokumentation eines Repository. Alle Änderungen in einem Wiki werden nach dem Speichern von Smeagol direkt an das Repository gepusht. Damit ist die Dokumentation immer auf dem neusten Stand.
 
-**User Management**\newline
-Lokale Verwaltung der Nutzerinnen und Nutzer sowie der gewünschten Gruppen im Cloudogu EcoSystem.\newline
+**User Management**
+Lokale Verwaltung der Nutzerinnen und Nutzer sowie der gewünschten Gruppen im Cloudogu EcoSystem.
 
-**Warp Menu**\newline
-Das Warp-Menu wird auf jeder Seite des Cloudogu EcoSystem am rechten Bildschirmrand mit einem Pfeilsymbol eingeblendet. In Kombination mit dem CAS ist eine intuitive und einfache Navigation zwischen allen installierten CES-Applikationen möglich.\newline
+**Warp Menu**
+Das Warp-Menu wird auf jeder Seite des Cloudogu EcoSystem am rechten Bildschirmrand mit einem Pfeilsymbol eingeblendet. In Kombination mit dem CAS ist eine intuitive und einfache Navigation zwischen allen installierten CES-Applikationen möglich.
 
-**Widget**\newline
+**Widget**
 Eigenständiger und individuell platzierbarer Bereich auf dem Dashboard für vielfältige Zwecke, beispielsweise zur Informationsanzeige.

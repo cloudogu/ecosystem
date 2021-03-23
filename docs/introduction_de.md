@@ -2,10 +2,6 @@
 title: "Einleitung"
 ---
 
-% Benutzerhandbuch
-% Cloudogu EcoSystem
-%
-
 # Einleitung
 ## Was ist das Cloudogu EcoSystem?
 Das Cloudogu EcoSystem ist eine Plattform, die Entwicklungsteams die Freiheit gibt, selbst zu entscheiden, wann und wo sie Software entwickeln. Dazu werden jeder Service und jedes Tool als ein sogenanntes Dogu bereitgestellt und automatisch aufeinander abgestimmt und konfiguriert.
@@ -21,7 +17,7 @@ Dadurch hält das Cloudogu EcoSystem eine Reihe von Vorzügen für Softwareentwi
 
 ## Single Sign-on
 Arbeitsabläufe im Cloudogu EcoSystem gestalten sich durch das integrierte Single Sign-on (SSO) besonders flüssig. So kann beliebig zwischen den Dogus gewechselt werden, ohne dass eine erneute Anmeldung nötig wird. Für das Single Sign-on können eigene Verzeichnisdienste verwendet oder es kann ein lokaler Verzeichnisdienst mit installiert werden. Dieser integrierte Verzeichnisdienst kann über ein eigenes Dogu verwaltet werden.
-\newline
+
 
 Funktionsübersicht:
 
@@ -31,7 +27,7 @@ Funktionsübersicht:
 
 ## Sicherheit
 Das Cloudogu EcoSystem wurde mit stetigem Blick auf aktuelle Sicherheitsstandards entwickelt. Die strikte Verwendung von SSL zur Verschlüsselung von Verbindungen und die Kapselung jedes Dogus in Container sowie die Verschlüsselung von sicherheitsrelevanten Konfigurationen sind nur ein Auszug aus den in den Entwurf eingeflossenen Ma\ss nahmen.
-\newline
+
 
 Auszug aus den Sicherheitsma\ss nahmen:
 

@@ -2,10 +2,6 @@
 title: "Introduction"
 ---
 
-% User Manual
-% Cloudogu EcoSystem
-%
-
 Translated with www.DeepL.com/Translator
 
 # Introduction
@@ -23,7 +19,7 @@ As a result, the Cloudogu EcoSystem holds a number of benefits for software deve
 
 ## Single sign-on
 Workflows in the Cloudogu EcoSystem are particularly fluid thanks to the integrated single sign-on (SSO). This means that users can switch between the Dogus at will without having to log in again. For single sign-on, you can use your own directory services or install a local directory service. This integrated directory service can be managed via a separate dogu.
-\newline
+
 
 Feature overview:
 
@@ -33,7 +29,7 @@ Feature overview:
 
 ## Security
 The Cloudogu EcoSystem has been developed with a constant eye on current security standards. The strict use of SSL to encrypt connections and the encapsulation of each Dogus in containers as well as the encryption of security relevant configurations are just a few of the measures that have been incorporated into the design.
-\newline
+
 
 Excerpt from the security measures:
 

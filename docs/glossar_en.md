@@ -6,44 +6,44 @@ Translated with www.DeepL.com/Translator
 
 # Glossary
 
-**Branch**\newline
-Part of a repository. A repository can have multiple branches to work on. These branches can be merged if necessary.\newline
+**Branch**
+Part of a repository. A repository can have multiple branches to work on. These branches can be merged if necessary.
 
-**CAS**\newline
-Central Authentication Service, the central authentication system for single sign-on in the Cloudogu EcoSystem.\newline
+**CAS**
+Central Authentication Service, the central authentication system for single sign-on in the Cloudogu EcoSystem.
 
-**Cockpit**\newline
-Overview dashboard in the Cloudogu EcoSystem that can be designed using custom dashboards.\newline
+**Cockpit**
+Overview dashboard in the Cloudogu EcoSystem that can be designed using custom dashboards.
 
-**Dashboard**\newline
-Information block or page to clearly display specific data.\newline
+**Dashboard**
+Information block or page to clearly display specific data.
 
-**Dogu**\newline
-Japanese for "tool." In the Cloudogu EcoSystem, a dogu represents an application in the form of a container.\newline
+**Dogu**
+Japanese for "tool." In the Cloudogu EcoSystem, a dogu represents an application in the form of a container.
 
-**iframe**\newline
-Component for embedding web content into a document or web page.\newline
+**iframe**
+Component for embedding web content into a document or web page.
 
-**markdown**\newline
-Simply designed language to format text on the web.\newline
+**markdown**
+Simply designed language to format text on the web.
 
-**PlantUML**\newline
-Tool for easy and fast creation of UML diagrams and to integrate them into wikis or similar.\newline
+**PlantUML**
+Tool for easy and fast creation of UML diagrams and to integrate them into wikis or similar.
 
-**Repository**\newline
-Special database for systematic storage of models and their components.\newline
+**Repository**
+Special database for systematic storage of models and their components.
 
-**Single Sign-on**\newline
-Enabling permanent access to multiple applications through a central login to the system.\newline
+**Single Sign-on**
+Enabling permanent access to multiple applications through a central login to the system.
 
-**Smeagol**\newline
-Wiki for documenting a repository. All changes in a wiki are pushed directly to the repository by Smeagol after saving. This way the documentation is always up to date.\newline
+**Smeagol**
+Wiki for documenting a repository. All changes in a wiki are pushed directly to the repository by Smeagol after saving. This way the documentation is always up to date.
 
-**User Management**\newline
-Local management of users and desired groups in the Cloudogu EcoSystem.\newline
+**User Management**
+Local management of users and desired groups in the Cloudogu EcoSystem.
 
-**Warp Menu**\newline
-The Warp Menu is displayed on every page of the Cloudogu EcoSystem on the right edge of the screen with an arrow symbol. In combination with the CAS, intuitive and easy navigation between all installed CES applications is possible.\newline
+**Warp Menu**
+The Warp Menu is displayed on every page of the Cloudogu EcoSystem on the right edge of the screen with an arrow symbol. In combination with the CAS, intuitive and easy navigation between all installed CES applications is possible.
 
-**Widget**\newline
+**Widget**
 Stand-alone and individually placeable area on the dashboard for a variety of purposes, such as information display.
