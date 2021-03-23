@@ -117,14 +117,14 @@ This step can be skipped if the user to be authorized has already logged in.
 Click on the "Users" tab and then click on "Create user".
 
 
-![SCM:_User_List](images/administration/scm_createUserList.png)
+![SCM:_User_List](figures/administration/scm_createUserList.png)
 
 Now enter the name of the user into the form and activate the checkbox "External".
 Important: The user name of the user must be exactly the same as the user name of the user in the User Management.
 
 Then click on "Save" to create the user.
 
-![SCM: Create User](images/administration/scm_createUser.png)
+![SCM: Create User](figures/administration/scm_createUser.png)
 
 The user can now be authorized.
 
@@ -133,36 +133,36 @@ Since the groups from the User Management in the SCM Manager are not created in 
 
 To do this, click on the "Groups" tab and then on "Create group".
 
-![SCM: Group_List](images/administration/scm_groupList.png)
+![SCM: Group_List](figures/administration/scm_groupList.png)
 
 Now enter the name of the group and a description into the form and activate the checkbox "External".
 Important: The name of the group must exactly match the name of the group in User Management.
 
 Then click on "Save" to create the group.
 
-![SCM: Create Group](images/administration/scm_createGroup.png)
+![SCM: Create Group](figures/administration/scm_createGroup.png)
 
 The group can now be authorized.
 
 ### General authorization of a user in SCM-manager
 Click on the "Users" tab and select the user you want to authorize from the list of users.
 
-![SCM: User_List_2](images/administration/scm_userList.png)
+![SCM: User_List_2](figures/administration/scm_userList.png)
 
 Then click on "Settings", then on "Permissions".
 
-![SCM: Authorization User: Privileges](images/administration/scm_userPrivileges.png)
+![SCM: Authorization User: Privileges](figures/administration/scm_userPrivileges.png)
 
 From there, select the privileges you want the user to have and click on "Save Privileges".
 
 ### General authorization of a group in SCM-manager
 Click on the "Groups" tab and select the group you want to authorize from the list of groups.
 
-![SCM: Authorization Group](images/administration/scm_roleList.png)
+![SCM: Authorization Group](figures/administration/scm_roleList.png)
 
 Then click on "Settings", then on "Permissions". There select the permissions you want to give to the group and click on "Save permissions".
 
-![SCM: Authorization Group: Permissions](images/administration/scm_rolePrivileges.png)
+![SCM: Authorization Group: Permissions](figures/administration/scm_rolePrivileges.png)
 
 The permissions are now effective for the user.
 
@@ -175,22 +175,22 @@ Under the "Add new permission" heading, select either "User permission" or "Grou
 depending on whether the new permission is to be created for only one user or for a group.
 Now write the name of the user or group to be authorized in the "User" or "Group" field.
 
-![SCM: Authorization Repository](images/administration/scm_repositoryPrivileges.png)
+![SCM: Authorization Repository](figures/administration/scm_repositoryPrivileges.png)
 
 Now you have the possibility to assign a predefined role to the user or group, where the user or group gets a predefined set of permissions.
 For this select an entry from the "Role" list.
 
-![SCM: Authorization Repository: Predefined Roles](images/administration/scm_predefinedRoles.png)
+![SCM: Authorization Repository: Predefined Roles](figures/administration/scm_predefinedRoles.png)
 
 Alternatively you can define each permission yourself. To do so, click on the "Advanced" button. A dialog opens.
 There you select the permissions the user should get and click on "Save".
 
-![SCM: Authorization Repository: Custom Roles](images/administration/scm_rolesCustom.png)
+![SCM: Authorization Repository: Custom Roles](figures/administration/scm_rolesCustom.png)
 
 Once you have added all the desired permissions, click "Save".
 The user or group now has the permissions you selected for the repository you selected.
 
-![SCM: Permission Repository: Save Permissions](images/administration/scm_clickSave.png)
+![SCM: Permission Repository: Save Permissions](figures/administration/scm_clickSave.png)
 
 The new permissions are now effective.
 
@@ -203,13 +203,13 @@ This step can be skipped if the user to be authorized has already logged in.
 Click on the cogwheel to get to the administrators area. There click on "Roles", "Create role" and then on "Nexus role".
 then on "Nexus role".
 
-![Nexus: Create new role](images/administration/nexus_newRole.png)
+![Nexus: Create new role](figures/administration/nexus_newRole.png)
 
 In the now visible form enter a "Role ID" and a "Role name". It is important that the value in the
 Role ID" field corresponds exactly to the name of the group to be authorized in User Management.
 Then press "Create role".
 
-![Nexus: Create new role form](images/administration/nexus_createRole.png)
+![Nexus: Create new role form](figures/administration/nexus_createRole.png)
 
 The role is now created and can be assigned to a user.
 
@@ -219,14 +219,14 @@ This step can be skipped if the user to be authorized has already logged in.
 Click on the cogwheel to get to the administrators area. There click on "Users
 and then on "Create local User".
 
-![Nexus: New user](images/administration/nexus_usersOverview.png)
+![Nexus: New user](figures/administration/nexus_usersOverview.png)
 
 In the now visible form enter the data of the user. It is important that the value in the field "ID" is exactly
 corresponds to the user name of the user to be authorized.
 
 Give the user the role you created. The other values will be overwritten with the values from User Management when the user logs in. Now click on "Create local User".
 
-![Nexus: New User Form](images/administration/nexus_createUser.png)
+![Nexus: New User Form](figures/administration/nexus_createUser.png)
 
 The user is now created and can be authorized.
 
@@ -234,7 +234,7 @@ The user is now created and can be authorized.
 ### Authorize a role in the Nexus
 Select the role to be authorized in the role overview.
 
-![Nexus: Authorize role](images/administration/nexus_editRole.png)
+![Nexus: Authorize role](figures/administration/nexus_editRole.png)
 
 Under the heading "Privileges:" privileges can now be assigned to this role.
 
@@ -285,17 +285,17 @@ The "nx-repository-view-raw-testrepo-read" privilege has the effect that a user 
 Alternatively, you can create your own privilege where specific actions can be specified.
 To do this, click on "Privileges" in the administration area and then on "Create privilege".
 
-![Nexus: New Privilege](images/administration/nexus_newPrivileg.png)
+![Nexus: New Privilege](figures/administration/nexus_newPrivileg.png)
 
 There select the entry "Repository View" to privilege users for the normal area or the entry "Repository Admin",
 to authorize a user for the administration area.
 
-![Nexus: New Privilege Form 1](images/administration/nexus_newPrivilegForm1.png)
+![Nexus: New Privilege Form 1](figures/administration/nexus_newPrivilegForm1.png)
 
 You will now be presented with a form. Fill it out as explained below and then click on "Create privilege".
 Afterwards you can add the privilege to a role as described above.
 
-![Nexus: New Privilege Form 2](images/administration/nexus_newPrivilegForm2.png)
+![Nexus: New Privilege Form 2](figures/administration/nexus_newPrivilegForm2.png)
 
 
 #### Name
@@ -313,7 +313,7 @@ The actions that should be executable for the repository. These can be entered h
 #### Format
 The format of the repository for which the privilege should grant permission. If you are not sure what format your repository has, you can look it up in the list of repositories.
 
-![Nexus: New Privilege](images/administration/nexus_viewFormats.png)
+![Nexus: New Privilege](figures/administration/nexus_viewFormats.png)
 
 The privilege can now be assigned to a role as described above.
 
@@ -323,5 +323,5 @@ In the *Manage Jenkins* area, all installed Jenkins plugins can be accessed via 
 
 Users with administration rights can uninstall plugins here according to their dependencies. Please note that the **CAS plugin is operationally necessary** and must therefore never be uninstalled. If this plugin is removed, it will no longer be possible to start the Jenkins Dogus.
 
-![CAS Plugin in Jenkins](images/jenkins/Jenkins_CAS.png)
+![CAS Plugin in Jenkins](figures/jenkins/Jenkins_CAS.png)
 

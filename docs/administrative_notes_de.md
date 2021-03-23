@@ -114,14 +114,14 @@ Dieser Schritt kann übersprungen werden, wenn der zu berechtigende Nutzer sich 
 
 Klicken Sie auf den Reiter "Benutzer" und klicken Sie anschließend auf "Benutzer erstellen".
 
-![SCM:_Nutzer_Liste](images/administration/scm_createUserList.png)
+![SCM:_Nutzer_Liste](figures/administration/scm_createUserList.png)
 
 In das Formular geben Sie nun den Namen des Nutzers ein und aktivieren Sie die Checkbox "Extern".
 Wichtig: Der Benutzername des Nutzers muss exakt dem Benutzernamen des Nutzers im User Management entsprechen.
 
 Klicken Sie dann auf "Speichern", um den Nutzer anzulegen.
 
-![SCM: Nutzer_Erstellen](images/administration/scm_createUser.png)
+![SCM: Nutzer_Erstellen](figures/administration/scm_createUser.png)
 
 Der Nutzer kann nun berechtigt werden.
 
@@ -130,36 +130,36 @@ Da die Gruppen aus dem User Management im SCM-Manager nicht im Dogu angelegt wer
 
 Klicken Sie dafür auf den Reiter "Gruppen" und anschließend auf "Gruppe erstellen".
 
-![SCM: Gruppen_Liste](images/administration/scm_groupList.png)
+![SCM: Gruppen_Liste](figures/administration/scm_groupList.png)
 
 In das Formular geben Sie nun den Namen der Gruppe sowie eine Beschreibung ein und aktivieren Sie die Checkbox "Extern".
 Wichtig: Der Name der Gruppe muss exakt dem Namen der Gruppe im User Management entsprechen.
 
 Klicken Sie dann auf "Speichern", um die Gruppe anzulegen.
 
-![SCM: Gruppe_Erstellen](images/administration/scm_createGroup.png)
+![SCM: Gruppe_Erstellen](figures/administration/scm_createGroup.png)
 
 Die Gruppe kann nun berechtigt werden.
 
 ### Generelle Berechtigung eines Nutzers im SCM-manager
 Klicken Sie auf den Reiter "Benutzer" und wählen Sie in der Liste der Benutzer den Benutzer aus, den Sie berechtigen wollen.
 
-![SCM: Nutzer_Liste_2](images/administration/scm_userList.png)
+![SCM: Nutzer_Liste_2](figures/administration/scm_userList.png)
 
 Anschließend klicken Sie auf "Einstellungen", dann auf "Berechtigungen".
 
-![SCM: Berechtigung Nutzer: Berechtigungen](images/administration/scm_userPrivileges.png)
+![SCM: Berechtigung Nutzer: Berechtigungen](figures/administration/scm_userPrivileges.png)
 
 Wählen Sie dort die Berechtigungen aus, die der Nutzer erhalten soll und klicken Sie auf "Berechtigungen speichern". 
 
 ### Generelle Berechtigung einer Gruppe im SCM-manager
 Klicken Sie auf den Reiter "Gruppen" und wählen Sie in der Liste der Gruppen die Gruppe aus, die Sie berechtigen wollen.
 
-![SCM: Berechtigung Gruppe](images/administration/scm_roleList.png)
+![SCM: Berechtigung Gruppe](figures/administration/scm_roleList.png)
 
 Anschließend klicken Sie auf "Einstellungen", dann auf "Berechtigungen". Wählen Sie dort die Berechtigungen aus, die die Gruppe erhalten soll und klicken Sie auf "Berechtigungen speichern". 
 
-![SCM: Berechtigung Gruppe: Berechtigungen](images/administration/scm_rolePrivileges.png)
+![SCM: Berechtigung Gruppe: Berechtigungen](figures/administration/scm_rolePrivileges.png)
 
 Die Berechtigungen sind nun für den Nutzer wirksam.
 
@@ -171,22 +171,22 @@ Unter der Überschrift "Neue Berechtigung hinzufügen" wählen Sie entweder "Ben
 je nachdem ob die neue Berechtigung für nur einen Nutzer oder für eine Gruppe erstellt werden soll.
 In das Feld "Benutzer" bzw. "Gruppe" schreiben Sie nun den Namen des zu berechtigenden Benutzers oder der Gruppe.
 
-![SCM: Berechtigung Repository](images/administration/scm_repositoryPrivileges.png)
+![SCM: Berechtigung Repository](figures/administration/scm_repositoryPrivileges.png)
 
 Nun haben Sie die Möglichkeit, dem eine eine vorgefertigte Rolle zuzuweisen, bei dem dieser ein vordefiniertes Set an Berechtigungen bekommt.
 Wählen Sie dafür einen Eintrag aus der Liste "Rolle" aus.
 
-![SCM: Berechtigung Repository: Vordefinierte Rollen](images/administration/scm_predefinedRoles.png)
+![SCM: Berechtigung Repository: Vordefinierte Rollen](figures/administration/scm_predefinedRoles.png)
 
 Alternativ können Sie jede Berechtigung selbst bestimmen. Klicken Sie dafür auf die Schaltfläche "Erweitert". Es öffnet sich ein Dialog. 
 Dort wählen Sie die Berechtigungen aus, welche der Nutzer erhalten soll und klicken auf "Speichern".
 
-![SCM: Berechtigung Repository: Benutzerdefinierte Rollen](images/administration/scm_rolesCustom.png)
+![SCM: Berechtigung Repository: Benutzerdefinierte Rollen](figures/administration/scm_rolesCustom.png)
 
 Haben Sie alle gewünschten Berechtigungen hinzugefügt, klicken Sie auf "Speichern".
 Der Nutzer bzw. die Gruppe hat nun die von Ihnen gewählten Berechtigungen für das von Ihnen gewählte Repository.
 
-![SCM: Berechtigung Repository: Berechtigungen speichern](images/administration/scm_clickSave.png)
+![SCM: Berechtigung Repository: Berechtigungen speichern](figures/administration/scm_clickSave.png)
 
 Die neuen Berechtigungen sind nun wirksam.
 
@@ -199,13 +199,13 @@ Dieser Schritt kann übersprungen werden, sofern sich der zu berechtigende Nutze
 Klicken Sie auf das Zahnrad, um in den Administratoren-Bereich zu gelangen. Dort klicken sie auf "Roles", "Create role" und
 anschließend auf "Nexus role".
 
-![Nexus: Neue Rolle Erstellen](images/administration/nexus_newRole.png)
+![Nexus: Neue Rolle Erstellen](figures/administration/nexus_newRole.png)
 
 In dem nun sichtbaren Formular geben Sie eine "Role ID" und einen "Role name" ein. Dabei ist es wichtig, dass der Wert im 
 Feld "Role ID" exakt dem Namen der zu berechtigenden Gruppe im User Management entspricht.
 Drücken Sie anschließend auf "Create role". 
 
-![Nexus: Neue Rolle Erstellen Formular](images/administration/nexus_createRole.png)
+![Nexus: Neue Rolle Erstellen Formular](figures/administration/nexus_createRole.png)
 
 Die Rolle ist nun erstellt und kann einem Nutzer zugewiesen werden.
 
@@ -215,21 +215,21 @@ Dieser Schritt kann übersprungen werden, sofern sich der zu berechtigende Nutze
 Klicken Sie auf das Zahnrad, um in den Administratoren-Bereich zu gelangen. Dort klicken sie auf "Users" 
 und anschließend auf "Create local User".
 
-![Nexus: Neuer Nutzer](images/administration/nexus_usersOverview.png)
+![Nexus: Neuer Nutzer](figures/administration/nexus_usersOverview.png)
 
 In dem nun sichtbaren Formular geben Sie die Daten des Benutzers ein. Dabei ist es wichtig, dass der Wert im Feld "ID" exakt
 dem Benutzernamen des zu berechtigenden Benutzers entspricht. 
 
 Geben Sie dem Benutzer die von Ihnen erstellte Rolle. Die anderen Werte werden bei dem Login des Benutzers mit den Werten aus dem User Management überschrieben. Klicken Sie nun auf "Create local User". 
 
-![Nexus: Neuer Nutzer Formular](images/administration/nexus_createUser.png)
+![Nexus: Neuer Nutzer Formular](figures/administration/nexus_createUser.png)
 
 Der Nutzer ist nun erstellt und kann berechtigt werden.
 
 ### Berechtigen einer Rolle im Nexus
 Wählen Sie in der Rollenübersicht die zu berechtigende Rolle aus. 
 
-![Nexus: Rolle Berechtigen](images/administration/nexus_editRole.png)
+![Nexus: Rolle Berechtigen](figures/administration/nexus_editRole.png)
 
 Unter der Überschrift "Privileges:" können dieser Rolle nun Privilegien zugewiesen werden. 
 
@@ -280,17 +280,17 @@ Das Privileg "nx-repository-view-raw-testrepo-read" hat die Wirkung, dass ein Nu
 Alternativ kann auch ein eigenes Privileg erstellt werden, bei welchem bestimmte Aktionen festgelegt werden können.
 Klicken Sie dafür im Administrationsbereich auf "Privileges" und anschließend auf "Create privilege".
 
-![Nexus: Neues Privileg](images/administration/nexus_newPrivileg.png)
+![Nexus: Neues Privileg](figures/administration/nexus_newPrivileg.png)
 
 Dort wählen Sie den Eintrag "Repository View", um Nutzer für den normalen Bereich zu berechtigen oder den Eintrag "Repository Admin",
 um einen Nutzer für den Administrationsbereich zu berechtigen.
 
-![Nexus: Neues Privileg Formular 1](images/administration/nexus_newPrivilegForm1.png)
+![Nexus: Neues Privileg Formular 1](figures/administration/nexus_newPrivilegForm1.png)
 
 Ihnen wird nun ein Formular angezeigt. Füllen Sie dieses, wie im Folgenden erklärt, aus und klicken Sie dann auf "Create privilege". 
 Anschließend kann das Privileg wie oben beschrieben einer Rolle hinzugefügt werden.
 
-![Nexus: Neues Privileg Formular 2](images/administration/nexus_newPrivilegForm2.png)
+![Nexus: Neues Privileg Formular 2](figures/administration/nexus_newPrivilegForm2.png)
 
 #### Name
 Ein frei wählbarer Name für das Privileg. Unter diesem Namen wird die Berechtigung später in der Liste der Privilegien gefunden.
@@ -307,7 +307,7 @@ Die Aktionen, die für das Repository ausführbar sein sollen. Diese können hie
 #### Format
 Das Format des Repositories, für das das Privileg die Berechtigung erteilen soll. Wenn Sie sich nicht sicher sind, welches Format Ihr Repository besitzt, können Sie dies in der Liste der Repositories nachsehen.
 
-![Nexus: Neues Privileg](images/administration/nexus_viewFormats.png)
+![Nexus: Neues Privileg](figures/administration/nexus_viewFormats.png)
 
 Das Privileg kann nun, wie weiter oben beschrieben, einer Rolle zugewiesen werden.
 
@@ -317,4 +317,4 @@ Im Bereich *Jenkins verwalten* sind über den Unterpunkt *Plugins verwalten* all
 
 Benutzer mit Administrationsberechtigungen können an dieser Stelle Plugins entsprechend ihrer Abhängigkeiten deinstallieren. Hierbei ist besonders darauf zu achten, dass das **CAS Plugin betriebsnotwendig** ist und damit niemals deinstalliert werden darf. Sollte dieses dennoch entfernt werden, ist ein Start des Jenkins Dogus nicht mehr möglich.
 
-![CAS Plugin im Jenkins](images/jenkins/Jenkins_CAS.png)
+![CAS Plugin im Jenkins](figures/jenkins/Jenkins_CAS.png)
