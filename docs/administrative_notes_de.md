@@ -1,7 +1,3 @@
----
-title: "Administrationshinweise"
----
-
 # Administrationshinweise
 
 ## Berechtigungen neuer Nutzer im User Management

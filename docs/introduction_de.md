@@ -1,8 +1,5 @@
----
-title: "Einleitung"
----
-
 # Einleitung
+
 ## Was ist das Cloudogu EcoSystem?
 Das Cloudogu EcoSystem ist eine Plattform, die Entwicklungsteams die Freiheit gibt, selbst zu entscheiden, wann und wo sie Software entwickeln. Dazu werden jeder Service und jedes Tool als ein sogenanntes Dogu bereitgestellt und automatisch aufeinander abgestimmt und konfiguriert.
 Dadurch hält das Cloudogu EcoSystem eine Reihe von Vorzügen für Softwareentwicklerinnen und Softwareentwickler bereit:

@@ -1,10 +1,6 @@
----
-title: "Administration notes"
----
+# administration notes
 
 Translated with www.DeepL.com/Translator
-
-# administration notes
 
 ## Authorizations of new users in User Management
 ### Groups

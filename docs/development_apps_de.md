@@ -1,7 +1,3 @@
----
-title: "Weitere Dogus"
----
-
 # Weitere Dogus
 Das Cloudogu EcoSystem stellt über mehrere Dogus die folgenden Applikationen zur Verfügung:
 
