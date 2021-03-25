@@ -34,7 +34,7 @@ Auszug aus den Sicherheitsma\ss nahmen:
 * verschlüsselte Ablage sensibler Informationen innerhalb der Dogus (ein Schlüsselpaar pro Dogu)
 * dedizierte systemische Zugriffsberechtigungen für den Zugriff auf Tools bzw. für die Tool-Kommunikation
 
-\pagebreak
+
 
 ## Technologisches Umfeld
 Das Cloudogu EcoSystem basiert auf einem Linux-Image, welches für verschiedene Virtualisierungsumgebungen bereitgestellt wird. Die Installation kann sowohl manuell über einen Browser als auch automatisch über eine Parameterdatei erfolgen, die die Installation der als Docker-Container realisierten Dogus vornimmt. Die einzelnen Container werden über eine eigens dafür programmierte Middleware zentral konfiguriert. Die Abbilder bzw. Versionen der Dogus können sowohl online als auch "on Premise" als Mirror bereitgestellt werden, so dass keine Internet Verbindung benötigt wird.

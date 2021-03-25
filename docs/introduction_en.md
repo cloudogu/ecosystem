@@ -36,7 +36,7 @@ Excerpt from the security measures:
 * encrypted storage of sensitive information within the dogus (one key pair per dogu)
 * dedicated systemic access permissions for tool access and tool communication respectively
 
-\pagebreak
+
 
 ## Technological environment
 The Cloudogu EcoSystem is based on a Linux image provided for various virtualization environments. The installation can be done manually via a browser or automatically via a parameter file, which installs the dogus realized as Docker containers. The individual containers are configured centrally via specially programmed middleware. The images or versions of the Dogus can be deployed both online and "on premise" as a mirror, so that no Internet connection is required.
