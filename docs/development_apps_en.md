@@ -7,7 +7,7 @@ The Cloudogu EcoSystem provides the following applications through multiple dogu
 ## SCM Manager
 The SCM Manager is a repository management tool in which Git, Mercurial and Subversion type repositories can be managed via a web interface. The application can be extended in many ways via plugins.
 
-The official documentation of the application can be found here: https://bitbucket.org/sdorra/scm-manager/wiki/Home
+The official documentation of the application can be found here: https://scm-manager.org/docs/latest/en/
 
 ## Jenkins
 Jenkins is an automation server that can automate all non-human aspects of software development. Thus, it offers all the prerequisites for Continuous Integration or even Continuous Deployment. Over Plugins the application can be extended versatile.
