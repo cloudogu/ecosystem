@@ -1,4 +1,4 @@
-## Wie man ein CES-Image erstellt
+# Wie man ein CES-Image erstellt
 ## Anforderungen
 * `git` installiert
 * `packer` installiert (siehe [packer.io](https://www.packer.io/))

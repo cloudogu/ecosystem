@@ -1,4 +1,4 @@
-## Bash-Skript-Richtlinie
+# Bash-Skript-Richtlinie
 
 ## Start with a shebang
 Die erste Zeile in einem Bash-Skript sollte
