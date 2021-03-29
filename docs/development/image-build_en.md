@@ -1,12 +1,12 @@
-## How to build a CES-image
-### Requirements
+# How to build a CES-image
+## Requirements
 * `git` installed
 * `packer` installed (see [packer.io](https://www.packer.io/))
 * `VirtualBox`, `QEMU` and/or `VMware` installed
 
-### 1. Check out the ecosystem repository
+## 1. Check out the ecosystem repository
  * `git clone https://github.com/cloudogu/ecosystem.git`
-### 2. Build the image(s) with packer
+## 2. Build the image(s) with packer
 * `cd <ecosystem-path>/images/`
 * `packer build -var "timestamp=$(date +%Y%m%d)" template.prod.json`
     * Builds all images for production
@@ -20,7 +20,7 @@
         * [vagrant.sh](https://github.com/cloudogu/ecosystem/blob/develop/images/scripts/dev/vagrant.sh)
     * The default user is `vagrant` with password `vagrant`
 
-### 3. Wait
+## 3. Wait
 * The image build process lasts around 45 minutes, depending on your hardware
-### 4. Finish
+## 4. Finish
 * The image(s) can be found in `<ecosystem-path>/images/output-*`
