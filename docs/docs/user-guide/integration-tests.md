@@ -1,12 +1,14 @@
-# Integration-Tests (outdated)
+# Outdated: This mechanism is outdated
+
+## Integration-Tests (outdated)
 
 This repository consists of integration-tests for the cloudogu ecosystem setup via setup.json. The tests are written in Java inside a Maven Project which uses Selenium and Gauge as plugins for testing using automated browser input.
 
-## Installation
+### Installation
 
 Before you can use integration-tests you have to make some presets to your system. These presets consist of maven and gauge as plugins and chromedriver an driver to use selenium with Google Chrome which is the preferred web browser for the integration-tests.   
 
-### Install Apache Maven
+#### Install Apache Maven
 
 Maven is mandatory because the integration test project is written as an maven project. To install maven on your linux system perform the following steps.
 
@@ -23,7 +25,7 @@ tar xzvf apache-maven-3.3.9-bin.tar.gz
 - Now add the `bin` directory of the created directory `apache-maven-3.3.9` to the `PATH` environment variable.
 - Verify your version with `mvn -v`.
 
-### Installing Gauge
+#### Installing Gauge
 
 The integration tests are executed via gauge an light-weight cross-platform test automation tool. To run the tests you have to download gauge as described.
 
@@ -34,7 +36,7 @@ unzip gauge-$VERSION-$OS.$ARCH.zip
 ./install.sh
 ```
 
-### Installing chromedriver
+#### Installing chromedriver
 
 It is necessary to have chromedriver installed on your system to run integration tests via Google Chrome. Google Chrome is preferable to Firefox due to connection issues.
 
@@ -61,11 +63,11 @@ sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
 ```
 - Now chromedriver will be found on your system.    
 
-## Executing integration-tests
+### Executing integration-tests
 
 In the following section setting up variables to start integration-tests will be described. Short examples show how to start Gauge tests using Maven via command line.
 
-### Configurate Url
+#### Configurate Url
 
 If you are in the `integration-tests` folder, you might configurate the test environment variables using the command line as follows without changing `gauge_jvm_args` manually in the file `./env/default/java.properties`:
 ```
@@ -77,7 +79,7 @@ gauge_jvm_args= -Deco.system=https://192.168.115.136 mvn test
 ```
 This command will define `-D` the system property `eco.system` which is needed for the test environment and execute `mvn test` to start the integration-tests with that property. The specified url should be the same url to open cloudogu in the browser. Once configurated integration tests can be started with `mvn test`.
 
-### Start certain tests using tags
+#### Start certain tests using tags
 
 While `mvn test` will start all Gauge specifications defined in the integration-tests, it might be useful only to start certain tests. The scenarios inside the specification files are marked with tags. So if only that scenario should be started you have to enter `mvn test -Dtags=${tag}` where `${tag}` is predefined in the spec files in the `specs` directory. An command could be `mvn test -Dtags=jenkins` to start all Jenkins scenarios. The following values for `${tag}` are allowed:
 
@@ -108,7 +110,7 @@ Tags              | jenkins  | redmine  | usermgt  | sonar | nexus | scm
 **groups**        | *yes*    | *yes*    | *no*     | *yes* | *yes* | *yes*       
 **attributes**    | *yes*    | *yes*    | *no*     | *yes* | *no*  | *yes*      
 
-## Specifications
+### Specifications
 
 Maven uses Gauge as an plugin which is executed in the test scope. Gauge consists of files with spec extension so called Specifications. If you run `mvn test` in integration-tests all files inside the `specs/` directory with spec extension will be executed. Specifications consist of scenarios, which again consist of a set of procedural Steps. E.g. all combined tests for Jenkins are combined in one spec file which are all tagged with `jenkins`, single tests inside the file are scenarios. Go on [Gauge web site](http://getgauge.io/documentation/user/current/) for more informations about the gauge syntax.
 
