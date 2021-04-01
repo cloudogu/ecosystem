@@ -1,4 +1,4 @@
 # Outdated
 
 # Welcome to Ecosystem Documentation
-Documentation coming soon...
+The documentation has moved to /docs. See: https://github.com/cloudogu/ecosystem/blob/develop/docs/
