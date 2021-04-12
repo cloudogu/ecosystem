@@ -1,3 +1,5 @@
+# Outdated: This mechanism is outdated
+
 ## How to migrate to Cloudogu Ecosystem
 ### Jenkins
  * Stop jenkins dogu via `service ces-jenkins stop` and `docker stop jenkins`

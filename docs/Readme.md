@@ -1,3 +1,5 @@
+# Outdated: This file is outdated
+
 ### Getting started with MkDocs
 
 * For all prerequisites to use MkDocs go on [MkDocs](http://www.mkdocs.org/)
