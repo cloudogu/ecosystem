@@ -20,7 +20,7 @@ if [ -z "${KEY}" ]; then
   exit 1
 fi
 # Add repository
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com focal main"
+echo "deb [arch=amd64] https://apt.releases.hashicorp.com focal main" > /etc/apt/sources.list.d/hashicorp.list
 # Install Terraform
 apt-get -y update
 apt-get -y install terraform=${TERRAFORM_VERSION}

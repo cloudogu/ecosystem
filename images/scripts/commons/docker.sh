@@ -20,8 +20,7 @@ if [ -z "${KEY}" ]; then
   exit 1
 fi
 # Add stable repository
-sudo add-apt-repository "deb [arch=amd64] \
-https://download.docker.com/linux/ubuntu focal stable"
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" > /etc/apt/sources.list.d/docker.list
 # Install Docker
 apt-get -y update
 apt-get -y install docker-ce=${DOCKER_VERSION}
