@@ -14,6 +14,7 @@ title: "Cloudogu EcoSystem Quickstartguide"
 permalink: /de/ecosystem/ces-quick-start-guide/
 last_modified_at: '2020-07-30 10:00:00 +0200'
 crumbcategory: "ecosystem"
+docsCloudoguComUrl: "/quickstart/"
 crumbtitle: "Quickstart Guide"
 ---
 
