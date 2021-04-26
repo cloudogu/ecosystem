@@ -1,0 +1,100 @@
+#cloud-config
+autoinstall:
+  # Version of the autoinstall-specification
+  version: 1
+
+  # Settings for the apt repositories
+  apt:
+    geoip: true
+    preserve_sources_list: false
+    primary:
+      - arches: [ amd64, i386 ]
+        uri: http://de.archive.ubuntu.com/ubuntu
+      - arches: [ default ]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+
+  # Settings for the user and groups
+  # The password is "ces-admin"
+  identity:
+    hostname: ces
+    password: $6$eXtrTEXrpV8WK64H$pvrncLTd2VyZ8sOk8hHc1PGl1ACmtv9Bu7Fsv69m0hu8ELYNipZcjwd9dfZzwMdlYuUYgiiA/rXYK.2v6Wi.X0
+    realname: ces-admin
+    username: ces-admin
+
+  # Contains the settings for the keyboard
+  keyboard:
+    layout: us
+    toggle: null
+    variant: ''
+
+  # The target locale
+  locale: en_US
+
+  # Contains settings for the ssh server
+  ssh:
+    allow-pw: true
+    authorized-keys: [ ]
+    install-server: true
+
+  # Contains the definition of the systems partitions
+  storage:
+    version: 1
+    swap:
+      size: 0
+    config:
+      - id: vda
+        type: disk
+        ptable: gpt
+        path: /dev/vda
+        wipe: superblock
+        grub_device: true
+
+      - id: vda1-bios
+        device: vda
+        type: partition
+        number: 1
+        size: 1MB
+        flag: bios_grub
+      - id: vda2-boot
+        device: vda
+        type: partition
+        number: 2
+        size: 1GB
+        flag: boot
+      - id: vda3-swap
+        device: vda
+        type: partition
+        number: 3
+        size: 8G
+        flag: swap
+      - id: vda4-root
+        device: vda
+        type: partition
+        number: 4
+        size: -1
+
+      - id: vda2-boot-ext4
+        type: format
+        volume: vda2-boot
+        fstype: ext4
+      - id: vda3-swap-swap
+        type: format
+        volume: vda3-swap
+        fstype: swap
+      - id: vda4-root-btrfs
+        type: format
+        volume: vda4-root
+        fstype: btrfs
+
+      - id: mount-vda4-root
+        type: mount
+        path: /
+        device: vda4-root-btrfs
+      - id: mount-vda2-boot
+        type: mount
+        path: /boot
+        device: vda2-boot-ext4
+      - id: mount-vda3-swap
+        type: mount
+        path: /swap.img
+        device: vda3-swap-swap
