@@ -1,0 +1,100 @@
+#cloud-config
+autoinstall:
+  # Version of the autoinstall-specification
+  version: 1
+
+  # Settings for the apt repositories
+  apt:
+    geoip: true
+    preserve_sources_list: false
+    primary:
+      - arches: [ amd64, i386 ]
+        uri: http://de.archive.ubuntu.com/ubuntu
+      - arches: [ default ]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+
+  # Settings for the vagrant user
+  # The password is "vagrant"
+  identity:
+    hostname: ces
+    password: '$2y$12$zfS.Dpm682guriw6fJ5PXu4Kv7GSs7VYHUPGphQdSnT0wb4Rt1tVS'
+    realname: vagrant
+    username: vagrant
+
+  # Contains the settings for the keyboard
+  keyboard:
+    layout: us
+    toggle: null
+    variant: ''
+
+  # The target locale
+  locale: en_US
+
+  # Contains settings for the ssh server
+  ssh:
+    allow-pw: true
+    authorized-keys: [ ]
+    install-server: true
+
+  # Contains the definition of the systems partitions
+  storage:
+    version: 1
+    swap:
+      size: 0
+    config:
+      - id: sda
+        type: disk
+        ptable: gpt
+        path: /dev/sda
+        wipe: superblock
+        grub_device: true
+
+      - id: sda1-bios
+        device: sda
+        type: partition
+        number: 1
+        size: 1MB
+        flag: bios_grub
+      - id: sda2-boot
+        device: sda
+        type: partition
+        number: 2
+        size: 1GB
+        flag: boot
+      - id: sda3-swap
+        device: sda
+        type: partition
+        number: 3
+        size: 8G
+        flag: swap
+      - id: sda4-root
+        device: sda
+        type: partition
+        number: 4
+        size: -1
+
+      - id: sda2-boot-ext4
+        type: format
+        volume: sda2-boot
+        fstype: ext4
+      - id: sda3-swap-swap
+        type: format
+        volume: sda3-swap
+        fstype: swap
+      - id: sda4-root-btrfs
+        type: format
+        volume: sda4-root
+        fstype: btrfs
+
+      - id: mount-sda4-root
+        type: mount
+        path: /
+        device: sda4-root-btrfs
+      - id: mount-sda2-boot
+        type: mount
+        path: /boot
+        device: sda2-boot-ext4
+      - id: mount-sda3-swap
+        type: mount
+        path: /swap.img
+        device: sda3-swap-swap
