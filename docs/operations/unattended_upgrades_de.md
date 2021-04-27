@@ -30,4 +30,14 @@ APT::Periodic::Unattended-Upgrade "1";
 Um zu überprüfen, ob automatische Updates aktiviert sind, führen Sie den Befehl `apt-config dump APT::Periodic::Unattended-Upgrade` aus.
 Die Ausgabe sollte lauten: `APT::Periodic::Unattended-Upgrade "1";`
 
-Übersetzt mit www.DeepL.com/Translator (kostenlose Version)
+## Troubleshooting
+### Ubuntu Versionen <= 16.04 erhält keine apt updates mehr
+Im April 2021 wird die LTS Version von [Ubuntu 16.04 nicht mehr mit Updates versorgt](https://ubuntu.com/about/release-cycle).
+Aus diesem Grund unterstützt auch das Cloudogu Ecosystem die Ubuntu Version 16.04 nicht weiter. Aus diesem Grund wurde auch das apt-Repository geändert aus dem updates gezogen werden.
+Sollten Sie nun eine ältere Cloduogu Version nutzen legen wir Ihnen nahe Ihre Ubuntu Version auf mindestens 18.04 zu updaten. Sollten Sie nun per:
+```shell
+apt-get update
+apt-get upgrade
+```
+ein Update durchführen. Erhalten Sie weiterhin keine Updates empfehlen wir die Datei `/etc/apt/sources.list.d/ces.list` zu konsultieren. Hier muss der Link auf das apt-repo ` https://apt.cloudogu.com/ces/` verweisen. Die Version des ces-commons sollte außerdem mindestens. `0.8.0` betragen.
+Dies lässt sich mit dem Befehl `apt list | grep ces-commons` überprüfen.
