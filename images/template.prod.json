@@ -65,21 +65,16 @@
 			"iso_checksum": "{{user `iso_checksum`}}",
 			"ssh_username": "{{user `username`}}",
 			"ssh_password": "{{user `password`}}",
-			"ssh_wait_timeout": "10000s",
+			"ssh_handshake_attempts": "10000",
+			"ssh_timeout": "15m",
 			"http_directory": "http/prod",
 			"headless": false,
 			"tools_upload_flavor": "linux",
 			"boot_wait": "5s",
 			"boot_command": [
-				"<enter><wait><f6><esc>",
-				"/install/vmlinuz ",
-				"preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/prod/preseed.cfg ",
-				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-				"hostname={{user `vm_name`}} ",
-				"fb=false debconf/frontend=noninteractive net.ifnames=0 ",
-				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-				"keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-				"initrd=/install/initrd.gz -- <enter>"
+				"<enter><enter><f6><esc><wait> ",
+				"autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
+				"<enter>"
 			],
 			"shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now"
 
