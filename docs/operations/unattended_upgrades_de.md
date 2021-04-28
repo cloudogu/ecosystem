@@ -30,14 +30,14 @@ APT::Periodic::Unattended-Upgrade "1";
 Um zu überprüfen, ob automatische Updates aktiviert sind, führen Sie den Befehl `apt-config dump APT::Periodic::Unattended-Upgrade` aus.
 Die Ausgabe sollte lauten: `APT::Periodic::Unattended-Upgrade "1";`
 
-## Troubleshooting
-### Ubuntu Versionen <= 16.04 erhält keine apt updates mehr
-Im April 2021 wird die LTS Version von [Ubuntu 16.04 nicht mehr mit Updates versorgt](https://ubuntu.com/about/release-cycle).
-Aus diesem Grund unterstützt auch das Cloudogu Ecosystem die Ubuntu Version 16.04 nicht weiter. Aus diesem Grund wurde auch das apt-Repository geändert aus dem updates gezogen werden.
-Sollten Sie nun eine ältere Cloduogu Version nutzen legen wir Ihnen nahe Ihre Ubuntu Version auf mindestens 18.04 zu updaten. Sollten Sie nun per:
+# Troubleshooting
+## Ubuntu-Versionen <= 16.04 erhalten keine apt-Updates mehr
+Seit April 2021 wird die LTS-Version von [Ubuntu 16.04 nicht mehr mit Updates versorgt](https://ubuntu.com/about/release-cycle).
+Aus diesem Grund unterstützt auch das Cloudogu Ecosystem (CES) die Ubuntu-Version 16.04 nicht weiter. Zusätzlich wurde auch das apt-Repository von Cloudogu geändert, aus dem die apt-Pakete des Cloudogu EcoSystem gezogen werden.
+Sollten Sie nun eine ältere Cloudogu-Version nutzen, legen wir Ihnen nahe Ihre Ubuntu-Version auf mindestens 18.04 zu updaten. Bitte führen Sie zuerst ein Update mit folgenden Befehlen aus:
 ```shell
 apt-get update
 apt-get upgrade
 ```
-ein Update durchführen. Erhalten Sie weiterhin keine Updates empfehlen wir die Datei `/etc/apt/sources.list.d/ces.list` zu konsultieren. Hier muss der Link auf das apt-repo ` https://apt.cloudogu.com/ces/` verweisen. Die Version des ces-commons sollte außerdem mindestens. `0.8.0` betragen.
-Dies lässt sich mit dem Befehl `apt list | grep ces-commons` überprüfen.
+Das Paket `ces-commons` sollte jetzt in mindestens Version `0.8.0` installiert sein. Dies lässt sich mit dem Befehl `apt list | grep ces-commons` überprüfen.
+Erhalten Sie weiterhin keine Updates für CES-Pakete empfehlen wir die Datei `/etc/apt/sources.list.d/ces.list` zu überprüfen. Diese sollte eine Zeile der Form `deb [arch=amd64] https://apt.cloudogu.com/ces/ bionic main` enthalten.
