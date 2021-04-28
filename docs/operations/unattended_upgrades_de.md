@@ -39,5 +39,6 @@ Sollten Sie nun eine ältere Cloudogu-Version nutzen, legen wir Ihnen nahe Ihre 
 apt-get update
 apt-get upgrade
 ```
-Das Paket `ces-commons` sollte jetzt in mindestens Version `0.8.0` installiert sein. Dies lässt sich mit dem Befehl `apt list | grep ces-commons` überprüfen.
+Das Paket `ces-commons` sollte nun in mindestens Version `0.8.0` installiert sein. Dies lässt sich mit dem Befehl `apt list | grep ces-commons` überprüfen.
+
 Erhalten Sie weiterhin keine Updates für CES-Pakete empfehlen wir die Datei `/etc/apt/sources.list.d/ces.list` zu überprüfen. Diese sollte eine Zeile der Form `deb [arch=amd64] https://apt.cloudogu.com/ces/ bionic main` enthalten.

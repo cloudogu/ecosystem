@@ -31,13 +31,14 @@ To validate that automatic updates are activated, run the command `apt-config du
 The output should be: `APT::Periodic::Unattended-Upgrade "1";`
 
 ## Troubleshooting
-### Ubuntu versions <= 16.04 will longer receives apt updates
-In April 2021, the LTS version of [Ubuntu 16.04 will no longer receive updates](https://ubuntu.com/about/release-cycle).
-Subsequently, the Cloudogu Ecosystem will also no longer support Ubuntu version 16.04. For this reason, the apt repository from which updates are pulled has also been changed.
-If you are now using an older Cloduogu version, we suggest you update your Ubuntu version to at least 18.04. If you should now use:
+## Ubuntu versions <= 16.04 no longer receive apt updates.
+As of April 2021, the LTS version of [Ubuntu 16.04 will no longer receive updates](https://ubuntu.com/about/release-cycle).
+For this reason, the Cloudogu Ecosystem (CES) will also no longer support Ubuntu version 16.04. In addition, Cloudogu's apt repository, from which the Cloudogu EcoSystem apt packages are pulled, has also been changed.
+If you are now using an older Cloudogu version, we suggest you update your Ubuntu version to at least 18.04. Please run an update with the following commands first:
 ```shell
 apt-get update
 apt-get upgrade
 ```
-to perform an update. If you still do not receive any updates we recommend to consult the file `/etc/apt/sources.list.d/ces.list`. Here the link must point to the apt-repo ` https://apt.cloudogu.com/ces/`. The version of the ces-commons should also be at least. `0.8.0`.
-This can be checked with the command `apt list | grep ces-commons`.
+The package `ces-commons` should now be installed in at least version `0.8.0`. This can be checked with the command `apt list | grep ces-commons`.
+
+If you still do not receive updates for CES packages we recommend to check the file `/etc/apt/sources.list.d/ces.list`. This should contain a line of the form `deb [arch=amd64] https://apt.cloudogu.com/ces/ bionic main`.
