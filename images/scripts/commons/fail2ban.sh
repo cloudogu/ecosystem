@@ -20,6 +20,7 @@ echo "install fail2ban - end"
 echo "configuring fail2ban for sshd"
 
 # Values are taken from default configuration
+fail2ban-client set sshd addignoreip 127.0.0.1/8
 fail2ban-client set sshd maxretry 5
 fail2ban-client set sshd findtime 10m
 fail2ban-client set sshd bantime 10m
