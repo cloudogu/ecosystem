@@ -61,11 +61,11 @@ Die Attribute haben folgende Bedeutung:
 * `maxretry`: legt die Anzahl der Fehlversuche fest, bevor der Host gesperrt wird
 * `findtime`: legt die Anzahl der Sekunden fest, für die der Filter nach Fehlversuchen zurücksucht
 * `bantime`: legt die Anzahl der Sekunden fest, für die ein Host für gesperrt wird
-* `logpath`: fügt eine bestimmte Logdatei zur Überwachungsliste von hinzu
+* `logpath`: fügt eine bestimmte Logdatei zur Überwachungsliste hinzu
 
 Die Konfiguration erfolgt dabei jeweils separat für einen Serverdienst.
 
-### Manuelle Konfiguration
+### Default-Konfiguration / Manuelle Konfiguration
 
 fail2ban bringt einen Kommandozeilen-Client mit, über den diverse Aktionen mit fail2ban möglich sind. Über diesen Client
 kann die Konfiguration von fail2ban erstellt und angepasst werden.
@@ -76,7 +76,8 @@ Die grundsätzliche Überprüfung von ssh-Verbindungen kann über folgenden Befe
 fail2ban-client start sshd
 ```
 
-Über den Client kann dann auch eine entsprechende Konfiguration zur Überprüfung eingestellt werden:
+Über den fail2ban-Client kann dann auch eine entsprechende Konfiguration zur Überprüfung eingestellt werden. Für neue
+CES-Instanzen werden folgende Default-Einstellungen über den fail2ban-client konfiguriert:
 
 ```
 fail2ban-client set sshd addignoreip 127.0.0.1/8

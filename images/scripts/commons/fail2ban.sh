@@ -14,8 +14,6 @@ echo "installing fail2ban"
 apt-get -y update
 apt-get -y install fail2ban=${FAIL2BAN_VERSION}
 
-echo "install fail2ban - end"
-
 # Configure fail2ban for sshd
 echo "configuring fail2ban for sshd"
 
@@ -25,5 +23,3 @@ fail2ban-client set sshd maxretry 5
 fail2ban-client set sshd findtime 10m
 fail2ban-client set sshd bantime 10m
 fail2ban-client set sshd addlogpath /var/log/auth.log
-
-echo "configuring fail2ban for sshd - end"
