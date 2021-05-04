@@ -1,4 +1,4 @@
-# So erstellen Sie einen Dogu
+# Wie man ein Dogu erstellt
 ## 1. Verzeichnis dogu erstellen
 Erstellen Sie das Verzeichnis /ecosystem/containers/'newDoguName' und legen Sie diese grundlegenden Dateien darin ab:
 
