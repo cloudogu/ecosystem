@@ -29,7 +29,7 @@ sudo apt install fail2ban
 Um eine bestimmte Version von fail2ban zu installieren, kann alternativ folgender Befehl ausgeführt werden:
 
 ```
-FAIL2BAN_VERSION=0.10.2-2
+FAIL2BAN_VERSION=0.11.1-1
 apt-get -y install fail2ban=${FAIL2BAN_VERSION}
 ```
 

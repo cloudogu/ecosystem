@@ -4,7 +4,7 @@ set -o nounset
 set -o pipefail
 
 # Install fail2ban
-FAIL2BAN_VERSION=0.10.2-2
+FAIL2BAN_VERSION=0.11.1-1
 
 export DEBIAN_FRONTEND=noninteractive
 
