@@ -56,6 +56,7 @@
         "scripts/dev/dependencies.sh",
         "scripts/commons/docker.sh",
         "scripts/commons/terraform.sh",
+        "scripts/commons/fail2ban.sh",
         "scripts/commons/etcd.sh",
         "scripts/commons/networking.sh",
         "scripts/commons/cleanup.sh",
