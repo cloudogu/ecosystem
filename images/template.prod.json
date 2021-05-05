@@ -146,6 +146,7 @@
 				"scripts/commons/guestadditions.sh",
 				"scripts/commons/docker.sh",
 				"scripts/commons/terraform.sh",
+				"scripts/commons/fail2ban.sh",
 				"scripts/commons/etcd.sh",
 				"../install.sh",
 				"scripts/commons/networking.sh",

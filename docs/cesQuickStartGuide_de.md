@@ -5,6 +5,7 @@ lang: de
 ref: ces-quickstart
 section: services
 switcher: true
+canonical: https://cloudogu.com/de/ecosystem/quick-start-guide/
 summary: "Quickstartguide für das Cloudogu EcoSystem: VirtualBox Import, Registrierung, Konfigration und Setup."
 description: "Quickstartguide für das Cloudogu EcoSystem: VirtualBox Import, Registrierung, Konfigration und Setup."
 cardsimage: /figures/cesQuickStartGuide/image9.png
@@ -14,6 +15,7 @@ title: "Cloudogu EcoSystem Quickstartguide"
 permalink: /de/ecosystem/ces-quick-start-guide/
 last_modified_at: '2020-07-30 10:00:00 +0200'
 crumbcategory: "ecosystem"
+docsCloudoguComUrl: "/quickstart/"
 crumbtitle: "Quickstart Guide"
 ---
 
