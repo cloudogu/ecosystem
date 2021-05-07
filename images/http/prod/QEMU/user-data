@@ -98,3 +98,12 @@ autoinstall:
         type: mount
         path: /swap.img
         device: vda3-swap-swap
+  network:
+    network:
+      version: 2
+      renderer: networkd
+      ethernets:
+        enp1s0:
+          dhcp4: yes
+        ens3:
+          dhcp4: yes
