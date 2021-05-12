@@ -6,7 +6,7 @@ set -o pipefail
 # Install docker
 # See https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-DOCKER_VERSION=5:20.10.2~3-0~ubuntu-bionic
+DOCKER_VERSION=5:20.10.6~3-0~ubuntu-focal
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -20,8 +20,7 @@ if [ -z "${KEY}" ]; then
   exit 1
 fi
 # Add stable repository
-sudo add-apt-repository "deb [arch=amd64] \
-https://download.docker.com/linux/ubuntu bionic stable"
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" > /etc/apt/sources.list.d/docker.list
 # Install Docker
 apt-get -y update
 apt-get -y install docker-ce=${DOCKER_VERSION}

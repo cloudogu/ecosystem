@@ -4,36 +4,52 @@
     "username": "vagrant",
     "password": "vagrant",
     "memory": "8192",
-    "cpus": "4"
+    "cpus": "4",
+    "iso_url": "https://releases.ubuntu.com/20.04.2/ubuntu-20.04.2-live-server-amd64.iso",
+    "iso_checksum": "sha256:d1f2bf834bbe9bb43faf16f9be992a6f3935e65be0edece1dee2aa6eb1767423"
   },
   "builders": [
     {
       "name": "ecosystem-basebox",
       "type": "virtualbox-iso",
       "guest_os_type": "Ubuntu_64",
-      "iso_urls": [
-        "http://cdimage.ubuntu.com/releases/18.04.5/release/ubuntu-18.04.5-server-amd64.iso"
-      ],
-      "iso_checksum": "sha256:8c5fc24894394035402f66f3824beb7234b757dd2b5531379cb310cedfdf0996",
+      "vm_name": "{{user `vm_name`}}",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
       "ssh_username": "{{user `username`}}",
       "ssh_password": "{{user `password`}}",
-      "ssh_wait_timeout": "10000s",
-      "http_directory": "http",
+      "ssh_handshake_attempts": "10000",
+      "ssh_timeout": "15m",
+      "http_directory": "http/dev",
       "headless": false,
       "boot_wait": "5s",
       "boot_command": [
-        "<enter><wait><f6><esc>",
-        "/install/vmlinuz ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/dev/preseed.cfg ",
-        "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-        "hostname={{user `vm_name`}} ",
-        "fb=false debconf/frontend=noninteractive net.ifnames=0 ",
-        "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
-        "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "<enter><enter><f6><esc><wait> ",
+        "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
+        "<enter>"
       ],
       "shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now",
-      "hard_drive_interface": "sata"
+      "hard_drive_interface": "sata",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{user `vm_name`}}",
+          "--memory",
+          "{{user `memory`}}"
+        ],
+        [
+          "modifyvm",
+          "{{user `vm_name`}}",
+          "--cpus",
+          "{{user `cpus`}}"
+        ],
+        [
+          "modifyvm",
+          "{{user `vm_name`}}",
+          "--vram",
+          "10"
+        ]
+      ]
     }
   ],
   "provisioners": [
@@ -46,7 +62,19 @@
         "HOME_DIR=/home/{{user `username`}}"
       ],
       "scripts": [
-        "scripts/commons/update.sh",
+        "scripts/commons/ces_apt.sh",
+        "scripts/commons/update.sh"
+      ]
+    },
+    {
+      "type": "shell",
+      "execute_command": "echo {{user `password`}} | {{.Vars}} sudo -S -E /bin/bash -eux '{{.Path}}'",
+      "pause_before": "5s",
+      "environment_vars": [
+        "INSTALL_HOME=/vagrant",
+        "HOME_DIR=/home/{{user `username`}}"
+      ],
+      "scripts": [
         "scripts/commons/dependencies.sh",
         "scripts/commons/sshd.sh",
         "scripts/commons/grub.sh",

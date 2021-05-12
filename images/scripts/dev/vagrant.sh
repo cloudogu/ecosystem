@@ -12,5 +12,8 @@ wget --no-check-certificate 'https://raw.github.com/mitchellh/vagrant/master/key
 chmod 0600 /home/vagrant/.ssh/authorized_keys
 chown -R vagrant /home/vagrant/.ssh
 
+# Configure vagrant user for password-less sudo
+echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 # Customize the message of the day
 echo 'Development Environment' > /etc/motd

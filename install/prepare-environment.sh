@@ -21,7 +21,3 @@ if [ ! -d /var/log/docker ]; then
 fi
 chown syslog /var/log/docker
 systemctl restart rsyslog.service
-
-# Enable IP change check service
-systemctl daemon-reload
-systemctl enable ipchangecheck.service
