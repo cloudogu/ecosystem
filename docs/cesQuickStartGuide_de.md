@@ -38,7 +38,7 @@ Zur Verifizierung des Images können Sie noch den SHA256-Hash des Images <a targ
 
 ## Vorbereitungen
 
-Um mit dem [Cloudogu EcoSystem](/de/ecosystem ) zu starten,  benötigen Sie eine Virtualisierungsumgebung um die Plattform zu betreiben. Idealerweise besitzen Sie eine leistungsstarke lokale Maschine oder verfügen über bereitgestellte Hardware in einem Rechenzentrum.
+Um mit dem [Cloudogu EcoSystem](https://cloudogu.com/de/ecosystem/) zu starten,  benötigen Sie eine Virtualisierungsumgebung um die Plattform zu betreiben. Idealerweise besitzen Sie eine leistungsstarke lokale Maschine oder verfügen über bereitgestellte Hardware in einem Rechenzentrum.
 
 Ihr Hoster hält vermutlich eine Anleitung bereit, wie Sie Images von Dritten in Ihr System laden und verwenden können.
 Sollten Sie das Image nicht in einer Serverumgebung betreiben, empfehlen wir die aktuelle Version der <a target="_blank" rel="noreferrer" title="VirtualBox Wiki" href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>.
