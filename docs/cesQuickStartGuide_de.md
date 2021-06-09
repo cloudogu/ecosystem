@@ -127,7 +127,7 @@ Suchen Sie Ihre Werkzeuge (Dogus) aus und legen Sie ein Dogu als Startseite nach
 
 <img alt="Dogu Auswahl" src="figures/cesQuickStartGuide/image4.png">
 
-Details zu den Dogus finden Sie in unserem <a target="_self" title="Dogus – Cloudogu Glossar" href="/de/glossar/dogu">Glossar</a>.
+Details zu den Dogus finden Sie in unserem <a target="_self" title="Dogus – Cloudogu Glossar" href="https://cloudogu.com/de/glossar/dogu">Glossar</a>.
 
 **Hinweis:** Abhängigkeiten zwischen Dogus werden automatisch berücksichtigt. Wenn Sie also z.B. „Jenkins CI“ auswählen, werden automatisch auch „Central Authentication Service“, „Nginx“, „Postfix“ und „Registrator“ ausgewählt, da diese für den Betrieb von Jenkins benötigt werden.
 
