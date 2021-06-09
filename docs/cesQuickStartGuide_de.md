@@ -72,7 +72,7 @@ Die Registrierung der Instanz ist notwendig um Zugriff auf die von uns bereitges
 
 * <a target="_self" title="Informationen zu unseren Dogus" href="https://cloudogu.com/de/glossar/dogu">Informationen zu unseren Dogus</a>
 
-* <a target="_self" title="Informationen zu möglichen Instanzen" href="/de/ecosystem/#pricing">Informationen zu möglichen Instanzen</a>
+* <a target="_self" title="Informationen zu möglichen Instanzen" href="https://cloudogu.com/de/ecosystem/#pricing">Informationen zu möglichen Instanzen</a>
 
 * <a target="_self" title="Datenschutzerklärung" href="https://cloudogu.com/de/privacy/">Datenschutzerklärung</a>
 
