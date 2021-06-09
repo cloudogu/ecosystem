@@ -23,7 +23,7 @@ crumbtitle: "Quickstart Guide"
 
 # Cloudogu EcoSystem via VirtualBox installieren
 
-Hallo und vielen Dank für Ihr Interesse an unserem [Cloudogu EcoSystem](/de/ecosystem ). Sollten Sie Anregungen oder Fragen haben, kontaktieren Sie uns gerne via <a title="E-Mail an Cloudogu senden" href="mailto:hello@cloudogu.com?subject=Hello%20Cloudogu">hello@cloudogu.com</a> oder telefonisch unter <a title="Cloudogu anrufen" href="tel:+4953161808880">+49. 531. 61 80 88 80</a>.
+Hallo und vielen Dank für Ihr Interesse an unserem [Cloudogu EcoSystem](https://cloudogu.com/de/ecosystem/). Sollten Sie Anregungen oder Fragen haben, kontaktieren Sie uns gerne via <a title="E-Mail an Cloudogu senden" href="mailto:hello@cloudogu.com?subject=Hello%20Cloudogu">hello@cloudogu.com</a> oder telefonisch unter <a title="Cloudogu anrufen" href="tel:+4953161808880">+49. 531. 61 80 88 80</a>.
 
 ## Wie erhalten Sie Ihr Image?
 
@@ -70,11 +70,11 @@ Zum Importieren des Images bei Ihrem Hoster konsultieren Sie bitte dessen FAQ. D
 Die Registrierung der Instanz ist notwendig um Zugriff auf die von uns bereitgestellten Dogus zu erhalten. Ihre erste Instanz ist gänzlich kostenfrei. Bei Fragen können Sie sich jederzeit an uns wenden. Sollten Sie Bedarfe haben die mit unserem Community Angebot nicht gedeckt sind, bieten wir Ihnen maßgeschneiderte Kooperationsverträge an. Hierzu zählt auch die Implementierung von weiteren Dogus, die Ihre Bedürfnisse komplettieren.
 
 
-* <a target="_self" title="Informationen zu unseren Dogus" href="/de/glossar/dogu">Informationen zu unseren Dogus</a>
+* <a target="_self" title="Informationen zu unseren Dogus" href="https://cloudogu.com/de/glossar/dogu">Informationen zu unseren Dogus</a>
 
 * <a target="_self" title="Informationen zu möglichen Instanzen" href="/de/ecosystem/#pricing">Informationen zu möglichen Instanzen</a>
 
-* <a target="_self" title="Datenschutzerklärung" href="/de/privacy/">Datenschutzerklärung</a>
+* <a target="_self" title="Datenschutzerklärung" href="https://cloudogu.com/de/privacy/">Datenschutzerklärung</a>
 
 Die Maschine steht Ihnen in der Regel über die Website `http://192.168.0.56:8080` für das Setup zur Verfügung. Sollte dies nicht der Fall sein, wurde der Maschine von Ihrem Netzwerk eine andere IP zugewiesen. Um die IP herauszufinden müssen Sie sich über das CLI anmelden. Die Logindaten sind Username `ces-admin` mit dem Passwort `ces-admin`. **Hinweis:** Das Standard-Keyboard-Layout ist Englisch, das "-" ist auf der "ß" -Taste. **Wichtig:** Das Passwort des Users ces-admin wird am Ende des Setup-Prozesses durch eine zufällig generierte Zeichenfolge ersetzt, die Ihnen dann mitgeteilt wird.
 
