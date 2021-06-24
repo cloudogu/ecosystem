@@ -40,8 +40,8 @@ Um mit dem [Cloudogu EcoSystem](https://cloudogu.com/de/ecosystem/) zu starten, 
 
 Ihr Hoster hält vermutlich eine Anleitung bereit, wie Sie Images von Dritten in Ihr System laden und verwenden können.
 Sollten Sie das Image nicht in einer Serverumgebung betreiben, können Sie eine dieser Virtualisierungsumgebungen nutzen.
-* [Zu Virtual Box](https://www.virtualbox.org/)
-* [Zu QUEMU](https://www.qemu.org/)
+* [VirtualBox](https://www.virtualbox.org/)
+* [QUEMU](https://www.qemu.org/)
 
 ---
 
@@ -51,7 +51,7 @@ Nachdem Sie das Image in Ihrer Virtualisierungsumgebung importiert und gestartet
 
 ### Aufruf des Setup-Wizard
 
-Die Maschine steht Ihnen in der Regel über die Website `http://192.168.0.56:8080` für das Setup zur Verfügung. Sollte dies nicht der Fall sein, wurde der Maschine von Ihrem Netzwerk eine andere IP zugewiesen. Um die IP herauszufinden müssen Sie sich über das CLI anmelden. Die Logindaten sind der Username `ces-admin` mit dem Passwort `ces-admin`. **Hinweis:** Das Standard-Keyboard-Layout ist Englisch, das “-” ist auf der „ß“ -Taste. **Wichtig:** Das Passwort des Users ces-admin wird am Ende des Setup-Prozesses durch eine zufällig generierte Zeichenfolge ersetzt, die Ihnen dann mitgeteilt wird.
+Die Maschine steht Ihnen in der Regel über die Website `http://192.168.0.56:8080` für das Setup zur Verfügung. Sollte dies nicht der Fall sein, wurde der Maschine von Ihrem Netzwerk eine andere IP zugewiesen. Um die IP herauszufinden müssen Sie sich über das CLI anmelden. Die Logindaten sind der Username `ces-admin` mit dem Passwort `ces-admin`. **Hinweis:** Das Standard-Keyboard-Layout ist Englisch, das “-” ist auf der „ß“wsl -Taste. **Wichtig:** Das Passwort des Users ces-admin wird am Ende des Setup-Prozesses durch eine zufällig generierte Zeichenfolge ersetzt, die Ihnen dann mitgeteilt wird.
 
 <img alt="IP Adresse" src="figures/cesQuickStartGuide/ip_address.png">
 
