@@ -33,12 +33,33 @@ Für zusätzliche Ressourcen der neuen dogu kann ein Ordner namens `resources` a
 * Logo: Link zum Logo-Bild für diese Anwendung
 * Url: Offizielle Website der Software in dieser dogu
 * Image: Pfad zum Image in der Cloudogu-Registry
-* Dependencies (JSON-Array): Liste der Dogus, von denen dieses Dogu abhängt
 * ExposedCommands (JSON-Array):
 * HealthChecks (JSON-Array):
 * Volumes (JSON-Array): Verzeichnisse im EcoSystem, auf die auch von innerhalb des Dogus zugegriffen werden kann
 * Volumes-> Volume-> NeedsBackup (bool): Indikator für das Backup. Wird auf false gesetzt, wenn Volume-Daten für das Backup nicht wichtig sind
 * ServiceAccounts (JSON-Array):
+* Dependencies (JSON-Array): Liste der Dogus, von denen dieses Dogu abhängt
+
+#### dogu.json - Dependencies
+
+Es gibt drei Möglichkeiten um Dogu-Abhängigkeiten zu definieren:
+
+* Andere Dogus
+* Pakete (bspw. backup-watcher)
+* Clients (bspw. cesapp, ces-setup)
+
+Für die ersten beiden Fälle muss sichergestellt werden, dass die Abhängigkeiten installiert sind. Die Client-Abhängigkeit gibt an, welche Version ein Client haben muss, um das Dogu richtig nutzen zu können. Der Client selbst ist aber nicht für den Betrieb des Dogus erforderlich (kann also auch nach dem Start des Dogus deinstalliert werden). Beispiel: Es ist nicht wichtig, welches ces-setup installiert ist, wenn ich nachträglich ein neues Dogu installiere.
+
+Zu den Typen, gibt es die Möglichkeit, bestimmte Versionen anzugeben (Format: (<=,<,>,>=)2.X.X).
+
+Beispiel-JSON:
+ ```
+   "Dependencies": [
+     {"type":"dogu", "name":"cas", "version": ">=4.1.1-2"},
+     {"type":"package", "name":"backup-watcher", "version": "<=1.0.1"},
+     {"type":"client", "name":"ces-setup", "version": ">=2.0.1"},
+   ]
+ ```
 
 ## 3. Erstellen Sie Ihr Dogu
 * Starten Sie das EcoSystem.
