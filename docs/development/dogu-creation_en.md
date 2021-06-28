@@ -40,6 +40,27 @@ For additional resources of the new dogu, a `resources` folder can be created.
  * Volumes-> Volume-> NeedsBackup (bool): Indicator for the backup. Set to false when volume data is not important for backup
  * ServiceAccounts (JSON array): 
 
+#### dogu.json - Dependencies
+
+There are three ways to define dogu dependencies:
+
+* Other Dogus
+* Packages (e.g. backup-watcher)
+* Clients (e.g. cesapp, ces-setup)
+
+For the first two cases, make sure that the dependencies are installed. The client dependency specifies which version a client must have in order to use the Dogu properly. However, the client itself is not required to run the Dogus (so it can be uninstalled after the Dogus is started). Example: It is not important which ces-setup is installed, if I install a new Dogu afterwards.
+
+About the types, there is the possibility to specify specific versions (format: (<=,<,>,>=)2.X.X).
+
+Example JSON:
+ ```
+   "Dependencies": [
+     {"type": "dogu", "name": "cas", "version":">=4.1.1-2"},
+     {"type": "package", "name": "backup-watcher", "version":"<=1.0.1"},
+     {"type": "client", "name": "ces-setup", "version":">=2.0.1"},
+   ]
+ ```
+
 ## 3. Create your dogu
  * Start up ecosystem
  * Go to /vagrant/containers
