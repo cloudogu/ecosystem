@@ -23,7 +23,7 @@ crumbtitle: "Quickstart Guide"
 
 # Cloudogu EcoSystem via VirtualBox installieren
 
-Hallo und vielen Dank für Ihr Interesse an unserem [Cloudogu EcoSystem](https://cloudogu.com/de/ecosystem/). Sollten Sie Anregungen oder Fragen haben, kontaktieren Sie uns gerne via <a title="E-Mail an Cloudogu senden" href="mailto:hello@cloudogu.com?subject=Hello%20Cloudogu">hello@cloudogu.com</a> oder telefonisch unter <a title="Cloudogu anrufen" href="tel:+4953161808880">+49. 531. 61 80 88 80</a>.
+Hallo und vielen Dank für Ihr Interesse an unserem [Cloudogu EcoSystem](de/ecosystem/). Sollten Sie Anregungen oder Fragen haben, kontaktieren Sie uns gerne via <a title="E-Mail an Cloudogu senden" href="mailto:hello@cloudogu.com?subject=Hello%20Cloudogu">hello@cloudogu.com</a> oder telefonisch unter <a title="Cloudogu anrufen" href="tel:+4953161808880">+49. 531. 61 80 88 80</a>.
 
 ## Wie erhalten Sie Ihr Image?
 
