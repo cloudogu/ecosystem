@@ -2,17 +2,17 @@
 
 ## Berechtigungen neuer Nutzer im User Management
 ### Gruppen
-Ein neu angelegter Benutzer hat keine ihm zugewiesenen Gruppen. Grundsätzlich sind immer zwei Gruppen verfügbar, 
-welche einem Nutzer zugewiesen werden können. Die "cesManager"-Gruppe und die "cesAdmin"-Gruppe. Desweiteren 
-können im User Management unter dem Reiter "Gruppen" weitere Gruppen hinzugefügt und den Benutzern zugewiesen 
+Ein neu angelegter Benutzer hat keine ihm zugewiesenen Gruppen. Grundsätzlich sind immer zwei Gruppen verfügbar,
+welche einem Nutzer zugewiesen werden können. Die "cesManager"-Gruppe und die "cesAdmin"-Gruppe. Desweiteren
+können im User Management unter dem Reiter "Gruppen" weitere Gruppen hinzugefügt und den Benutzern zugewiesen
 werden. Diese Gruppen werden auf die einzelnen Dogus übertragen und können dort berechtigt werden.
 
 #### cesManager Gruppe
 Ein Nutzer in der cesManager Gruppe hat Zugriff auf die Administrativen Dogus, wie zum Beispiel das Backup & Restore Dogu.
 
 #### cesAdmin Gruppe
-Der Name dieser Gruppe wird beim CES-Setup ausgewählt und kann daher variieren. In den folgenden Abschnitten wird zur 
-Vereinfachung davon ausgegangen, dass diese Gruppe immer "cesAdmin" heißt. Nutzer in dieser Gruppe bekommen alle 
+Der Name dieser Gruppe wird beim CES-Setup ausgewählt und kann daher variieren. In den folgenden Abschnitten wird zur
+Vereinfachung davon ausgegangen, dass diese Gruppe immer "cesAdmin" heißt. Nutzer in dieser Gruppe bekommen alle
 administrativen Berechtigungen in sämtlichen Dogus.
 
 ## Häufig auftretende Probleme
@@ -20,7 +20,7 @@ administrativen Berechtigungen in sämtlichen Dogus.
 In einigen Dogus führt es zu Problemen, wenn ein Nutzer im Dogu angelegt wird. Grundsätzlich muss ein Nutzer im User Management angelegt werden, damit dieser sich in allen Dogus anmelden kann.
 Einige Dogus unterstützen zusätzlich das manuelle Anlegen von Nutzern, in anderen kann es aber zu Problemen führen.
 
-Sollte es in einem Dogu nicht möglich sein, dass sich ein bestimmter Nutzer, welcher im User Management bereits angelegt wurde, im Dogu anmelden kann, kann die Ursache dafür sein, dass der Nutzer manuell im Dogu angelegt wurde. 
+Sollte es in einem Dogu nicht möglich sein, dass sich ein bestimmter Nutzer, welcher im User Management bereits angelegt wurde, im Dogu anmelden kann, kann die Ursache dafür sein, dass der Nutzer manuell im Dogu angelegt wurde.
 
 Sollte das der Fall sein, muss der Nutzer in diesem Dogu gelöscht werden. Der Nutzer wird dann automatisch mit dem Dogu synchronisiert, sobald er sich das erste Mal einloggt.
 
@@ -41,13 +41,13 @@ Ein normaler Benutzer kann weder eigene Repositories erstellen, noch vorhandene 
 Mitglieder der Gruppe "cesAdmin" sind automatisch Administratoren des SCM-Managers. Sie können alle Repositories sehen und bearbeiten, sowie alle Funktionen des SCM-Managers vollumfänglich nutzen.
 
 ### Berechtigung und Synchronisierung
-Nutzer, welche sich zuvor noch nie im SCM-Manager eingeloggt haben, sind im SCM-Manager nicht vorhanden. 
+Nutzer, welche sich zuvor noch nie im SCM-Manager eingeloggt haben, sind im SCM-Manager nicht vorhanden.
 
 Da die Nutzer erst bei ihrem Login angelegt werden, können diese nicht ohne weiteres vorher berechtigt werden.
 Ist aber der Name eines Nutzers aber bekannt, so kann ein Nutzer mit diesem Namen angelegt werden. Dieser muss als externer Nutzer markiert werden. Anschließend kann dieser berechtigt werden. Dasselbe gilt für Gruppen.
 
 Sollte sich ein Nutzer, welcher aktuell noch nicht im SCM-Manager existiert, über CAS einloggen, so wird dieser im SCM-Manager angelegt.
-Das gilt allerdings nicht für Gruppen. Wenn Gruppen berechtigt werden sollen, so müssen diese als externe Gruppen manuell angelegt und berechtigt werden.  
+Das gilt allerdings nicht für Gruppen. Wenn Gruppen berechtigt werden sollen, so müssen diese als externe Gruppen manuell angelegt und berechtigt werden.
 
 Werden die Daten eines Nutzers verändert und der Nutzer loggt sich erneut ein, so werden die veränderten Daten mit denen aus dem User Management überschrieben.
 Sollen die Daten eines Nutzers verändert werden, so muss dies über das User Management geschehen.
@@ -57,7 +57,7 @@ Im Nexus Dogu existieren Nutzer und Rollen. Die Rollen entsprechen dabei den Gru
 Dazu gibt es die sogenannten Privilegien, die bestimmen, welche tatsächlichen Berechtigungen ein Benutzer im Nexus-Dogu hat.
 
 ### Standardzustand
-Grundsätzlich im Nexus angelegt wird die Gruppe "cesUser". Diese Gruppe wird jedem Benutzer zugewiesen und enthält 
+Grundsätzlich im Nexus angelegt wird die Gruppe "cesUser". Diese Gruppe wird jedem Benutzer zugewiesen und enthält
 immer die folgenden Privilegien:
 
 * nx-apikey-all (Der Benutzer hat sämtliche Berechtigungen für den Umgang mit dem API-Key)
@@ -74,19 +74,19 @@ immer die folgenden Privilegien:
 
 * nx-search-read (Der Benutzer hat die Möglichkeit, die Suchfunktion zu benutzen)
 
-* nx-userschangepw (Der Benutzer kann sein Passwort ändern)  
-  
+* nx-userschangepw (Der Benutzer kann sein Passwort ändern)
+
 Die Gruppe "cesAdmin" wird ebenfalls grundsätzlich angelegt und erhält das Privileg "nx-all". Das bedeutet, dass Mitglieder dieser Gruppe im Nexus sämtliche möglichen Aktionen durchführen können.
 
 ### Berechtigung und Synchronisierung
-Ein Nutzer und seine Gruppen (Rollen) werden bei dessen Login Synchronisiert. Falls diese im Nexus nicht existieren, 
-werden sie angelegt. Falls sie sich verändert haben, werden sie im Nexus verändert. 
-Diese Synchronisierung fuktioniert nur vom User Management zum Nexus Dogu. Werden die Daten, wie zum Beispiel Name oder 
+Ein Nutzer und seine Gruppen (Rollen) werden bei dessen Login Synchronisiert. Falls diese im Nexus nicht existieren,
+werden sie angelegt. Falls sie sich verändert haben, werden sie im Nexus verändert.
+Diese Synchronisierung fuktioniert nur vom User Management zum Nexus Dogu. Werden die Daten, wie zum Beispiel Name oder
 E-Mail eines Nutzers, im Nexus geändert, so werden diese bei seinem nächsten Login wieder überschrieben.
 Um die Daten eines Nutzers zu verändern, müssen diese im User Management angepasst werden.
 
-Vor dem ersten Login eines Nutzers ist es nicht bzw. nicht ohne weiteres möglich, diesem Berechtigungen zu geben, da 
-im Nexus der Nutzer erst dann angelegt wird, wenn er sich zum ersten Mal einloggt. 
+Vor dem ersten Login eines Nutzers ist es nicht bzw. nicht ohne weiteres möglich, diesem Berechtigungen zu geben, da
+im Nexus der Nutzer erst dann angelegt wird, wenn er sich zum ersten Mal einloggt.
 Ist aber der genaue Benutzername des Nutzers bereits bekannt, so kann dieser manuell im Nexus angelegt und berechtigt werden.
 Dasselbe gilt für Gruppen (Rollen).
 
@@ -146,14 +146,14 @@ Anschließend klicken Sie auf "Einstellungen", dann auf "Berechtigungen".
 
 ![SCM: Berechtigung Nutzer: Berechtigungen](figures/administration/scm_userPrivileges.png)
 
-Wählen Sie dort die Berechtigungen aus, die der Nutzer erhalten soll und klicken Sie auf "Berechtigungen speichern". 
+Wählen Sie dort die Berechtigungen aus, die der Nutzer erhalten soll und klicken Sie auf "Berechtigungen speichern".
 
 ### Generelle Berechtigung einer Gruppe im SCM-manager
 Klicken Sie auf den Reiter "Gruppen" und wählen Sie in der Liste der Gruppen die Gruppe aus, die Sie berechtigen wollen.
 
 ![SCM: Berechtigung Gruppe](figures/administration/scm_roleList.png)
 
-Anschließend klicken Sie auf "Einstellungen", dann auf "Berechtigungen". Wählen Sie dort die Berechtigungen aus, die die Gruppe erhalten soll und klicken Sie auf "Berechtigungen speichern". 
+Anschließend klicken Sie auf "Einstellungen", dann auf "Berechtigungen". Wählen Sie dort die Berechtigungen aus, die die Gruppe erhalten soll und klicken Sie auf "Berechtigungen speichern".
 
 ![SCM: Berechtigung Gruppe: Berechtigungen](figures/administration/scm_rolePrivileges.png)
 
@@ -174,7 +174,7 @@ Wählen Sie dafür einen Eintrag aus der Liste "Rolle" aus.
 
 ![SCM: Berechtigung Repository: Vordefinierte Rollen](figures/administration/scm_predefinedRoles.png)
 
-Alternativ können Sie jede Berechtigung selbst bestimmen. Klicken Sie dafür auf die Schaltfläche "Erweitert". Es öffnet sich ein Dialog. 
+Alternativ können Sie jede Berechtigung selbst bestimmen. Klicken Sie dafür auf die Schaltfläche "Erweitert". Es öffnet sich ein Dialog.
 Dort wählen Sie die Berechtigungen aus, welche der Nutzer erhalten soll und klicken auf "Speichern".
 
 ![SCM: Berechtigung Repository: Benutzerdefinierte Rollen](figures/administration/scm_rolesCustom.png)
@@ -197,9 +197,9 @@ anschließend auf "Nexus role".
 
 ![Nexus: Neue Rolle Erstellen](figures/administration/nexus_newRole.png)
 
-In dem nun sichtbaren Formular geben Sie eine "Role ID" und einen "Role name" ein. Dabei ist es wichtig, dass der Wert im 
+In dem nun sichtbaren Formular geben Sie eine "Role ID" und einen "Role name" ein. Dabei ist es wichtig, dass der Wert im
 Feld "Role ID" exakt dem Namen der zu berechtigenden Gruppe im User Management entspricht.
-Drücken Sie anschließend auf "Create role". 
+Drücken Sie anschließend auf "Create role".
 
 ![Nexus: Neue Rolle Erstellen Formular](figures/administration/nexus_createRole.png)
 
@@ -208,26 +208,26 @@ Die Rolle ist nun erstellt und kann einem Nutzer zugewiesen werden.
 ### Optional: Legen Sie einen Nutzer an
 Dieser Schritt kann übersprungen werden, sofern sich der zu berechtigende Nutzer bereits eingeloggt hat.
 
-Klicken Sie auf das Zahnrad, um in den Administratoren-Bereich zu gelangen. Dort klicken sie auf "Users" 
+Klicken Sie auf das Zahnrad, um in den Administratoren-Bereich zu gelangen. Dort klicken sie auf "Users"
 und anschließend auf "Create local User".
 
 ![Nexus: Neuer Nutzer](figures/administration/nexus_usersOverview.png)
 
 In dem nun sichtbaren Formular geben Sie die Daten des Benutzers ein. Dabei ist es wichtig, dass der Wert im Feld "ID" exakt
-dem Benutzernamen des zu berechtigenden Benutzers entspricht. 
+dem Benutzernamen des zu berechtigenden Benutzers entspricht.
 
-Geben Sie dem Benutzer die von Ihnen erstellte Rolle. Die anderen Werte werden bei dem Login des Benutzers mit den Werten aus dem User Management überschrieben. Klicken Sie nun auf "Create local User". 
+Geben Sie dem Benutzer die von Ihnen erstellte Rolle. Die anderen Werte werden bei dem Login des Benutzers mit den Werten aus dem User Management überschrieben. Klicken Sie nun auf "Create local User".
 
 ![Nexus: Neuer Nutzer Formular](figures/administration/nexus_createUser.png)
 
 Der Nutzer ist nun erstellt und kann berechtigt werden.
 
 ### Berechtigen einer Rolle im Nexus
-Wählen Sie in der Rollenübersicht die zu berechtigende Rolle aus. 
+Wählen Sie in der Rollenübersicht die zu berechtigende Rolle aus.
 
 ![Nexus: Rolle Berechtigen](figures/administration/nexus_editRole.png)
 
-Unter der Überschrift "Privileges:" können dieser Rolle nun Privilegien zugewiesen werden. 
+Unter der Überschrift "Privileges:" können dieser Rolle nun Privilegien zugewiesen werden.
 
 Die wichtigsten Privilegien für einen Nutzer sind:
 * nx-repository-view-*-*-browse (Nutzer kann vorhandene Repositories sehen)
@@ -243,11 +243,11 @@ Unter der Überschrift "Roles:" können dieser Rolle weitere Rollen hinzugefügt
 Rollen sind nun auch für diese Rolle verfügbar.
 
 Wollen Sie einer Rolle den Zugriff auf ein bestimmtes Repository geben, gibt es dafür besondere Privilegien.
-Sie werden automatisch nach dem Namensschema `nx-repository-<privileg-typ>-<repository-typ>-<repositoryName>-<action>` erstellt, 
+Sie werden automatisch nach dem Namensschema `nx-repository-<privileg-typ>-<repository-typ>-<repositoryName>-<action>` erstellt,
 sobald ein neues Repository angelegt wird.
 
 #### \<privileg-typ\>
-Der Typ eines Privilegs kann entweder "admin" oder "view" sein. 
+Der Typ eines Privilegs kann entweder "admin" oder "view" sein.
 Ist der Typ "view", bezieht sich die Berechtigung auf den normalen Nutzerbereich.
 Ist der Typ "admin", bezieht sich die Berechtigung auf den Administrationsbereich.
 
@@ -283,7 +283,7 @@ um einen Nutzer für den Administrationsbereich zu berechtigen.
 
 ![Nexus: Neues Privileg Formular 1](figures/administration/nexus_newPrivilegForm1.png)
 
-Ihnen wird nun ein Formular angezeigt. Füllen Sie dieses, wie im Folgenden erklärt, aus und klicken Sie dann auf "Create privilege". 
+Ihnen wird nun ein Formular angezeigt. Füllen Sie dieses, wie im Folgenden erklärt, aus und klicken Sie dann auf "Create privilege".
 Anschließend kann das Privileg wie oben beschrieben einer Rolle hinzugefügt werden.
 
 ![Nexus: Neues Privileg Formular 2](figures/administration/nexus_newPrivilegForm2.png)
@@ -298,7 +298,7 @@ Eine frei wählbare Beschreibung für das Privileg.
 Dort wählen Sie aus einer Liste Ihr gewünschtes Repository aus.
 
 #### Actions
-Die Aktionen, die für das Repository ausführbar sein sollen. Diese können hier kommasepariert eingegeben werden. 
+Die Aktionen, die für das Repository ausführbar sein sollen. Diese können hier kommasepariert eingegeben werden.
 
 #### Format
 Das Format des Repositories, für das das Privileg die Berechtigung erteilen soll. Wenn Sie sich nicht sicher sind, welches Format Ihr Repository besitzt, können Sie dies in der Liste der Repositories nachsehen.
