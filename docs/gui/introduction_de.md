@@ -26,9 +26,9 @@ Funktionsübersicht:
 Das Cloudogu EcoSystem wurde mit stetigem Blick auf aktuelle Sicherheitsstandards entwickelt. Die strikte Verwendung von SSL zur Verschlüsselung von Verbindungen und die Kapselung jedes Dogus in Container sowie die Verschlüsselung von sicherheitsrelevanten Konfigurationen sind nur ein Auszug aus den in den Entwurf eingeflossenen Ma\ss nahmen.
 
 
-Auszug aus den Sicherheitsma\ss nahmen:
+Auszug aus den Sicherheitsmaßnahmen:
 
-* ausschlie\ss lich SSL-verschlüsselte Verbindungen möglich
+* ausschließlich SSL-verschlüsselte Verbindungen möglich
 * selbst signierte Zertifikate für interne Verwendung, Integration eigener Zertifikate für produktiven Einsatz über Setup möglich
 * isolierte Umgebung für jedes installierte Dogu (ein Container pro Dogu)
 * verschlüsselte Ablage sensibler Informationen innerhalb der Dogus (ein Schlüsselpaar pro Dogu)
