@@ -67,10 +67,40 @@ autoinstall:
         number: 3
         size: 8G
         flag: swap
-      - id: vda4-root
+      - id: vda4-home
         device: vda
         type: partition
         number: 4
+        size: 2GB
+      - id: vda5-tmp
+        device: vda
+        type: partition
+        number: 5
+        size: 8GB
+      - id: vda6-var
+        device: vda
+        type: partition
+        number: 6
+        size: 40GB
+      - id: vda7-vartmp
+        device: vda
+        type: partition
+        number: 7
+        size: 8GB
+      - id: vda8-varlog
+        device: vda
+        type: partition
+        number: 8
+        size: 10GB
+      - id: vda9-varlogaudit
+        device: vda
+        type: partition
+        number: 9
+        size: 8GB
+      - id: vda10-root
+        device: vda
+        type: partition
+        number: 10
         size: -1
 
       - id: vda2-boot-ext4
@@ -81,15 +111,35 @@ autoinstall:
         type: format
         volume: vda3-swap
         fstype: swap
-      - id: vda4-root-btrfs
+      - id: vda4-home-ext4
         type: format
-        volume: vda4-root
+        volume: vda4-home
+        fstype: ext4
+      - id: vda5-tmp-ext4
+        type: format
+        volume: vda5-tmp
+        fstype: ext4
+      - id: vda6-var-btrfs
+        type: format
+        volume: vda6-var
         fstype: btrfs
+      - id: vda7-vartmp-ext4
+        type: format
+        volume: vda7-vartmp
+        fstype: ext4
+      - id: vda8-varlog-ext4
+        type: format
+        volume: vda8-varlog
+        fstype: ext4
+      - id: vda9-varlogaudit-ext4
+        type: format
+        volume: vda9-varlogaudit
+        fstype: ext4
+      - id: vda10-root-ext4
+        type: format
+        volume: vda10-root
+        fstype: ext4
 
-      - id: mount-vda4-root
-        type: mount
-        path: /
-        device: vda4-root-btrfs
       - id: mount-vda2-boot
         type: mount
         path: /boot
@@ -98,6 +148,34 @@ autoinstall:
         type: mount
         path: /swap.img
         device: vda3-swap-swap
+      - id: mount-vda4-home
+        type: mount
+        path: /home
+        device: vda4-home-ext4
+      - id: mount-vda5-tmp
+        type: mount
+        path: /tmp
+        device: vda5-tmp-ext4
+      - id: mount-vda6-var
+        type: mount
+        path: /var
+        device: vda6-var-btrfs
+      - id: mount-vda7-vartmp
+        type: mount
+        path: /var/tmp
+        device: vda7-vartmp-ext4
+      - id: mount-vda8-varlog
+        type: mount
+        path: /var/log
+        device: vda8-varlog-ext4
+      - id: mount-vda9-varlogaudit
+        type: mount
+        path: /var/log/audit
+        device: vda9-varlogaudit-ext4
+      - id: mount-vda10-root
+        type: mount
+        path: /
+        device: vda10-root-ext4
   network:
     network:
       version: 2

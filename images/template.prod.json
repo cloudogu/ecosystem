@@ -94,6 +94,7 @@
 			"ssh_timeout": "15m",
 			"http_directory": "http/prod/QEMU",
 			"headless": false,
+			"disk_size": "{{user `disk_size`}}",
 			"boot_wait": "1s",
 			"boot_command": [
 				"<enter><enter><f6><esc><wait> ",
