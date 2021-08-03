@@ -72,6 +72,7 @@
 			"http_directory": "http/prod",
 			"headless": false,
 			"tools_upload_flavor": "linux",
+			"disk_size": "{{user `disk_size`}}",
 			"boot_wait": "5s",
 			"boot_command": [
 				"<enter><enter><f6><esc><wait> ",
