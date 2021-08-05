@@ -77,27 +77,27 @@ autoinstall:
         type: partition
         number: 5
         size: 8GB
-      - id: vda6-var
+      - id: vda6-vartmp
         device: vda
         type: partition
         number: 6
-        size: 40GB
-      - id: vda7-vartmp
+        size: 8GB
+      - id: vda7-varlog
         device: vda
         type: partition
         number: 7
-        size: 8GB
-      - id: vda8-varlog
+        size: 10GB
+      - id: vda8-varlogaudit
         device: vda
         type: partition
         number: 8
-        size: 10GB
-      - id: vda9-varlogaudit
+        size: 8GB
+      - id: vda9-root
         device: vda
         type: partition
         number: 9
-        size: 8GB
-      - id: vda10-root
+        size: 10GB
+      - id: vda10-var
         device: vda
         type: partition
         number: 10
@@ -119,26 +119,27 @@ autoinstall:
         type: format
         volume: vda5-tmp
         fstype: ext4
-      - id: vda6-var-btrfs
+      - id: vda6-vartmp-ext4
         type: format
-        volume: vda6-var
+        volume: vda6-vartmp
+        fstype: ext4
+      - id: vda7-varlog-ext4
+        type: format
+        volume: vda7-varlog
+        fstype: ext4
+      - id: vda8-varlogaudit-ext4
+        type: format
+        volume: vda8-varlogaudit
+        fstype: ext4
+      - id: vda9-root-ext4
+        type: format
+        volume: vda9-root
+        fstype: ext4
+      - id: vda10-var-btrfs
+        type: format
+        volume: vda10-var
         fstype: btrfs
-      - id: vda7-vartmp-ext4
-        type: format
-        volume: vda7-vartmp
-        fstype: ext4
-      - id: vda8-varlog-ext4
-        type: format
-        volume: vda8-varlog
-        fstype: ext4
-      - id: vda9-varlogaudit-ext4
-        type: format
-        volume: vda9-varlogaudit
-        fstype: ext4
-      - id: vda10-root-ext4
-        type: format
-        volume: vda10-root
-        fstype: ext4
+
 
       - id: mount-vda2-boot
         type: mount
@@ -156,26 +157,26 @@ autoinstall:
         type: mount
         path: /tmp
         device: vda5-tmp-ext4
-      - id: mount-vda6-var
-        type: mount
-        path: /var
-        device: vda6-var-btrfs
-      - id: mount-vda7-vartmp
+      - id: mount-vda6-vartmp
         type: mount
         path: /var/tmp
-        device: vda7-vartmp-ext4
-      - id: mount-vda8-varlog
+        device: vda6-vartmp-ext4
+      - id: mount-vda7-varlog
         type: mount
         path: /var/log
-        device: vda8-varlog-ext4
-      - id: mount-vda9-varlogaudit
+        device: vda7-varlog-ext4
+      - id: mount-vda8-varlogaudit
         type: mount
         path: /var/log/audit
-        device: vda9-varlogaudit-ext4
-      - id: mount-vda10-root
+        device: vda8-varlogaudit-ext4
+      - id: mount-vda9-root
         type: mount
         path: /
-        device: vda10-root-ext4
+        device: vda9-root-ext4
+      - id: mount-vda10-var
+        type: mount
+        path: /var
+        device: vda10-var-btrfs
   network:
     network:
       version: 2
