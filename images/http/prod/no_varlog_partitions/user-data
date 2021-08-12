@@ -1,0 +1,156 @@
+#cloud-config
+autoinstall:
+  # Version of the autoinstall-specification
+  version: 1
+
+  # Settings for the apt repositories
+  apt:
+    geoip: true
+    preserve_sources_list: false
+    primary:
+      - arches: [ amd64, i386 ]
+        uri: http://de.archive.ubuntu.com/ubuntu
+      - arches: [ default ]
+        uri: http://ports.ubuntu.com/ubuntu-ports
+
+  # Settings for the user and groups
+  # The password is "ces-admin"
+  identity:
+    hostname: ces
+    password: $6$eXtrTEXrpV8WK64H$pvrncLTd2VyZ8sOk8hHc1PGl1ACmtv9Bu7Fsv69m0hu8ELYNipZcjwd9dfZzwMdlYuUYgiiA/rXYK.2v6Wi.X0
+    realname: ces-admin
+    username: ces-admin
+
+  # Contains the settings for the keyboard
+  keyboard:
+    layout: us
+    toggle: null
+    variant: ''
+
+  # The target locale
+  locale: en_US
+
+  # Contains settings for the ssh server
+  ssh:
+    allow-pw: true
+    authorized-keys: [ ]
+    install-server: true
+
+  # Contains the definition of the systems partitions
+  # Hint: This "no_varlog_partitions" folder holds configuration
+  #   for images which should NOT get separate /var/log and
+  #   /var/log/audit partitions.
+  storage:
+    version: 1
+    swap:
+      size: 0
+    config:
+      - id: sda
+        type: disk
+        ptable: gpt
+        path: /dev/sda
+        wipe: superblock
+        grub_device: true
+
+      - id: sda1-bios
+        device: sda
+        type: partition
+        number: 1
+        size: 1MB
+        flag: bios_grub
+      - id: sda2-boot
+        device: sda
+        type: partition
+        number: 2
+        size: 1GB
+        flag: boot
+      - id: sda3-swap
+        device: sda
+        type: partition
+        number: 3
+        size: 8G
+        flag: swap
+      - id: sda4-home
+        device: sda
+        type: partition
+        number: 4
+        size: 2GB
+      - id: sda5-tmp
+        device: sda
+        type: partition
+        number: 5
+        size: 8GB
+      - id: sda6-vartmp
+        device: sda
+        type: partition
+        number: 6
+        size: 8GB
+      - id: sda7-root
+        device: sda
+        type: partition
+        number: 7
+        size: 10GB
+      - id: sda8-var
+        device: sda
+        type: partition
+        number: 8
+        size: -1
+
+      - id: sda2-boot-ext4
+        type: format
+        volume: sda2-boot
+        fstype: ext4
+      - id: sda3-swap-swap
+        type: format
+        volume: sda3-swap
+        fstype: swap
+      - id: sda4-home-ext4
+        type: format
+        volume: sda4-home
+        fstype: ext4
+      - id: sda5-tmp-ext4
+        type: format
+        volume: sda5-tmp
+        fstype: ext4
+      - id: sda6-vartmp-ext4
+        type: format
+        volume: sda6-vartmp
+        fstype: ext4
+      - id: sda7-root-ext4
+        type: format
+        volume: sda7-root
+        fstype: ext4
+      - id: sda8-var-btrfs
+        type: format
+        volume: sda8-var
+        fstype: btrfs
+
+
+      - id: mount-sda2-boot
+        type: mount
+        path: /boot
+        device: sda2-boot-ext4
+      - id: mount-sda3-swap
+        type: mount
+        path: /swap.img
+        device: sda3-swap-swap
+      - id: mount-sda4-home
+        type: mount
+        path: /home
+        device: sda4-home-ext4
+      - id: mount-sda5-tmp
+        type: mount
+        path: /tmp
+        device: sda5-tmp-ext4
+      - id: mount-sda6-vartmp
+        type: mount
+        path: /var/tmp
+        device: sda6-vartmp-ext4
+      - id: mount-sda7-root
+        type: mount
+        path: /
+        device: sda7-root-ext4
+      - id: mount-sda8-var
+        type: mount
+        path: /var
+        device: sda8-var-btrfs

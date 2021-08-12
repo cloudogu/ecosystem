@@ -1,0 +1,4 @@
+# This file needs to be present for Ubuntu 20.04 installer
+# Hint: This "no_varlog_partitions" folder holds configuration
+#   for images which should not get separate /var/log and
+#   /var/log/audit partitions.
