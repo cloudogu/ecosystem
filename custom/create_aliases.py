@@ -12,7 +12,7 @@ def createAliases(file, namespace, doguName):
     file.write("alias g{}=\"cd /vagrant/containers/{}\"\n".format(doguName, doguName))
     file.write("\n")
 
-defaultDogus = ["cas", "cockpit", "ldap-mapper", "ldap", "jenkins", "nexus", "plantuml", "postfix", "postgresql", "redmine", "registrator", "scm", "smeagol", "sonar", "swaggerui", "usermgt"]
+defaultDogus = ["cas", "cockpit", "ldap-mapper", "ldap", "jenkins", "nexus", "nginx", "plantuml", "postfix", "postgresql", "redmine", "registrator", "scm", "smeagol", "sonar", "swaggerui", "usermgt"]
 premiumDogus = ["backup", "baseline", "confluence", "easyredmine", "jira", "portainer", "monitoring"]
 
 print "Opening the file..."

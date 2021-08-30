@@ -70,6 +70,18 @@ alias scnexus="etcdctl -output json ls -r /config/nexus | jq"
 alias rnexus="docker restart nexus"
 alias gnexus="cd /vagrant/containers/nexus"
 
+# nginx
+alias bnginx="cd /vagrant/containers/nginx && cesapp build ."
+alias lnginx="tail -f /var/log/docker/nginx.log"
+alias clnginx="cat -n /var/log/docker/nginx.log"
+alias tlnginx="truncate -s 0 /var/log/docker/nginx.log"
+alias enginx="docker exec -it nginx bash"
+alias inginx="cesapp install official/nginx"
+alias cnginx="cesapp edit-config nginx"
+alias scnginx="etcdctl -output json ls -r /config/nginx | jq"
+alias rnginx="docker restart nginx"
+alias gnginx="cd /vagrant/containers/nginx"
+
 # plantuml
 alias bplantuml="cd /vagrant/containers/plantuml && cesapp build ."
 alias lplantuml="tail -f /var/log/docker/plantuml.log"
