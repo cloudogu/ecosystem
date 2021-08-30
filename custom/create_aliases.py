@@ -7,7 +7,7 @@ def createAliases(file, namespace, doguName):
     file.write("alias e{}=\"docker exec -it {} bash\"\n".format(doguName, doguName))
     file.write("alias i{}=\"cesapp install {}/{}\"\n".format(doguName, namespace, doguName))
     file.write("alias c{}=\"cesapp edit-config {}\"\n".format(doguName, doguName))
-    file.write("alias sc{}=\"etcdctl -output json ls /config/{} | jq\"\n".format(doguName, doguName))
+    file.write("alias sc{}=\"etcdctl -output json ls -r /config/{} | jq\"\n".format(doguName, doguName))
     file.write("alias r{}=\"docker restart {}\"\n".format(doguName, doguName))
     file.write("alias g{}=\"cd /vagrant/containers/{}\"\n".format(doguName, doguName))
     file.write("\n")
