@@ -62,7 +62,7 @@ install_zsh() {
   su -l vagrant -s "/bin/sh" -c "mkdir -p ${VAGRANT_HOME}/.config/pet"
   
   su -l vagrant -s "/bin/sh" -c "cp ${CUSTOM_PET_CONFIG} ${VAGRANT_HOME}/.config/pet/config.toml"
-  if [[ ! -f "${CUSTOM_PET_SNIPPETS}" ]]; then 
+  if [[ -f "${CUSTOM_PET_SNIPPETS}" ]]; then
     su -l vagrant -s "/bin/sh" -c "cp ${CUSTOM_PET_SNIPPETS} ${VAGRANT_HOME}/.config/pet/snippet.toml"
   fi
 }
@@ -119,7 +119,7 @@ install_zsh_root() {
   sudo mkdir -p "${ROOT_HOME}"/.config/pet
   
   sudo cp "${CUSTOM_PET_CONFIG}" "${ROOT_HOME}/.config/pet/config.toml"
-  if [[ ! -f "${CUSTOM_PET_SNIPPETS}" ]]; then 
+  if [[ -f "${CUSTOM_PET_SNIPPETS}" ]]; then
     sudo cp "${CUSTOM_PET_SNIPPETS}" "${ROOT_HOME}"/.config/pet/snippet.toml
   fi
 }
