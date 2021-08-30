@@ -1,0 +1,4 @@
+[[snippets]]
+  description = "List all etcdctl keys and their values"
+  command = "etcdctl ls --recursive -p | grep -v '/$' | xargs -n 1 -I% sh -c 'echo -n %:; etcdctl get %;'"
+  output = ""

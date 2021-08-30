@@ -25,7 +25,8 @@ Vagrant.configure(2) do |config|
   # create flag file to set appliance type to vagrant
   config.vm.provision "shell",
     inline: "mkdir -p /etc/ces && echo 'vagrant' > /etc/ces/type && /vagrant/install.sh"
-
+  config.vm.provision :shell, inline: "/vagrant/custom/installZSH.sh" , run: 'always'
+  
   # configure virtual hardware
   config.vm.provider "virtualbox" do |v|
     v.name = "ecosystem-" + Time.now.to_f.to_s

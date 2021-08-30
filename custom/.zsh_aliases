@@ -1,0 +1,172 @@
+# backup
+alias bbackup="cd /vagrant/containers/backup && cesapp build ."
+alias lbackup="tail -f /var/log/docker/backup.log"
+alias llbackup="cat -n /var/log/docker/backup.log"
+alias tbackup="truncate -s 0 /var/log/docker/backup.log"
+alias ebackup="docker exec -it backup bash"
+
+# baseline
+alias bbaseline="cd /vagrant/containers/baseline && cesapp build ."
+alias lbaseline="tail -f /var/log/docker/baseline.log"
+alias llbaseline="cat -n /var/log/docker/baseline.log"
+alias tbaseline="truncate -s 0 /var/log/docker/baseline.log"
+alias ebaseline="docker exec -it baseline bash"
+
+# cas
+alias bcas="cd /vagrant/containers/cas && cesapp build ."
+alias lcas="tail -f /var/log/docker/cas.log"
+alias llcas="cat -n /var/log/docker/cas.log"
+alias tcas="truncate -s 0 /var/log/docker/cas.log"
+alias ecas="docker exec -it cas bash"
+
+# cockpit
+alias bcockpit="cd /vagrant/containers/cockpit && cesapp build ."
+alias lcockpit="tail -f /var/log/docker/cockpit.log"
+alias llcockpit="cat -n /var/log/docker/cockpit.log"
+alias tcockpit="truncate -s 0 /var/log/docker/cockpit.log"
+alias ecockpit="docker exec -it cockpit bash"
+
+# confluence
+alias bconfluence="cd /vagrant/containers/confluence && cesapp build ."
+alias lconfluence="tail -f /var/log/docker/confluence.log"
+alias llconfluence="cat -n /var/log/docker/confluence.log"
+alias tconfluence="truncate -s 0 /var/log/docker/confluence.log"
+alias econfluence="docker exec -it confluence bash"
+
+# easyredmine
+alias beasyredmine="cd /vagrant/containers/easyredmine && cesapp build ."
+alias leasyredmine="tail -f /var/log/docker/easyredmine.log"
+alias lleasyredmine="cat -n /var/log/docker/easyredmine.log"
+alias teasyredmine="truncate -s 0 /var/log/docker/easyredmine.log"
+alias eeasyredmine="docker exec -it easyredmine bash"
+     
+# ldap-mapper
+alias bdapmapper="cd /vagrant/containers/ldap-mapper && cesapp build ."
+alias lldapmapper="tail -f /var/log/docker/ldap-mapper.log"
+alias llldapmapper="cat -n /var/log/docker/ldap-mapper.log"
+alias tldapmapper="truncate -s 0 /var/log/docker/ldap-mapper.log"
+alias eldapmapper="docker exec -it ldap-mapper bash"   
+
+# ldap
+alias bldap="cd /vagrant/containers/ldap && cesapp build ."
+alias lldap="tail -f /var/log/docker/ldap.log"
+alias llldap="cat -n /var/log/docker/ldap.log"
+alias tldap="truncate -s 0 /var/log/docker/ldap.log"
+alias eldap="docker exec -it ldap bash"
+
+# jenkins
+alias bjenkins="cd /vagrant/containers/jenkins && cesapp build ."
+alias ljenkins="tail -f /var/log/docker/jenkins.log"
+alias lljenkins="cat -n /var/log/docker/jenkins.log"
+alias tjenkins="truncate -s 0 /var/log/docker/jenkins.log"
+alias ejenkins="docker exec -it jenkins bash"
+
+# jira
+alias bjira="cd /vagrant/containers/jira && cesapp build ."
+alias ljira="tail -f /var/log/docker/jira.log"
+alias lljira="cat -n /var/log/docker/jira.log"
+alias tjira="truncate -s 0 /var/log/docker/jira.log"
+alias ejira="docker exec -it jira bash"
+
+# monitoring
+alias bmonitoring="cd /vagrant/containers/monitoring && cesapp build ."
+alias lmonitoring="tail -f /var/log/docker/monitoring.log"
+alias llmonitoring="cat -n /var/log/docker/monitoring.log"
+alias tmonitoring="truncate -s 0 /var/log/docker/monitoring.log"
+alias emonitoring="docker exec -it monitoring bash"
+
+# nexus
+alias bnexus="cd /vagrant/containers/nexus && cesapp build ."
+alias lnexus="tail -f /var/log/docker/nexus.log"
+alias llnexus="cat -n /var/log/docker/nexus.log"
+alias tnexus="truncate -s 0 /var/log/docker/nexus.log"
+alias enexus="docker exec -it nexus bash"
+
+# nginx
+alias bnginx="cd /vagrant/containers/nginx && cesapp build ."
+alias lnginx="tail -f /var/log/docker/nginx.log"
+alias llnginx="cat -n /var/log/docker/nginx.log"
+alias tnginx="truncate -s 0 /var/log/docker/nginx.log"
+alias enginx="docker exec -it nginx bash"
+
+# plantuml
+alias bplantuml="cd /vagrant/containers/plantuml && cesapp build ."
+alias lplantuml="tail -f /var/log/docker/plantuml.log"
+alias llplantuml="cat -n /var/log/docker/plantuml.log"
+alias tplantuml="truncate -s 0 /var/log/docker/plantuml.log"
+alias eplantuml="docker exec -it plantuml bash"
+
+# portainer
+alias bportainer="cd /vagrant/containers/portainer && cesapp build ."
+alias lportainer="tail -f /var/log/docker/portainer.log"
+alias llportainer="cat -n /var/log/docker/portainer.log"
+alias tportainer="truncate -s 0 /var/log/docker/portainer.log"
+alias eportainer="docker exec -it portainer bash"
+
+# postfix
+alias bpostfix="cd /vagrant/containers/postfix && cesapp build ."
+alias lpostfix="tail -f /var/log/docker/postfix.log"
+alias llpostfix="cat -n /var/log/docker/postfix.log"
+alias tpostfix="truncate -s 0 /var/log/docker/postfix.log"
+alias epostfix="docker exec -it postfix bash"
+
+# postgresql
+alias bpostgresql="cd /vagrant/containers/postgresql && cesapp build ."
+alias lpostgresql="tail -f /var/log/docker/postgresql.log"
+alias llpostgresql="cat -n /var/log/docker/postgresql.log"
+alias tpostgresql="truncate -s 0 /var/log/docker/postgresql.log"
+alias epostgresql="docker exec -it postgresql bash"
+
+# redmine
+alias bredmine="cd /vagrant/containers/redmine && cesapp build ."
+alias lredmine="tail -f /var/log/docker/redmine.log"
+alias llredmine="cat -n /var/log/docker/redmine.log"
+alias tredmine="truncate -s 0 /var/log/docker/redmine.log"
+alias eredmine="docker exec -it redmine bash"
+
+# registrator
+alias bregistrator="cd /vagrant/containers/registrator && cesapp build ."
+alias lregistrator="tail -f /var/log/docker/registrator.log"
+alias llregistrator="cat -n /var/log/docker/registrator.log"
+alias tregistrator="truncate -s 0 /var/log/docker/registrator.log"
+alias eregistrator="docker exec -it registrator bash"
+
+# scm
+alias bscm="cd /vagrant/containers/scm && cesapp build ."
+alias lscm="tail -f /var/log/docker/scm.log"
+alias llscm="cat -n /var/log/docker/scm.log"
+alias tscl="truncate -s 0 /var/log/docker/scm.log"
+alias escm="docker exec -it scm bash"
+
+# smeagol
+alias bsmeagol="cd /vagrant/containers/smeagol && cesapp build ."
+alias lsmeagol="tail -f /var/log/docker/smeagol.log"
+alias llsmeagol="cat -n /var/log/docker/smeagol.log"
+alias tsmeagol="truncate -s 0 /var/log/docker/smeagol.log"
+alias esmeagol="docker exec -it smeagol bash"
+
+# sonar
+alias bsonar="cd /vagrant/containers/sonar && cesapp build ."
+alias lsonar="tail -f /var/log/docker/sonar.log"
+alias llsonar="cat -n /var/log/docker/sonar.log"
+alias tsonar="truncate -s 0 /var/log/docker/sonar.log"
+alias esonar="docker exec -it sonar bash"
+
+# swaggerui
+alias bswaggerui="cd /vagrant/containers/swaggerui && cesapp build ."
+alias lswaggerui="tail -f /var/log/docker/swaggerui.log"
+alias llswaggerui="cat -n /var/log/docker/swaggerui.log"
+alias tswaggerui="truncate -s 0 /var/log/docker/swaggerui.log"
+alias eswaggerui="docker exec -it swaggerui bash"
+
+# usermgt
+alias busermgt="cd /vagrant/containers/usermgt && cesapp build ."
+alias lusermgt="tail -f /var/log/docker/usermgt.log"
+alias llusermgt="cat -n /var/log/docker/usermgt.log"
+alias tusermgt="truncate -s 0 /var/log/docker/usermgt.log"
+alias eusermgt="docker exec -it usermgt bash"
+
+# ----------------------------------------------------------
+
+# Pet
+alias snip="pet search | xsel --clipboard"

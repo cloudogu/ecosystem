@@ -1,0 +1,12 @@
+[General]
+  snippetfile = "/home/vagrant/.config/pet/snippet.toml"
+  editor = "vim"
+  column = 40
+  selectcmd = "fzf"
+
+[Gist]
+  file_name = "pet-snippet.toml"
+  access_token = ""
+  gist_id = ""
+  public = false
+  auto_sync = false
