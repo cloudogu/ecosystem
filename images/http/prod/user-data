@@ -67,10 +67,40 @@ autoinstall:
         number: 3
         size: 8G
         flag: swap
-      - id: sda4-root
+      - id: sda4-home
         device: sda
         type: partition
         number: 4
+        size: 2GB
+      - id: sda5-tmp
+        device: sda
+        type: partition
+        number: 5
+        size: 8GB
+      - id: sda6-vartmp
+        device: sda
+        type: partition
+        number: 6
+        size: 8GB
+      - id: sda7-varlog
+        device: sda
+        type: partition
+        number: 7
+        size: 10GB
+      - id: sda8-varlogaudit
+        device: sda
+        type: partition
+        number: 8
+        size: 8GB
+      - id: sda9-root
+        device: sda
+        type: partition
+        number: 9
+        size: 10GB
+      - id: sda10-var
+        device: sda
+        type: partition
+        number: 10
         size: -1
 
       - id: sda2-boot-ext4
@@ -81,15 +111,36 @@ autoinstall:
         type: format
         volume: sda3-swap
         fstype: swap
-      - id: sda4-root-btrfs
+      - id: sda4-home-ext4
         type: format
-        volume: sda4-root
+        volume: sda4-home
+        fstype: ext4
+      - id: sda5-tmp-ext4
+        type: format
+        volume: sda5-tmp
+        fstype: ext4
+      - id: sda6-vartmp-ext4
+        type: format
+        volume: sda6-vartmp
+        fstype: ext4
+      - id: sda7-varlog-ext4
+        type: format
+        volume: sda7-varlog
+        fstype: ext4
+      - id: sda8-varlogaudit-ext4
+        type: format
+        volume: sda8-varlogaudit
+        fstype: ext4
+      - id: sda9-root-ext4
+        type: format
+        volume: sda9-root
+        fstype: ext4
+      - id: sda10-var-btrfs
+        type: format
+        volume: sda10-var
         fstype: btrfs
 
-      - id: mount-sda4-root
-        type: mount
-        path: /
-        device: sda4-root-btrfs
+
       - id: mount-sda2-boot
         type: mount
         path: /boot
@@ -98,3 +149,31 @@ autoinstall:
         type: mount
         path: /swap.img
         device: sda3-swap-swap
+      - id: mount-sda4-home
+        type: mount
+        path: /home
+        device: sda4-home-ext4
+      - id: mount-sda5-tmp
+        type: mount
+        path: /tmp
+        device: sda5-tmp-ext4
+      - id: mount-sda6-vartmp
+        type: mount
+        path: /var/tmp
+        device: sda6-vartmp-ext4
+      - id: mount-sda7-varlog
+        type: mount
+        path: /var/log
+        device: sda7-varlog-ext4
+      - id: mount-sda8-varlogaudit
+        type: mount
+        path: /var/log/audit
+        device: sda8-varlogaudit-ext4
+      - id: mount-sda9-root
+        type: mount
+        path: /
+        device: sda9-root-ext4
+      - id: mount-sda10-var
+        type: mount
+        path: /var
+        device: sda10-var-btrfs

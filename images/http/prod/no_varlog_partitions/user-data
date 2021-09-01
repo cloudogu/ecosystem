@@ -37,152 +37,120 @@ autoinstall:
     install-server: true
 
   # Contains the definition of the systems partitions
+  # Hint: This "no_varlog_partitions" folder holds configuration
+  #   for images which should NOT get separate /var/log and
+  #   /var/log/audit partitions.
   storage:
     version: 1
     swap:
       size: 0
     config:
-      - id: vda
+      - id: sda
         type: disk
         ptable: gpt
-        path: /dev/vda
+        path: /dev/sda
         wipe: superblock
         grub_device: true
 
-      - id: vda1-bios
-        device: vda
+      - id: sda1-bios
+        device: sda
         type: partition
         number: 1
         size: 1MB
         flag: bios_grub
-      - id: vda2-boot
-        device: vda
+      - id: sda2-boot
+        device: sda
         type: partition
         number: 2
         size: 1GB
         flag: boot
-      - id: vda3-swap
-        device: vda
+      - id: sda3-swap
+        device: sda
         type: partition
         number: 3
         size: 8G
         flag: swap
-      - id: vda4-home
-        device: vda
+      - id: sda4-home
+        device: sda
         type: partition
         number: 4
         size: 2GB
-      - id: vda5-tmp
-        device: vda
+      - id: sda5-tmp
+        device: sda
         type: partition
         number: 5
         size: 8GB
-      - id: vda6-vartmp
-        device: vda
+      - id: sda6-vartmp
+        device: sda
         type: partition
         number: 6
         size: 8GB
-      - id: vda7-varlog
-        device: vda
+      - id: sda7-root
+        device: sda
         type: partition
         number: 7
         size: 10GB
-      - id: vda8-varlogaudit
-        device: vda
+      - id: sda8-var
+        device: sda
         type: partition
         number: 8
-        size: 8GB
-      - id: vda9-root
-        device: vda
-        type: partition
-        number: 9
-        size: 10GB
-      - id: vda10-var
-        device: vda
-        type: partition
-        number: 10
         size: -1
 
-      - id: vda2-boot-ext4
+      - id: sda2-boot-ext4
         type: format
-        volume: vda2-boot
+        volume: sda2-boot
         fstype: ext4
-      - id: vda3-swap-swap
+      - id: sda3-swap-swap
         type: format
-        volume: vda3-swap
+        volume: sda3-swap
         fstype: swap
-      - id: vda4-home-ext4
+      - id: sda4-home-ext4
         type: format
-        volume: vda4-home
+        volume: sda4-home
         fstype: ext4
-      - id: vda5-tmp-ext4
+      - id: sda5-tmp-ext4
         type: format
-        volume: vda5-tmp
+        volume: sda5-tmp
         fstype: ext4
-      - id: vda6-vartmp-ext4
+      - id: sda6-vartmp-ext4
         type: format
-        volume: vda6-vartmp
+        volume: sda6-vartmp
         fstype: ext4
-      - id: vda7-varlog-ext4
+      - id: sda7-root-ext4
         type: format
-        volume: vda7-varlog
+        volume: sda7-root
         fstype: ext4
-      - id: vda8-varlogaudit-ext4
+      - id: sda8-var-btrfs
         type: format
-        volume: vda8-varlogaudit
-        fstype: ext4
-      - id: vda9-root-ext4
-        type: format
-        volume: vda9-root
-        fstype: ext4
-      - id: vda10-var-btrfs
-        type: format
-        volume: vda10-var
+        volume: sda8-var
         fstype: btrfs
 
 
-      - id: mount-vda2-boot
+      - id: mount-sda2-boot
         type: mount
         path: /boot
-        device: vda2-boot-ext4
-      - id: mount-vda3-swap
+        device: sda2-boot-ext4
+      - id: mount-sda3-swap
         type: mount
         path: /swap.img
-        device: vda3-swap-swap
-      - id: mount-vda4-home
+        device: sda3-swap-swap
+      - id: mount-sda4-home
         type: mount
         path: /home
-        device: vda4-home-ext4
-      - id: mount-vda5-tmp
+        device: sda4-home-ext4
+      - id: mount-sda5-tmp
         type: mount
         path: /tmp
-        device: vda5-tmp-ext4
-      - id: mount-vda6-vartmp
+        device: sda5-tmp-ext4
+      - id: mount-sda6-vartmp
         type: mount
         path: /var/tmp
-        device: vda6-vartmp-ext4
-      - id: mount-vda7-varlog
-        type: mount
-        path: /var/log
-        device: vda7-varlog-ext4
-      - id: mount-vda8-varlogaudit
-        type: mount
-        path: /var/log/audit
-        device: vda8-varlogaudit-ext4
-      - id: mount-vda9-root
+        device: sda6-vartmp-ext4
+      - id: mount-sda7-root
         type: mount
         path: /
-        device: vda9-root-ext4
-      - id: mount-vda10-var
+        device: sda7-root-ext4
+      - id: mount-sda8-var
         type: mount
         path: /var
-        device: vda10-var-btrfs
-  network:
-    network:
-      version: 2
-      renderer: networkd
-      ethernets:
-        enp1s0:
-          dhcp4: yes
-        ens3:
-          dhcp4: yes
+        device: sda8-var-btrfs
