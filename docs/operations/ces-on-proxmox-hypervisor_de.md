@@ -36,7 +36,7 @@ In der Console gilt es nun die Netzwerkkonfiguration korrekt zu hinterlegen. Sta
 Diese ist aber stark vom betreibenden Hypervisor abhänig und muss möglicherweise geändert werden. Verwedenen sie dazu den
 Befehl `ip addr` um alle verfügbaren Netzwerkscnittstellen anzuzeigen.
 
-[!95](figures/operations/find_correct_network_interface.png)
+![find correct network interface](figures/operations/find_correct_network_interface.png)
 
 In unserem Fall fehlt der Eintrag für die Netzwerkschnittstelle `ens18`. Fügen sie diese in der `/etc/netplan/00-installer-config.yaml` hinzu.
 
