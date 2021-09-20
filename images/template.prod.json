@@ -57,6 +57,7 @@
 		{
 			"name": "ecosystem-vmware",
 			"type": "vmware-iso",
+			"version": "14",
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "ubuntu-64",
 			"cpus": "{{user `cpus`}}",
