@@ -25,8 +25,11 @@ function apply_firewall_rules(){
 
   GW_NETWORK=$(get_gateway_network)
 
-	# set gateway network address dynamically so that this rule is always able to work after possible change of gateway network address
+	# set gateway network address dynamically so that this rules are always able to work after possible change of gateway network address
+	# allow communication to port 4001 used by etcd
 	ufw allow from "$(docker network inspect "${GW_NETWORK}" -f '{{(index .IPAM.Config 0).Subnet}}')" to any port 4001
+	# allow communication to port 50051 used by cesappd
+	ufw allow from "$(docker network inspect "${GW_NETWORK}" -f '{{(index .IPAM.Config 0).Subnet}}')" to any port 50051
 	ufw --force enable
 }
 
