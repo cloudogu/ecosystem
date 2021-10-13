@@ -64,5 +64,5 @@ Wenn Sie das Zertifikat bzw. die Zertifikatskette Ihres EcoSystems aktualisieren
 - Speichern Sie den privaten Schlüssel Ihres Zertifikats im etcd-Key `/config/_global/certificate/server.key`, z.B. über `cat private_key.pem | etcdctl set /config/_global/certificate/server.key`
 - Speichern Sie das Zertifikat bzw. die Zertifikatskette im etcd-Key `/config/_global/certificate/server.crt`.
    - Wenn Sie nur ein Zertifikat importieren wollen, tun Sie dies über `cat certificate.pem | etcdctl set /config/_global/certificate/server.crt`
-   - Wenn Sie eine Zertifikatskette importieren wollen, achten Sie bitte darauf, dass alle Zertifikate (Instanz, Zwischenzertifikate, Root) in der richtigen Reihenfolge vorliegen: Zuerst das Instanzzertifikat, dann das/die Zwischenzertifikat(e) und zum Schluss das Stammzertifikat.
+   - Wenn Sie eine Zertifikatskette importieren wollen, achten Sie bitte darauf, dass alle Zertifikate (Instanz, Zwischenzertifikate) in der richtigen Reihenfolge vorliegen: Zuerst das Instanzzertifikat, dann das/die Zwischenzertifikat(e).
 - Starten Sie Ihr EcoSystem neu

@@ -64,5 +64,5 @@ If you want to update the certificate (chain) of your EcoSystem, please follow t
 - Save the private key of your certificate in the etcd key `/config/_global/certificate/server.key`, e.g. via `cat private_key.pem | etcdctl set /config/_global/certificate/server.key`
 - Save the certificate (chain) in the etcd key `/config/_global/certificate/server.crt`
    - If you only want to import one certificate, do so via `cat certificate.pem | etcdctl set /config/_global/certificate/server.crt`
-   - If you want to import a certificate chain, please make sure to have all certificates (instance, intermediates, root) in the correct order: First the instance certificate, then the intermediate certificate(s) and the root certificate at last.
+   - If you want to import a certificate chain, please make sure to have all certificates (instance, intermediates) in the correct order: First the instance certificate, followed by the intermediate certificate(s).
 - Restart your EcoSystem
