@@ -57,6 +57,7 @@ Wenn Sie das Zertifikat bzw. die Zertifikatskette Ihres EcoSystems aktualisieren
 ### Selbstsignierte Zertifikate
 
 - Führen Sie das Skript `/usr/local/bin/ssl.sh` aus, z.B. über `sudo /usr/local/bin/ssl.sh`.
+- Starten Sie Ihr EcoSystem neu
 
 ### Externe Zertifikate
 - Externe Schlüssel und Zertifikate müssen im PEM-Format vorliegen

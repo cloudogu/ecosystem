@@ -57,6 +57,7 @@ If you want to update the certificate (chain) of your EcoSystem, please follow t
 ### Self-signed certificates
 
 - Run the script `/usr/local/bin/ssl.sh`, e.g. via `sudo /usr/local/bin/ssl.sh`
+- Restart your EcoSystem
 
 ### External certificates
 - External keys and certificates have to be available in PEM format
