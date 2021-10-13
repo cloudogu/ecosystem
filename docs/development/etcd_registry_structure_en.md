@@ -48,3 +48,21 @@ The keys stored here (e.g. "/state/jenkins") hold information about the executio
 The state keys are utilized when a health check is performed on a dogu via the `cesapp healthy DOGUNAME` command. If the corresponding "/state/DOGUNAME" key holds the string "ready", the health check succeeds.
 
 ### /services
+
+
+## Updating certificates
+
+If you want to update the certificate (chain) of your EcoSystem, please follow this procedure:
+
+### Self-signed certificates
+
+- Run the script `/usr/local/bin/ssl.sh`, e.g. via `sudo /usr/local/bin/ssl.sh`
+- Restart your EcoSystem
+
+### External certificates
+- External keys and certificates have to be available in PEM format
+- Save the private key of your certificate in the etcd key `/config/_global/certificate/server.key`, e.g. via `cat private_key.pem | etcdctl set /config/_global/certificate/server.key`
+- Save the certificate (chain) in the etcd key `/config/_global/certificate/server.crt`
+   - If you only want to import one certificate, do so via `cat certificate.pem | etcdctl set /config/_global/certificate/server.crt`
+   - If you want to import a certificate chain, please make sure to have all certificates (instance, intermediates) in the correct order: First the instance certificate, followed by the intermediate certificate(s).
+- Restart your EcoSystem
