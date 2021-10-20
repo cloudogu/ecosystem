@@ -4,7 +4,7 @@
 * `packer` installiert (siehe [packer.io](https://www.packer.io/))
 * `VirtualBox`, `QEMU` und/oder `VMware` installiert
 
-## 1. Schauen Sie sich das Ökosystem-Repository an
+## 1. Schauen Sie sich das ecosystem-Repository an
 * `git clone https://github.com/cloudogu/ecosystem.git`
 ## 2. Bauen Sie das/die Image(s) mit Packer
 * `cd <ecosystem-pfad>/images/`

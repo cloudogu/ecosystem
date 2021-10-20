@@ -5,6 +5,7 @@
 		"password": "ces-admin",
 		"memory": "8192",
 		"cpus": "4",
+		"disk_size": "100000",
 		"iso_url": "https://releases.ubuntu.com/20.04.2/ubuntu-20.04.2-live-server-amd64.iso",
 		"iso_checksum": "sha256:d1f2bf834bbe9bb43faf16f9be992a6f3935e65be0edece1dee2aa6eb1767423"
 	},
@@ -31,6 +32,7 @@
 			],
 			"shutdown_command": "echo {{user `username`}} | sudo -S -E shutdown -P now",
 			"hard_drive_interface": "sata",
+			"disk_size": "{{user `disk_size`}}",
 			"vboxmanage": [
 				[
 					"modifyvm",
@@ -55,6 +57,7 @@
 		{
 			"name": "ecosystem-vmware",
 			"type": "vmware-iso",
+			"version": "14",
 			"vm_name": "{{user `vm_name`}}",
 			"guest_os_type": "ubuntu-64",
 			"cpus": "{{user `cpus`}}",
@@ -70,6 +73,7 @@
 			"http_directory": "http/prod",
 			"headless": false,
 			"tools_upload_flavor": "linux",
+			"disk_size": "{{user `disk_size`}}",
 			"boot_wait": "5s",
 			"boot_command": [
 				"<enter><enter><f6><esc><wait> ",
@@ -92,6 +96,7 @@
 			"ssh_timeout": "15m",
 			"http_directory": "http/prod/QEMU",
 			"headless": false,
+			"disk_size": "{{user `disk_size`}}",
 			"boot_wait": "1s",
 			"boot_command": [
 				"<enter><enter><f6><esc><wait> ",
