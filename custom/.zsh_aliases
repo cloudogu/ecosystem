@@ -9,6 +9,7 @@ alias ccas="cesapp edit-config cas"
 alias sccas="etcdctl -output json ls -r /config/cas | jq"
 alias rcas="docker restart cas"
 alias gcas="cd /vagrant/containers/cas"
+alias pcas="cesapp purge cas"
 
 # cockpit
 alias bcockpit="cd /vagrant/containers/cockpit && cesapp build ."
@@ -21,6 +22,7 @@ alias ccockpit="cesapp edit-config cockpit"
 alias sccockpit="etcdctl -output json ls -r /config/cockpit | jq"
 alias rcockpit="docker restart cockpit"
 alias gcockpit="cd /vagrant/containers/cockpit"
+alias pcockpit="cesapp purge cockpit"
 
 # ldap-mapper
 alias bldap-mapper="cd /vagrant/containers/ldap-mapper && cesapp build ."
@@ -33,6 +35,7 @@ alias cldap-mapper="cesapp edit-config ldap-mapper"
 alias scldap-mapper="etcdctl -output json ls -r /config/ldap-mapper | jq"
 alias rldap-mapper="docker restart ldap-mapper"
 alias gldap-mapper="cd /vagrant/containers/ldap-mapper"
+alias pldap-mapper="cesapp purge ldap-mapper"
 
 # ldap
 alias bldap="cd /vagrant/containers/ldap && cesapp build ."
@@ -45,6 +48,7 @@ alias cldap="cesapp edit-config ldap"
 alias scldap="etcdctl -output json ls -r /config/ldap | jq"
 alias rldap="docker restart ldap"
 alias gldap="cd /vagrant/containers/ldap"
+alias pldap="cesapp purge ldap"
 
 # jenkins
 alias bjenkins="cd /vagrant/containers/jenkins && cesapp build ."
@@ -57,6 +61,7 @@ alias cjenkins="cesapp edit-config jenkins"
 alias scjenkins="etcdctl -output json ls -r /config/jenkins | jq"
 alias rjenkins="docker restart jenkins"
 alias gjenkins="cd /vagrant/containers/jenkins"
+alias pjenkins="cesapp purge jenkins"
 
 # nexus
 alias bnexus="cd /vagrant/containers/nexus && cesapp build ."
@@ -69,6 +74,7 @@ alias cnexus="cesapp edit-config nexus"
 alias scnexus="etcdctl -output json ls -r /config/nexus | jq"
 alias rnexus="docker restart nexus"
 alias gnexus="cd /vagrant/containers/nexus"
+alias pnexus="cesapp purge nexus"
 
 # nginx
 alias bnginx="cd /vagrant/containers/nginx && cesapp build ."
@@ -81,6 +87,7 @@ alias cnginx="cesapp edit-config nginx"
 alias scnginx="etcdctl -output json ls -r /config/nginx | jq"
 alias rnginx="docker restart nginx"
 alias gnginx="cd /vagrant/containers/nginx"
+alias pnginx="cesapp purge nginx"
 
 # plantuml
 alias bplantuml="cd /vagrant/containers/plantuml && cesapp build ."
@@ -93,6 +100,7 @@ alias cplantuml="cesapp edit-config plantuml"
 alias scplantuml="etcdctl -output json ls -r /config/plantuml | jq"
 alias rplantuml="docker restart plantuml"
 alias gplantuml="cd /vagrant/containers/plantuml"
+alias pplantuml="cesapp purge plantuml"
 
 # postfix
 alias bpostfix="cd /vagrant/containers/postfix && cesapp build ."
@@ -105,6 +113,7 @@ alias cpostfix="cesapp edit-config postfix"
 alias scpostfix="etcdctl -output json ls -r /config/postfix | jq"
 alias rpostfix="docker restart postfix"
 alias gpostfix="cd /vagrant/containers/postfix"
+alias ppostfix="cesapp purge postfix"
 
 # postgresql
 alias bpostgresql="cd /vagrant/containers/postgresql && cesapp build ."
@@ -117,6 +126,7 @@ alias cpostgresql="cesapp edit-config postgresql"
 alias scpostgresql="etcdctl -output json ls -r /config/postgresql | jq"
 alias rpostgresql="docker restart postgresql"
 alias gpostgresql="cd /vagrant/containers/postgresql"
+alias ppostgresql="cesapp purge postgresql"
 
 # redmine
 alias bredmine="cd /vagrant/containers/redmine && cesapp build ."
@@ -129,6 +139,7 @@ alias credmine="cesapp edit-config redmine"
 alias scredmine="etcdctl -output json ls -r /config/redmine | jq"
 alias rredmine="docker restart redmine"
 alias gredmine="cd /vagrant/containers/redmine"
+alias predmine="cesapp purge redmine"
 
 # registrator
 alias bregistrator="cd /vagrant/containers/registrator && cesapp build ."
@@ -141,6 +152,7 @@ alias cregistrator="cesapp edit-config registrator"
 alias scregistrator="etcdctl -output json ls -r /config/registrator | jq"
 alias rregistrator="docker restart registrator"
 alias gregistrator="cd /vagrant/containers/registrator"
+alias pregistrator="cesapp purge registrator"
 
 # scm
 alias bscm="cd /vagrant/containers/scm && cesapp build ."
@@ -153,6 +165,7 @@ alias cscm="cesapp edit-config scm"
 alias scscm="etcdctl -output json ls -r /config/scm | jq"
 alias rscm="docker restart scm"
 alias gscm="cd /vagrant/containers/scm"
+alias pscm="cesapp purge scm"
 
 # smeagol
 alias bsmeagol="cd /vagrant/containers/smeagol && cesapp build ."
@@ -165,6 +178,7 @@ alias csmeagol="cesapp edit-config smeagol"
 alias scsmeagol="etcdctl -output json ls -r /config/smeagol | jq"
 alias rsmeagol="docker restart smeagol"
 alias gsmeagol="cd /vagrant/containers/smeagol"
+alias psmeagol="cesapp purge smeagol"
 
 # sonar
 alias bsonar="cd /vagrant/containers/sonar && cesapp build ."
@@ -177,6 +191,7 @@ alias csonar="cesapp edit-config sonar"
 alias scsonar="etcdctl -output json ls -r /config/sonar | jq"
 alias rsonar="docker restart sonar"
 alias gsonar="cd /vagrant/containers/sonar"
+alias psonar="cesapp purge sonar"
 
 # swaggerui
 alias bswaggerui="cd /vagrant/containers/swaggerui && cesapp build ."
@@ -189,6 +204,7 @@ alias cswaggerui="cesapp edit-config swaggerui"
 alias scswaggerui="etcdctl -output json ls -r /config/swaggerui | jq"
 alias rswaggerui="docker restart swaggerui"
 alias gswaggerui="cd /vagrant/containers/swaggerui"
+alias pswaggerui="cesapp purge swaggerui"
 
 # usermgt
 alias busermgt="cd /vagrant/containers/usermgt && cesapp build ."
@@ -201,6 +217,7 @@ alias cusermgt="cesapp edit-config usermgt"
 alias scusermgt="etcdctl -output json ls -r /config/usermgt | jq"
 alias rusermgt="docker restart usermgt"
 alias gusermgt="cd /vagrant/containers/usermgt"
+alias pusermgt="cesapp purge usermgt"
 
 # backup
 alias bbackup="cd /vagrant/containers/backup && cesapp build ."
@@ -213,18 +230,7 @@ alias cbackup="cesapp edit-config backup"
 alias scbackup="etcdctl -output json ls -r /config/backup | jq"
 alias rbackup="docker restart backup"
 alias gbackup="cd /vagrant/containers/backup"
-
-# baseline
-alias bbaseline="cd /vagrant/containers/baseline && cesapp build ."
-alias lbaseline="tail -f /var/log/docker/baseline.log"
-alias clbaseline="cat -n /var/log/docker/baseline.log"
-alias tlbaseline="truncate -s 0 /var/log/docker/baseline.log"
-alias ebaseline="docker exec -it baseline bash"
-alias ibaseline="cesapp install premium/baseline"
-alias cbaseline="cesapp edit-config baseline"
-alias scbaseline="etcdctl -output json ls -r /config/baseline | jq"
-alias rbaseline="docker restart baseline"
-alias gbaseline="cd /vagrant/containers/baseline"
+alias pbackup="cesapp purge backup"
 
 # confluence
 alias bconfluence="cd /vagrant/containers/confluence && cesapp build ."
@@ -237,18 +243,7 @@ alias cconfluence="cesapp edit-config confluence"
 alias scconfluence="etcdctl -output json ls -r /config/confluence | jq"
 alias rconfluence="docker restart confluence"
 alias gconfluence="cd /vagrant/containers/confluence"
-
-# easyredmine
-alias beasyredmine="cd /vagrant/containers/easyredmine && cesapp build ."
-alias leasyredmine="tail -f /var/log/docker/easyredmine.log"
-alias cleasyredmine="cat -n /var/log/docker/easyredmine.log"
-alias tleasyredmine="truncate -s 0 /var/log/docker/easyredmine.log"
-alias eeasyredmine="docker exec -it easyredmine bash"
-alias ieasyredmine="cesapp install premium/easyredmine"
-alias ceasyredmine="cesapp edit-config easyredmine"
-alias sceasyredmine="etcdctl -output json ls -r /config/easyredmine | jq"
-alias reasyredmine="docker restart easyredmine"
-alias geasyredmine="cd /vagrant/containers/easyredmine"
+alias pconfluence="cesapp purge confluence"
 
 # jira
 alias bjira="cd /vagrant/containers/jira && cesapp build ."
@@ -261,6 +256,7 @@ alias cjira="cesapp edit-config jira"
 alias scjira="etcdctl -output json ls -r /config/jira | jq"
 alias rjira="docker restart jira"
 alias gjira="cd /vagrant/containers/jira"
+alias pjira="cesapp purge jira"
 
 # portainer
 alias bportainer="cd /vagrant/containers/portainer && cesapp build ."
@@ -273,6 +269,7 @@ alias cportainer="cesapp edit-config portainer"
 alias scportainer="etcdctl -output json ls -r /config/portainer | jq"
 alias rportainer="docker restart portainer"
 alias gportainer="cd /vagrant/containers/portainer"
+alias pportainer="cesapp purge portainer"
 
 # monitoring
 alias bmonitoring="cd /vagrant/containers/monitoring && cesapp build ."
@@ -285,9 +282,43 @@ alias cmonitoring="cesapp edit-config monitoring"
 alias scmonitoring="etcdctl -output json ls -r /config/monitoring | jq"
 alias rmonitoring="docker restart monitoring"
 alias gmonitoring="cd /vagrant/containers/monitoring"
+alias pmonitoring="cesapp purge monitoring"
+
+# easyredmine
+alias beasyredmine="cd /vagrant/containers/easyredmine && cesapp build ."
+alias leasyredmine="tail -f /var/log/docker/easyredmine.log"
+alias cleasyredmine="cat -n /var/log/docker/easyredmine.log"
+alias tleasyredmine="truncate -s 0 /var/log/docker/easyredmine.log"
+alias eeasyredmine="docker exec -it easyredmine bash"
+alias ieasyredmine="cesapp install itz-bund/easyredmine"
+alias ceasyredmine="cesapp edit-config easyredmine"
+alias sceasyredmine="etcdctl -output json ls -r /config/easyredmine | jq"
+alias reasyredmine="docker restart easyredmine"
+alias geasyredmine="cd /vagrant/containers/easyredmine"
+alias peasyredmine="cesapp purge easyredmine"
+
+# baseline
+alias bbaseline="cd /vagrant/containers/baseline && cesapp build ."
+alias lbaseline="tail -f /var/log/docker/baseline.log"
+alias clbaseline="cat -n /var/log/docker/baseline.log"
+alias tlbaseline="truncate -s 0 /var/log/docker/baseline.log"
+alias ebaseline="docker exec -it baseline bash"
+alias ibaseline="cesapp install itz-bund/baseline"
+alias cbaseline="cesapp edit-config baseline"
+alias scbaseline="etcdctl -output json ls -r /config/baseline | jq"
+alias rbaseline="docker restart baseline"
+alias gbaseline="cd /vagrant/containers/baseline"
+alias pbaseline="cesapp purge baseline"
 
 
 # ----------------------------------------------------------
 
 # Pet
-alias snip="pet search | xsel --clipboard"
+alias snip="pet search"
+
+# ----------------------------------------------------------
+
+# Etcd
+alias eget="etcdctl get"
+alias els="etcdctl ls"
+alias e="etcdctl"
