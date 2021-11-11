@@ -56,7 +56,7 @@ Wenn Sie das Zertifikat bzw. die Zertifikatskette Ihres EcoSystems aktualisieren
 
 ### Selbstsignierte Zertifikate
 
-- Führen Sie das Skript `/usr/local/bin/ssl.sh` aus, z.B. über `sudo /usr/local/bin/ssl.sh`.
+- Führen Sie das Skript `/usr/local/bin/ssl_ces.sh` aus, z.B. über `sudo /usr/local/bin/ssl_ces.sh`.
 - Starten Sie Ihr EcoSystem neu
 
 ### Externe Zertifikate
