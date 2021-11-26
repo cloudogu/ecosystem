@@ -1,8 +1,8 @@
-# Upgrade von Ubuntu 18.04 auf 20.04 im Cloudogu EcoSystem
+# Upgrade von Ubuntu 18.04 auf 20.04
 
 ## 1. Upgrade von Ubuntu 18.04 auf 20.04
 
-Sie können die Ubuntu-Distribution, auf der das EcoSystem aufgebaut ist, wie jedes andere Ubuntu-basierte System aktualisieren. Eine gute Referenz über die zu unternehmenden Schritte finden Sie hier: https://www.linuxcloudvps.com/blog/how-to-update-your-server-from-ubuntu-18-04-to-ubuntu-20-04/
+Sie können die Ubuntu-Distribution, auf der das Cloudogu EcoSystem aufgebaut ist, wie jedes andere Ubuntu-basierte System aktualisieren. Eine gute Referenz über die zu unternehmenden Schritte finden Sie hier: https://www.linuxcloudvps.com/blog/how-to-update-your-server-from-ubuntu-18-04-to-ubuntu-20-04/
 
 ## 2. Anpassen der apt-Konfiguration
 
