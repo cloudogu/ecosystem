@@ -9,3 +9,7 @@
 # editor backups
 *~
 \#*\#
+
+# dogus
+containers/
+!containers/.gitkeep
