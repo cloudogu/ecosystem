@@ -11,6 +11,7 @@ def createAliases(file, namespace, doguName):
     file.write("alias r{}=\"docker restart {}\"\n".format(doguName, doguName))
     file.write("alias g{}=\"cd /vagrant/containers/{}\"\n".format(doguName, doguName))
     file.write("alias p{}=\"cesapp purge {}\"\n".format(doguName, doguName))
+    file.write("alias h{}=\"cesapp healthy --wait {}\"\n".format(doguName, doguName))
     file.write("\n")
 
 defaultDogus = ["cas", "cockpit", "ldap-mapper", "ldap", "jenkins", "nexus", "nginx", "plantuml", "postfix", "postgresql", "redmine", "registrator", "scm", "smeagol", "sonar", "swaggerui", "usermgt"]
