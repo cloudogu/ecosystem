@@ -1,0 +1,60 @@
+{
+    "region": {
+      "locale": "de_DE.utf8",
+      "timeZone": "Europe/Berlin",
+      "keyboardLayout": "DE",
+      "completed": true
+    },
+    "naming": {
+      "fqdn": "ces",
+      "hostname": "ces",
+      "domain": "ces.local",
+      "certificateType": "selfsigned",
+      "relayHost": "testme.de",
+      "mailAddress": "",
+      "completed": true
+    },
+    "dogus": {
+      "defaultDogu": "",
+      "install": [
+        "official/ldap",
+        "official/postfix"
+      ],
+      "completed": true
+    },
+    "admin": {
+      "username": "asd",
+      "mail": "asd@asd.de",
+      "password": "asd",
+      "adminGroup": "asd",
+      "completed": true,
+      "adminMember": true
+    },
+    "userBackend": {
+      "port": "389",
+      "useUserConnectionToFetchAttributes": true,
+      "dsType": "embedded",
+      "attributeID": "uid",
+      "attributeFullname": "cn",
+      "attributeMail": "mail",
+      "attributeGroup": "memberOf",
+      "searchFilter": "(objectClass=person)",
+      "host": "ldap",
+      "completed": true
+    },
+    "extendedConfiguration": {
+      "ignoreCriticalHealthCheck": true
+    },
+    "upgrades": {
+      "enabled": true,
+      "period": 1,
+      "onlySecurity": false,
+      "emailEnabled": false,
+      "emailSender": "test@mail.de",
+      "emailRecipients": "test@mail.de,test@mail.de",
+      "emailOnlyOnErrors": false,
+      "reboot": false,
+      "rebootTime": "10:00",
+      "completed": false
+    }
+  }
