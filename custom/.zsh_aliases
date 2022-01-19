@@ -10,6 +10,7 @@ alias sccas="etcdctl -output json ls -r /config/cas | jq"
 alias rcas="docker restart cas"
 alias gcas="cd /vagrant/containers/cas"
 alias pcas="cesapp purge cas"
+alias hcas="cesapp healthy --wait cas"
 
 # cockpit
 alias bcockpit="cd /vagrant/containers/cockpit && cesapp build ."
@@ -23,6 +24,7 @@ alias sccockpit="etcdctl -output json ls -r /config/cockpit | jq"
 alias rcockpit="docker restart cockpit"
 alias gcockpit="cd /vagrant/containers/cockpit"
 alias pcockpit="cesapp purge cockpit"
+alias hcockpit="cesapp healthy --wait cockpit"
 
 # ldap-mapper
 alias bldap-mapper="cd /vagrant/containers/ldap-mapper && cesapp build ."
@@ -36,6 +38,7 @@ alias scldap-mapper="etcdctl -output json ls -r /config/ldap-mapper | jq"
 alias rldap-mapper="docker restart ldap-mapper"
 alias gldap-mapper="cd /vagrant/containers/ldap-mapper"
 alias pldap-mapper="cesapp purge ldap-mapper"
+alias hldap-mapper="cesapp healthy --wait ldap-mapper"
 
 # ldap
 alias bldap="cd /vagrant/containers/ldap && cesapp build ."
@@ -49,6 +52,7 @@ alias scldap="etcdctl -output json ls -r /config/ldap | jq"
 alias rldap="docker restart ldap"
 alias gldap="cd /vagrant/containers/ldap"
 alias pldap="cesapp purge ldap"
+alias hldap="cesapp healthy --wait ldap"
 
 # jenkins
 alias bjenkins="cd /vagrant/containers/jenkins && cesapp build ."
@@ -62,6 +66,7 @@ alias scjenkins="etcdctl -output json ls -r /config/jenkins | jq"
 alias rjenkins="docker restart jenkins"
 alias gjenkins="cd /vagrant/containers/jenkins"
 alias pjenkins="cesapp purge jenkins"
+alias hjenkins="cesapp healthy --wait jenkins"
 
 # nexus
 alias bnexus="cd /vagrant/containers/nexus && cesapp build ."
@@ -75,6 +80,7 @@ alias scnexus="etcdctl -output json ls -r /config/nexus | jq"
 alias rnexus="docker restart nexus"
 alias gnexus="cd /vagrant/containers/nexus"
 alias pnexus="cesapp purge nexus"
+alias hnexus="cesapp healthy --wait nexus"
 
 # nginx
 alias bnginx="cd /vagrant/containers/nginx && cesapp build ."
@@ -88,6 +94,7 @@ alias scnginx="etcdctl -output json ls -r /config/nginx | jq"
 alias rnginx="docker restart nginx"
 alias gnginx="cd /vagrant/containers/nginx"
 alias pnginx="cesapp purge nginx"
+alias hnginx="cesapp healthy --wait nginx"
 
 # plantuml
 alias bplantuml="cd /vagrant/containers/plantuml && cesapp build ."
@@ -101,6 +108,7 @@ alias scplantuml="etcdctl -output json ls -r /config/plantuml | jq"
 alias rplantuml="docker restart plantuml"
 alias gplantuml="cd /vagrant/containers/plantuml"
 alias pplantuml="cesapp purge plantuml"
+alias hplantuml="cesapp healthy --wait plantuml"
 
 # postfix
 alias bpostfix="cd /vagrant/containers/postfix && cesapp build ."
@@ -114,6 +122,7 @@ alias scpostfix="etcdctl -output json ls -r /config/postfix | jq"
 alias rpostfix="docker restart postfix"
 alias gpostfix="cd /vagrant/containers/postfix"
 alias ppostfix="cesapp purge postfix"
+alias hpostfix="cesapp healthy --wait postfix"
 
 # postgresql
 alias bpostgresql="cd /vagrant/containers/postgresql && cesapp build ."
@@ -127,6 +136,7 @@ alias scpostgresql="etcdctl -output json ls -r /config/postgresql | jq"
 alias rpostgresql="docker restart postgresql"
 alias gpostgresql="cd /vagrant/containers/postgresql"
 alias ppostgresql="cesapp purge postgresql"
+alias hpostgresql="cesapp healthy --wait postgresql"
 
 # redmine
 alias bredmine="cd /vagrant/containers/redmine && cesapp build ."
@@ -140,6 +150,7 @@ alias scredmine="etcdctl -output json ls -r /config/redmine | jq"
 alias rredmine="docker restart redmine"
 alias gredmine="cd /vagrant/containers/redmine"
 alias predmine="cesapp purge redmine"
+alias hredmine="cesapp healthy --wait redmine"
 
 # registrator
 alias bregistrator="cd /vagrant/containers/registrator && cesapp build ."
@@ -153,6 +164,7 @@ alias scregistrator="etcdctl -output json ls -r /config/registrator | jq"
 alias rregistrator="docker restart registrator"
 alias gregistrator="cd /vagrant/containers/registrator"
 alias pregistrator="cesapp purge registrator"
+alias hregistrator="cesapp healthy --wait registrator"
 
 # scm
 alias bscm="cd /vagrant/containers/scm && cesapp build ."
@@ -166,6 +178,7 @@ alias scscm="etcdctl -output json ls -r /config/scm | jq"
 alias rscm="docker restart scm"
 alias gscm="cd /vagrant/containers/scm"
 alias pscm="cesapp purge scm"
+alias hscm="cesapp healthy --wait scm"
 
 # smeagol
 alias bsmeagol="cd /vagrant/containers/smeagol && cesapp build ."
@@ -179,6 +192,7 @@ alias scsmeagol="etcdctl -output json ls -r /config/smeagol | jq"
 alias rsmeagol="docker restart smeagol"
 alias gsmeagol="cd /vagrant/containers/smeagol"
 alias psmeagol="cesapp purge smeagol"
+alias hsmeagol="cesapp healthy --wait smeagol"
 
 # sonar
 alias bsonar="cd /vagrant/containers/sonar && cesapp build ."
@@ -192,6 +206,7 @@ alias scsonar="etcdctl -output json ls -r /config/sonar | jq"
 alias rsonar="docker restart sonar"
 alias gsonar="cd /vagrant/containers/sonar"
 alias psonar="cesapp purge sonar"
+alias hsonar="cesapp healthy --wait sonar"
 
 # swaggerui
 alias bswaggerui="cd /vagrant/containers/swaggerui && cesapp build ."
@@ -205,6 +220,7 @@ alias scswaggerui="etcdctl -output json ls -r /config/swaggerui | jq"
 alias rswaggerui="docker restart swaggerui"
 alias gswaggerui="cd /vagrant/containers/swaggerui"
 alias pswaggerui="cesapp purge swaggerui"
+alias hswaggerui="cesapp healthy --wait swaggerui"
 
 # usermgt
 alias busermgt="cd /vagrant/containers/usermgt && cesapp build ."
@@ -218,6 +234,7 @@ alias scusermgt="etcdctl -output json ls -r /config/usermgt | jq"
 alias rusermgt="docker restart usermgt"
 alias gusermgt="cd /vagrant/containers/usermgt"
 alias pusermgt="cesapp purge usermgt"
+alias husermgt="cesapp healthy --wait usermgt"
 
 # backup
 alias bbackup="cd /vagrant/containers/backup && cesapp build ."
@@ -231,6 +248,7 @@ alias scbackup="etcdctl -output json ls -r /config/backup | jq"
 alias rbackup="docker restart backup"
 alias gbackup="cd /vagrant/containers/backup"
 alias pbackup="cesapp purge backup"
+alias hbackup="cesapp healthy --wait backup"
 
 # confluence
 alias bconfluence="cd /vagrant/containers/confluence && cesapp build ."
@@ -244,6 +262,7 @@ alias scconfluence="etcdctl -output json ls -r /config/confluence | jq"
 alias rconfluence="docker restart confluence"
 alias gconfluence="cd /vagrant/containers/confluence"
 alias pconfluence="cesapp purge confluence"
+alias hconfluence="cesapp healthy --wait confluence"
 
 # jira
 alias bjira="cd /vagrant/containers/jira && cesapp build ."
@@ -257,6 +276,7 @@ alias scjira="etcdctl -output json ls -r /config/jira | jq"
 alias rjira="docker restart jira"
 alias gjira="cd /vagrant/containers/jira"
 alias pjira="cesapp purge jira"
+alias hjira="cesapp healthy --wait jira"
 
 # portainer
 alias bportainer="cd /vagrant/containers/portainer && cesapp build ."
@@ -270,6 +290,7 @@ alias scportainer="etcdctl -output json ls -r /config/portainer | jq"
 alias rportainer="docker restart portainer"
 alias gportainer="cd /vagrant/containers/portainer"
 alias pportainer="cesapp purge portainer"
+alias hportainer="cesapp healthy --wait portainer"
 
 # monitoring
 alias bmonitoring="cd /vagrant/containers/monitoring && cesapp build ."
@@ -283,6 +304,7 @@ alias scmonitoring="etcdctl -output json ls -r /config/monitoring | jq"
 alias rmonitoring="docker restart monitoring"
 alias gmonitoring="cd /vagrant/containers/monitoring"
 alias pmonitoring="cesapp purge monitoring"
+alias hmonitoring="cesapp healthy --wait monitoring"
 
 # easyredmine
 alias beasyredmine="cd /vagrant/containers/easyredmine && cesapp build ."
@@ -296,6 +318,7 @@ alias sceasyredmine="etcdctl -output json ls -r /config/easyredmine | jq"
 alias reasyredmine="docker restart easyredmine"
 alias geasyredmine="cd /vagrant/containers/easyredmine"
 alias peasyredmine="cesapp purge easyredmine"
+alias heasyredmine="cesapp healthy --wait easyredmine"
 
 # baseline
 alias bbaseline="cd /vagrant/containers/baseline && cesapp build ."
@@ -309,12 +332,13 @@ alias scbaseline="etcdctl -output json ls -r /config/baseline | jq"
 alias rbaseline="docker restart baseline"
 alias gbaseline="cd /vagrant/containers/baseline"
 alias pbaseline="cesapp purge baseline"
+alias hbaseline="cesapp healthy --wait baseline"
 
 
 # ----------------------------------------------------------
 
 # Pet
-alias snip="pet search"
+alias snip="pet search | xsel --clipboard"
 
 # ----------------------------------------------------------
 
