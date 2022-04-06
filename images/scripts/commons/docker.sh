@@ -6,7 +6,7 @@ set -o pipefail
 # Install docker
 # See https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-DOCKER_VERSION=5:20.10.12~3-0~ubuntu-focal
+DOCKER_VERSION=5:20.10.14~3-0~ubuntu-focal
 
 export DEBIAN_FRONTEND=noninteractive
 
