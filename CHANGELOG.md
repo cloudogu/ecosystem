@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Make sure scripts in /install are executable in Packer build process
 
+### Changed
+- Upgrade to Ubuntu 20.04.4 iso
+
 ### Removed
 - Firewall rule for port 50051 from installation script (#447)
 
