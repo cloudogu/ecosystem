@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Make sure scripts in /install are executable in Packer build process
+
 ### Removed
 - Firewall rule for port 50051 from installation script (#447)
 
