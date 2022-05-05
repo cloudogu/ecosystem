@@ -15,11 +15,15 @@ if [ -z ${INSTALL_HOME+x} ]; then
 fi
 export INSTALL_HOME
 
+# Make sure all scripts are executable
+# This may not be the case when Packer build is started from Windows machines
+chmod +x "$INSTALL_HOME"/install/*.sh
+
 # install ces packages
 echo "install ces packages"
 "$INSTALL_HOME"/install/install-ces-packages.sh
 
-# snyc resources
+# sync resources
 echo "sync files"
 "$INSTALL_HOME"/install/sync-files.sh
 
