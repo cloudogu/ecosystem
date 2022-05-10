@@ -1,5 +1,5 @@
 <a href="https://cloudogu.com/">
-    <img src="https://cloudogu.com/assets/logo-2d2238fe45628d112266028f575036b59b4dbb5f4bda38997b5888d536354ddc.png" alt="cloudogu logo" title="Cloudogu" align="right" />
+    <img src="https://cloudogu.com/assets/logo-095998ba31b18880b374767049ac56c95557ff0261857a0fee1387cb1daabec0615d73812a26169d6c97cc5453435c210781c2ae7924212759677da3e63ef60d.png" alt="cloudogu logo" title="Cloudogu" align="right" />
 </a>
 
 # Cloudogu EcoSystem (CES)
