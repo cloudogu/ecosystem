@@ -51,5 +51,10 @@ echo "building up a firewall"
 echo "restart docker with new config"
 systemctl restart docker.service
 
+# install cesappd. This must be separately and cannot be done in the `install-ces-packages.sh`-Script.
+# See #450 for more information.
+echo "Installing cesappd"
+apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages cesappd
+
 # print setup message
 "$INSTALL_HOME"/install/setup-message.sh
