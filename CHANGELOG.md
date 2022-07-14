@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v20.04.4-2] - 2022-07-14
+### Changed
+- Install cesappd separately (#450)
+
 ## [v20.04.4-1] - 2022-05-05
 ### Added
 - Make sure scripts in /install are executable in Packer build process
