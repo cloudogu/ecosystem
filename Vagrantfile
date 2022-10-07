@@ -20,7 +20,7 @@ Vagrant.configure(2) do |config|
   # private network configuration
   # 192.168.56.x is the network provided by the default host-only adapter for VirtualBox in Windows.
   # Using it does not require administrative privileges. It also works on Linux.
-  config.vm.network "private_network", ip: "192.168.56.2"
+  config.vm.network "private_network", ip: "fde4:8dba:82e1::c4"
 
   # create flag file to set appliance type to vagrant
   config.vm.provision "shell",
