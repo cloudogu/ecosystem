@@ -18,12 +18,14 @@ Dieser Pfad enthält Konfigurationen, die von mehreren Tools im CES verwendet we
 
 Einige der wichtigsten Pfade sind:
 
-- /config/_global/key_provider
-- /config/_global/fqdn
-- /config/_global/domain
-- /config/_global/certificate
-- /config/_global/admin_group
-- /config/_global/default_dogu
+```
+/config/_global/key_provider
+/config/_global/fqdn
+/config/_global/domain
+/config/_global/certificate
+/config/_global/admin_group
+/config/_global/default_dogu
+```
 
 #### /config/DOGUNAME
 

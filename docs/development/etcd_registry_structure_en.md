@@ -18,12 +18,14 @@ This path holds configuration that is used by multiple tools in the CES, e.g. th
 
 Some of the key paths are:
 
-- /config/_global/key_provider
-- /config/_global/fqdn
-- /config/_global/domain
-- /config/_global/certificate
-- /config/_global/admin_group
-- /config/_global/default_dogu
+```
+/config/_global/key_provider
+/config/_global/fqdn
+/config/_global/domain
+/config/_global/certificate
+/config/_global/admin_group
+/config/_global/default_dogu
+```
 
 #### /config/DOGUNAME
 
