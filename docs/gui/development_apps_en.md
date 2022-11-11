@@ -27,7 +27,7 @@ If SonarQube does not support the programming language used, this can be achieve
 
 
 The official documentation of this application can be found here: 
-https://docs.sonarqube.org/display/SONAR/Documentation
+https://docs.sonarqube.org/latest/
 
 ## Sonatype Nexus
 Sonatype Nexus is an artifact repository management application that can be used in a variety of ways. On the one hand, the use of libraries and components can be unified by making them available through Nexus. On the other hand, versions of the developed software can be archived in Nexus.
