@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.box = "cloudogu/ecosystem-basebox-v3.4.0"
   config.vm.box_url = "https://storage.googleapis.com/cloudogu-ecosystem/basebox/virtualbox/v3.4.0/basebox-virtualbox-v3.4.0.box"
-  config.vm.box_download_checksum = "6b38c444e9cdac234551282ecb224114dba0b456620af493f379426ec9d37907"
+  config.vm.box_download_checksum = "e911f3d695505aa0f2d002fa76652ef7a682cf0831ee3cff5c5fbf85d17a1e69"
   config.vm.box_download_checksum_type = "sha256"
 
   config.vm.hostname = "ces"
