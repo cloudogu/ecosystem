@@ -7,7 +7,7 @@ case "$PACKER_BUILDER_TYPE" in
 
 virtualbox-iso)
   DEBIAN_FRONTEND=noninteractive apt-get -y install \
-  gcc make perl
+  gcc make perl libxt6 libxmu6
   mkdir -p /mnt/virtualbox
   mount -o loop  "${HOME_DIR}"/VBoxGuest*.iso /mnt/virtualbox
   # encapsulate execution because of false positve (https://github.com/dotless-de/vagrant-vbguest/issues/168)
