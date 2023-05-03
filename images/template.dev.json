@@ -6,8 +6,8 @@
     "memory": "8192",
     "cpus": "4",
     "disk_size": "100000",
-    "iso_url": "https://releases.ubuntu.com/20.04.5/ubuntu-20.04.5-live-server-amd64.iso",
-    "iso_checksum": "sha256:5035be37a7e9abbdc09f0d257f3e33416c1a0fb322ba860d42d74aa75c3468d4"
+    "iso_url": "https://releases.ubuntu.com/20.04.6/ubuntu-20.04.6-live-server-amd64.iso",
+    "iso_checksum": "sha256:b8f31413336b9393ad5d8ef0282717b2ab19f007df2e9ed5196c13d8f9153c8b"
   },
   "builders": [
     {
