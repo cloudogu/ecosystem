@@ -1,7 +1,5 @@
 # Glossary
 
-Translated with www.DeepL.com/Translator
-
 **Branch**
 Part of a repository. A repository can have multiple branches to work on. These branches can be merged if necessary.
 

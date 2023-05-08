@@ -1,7 +1,5 @@
 # More Dogus
 
-Translated with www.DeepL.com/Translator
-
 The Cloudogu EcoSystem provides the following applications through multiple dogus:
 
 ## SCM Manager
