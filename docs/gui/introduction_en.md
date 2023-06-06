@@ -1,7 +1,5 @@
 # Introduction
 
-Translated with www.DeepL.com/Translator
-
 ## What is the Cloudogu EcoSystem?
 The Cloudogu EcoSystem is a platform that gives development teams the freedom to decide when and where they develop software. To do this, each service and tool is deployed as a so-called dogu and automatically aligned and configured.
 As a result, the Cloudogu EcoSystem holds a number of benefits for software developers:

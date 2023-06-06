@@ -23,7 +23,7 @@ Funktionsübersicht:
 * zentrales Benutzerinnen- und Benutzermanagement (siehe User Management) und durchgängige Verwendung von Gruppen
 
 ## Sicherheit
-Das Cloudogu EcoSystem wurde mit stetigem Blick auf aktuelle Sicherheitsstandards entwickelt. Die strikte Verwendung von SSL zur Verschlüsselung von Verbindungen und die Kapselung jedes Dogus in Container sowie die Verschlüsselung von sicherheitsrelevanten Konfigurationen sind nur ein Auszug aus den in den Entwurf eingeflossenen Ma\ss nahmen.
+Das Cloudogu EcoSystem wurde mit stetigem Blick auf aktuelle Sicherheitsstandards entwickelt. Die strikte Verwendung von SSL zur Verschlüsselung von Verbindungen und die Kapselung jedes Dogus in Container sowie die Verschlüsselung von sicherheitsrelevanten Konfigurationen sind nur ein Auszug aus den in den Entwurf eingeflossenen Maßnahmen.
 
 
 Auszug aus den Sicherheitsmaßnahmen:
