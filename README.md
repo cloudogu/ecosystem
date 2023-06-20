@@ -1,5 +1,5 @@
 <a href="https://cloudogu.com/">
-    <img src="https://cloudogu.com/assets/logo-095998ba31b18880b374767049ac56c95557ff0261857a0fee1387cb1daabec0615d73812a26169d6c97cc5453435c210781c2ae7924212759677da3e63ef60d.png" alt="cloudogu logo" title="Cloudogu" align="right" />
+    <img src="https://cloudogu.com/images/logo.png" alt="cloudogu logo" title="Cloudogu" align="right" />
 </a>
 
 # Cloudogu EcoSystem (CES)
@@ -11,7 +11,6 @@ This is the repository containing all setup scripts and resources to install a c
 
 <a href="https://docs.cloudogu.com/"><img src="https://my.cloudogu.com/images/icons/docsIcon.svg" width="50"> Documentation</a>
 <a href="https://community.cloudogu.com/c/cloudogu-ecosystem/18"><img src="https://my.cloudogu.com/images/icons/talkIcon.svg" width="50"> Community</a>
-<a href="https://cloudogu.windcloud.de/"><img src="https://my.cloudogu.com/images/icons/publicEcoSystemIcon.svg" width="50"> Public CES</a>
 
 
 ## Quick start
