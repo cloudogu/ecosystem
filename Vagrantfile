@@ -22,6 +22,11 @@ Vagrant.configure(2) do |config|
   # Using it does not require administrative privileges. It also works on Linux.
   config.vm.network "private_network", ip: "192.168.56.2"
 
+  # force permissions on windows
+  if Vagrant::Util::Platform.windows? then
+    config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=755,fmode=755"]
+  end
+
   # create flag file to set appliance type to vagrant
   config.vm.provision "shell",
     inline: "mkdir -p /etc/ces && echo 'vagrant' > /etc/ces/type && /vagrant/install.sh"
