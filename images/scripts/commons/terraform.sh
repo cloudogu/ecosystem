@@ -13,7 +13,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 echo "installing terraform"
 # Download the signing key to a new keyring
-wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+wget -O- https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 # Verify the key's fingerprint
 if ! (gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint | grep "798A EC65 4E5C 1542 8C8E  42EE AA16 FCBC A621 E701" > /dev/null); then
   echo "Could not verify hashicorp key fingerprint"
