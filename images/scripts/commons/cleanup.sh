@@ -22,5 +22,5 @@ apt-get -y autoremove;
 apt-get -y clean;
 
 echo "remove temporary install resources"
-rm -f VBoxGuestAdditions_*.iso VBoxGuestAdditions_*.iso.?;
+rm -f VBoxGuestAdditions_*.iso VBoxGuestAdditions_*.iso.? || true
 rm -rf /home/ces-admin/resources /home/ces-admin/install/
