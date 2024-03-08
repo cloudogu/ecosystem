@@ -14,9 +14,15 @@ This is the repository containing all setup scripts and resources to install a C
 For help, you can have a look at our documentation or ask a question in our community.
 <br><br>
 <p align="center">
-   <a href="https://docs.cloudogu.com/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link"><img src="https://my.cloudogu.com/images/icons/docsIcon.svg" width="30"></a><a href="https://docs.cloudogu.com/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link">Documentation</a>
+   <a href="https://docs.cloudogu.com/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link">
+       <img src="https://my.cloudogu.com/images/icons/docsIcon.svg" width="30">
+   </a> 
+    <a href="https://docs.cloudogu.com/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link">Documentation</a>
     &nbsp;&nbsp;
-    <a href="https://community.cloudogu.com/c/cloudogu-ecosystem/18?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link"><img src="https://my.cloudogu.com/images/icons/talkIcon.svg" width="30"></a><a href="https://community.cloudogu.com/c/cloudogu-ecosystem/18?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link" style="color: #00629E;">Community</a>
+    <a href="https://community.cloudogu.com/c/cloudogu-ecosystem/18?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link">
+        <img src="https://my.cloudogu.com/images/icons/talkIcon.svg" width="30">
+    </a>
+    <a href="https://community.cloudogu.com/c/cloudogu-ecosystem/18?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link" style="color: #00629E;">Community</a>
 </p>
 <br>
 
@@ -26,9 +32,15 @@ For help, you can have a look at our documentation or ask a question in our comm
 There are three ways to get your Cloudogu EcoSystem. The easiest is to register at the [Cloudogu Platform](https://platform.cloudogu.com/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link) and download the VirtualBox or QEMU image. Alternatively, you can create it from scratch with Vagrant or Packer.
 <br><br>
 <p align="center">
-    <a href="https://platform.cloudogu.com/de/downloads/ces-virtualbox/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link"><img src="https://my.cloudogu.com/images/icons/virtualBoxIcon.svg" width="30"></a><a href="https://platform.cloudogu.com/de/downloads/ces-virtualbox/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link" style="color:#00629E;">Download VirtualBox Image</a>
+    <a href="https://platform.cloudogu.com/de/downloads/ces-virtualbox/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link">
+        <img src="https://my.cloudogu.com/images/icons/virtualBoxIcon.svg" width="30">
+    </a>
+    <a href="https://platform.cloudogu.com/de/downloads/ces-virtualbox/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link" style="color:#00629E;">Download VirtualBox Image</a>
     &nbsp;&nbsp;
-    <a href="https://platform.cloudogu.com/de/downloads/ces-qemu/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link"><img src="https://my.cloudogu.com/images/icons/qemuIcon.svg" width="30"></a><a href="https://platform.cloudogu.com/de/downloads/ces-qemu/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link" style="color:#00629E;">Download QEMU Image</a>
+    <a href="https://platform.cloudogu.com/de/downloads/ces-qemu/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link">
+        <img src="https://my.cloudogu.com/images/icons/qemuIcon.svg" width="30">
+    </a>
+    <a href="https://platform.cloudogu.com/de/downloads/ces-qemu/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link" style="color:#00629E;">Download QEMU Image</a>
 </p>
 <br>
 
