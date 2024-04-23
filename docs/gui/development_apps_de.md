@@ -43,4 +43,11 @@ https://swagger.io/docs/
 Dieses Dogu ist grundsätzlich auch anonym ohne Eingabe von Anmeldedaten auf der Loginseite des Cloudogu EcoSystems aufrufbar.
 Sofern ein anonymer Aufruf erfolgen soll, muss sichergestellt werden, dass die abzufragenden Ressourcen (bspw. Repository im SCM-Manager oder Nexus-Artefakte) für einen anonymen Zugriff freigegeben wurden.
 
+## Grafana
+Grafana ist eine Open-Source-Plattform für das Monitoring und die Visualisierung von Daten. 
+Sie ermöglicht die Erstellung benutzerdefinierter Dashboards zur Anzeige von Metriken aus verschiedenen Datenquellen wie Prometheus, Graphite, InfluxDB und anderen. 
+Grafana bietet Alarmierungsfunktionen und verfügt über ein breites Ökosystem von Plug-ins für erweiterte Integrationen.
+
+Die offizielle Dokumentation dieser Applikation befindet sich hier: 
+https://grafana.com/docs/
 
