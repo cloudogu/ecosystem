@@ -43,4 +43,10 @@ https://swagger.io/docs/
 In principle, this dogu can also be called anonymously without entering any login data on the login page of the Cloudogu EcoSystem.
 If an anonymous call is to be made, it must be ensured that the resources to be queried (e.g. repository in the SCM manager or Nexus artifacts) have been released for anonymous access.
 
+## Grafana
+Grafana is an open source platform for monitoring and visualizing data.
+It enables the creation of custom dashboards to display metrics from various data sources such as Prometheus, Graphite, InfluxDB and others.
+Grafana offers alerting capabilities and has a broad ecosystem of plug-ins for advanced integrations.
 
+The official documentation of this application can be found here:
+https://grafana.com/docs/
