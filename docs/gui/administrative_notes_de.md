@@ -5,14 +5,15 @@
 Ein neu angelegter Benutzer hat keine ihm zugewiesenen Gruppen. Grundsätzlich sind immer zwei Gruppen verfügbar,
 welche einem Nutzer zugewiesen werden können. Die "cesManager"-Gruppe und die "cesAdmin"-Gruppe. Desweiteren
 können im User Management unter dem Reiter "Gruppen" weitere Gruppen hinzugefügt und den Benutzern zugewiesen
-werden. Diese Gruppen werden auf die einzelnen Dogus übertragen und können dort berechtigt werden.
+werden. Diese Gruppen werden auf die einzelnen Dogus übertragen und können dort berechtigt werden. 
+
+Weitere Informationen zum Rechtemanagement finden Sie [hier](https://docs.cloudogu.com/de/usermanual/usermgt/documentation/#rechtekonzept-im-cloudogu-ecosystem).
 
 #### cesManager Gruppe
 Ein Nutzer in der cesManager Gruppe hat Zugriff auf die Administrativen Dogus, wie zum Beispiel das Backup & Restore Dogu.
 
 #### cesAdmin Gruppe
-Der Name dieser Gruppe wird beim CES-Setup ausgewählt und kann daher variieren. In den folgenden Abschnitten wird zur
-Vereinfachung davon ausgegangen, dass diese Gruppe immer "cesAdmin" heißt. Nutzer in dieser Gruppe bekommen alle
+Der Name dieser Gruppe wird beim CES-Setup ausgewählt und kann daher variieren. Nutzer in dieser Gruppe bekommen alle
 administrativen Berechtigungen in sämtlichen Dogus.
 
 ## Häufig auftretende Probleme

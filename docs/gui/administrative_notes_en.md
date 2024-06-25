@@ -5,14 +5,15 @@
 A newly created user has no groups assigned to him. Basically, there are always two groups available
 which can be assigned to a user. The "cesManager" group and the "cesAdmin" group. Furthermore
 further groups can be added in the user management under the tab "Groups" and assigned to the users.
-be assigned to the users. These groups are transferred to the individual Dogus and can be authorized there.
+be assigned to the users. These groups are transferred to the individual Dogus and can be authorized there. 
+
+Further information on rights management can be found [here](https://docs.cloudogu.com/en/usermanual/usermgt/documentation/#permission-concept-in-the-cloudogu-ecosystem).
 
 #### cesManager group
 A user in the cesManager group has access to the Administrative Dogus, such as the Backup & Restore Dogu.
 
 #### cesAdmin Group
-The name of this group is selected during CES setup and therefore may vary. In the following sections, for simplicity
-simplification, it is assumed that this group is always named "cesAdmin". Users in this group get all administrative
+The name of this group is selected during CES setup and therefore may vary. Users in this group get all administrative
 administrative permissions in all dogus.
 
 ## Common problems
