@@ -1,7 +1,5 @@
 # Introduction
 
-Translated with www.DeepL.com/Translator
-
 ## What is the Cloudogu EcoSystem?
 The Cloudogu EcoSystem is a platform that gives development teams the freedom to decide when and where they develop software. To do this, each service and tool is deployed as a so-called dogu and automatically aligned and configured.
 As a result, the Cloudogu EcoSystem holds a number of benefits for software developers:
@@ -12,7 +10,7 @@ As a result, the Cloudogu EcoSystem holds a number of benefits for software deve
   * a push of changes automatically leads to the build of the project
   * by using keywords in commit messages, the status of tickets can be changed in Redmine as well as comments can be added.
 
-![Cloudogu Workflow](figures/introduction/Cloudogu_workflow.png)
+![Cloudogu Workflow](figures/introduction/Cloudogu_workflow_en.png)
 
 ## Single sign-on
 Workflows in the Cloudogu EcoSystem are particularly fluid thanks to the integrated single sign-on (SSO). This means that users can switch between the Dogus at will without having to log in again. For single sign-on, you can use your own directory services or install a local directory service. This integrated directory service can be managed via a separate dogu.

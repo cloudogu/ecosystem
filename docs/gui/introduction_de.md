@@ -10,7 +10,7 @@ Dadurch hält das Cloudogu EcoSystem eine Reihe von Vorzügen für Softwareentwi
   * ein Push von Änderungen führt automatisch zum Build des Projekts
   * durch die Verwendung von Schlüsselwörtern in Commit-Nachrichten kann sowohl der Status von Tickets in Redmine geändert, als auch Kommentare hinzugefügt werden.
 
-![Cloudogu Workflow](figures/introduction/Cloudogu_workflow.png)
+![Cloudogu Workflow](figures/introduction/Cloudogu_workflow_de.png)
 
 ## Single Sign-on
 Arbeitsabläufe im Cloudogu EcoSystem gestalten sich durch das integrierte Single Sign-on (SSO) besonders flüssig. So kann beliebig zwischen den Dogus gewechselt werden, ohne dass eine erneute Anmeldung nötig wird. Für das Single Sign-on können eigene Verzeichnisdienste verwendet oder es kann ein lokaler Verzeichnisdienst mit installiert werden. Dieser integrierte Verzeichnisdienst kann über ein eigenes Dogu verwaltet werden.
@@ -23,7 +23,7 @@ Funktionsübersicht:
 * zentrales Benutzerinnen- und Benutzermanagement (siehe User Management) und durchgängige Verwendung von Gruppen
 
 ## Sicherheit
-Das Cloudogu EcoSystem wurde mit stetigem Blick auf aktuelle Sicherheitsstandards entwickelt. Die strikte Verwendung von SSL zur Verschlüsselung von Verbindungen und die Kapselung jedes Dogus in Container sowie die Verschlüsselung von sicherheitsrelevanten Konfigurationen sind nur ein Auszug aus den in den Entwurf eingeflossenen Ma\ss nahmen.
+Das Cloudogu EcoSystem wurde mit stetigem Blick auf aktuelle Sicherheitsstandards entwickelt. Die strikte Verwendung von SSL zur Verschlüsselung von Verbindungen und die Kapselung jedes Dogus in Container sowie die Verschlüsselung von sicherheitsrelevanten Konfigurationen sind nur ein Auszug aus den in den Entwurf eingeflossenen Maßnahmen.
 
 
 Auszug aus den Sicherheitsmaßnahmen:

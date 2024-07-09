@@ -6,9 +6,9 @@ Vagrant.require_version ">= 1.9.0"
 
 Vagrant.configure(2) do |config|
 
-  config.vm.box = "cloudogu/ecosystem-basebox-v3.3.0"
-  config.vm.box_url = "https://storage.googleapis.com/cloudogu-ecosystem/basebox/virtualbox/v3.3.0/basebox-virtualbox-v3.3.0.box"
-  config.vm.box_download_checksum = "6b38c444e9cdac234551282ecb224114dba0b456620af493f379426ec9d37907"
+  config.vm.box = "cloudogu/ecosystem-basebox-v3.5.0"
+  config.vm.box_url = "https://storage.googleapis.com/cloudogu-ecosystem/basebox/virtualbox/v3.5.0/basebox-virtualbox-v3.5.0.box"
+  config.vm.box_download_checksum = "2e4783563a29e89b337b1b0355040247a012deed747adb180277860d65580f9f"
   config.vm.box_download_checksum_type = "sha256"
 
   config.vm.hostname = "ces"
@@ -21,6 +21,11 @@ Vagrant.configure(2) do |config|
   # 192.168.56.x is the network provided by the default host-only adapter for VirtualBox in Windows.
   # Using it does not require administrative privileges. It also works on Linux.
   config.vm.network "private_network", ip: "192.168.56.2"
+
+  # force permissions on windows
+  if Vagrant::Util::Platform.windows? then
+    config.vm.synced_folder ".", "/vagrant", mount_options: ["dmode=755,fmode=755"]
+  end
 
   # create flag file to set appliance type to vagrant
   config.vm.provision "shell",

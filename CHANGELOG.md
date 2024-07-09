@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v20.04.6-1] - 2024-07-09
+- Upgrade to Docker 26.1.4
+- Upgrade to Ubuntu 20.04.6
+
 ## [v20.04.4-2] - 2022-07-14
 ### Changed
 - Install cesappd separately (#450)

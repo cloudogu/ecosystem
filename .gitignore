@@ -1,6 +1,7 @@
 .vagrant
 .bundle
 .vagrant.rb
+setup.json
 
 #IDEA related
 .idea/
