@@ -16,28 +16,28 @@ packer {
 }
 
 variable "cpus" {
-  type    = string
-  default = "4"
+  type    = number
+  default = 4
 }
 
 variable "disk_size" {
-  type    = string
-  default = "100000"
+  type    = number
+  default = 100000
 }
 
 variable "iso_checksum" {
   type    = string
-  default = "sha256:b8f31413336b9393ad5d8ef0282717b2ab19f007df2e9ed5196c13d8f9153c8b"
+  default = "sha256:8762f7e74e4d64d72fceb5f70682e6b069932deedb4949c6975d0f0fe0a91be3"
 }
 
 variable "iso_url" {
   type    = string
-  default = "https://releases.ubuntu.com/20.04.6/ubuntu-20.04.6-live-server-amd64.iso"
+  default = "https://releases.ubuntu.com/noble/ubuntu-24.04-live-server-amd64.iso"
 }
 
 variable "memory" {
-  type    = string
-  default = "8192"
+  type    = number
+  default = 8192
 }
 
 variable "password" {
@@ -54,67 +54,89 @@ variable "username" {
   default = "ces-admin"
 }
 
+variable "virtualbox-version-lower-7" {
+  type = bool
+  description = "This flag indicates that the local virtualbox version you are using is older than version 7. It is used to create the modifyvm option list, because some options are not available with virtualbox < 7"
+  default = false
+}
+
 locals {
   vm_name = "CloudoguEcoSystem-${var.timestamp}"
+  common_vboxmanage = [["modifyvm", "${local.vm_name}", "--memory", "${var.memory}"], ["modifyvm", "${local.vm_name}", "--cpus", "${var.cpus}"], ["modifyvm", "${local.vm_name}", "--vram", "10"]]
+  vboxmanage = var.virtualbox-version-lower-7 ? local.common_vboxmanage : concat(local.common_vboxmanage, [["modifyvm", local.vm_name, "--nat-localhostreachable1", "on"]])
+  boot_command = [
+    "c<wait>",
+    "set gfxpayload=keep<enter><wait>",
+    "linux /casper/vmlinuz <wait>",
+    "autoinstall fsck.mode=skip noprompt <wait>",
+    "ds=\"nocloud;s=http://{{.HTTPIP}}:{{.HTTPPort}}/\"<enter><wait>",
+    "initrd /casper/initrd<enter><wait>",
+    "boot<enter>"
+  ]
+  boot_wait              = "5s"
+  headless               = false
+  shutdown_command       = "echo ${var.username} | sudo -S -E shutdown -P now"
+  ssh_handshake_attempts = 10000
+  ssh_timeout            = "20m"
 }
 
 source "qemu" "ecosystem-qemu" {
-  boot_command           = ["<enter><enter><f6><esc><wait> ", "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ", "<enter>"]
-  boot_wait              = "1s"
-  disk_size              = "${var.disk_size}"
+  boot_command           = local.boot_command
+  boot_wait              = local.boot_wait
+  disk_size              = var.disk_size
   format                 = "qcow2"
-  headless               = false
+  headless               = local.headless
   http_directory         = "http/QEMU"
-  iso_checksum           = "${var.iso_checksum}"
-  iso_url                = "${var.iso_url}"
+  iso_checksum           = var.iso_checksum
+  iso_url                = var.iso_url
   qemuargs               = [["-m", "${var.memory}"], ["-smp", "${var.cpus}"]]
-  shutdown_command       = "echo ${var.username} | sudo -S -E shutdown -P now"
-  ssh_handshake_attempts = "10000"
-  ssh_password           = "${var.password}"
-  ssh_timeout            = "15m"
-  ssh_username           = "${var.username}"
+  shutdown_command       = local.shutdown_command
+  ssh_handshake_attempts = local.ssh_handshake_attempts
+  ssh_password           = var.password
+  ssh_timeout            = local.ssh_timeout
+  ssh_username           = var.username
   vm_name                = "${local.vm_name}.qcow2"
 }
 
 source "virtualbox-iso" "ecosystem-virtualbox" {
-  boot_command           = ["<enter><enter><f6><esc><wait> ", "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ", "<enter>"]
-  boot_wait              = "5s"
-  disk_size              = "${var.disk_size}"
+  boot_command           = local.boot_command
+  boot_wait              = local.boot_wait
+  disk_size              = var.disk_size
   format                 = "ova"
   guest_os_type          = "Ubuntu_64"
   hard_drive_interface   = "sata"
-  headless               = false
+  headless               = local.headless
   http_directory         = "http"
-  iso_checksum           = "${var.iso_checksum}"
-  iso_url                = "${var.iso_url}"
+  iso_checksum           = var.iso_checksum
+  iso_url                = var.iso_url
   shutdown_command       = "echo ${var.username} | sudo -S -E shutdown -P now"
-  ssh_handshake_attempts = "10000"
-  ssh_password           = "${var.password}"
-  ssh_timeout            = "15m"
-  ssh_username           = "${var.username}"
-  vboxmanage             = [["modifyvm", "${local.vm_name}", "--memory", "${var.memory}"], ["modifyvm", "${local.vm_name}", "--cpus", "${var.cpus}"], ["modifyvm", "${local.vm_name}", "--vram", "10"]]
-  vm_name                = "${local.vm_name}"
+  ssh_handshake_attempts = 10000
+  ssh_password           = var.password
+  ssh_timeout            = "20m"
+  ssh_username           = var.username
+  vboxmanage             = local.vboxmanage
+  vm_name                = local.vm_name
 }
 
 source "vmware-iso" "ecosystem-vmware" {
-  boot_command           = ["<enter><enter><f6><esc><wait> ", "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ", "<enter>"]
-  boot_wait              = "5s"
-  cpus                   = "${var.cpus}"
-  disk_size              = "${var.disk_size}"
+  boot_command           = local.boot_command
+  boot_wait              = local.boot_wait
+  cpus                   = var.cpus
+  disk_size              = var.disk_size
   guest_os_type          = "ubuntu-64"
-  headless               = false
+  headless               = local.headless
   http_directory         = "http"
-  iso_checksum           = "${var.iso_checksum}"
+  iso_checksum           = var.iso_checksum
   iso_urls               = ["${var.iso_url}"]
-  memory                 = "${var.memory}"
+  memory                 = var.memory
   shutdown_command       = "echo ${var.username} | sudo -S -E shutdown -P now"
-  ssh_handshake_attempts = "10000"
-  ssh_password           = "${var.password}"
-  ssh_timeout            = "15m"
-  ssh_username           = "${var.username}"
+  ssh_handshake_attempts = 10000
+  ssh_password           = var.password
+  ssh_timeout            = "20m"
+  ssh_username           = var.username
   tools_upload_flavor    = "linux"
   version                = "14"
-  vm_name                = "${local.vm_name}"
+  vm_name                = local.vm_name
 }
 
 build {
@@ -122,19 +144,19 @@ build {
 
   provisioner "file" {
     destination = "/home/${var.username}"
-    source      = "../install"
+    source      = "../../install"
   }
 
   provisioner "file" {
     destination = "/home/${var.username}"
-    source      = "../resources"
+    source      = "../../resources"
   }
 
   provisioner "shell" {
     environment_vars  = ["INSTALL_HOME=/home/${var.username}", "HOME_DIR=/home/${var.username}"]
     execute_command   = "echo ${var.password} | {{ .Vars }} sudo -S -E /bin/bash -eux '{{ .Path }}'"
     expect_disconnect = true
-    scripts           = ["scripts/commons/ces_apt.sh", "scripts/commons/update.sh"]
+    scripts           = ["../scripts/commons/ces_apt.sh", "../scripts/commons/update.sh"]
   }
 
   provisioner "shell" {
@@ -142,7 +164,22 @@ build {
     execute_command   = "echo ${var.password} | {{ .Vars }} sudo -S -E /bin/bash -eux '{{ .Path }}'"
     expect_disconnect = true
     pause_before      = "5s"
-    scripts           = ["scripts/commons/dependencies.sh", "scripts/commons/sshd.sh", "scripts/commons/grub.sh", "scripts/commons/subvolumes.sh", "scripts/commons/guestadditions.sh", "scripts/commons/docker.sh", "scripts/commons/terraform.sh", "scripts/commons/fail2ban.sh", "scripts/commons/etcd.sh", "../install.sh", "scripts/commons/networking.sh", "scripts/prod/sshd_security.sh", "scripts/commons/cleanup.sh", "scripts/commons/minimize.sh"]
+    scripts           = [
+      "../scripts/commons/dependencies.sh",
+      "../scripts/commons/sshd.sh",
+      "../scripts/commons/grub.sh",
+      "../scripts/commons/subvolumes.sh",
+      "../scripts/commons/guestadditions.sh",
+      "../scripts/commons/docker.sh",
+      "../scripts/commons/terraform.sh",
+      "../scripts/commons/fail2ban.sh",
+      "../scripts/commons/etcd.sh",
+      "../../install.sh",
+      "../scripts/commons/networking.sh",
+      "../scripts/prod/sshd_security.sh",
+      "../scripts/commons/cleanup.sh",
+      "../scripts/commons/minimize.sh"
+    ]
   }
 
   post-processor "checksum" {
