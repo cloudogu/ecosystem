@@ -45,5 +45,10 @@ node('docker') {
             shellCheck("./images/scripts/dev/vagrant.sh")
             shellCheck("./images/scripts/prod/sshd_security.sh")
         }
+
+        stage('Packer validate') {
+            sh 'cd images/dev && packer init . && packer validate dev.pkr.hcl'
+            sh 'cd images/prod && packer init . && packer validate -var "timestamp=$(date +%Y%m%d)" prod.pkr.hcl'
+        }
     }
 }
