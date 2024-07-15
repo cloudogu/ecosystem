@@ -103,7 +103,22 @@ build {
     environment_vars = ["INSTALL_HOME=/vagrant", "HOME_DIR=/home/${var.username}"]
     execute_command  = "echo ${var.password} | {{ .Vars }} sudo -S -E /bin/bash -eux '{{ .Path }}'"
     pause_before     = "5s"
-    scripts          = ["../scripts/commons/dependencies.sh", "../scripts/commons/sshd.sh", "../scripts/commons/grub.sh", "../scripts/commons/subvolumes.sh", "../scripts/commons/guestadditions.sh", "../scripts/dev/vagrant.sh", "../scripts/dev/dependencies.sh", "../scripts/commons/docker.sh", "../scripts/commons/terraform.sh", "../scripts/commons/fail2ban.sh", "../scripts/commons/etcd.sh", "../scripts/commons/networking.sh", "../scripts/commons/cleanup.sh", "../scripts/commons/minimize.sh"]
+    scripts          = [
+      "../scripts/commons/dependencies.sh",
+      "../scripts/commons/sshd.sh",
+      "../scripts/commons/grub.sh",
+      "../scripts/commons/subvolumes.sh",
+      "../scripts/commons/guestadditions.sh",
+      "../scripts/dev/vagrant.sh",
+      "../scripts/dev/dependencies.sh",
+      "../scripts/commons/docker.sh",
+      "../scripts/commons/terraform.sh",
+      "../scripts/commons/fail2ban.sh",
+      "../scripts/commons/etcd.sh",
+      "../scripts/commons/networking.sh",
+      "../scripts/commons/cleanup.sh",
+      "../scripts/commons/minimize.sh"
+    ]
   }
 
   post-processor "vagrant" {
