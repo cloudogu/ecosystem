@@ -22,6 +22,7 @@ git clone https://github.com/cloudogu/k8s-ecosystem.git
 
 ```bash
 cd <k8s-ecosystem-path>/images/dev/
+packer init .
 packer build dev.pkr.hcl
 ```
 

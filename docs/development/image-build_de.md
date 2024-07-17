@@ -8,11 +8,12 @@
 * `git clone https://github.com/cloudogu/ecosystem.git`
 ## 2. Bauen Sie das/die Image(s) mit Packer
 * `cd <ecosystem-pfad>/images/prod/`
+* `packer init .`
 * `packer build -var "timestamp=$(date +%Y%m%d)" prod.pkr.hcl`
   * Baut alle Images für die Produktion
   * Um nur einen bestimmten Build für einen der Hypervisoren zu erhalten, verwenden Sie den Parameter `--only=<Image-Typ>`. Mit ihm kann der Image-Typ auf `virtualbox-iso.ecosystem-virtualbox`, `qemu.ecosystem-qemu` oder `vmware-iso.ecosystem-vmware` konfiguriert werden
   * Der Standardbenutzer ist `ces-admin` mit dem Passwort `ces-admin` (wird im Setup-Prozess geändert)
-* `cd <ecosystem-pfad>/images/dev/ && packer build dev.pkr.hcl`
+* `cd <ecosystem-pfad>/images/dev/ && packer init . && packer build dev.pkr.hcl`
   * Erzeugt ein Image für die Entwicklung
   * Fügt Entwicklungswerkzeuge wie `htop` und `jq` zur VM hinzu.
     Eine vollständige Liste ist in den folgenden Dateien zu finden:
