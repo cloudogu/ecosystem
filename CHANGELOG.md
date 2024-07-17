@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgrade fail2ban to 1.1.0
 - Upgrade terraform to 1.9.1
 - Convert Packer templates to HCL format
+- You need to specify a VirtualBox version below 7 on Packer image build
 
 ### Removed
 - Removed ctop
