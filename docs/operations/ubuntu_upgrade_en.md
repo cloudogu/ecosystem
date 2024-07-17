@@ -1,24 +1,20 @@
-# Upgrading from Ubuntu 18.04 to 20.04
+# Upgrading from Ubuntu 20.04 to 24.04
 
-## 1. Upgrade Ubuntu 18.04 to 20.04
+## 1. Upgrade Ubuntu 20.04 to 24.04
 
-You can upgrade the Ubuntu distribution the Cloudogu EcoSystem is built on just like in any other Ubuntu based system. A good reference about the steps to take can be found here: https://www.linuxcloudvps.com/blog/how-to-update-your-server-from-ubuntu-18-04-to-ubuntu-20-04/
+You can upgrade the Ubuntu distribution the Cloudogu EcoSystem is built on just like in any other Ubuntu based system.
 
 ## 2. Adjust apt configuration
 
-After you have upgraded your EcoSystem to Ubuntu 20.04, you have to adapt some of the EcoSystem-specific apt configuration:
+After you have upgraded your EcoSystem to Ubuntu 24.04, you have to adapt some of the EcoSystem-specific apt configuration:
 
-- Adjust the file `/etc/apt/sources.list.d/ces.list` from 18.04 (bionic) to 20.04 (focal)
-   - Insert this line: `deb [arch=amd64] https://apt.cloudogu.com/ces/ focal main`
-   - Remove old lines like `deb [arch=amd64] https://apt.cloudogu.com/ces/ bionic main`
+- Adjust the file `/etc/apt/sources.list.d/docker.list` from 20.04 (focal) to 24.04 (noble)
+   - Insert this line: `deb [arch=amd64] https://download.docker.com/linux/ubuntu noble stable`
+   - Remove old lines like `deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable`
 
-- Adjust the file `/etc/apt/sources.list.d/docker.list` from 18.04 (bionic) to 20.04 (focal)
-   - Insert this line: `deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable`
-   - Remove old lines like `deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable`
-
-- Adjust the file `/etc/apt/sources.list.d/hashicorp.list` from 18.04 (bionic) to 20.04 (focal)
-   - Insert this line: `deb [arch=amd64] https://apt.releases.hashicorp.com focal main`
-   - Remove old lines like `deb [arch=amd64] https://apt.releases.hashicorp.com bionic main`
+- Adjust the file `/etc/apt/sources.list.d/hashicorp.list` from 20.04 (focal) to 24.04 (noble)
+   - Insert this line: `deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main`
+   - Remove old lines like `deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com focal main`
 
 - Check your work by running `sudo apt update`. It should report no errors.
 
