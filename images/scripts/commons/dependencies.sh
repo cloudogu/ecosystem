@@ -38,3 +38,7 @@ if apt-cache search "${IMAGE_EXTRA_PKG}" | grep "${IMAGE_EXTRA_PKG}" &> /dev/nul
 else
   echo "WARNING: could not find optional package ${IMAGE_EXTRA_PKG}"
 fi
+
+# Activate german locales option
+sed -i -e 's/# de_DE.UTF-8 UTF-8/de_DE.UTF-8 UTF-8/' /etc/locale.gen
+dpkg-reconfigure --frontend=noninteractive locales
