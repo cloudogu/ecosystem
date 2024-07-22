@@ -16,6 +16,8 @@ Nachdem Sie Ihr EcoSystem auf Ubuntu 24.04 aktualisiert haben, müssen Sie einig
    - Fügen Sie diese Zeile ein: `deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main`
    - Entfernen Sie alte Zeilen wie `deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com focal main`
 
+- Belassen Sie die `/etc/apt/sources.list.d/ces.list` auf dem `focal`-Codename.
+
 - Überprüfen Sie Ihre Arbeit, indem Sie `sudo apt update` ausführen. Es sollte keine Fehler melden.
 
 ## 3. Docker aktualisieren

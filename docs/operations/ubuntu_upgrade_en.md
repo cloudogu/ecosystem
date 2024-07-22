@@ -16,6 +16,8 @@ After you have upgraded your EcoSystem to Ubuntu 24.04, you have to adapt some o
    - Insert this line: `deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main`
    - Remove old lines like `deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com focal main`
 
+- Keep the `focal` codename in the `/etc/apt/sources.list.d/ces.list` file.
+
 - Check your work by running `sudo apt update`. It should report no errors.
 
 ## 3. Upgrade Docker
