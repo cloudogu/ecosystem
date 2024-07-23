@@ -7,7 +7,7 @@ set -o pipefail
 # See https://learn.hashicorp.com/tutorials/terraform/install-cli
 # See https://www.hashicorp.com/official-packaging-guide
 
-TERRAFORM_VERSION=0.15.4
+TERRAFORM_VERSION=1.9.1-1
 
 export DEBIAN_FRONTEND=noninteractive
 

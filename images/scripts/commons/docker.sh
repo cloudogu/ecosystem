@@ -6,7 +6,7 @@ set -o pipefail
 # Install docker
 # See https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-DOCKER_VERSION=5:26.1.4-1~ubuntu.20.04~focal
+DOCKER_VERSION=5:26.1.4-1~ubuntu.24.04~noble
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -20,7 +20,7 @@ if [ -z "${KEY}" ]; then
   exit 1
 fi
 # Add stable repository
-echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable" > /etc/apt/sources.list.d/docker.list
+echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu noble stable" > /etc/apt/sources.list.d/docker.list
 # Install Docker
 apt-get -y update
 apt-get -y install docker-ce=${DOCKER_VERSION}
