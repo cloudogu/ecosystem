@@ -6,7 +6,6 @@
 <br>
 
 # Cloudogu EcoSystem (CES)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![Maintainer](https://img.shields.io/badge/maintainer-Cloudogu-blue)
 
 
@@ -30,19 +29,8 @@ For help, you can have a look at our documentation or ask a question in our comm
 ## Quick start
 
 There are three ways to get your Cloudogu EcoSystem. The easiest is to register at the [Cloudogu Platform](https://platform.cloudogu.com/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link) and download the VirtualBox or QEMU image. Alternatively, you can create it from scratch with Vagrant or Packer.
-<br><br>
-<p align="center">
-    <a href="https://platform.cloudogu.com/de/downloads/ces-virtualbox/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link">
-        <img src="https://my.cloudogu.com/images/icons/virtualBoxIcon.svg" width="30">
-    </a>
-    <a href="https://platform.cloudogu.com/de/downloads/ces-virtualbox/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link" style="color:#00629E;">Download VirtualBox Image</a>
-    &nbsp;&nbsp;
-    <a href="https://platform.cloudogu.com/de/downloads/ces-qemu/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link">
-        <img src="https://my.cloudogu.com/images/icons/qemuIcon.svg" width="30">
-    </a>
-    <a href="https://platform.cloudogu.com/de/downloads/ces-qemu/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link" style="color:#00629E;">Download QEMU Image</a>
-</p>
-<br>
+ * [Download VirtualBox Image](https://platform.cloudogu.com/de/downloads/ces-virtualbox/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link)
+ * [Download QEMU Image](https://platform.cloudogu.com/de/downloads/ces-qemu/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link)
 
 ### 1. Download VirtualBox or QEMU image from the Cloudogu Platform
 * Install [VirtualBox](https://www.virtualbox.org/) or [QEMU](https://www.qemu.org/)
@@ -86,7 +74,15 @@ The Cloudogu EcoSystem is an open platform, which lets you choose how and where 
 
 We have a growing number of ready-to-use Dogus, e.g. SCM-Manager, Jenkins, Nexus Repository, SonarQube, Redmine and many more. Every Dogu can be tailored to your specific needs. Take advantage of a central authentication service, a dynamic navigation, that lets you easily switch between the web UIs and a smart configuration magic, which automatically detects and responds to dependencies between Dogus. 
 
-The Cloudogu EcoSystem is open source and it runs either on-premises or in the cloud. The Cloudogu EcoSystem is developed by Cloudogu GmbH under the [MIT License](https://cloudogu.com/license/?mtm_campaign=ecosystem&mtm_kwd=license&mtm_source=github&mtm_medium=link).
+The Cloudogu EcoSystem is open source and it runs either on-premises or in the cloud. The Cloudogu EcoSystem is developed by Cloudogu GmbH under [AGPL-3.0-only](https://spdx.org/licenses/AGPL-3.0-only.html).
+
+## License
+Copyright © 2020 - present Cloudogu GmbH
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, version 3.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+You should have received a copy of the GNU Affero General Public License along with this program. If not, see https://www.gnu.org/licenses/.
+See [LICENSE](LICENSE) for details.
+
 
 ---
-&copy; 2024 Cloudogu GmbH - MADE WITH :heart:&nbsp;FOR DEV ADDICTS. [Legal notice / Imprint](https://cloudogu.com/en/imprint/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link)
+MADE WITH :heart:&nbsp;FOR DEV ADDICTS. [Legal notice / Imprint](https://cloudogu.com/en/imprint/?mtm_campaign=ecosystem&mtm_kwd=imprint&mtm_source=github&mtm_medium=link)
