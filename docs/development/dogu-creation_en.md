@@ -1,4 +1,7 @@
-# How to create a dogu
+# How to create a dogu#
+
+Below you will find a brief introduction to creating a Dogu. You can find a more detailed guide in our [Dogu Development Docs on Github](https://github.com/cloudogu/dogu-development-docs/).
+
 ## 1. Create dogu directory
 Create directory /ecosystem/containers/'newDoguName' and place these essential files into it:
 

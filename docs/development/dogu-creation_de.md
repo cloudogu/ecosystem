@@ -1,4 +1,7 @@
 # Wie man ein Dogu erstellt
+
+Im Folgenden finden Sie eine kurze Anleitung zum Erstellen eines Dogus. Eine ausführlichere Anleitung finden Sie in unseren [Dogu-Development-Docs auf Github](https://github.com/cloudogu/dogu-development-docs/).
+
 ## 1. Verzeichnis dogu erstellen
 Erstellen Sie das Verzeichnis /ecosystem/containers/'newDoguName' und legen Sie diese grundlegenden Dateien darin ab:
 
