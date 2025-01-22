@@ -19,3 +19,5 @@ images/prod/build
 images/prod/output-*
 images/dev/build
 images/dev/output-*
+
+auth.txt
