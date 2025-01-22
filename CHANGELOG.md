@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Relicense to AGPL-3.0-only
+- Make update script more robust for packer build
 
 ## [v24.04.0-1] - 2024-07-23
 ### Changed
