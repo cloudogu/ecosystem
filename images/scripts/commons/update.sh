@@ -29,4 +29,6 @@ apt-get -y update
 apt-get -y upgrade -o Dpkg::Options::="--force-confnew"
 
 reboot
-sleep 120
+while true; do
+  sleep 1
+done
