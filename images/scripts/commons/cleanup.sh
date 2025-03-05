@@ -12,12 +12,6 @@ dpkg --list \
 # Delete X11 libraries
 apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6;
 
-# Delete obsolete networking
-apt-get -y purge ppp pppconfig pppoeconf;
-
-# Delete oddities
-apt-get -y purge popularity-contest;
-
 apt-get -y autoremove;
 apt-get -y clean;
 
