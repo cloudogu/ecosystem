@@ -129,13 +129,13 @@ source "vmware-iso" "ecosystem-vmware" {
   iso_checksum           = var.iso_checksum
   iso_urls               = ["${var.iso_url}"]
   memory                 = var.memory
+  network_adapter_type   = "vmxnet3"
   shutdown_command       = "echo ${var.username} | sudo -S -E shutdown -P now"
   ssh_handshake_attempts = 10000
   ssh_password           = var.password
   ssh_timeout            = "20m"
   ssh_username           = var.username
-  tools_upload_flavor    = "linux"
-  version                = "14"
+  version                = "19"
   vm_name                = local.vm_name
 }
 
