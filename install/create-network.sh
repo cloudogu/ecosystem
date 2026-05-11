@@ -16,8 +16,9 @@ for i in $(seq 1 5); do
     if etcdctl cluster-health &> /dev/null; then
       break
     else
-      >&2 echo "etcd is not running, try to restart (retry counter $i)..."
+      >&2 echo "etcd is not running, try to restart (waiting for $((10 * i)) seconds)..."
       systemctl restart etcd.service &>/dev/null
+      sleep $((10 * i)) # Increase waiting time in every loop
     fi
   else
     echo "etcd successfully started ..."
