@@ -133,7 +133,7 @@ source "vmware-iso" "ecosystem-vmware" {
   shutdown_command       = "echo ${var.username} | sudo -S -E shutdown -P now"
   ssh_handshake_attempts = 10000
   ssh_password           = var.password
-  ssh_timeout            = "20m"
+  ssh_timeout            = "40m"
   ssh_username           = var.username
   version                = "19"
   vm_name                = local.vm_name
