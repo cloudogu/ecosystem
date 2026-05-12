@@ -3,6 +3,8 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
+# This seems to be necessary for the slow Workstation hypervisor
+sleep 150
 # Disable shellcheck as functions.sh is in ces-commons package
 # shellcheck disable=SC1091
 source /etc/ces/functions.sh
