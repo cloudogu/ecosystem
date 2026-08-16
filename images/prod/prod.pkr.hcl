@@ -10,7 +10,7 @@ packer {
     }
     vmware = {
       source  = "github.com/hashicorp/vmware"
-      version = "~> 1"
+      version = ">= 1.0.0, < 2.0.0"
     }
   }
 }
