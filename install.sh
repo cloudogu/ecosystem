@@ -53,6 +53,8 @@ systemctl restart docker.service
 
 # install cesappd. This must be done separately and cannot be done in the `install-ces-packages.sh`-Script.
 # See #450 for more information.
+# Do not move this line: it has to run AFTER firewall.sh, because the post-install script of cesappd only creates its
+# ufw rule for port 50051 while ufw is already active. Without that rule the admin dogu cannot reach cesappd.
 echo "Installing cesappd"
 apt-get install -y --allow-downgrades --allow-remove-essential --allow-change-held-packages cesappd
 
