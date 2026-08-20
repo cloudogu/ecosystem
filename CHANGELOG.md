@@ -10,7 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Pin the vmware packer plugin to 1.x so image builds do not pick up breaking plugin releases
+- Adapt the VMware image build to the vmware packer plugin 2.x
+- Use a longer SSH timeout for the VMware build
 
 ## [v24.04.1-1] - 2025-01-22
 ### Changed
