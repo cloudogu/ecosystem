@@ -15,7 +15,7 @@ echo "installing terraform"
 # Download the signing key to a new keyring
 wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
 # Verify the key's fingerprint
-if ! (gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint | grep "798A EC65 4E5C 1542 8C8E  42EE AA16 FCBC A621 E701" > /dev/null); then
+if ! (gpg --no-default-keyring --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg --fingerprint | grep "D55C 0D1A C78A 8D81 26CB  631C FC9C A96A CA02 6560" > /dev/null); then
   echo "Could not verify hashicorp key fingerprint"
   exit 1
 fi
