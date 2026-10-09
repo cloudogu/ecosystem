@@ -27,12 +27,12 @@ variable "disk_size" {
 
 variable "iso_checksum" {
   type    = string
-  default = "sha256:e907d92eeec9df64163a7e454cbc8d7755e8ddc7ed42f99dbc80c40f1a138433"
+  default = "sha256:97f3d7ffb032c3eb3b23d2c8be9cc76e60c2c1f2c0146ba5ba9fe01cafae0fd8"
 }
 
 variable "iso_url" {
   type    = string
-  default = "https://releases.ubuntu.com/noble/ubuntu-24.04.4-live-server-amd64.iso"
+  default = "https://releases.ubuntu.com/noble/ubuntu-24.04.5-live-server-amd64.iso"
 }
 
 variable "memory" {
