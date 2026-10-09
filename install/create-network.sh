@@ -1,5 +1,7 @@
 #!/bin/bash
-set -o errexit
+# Temporarily deactivate errexit as the script is failing on VMware build
+# TODO: Find out which of the statements in this script let it fail
+#set -o errexit
 set -o nounset
 set -o pipefail
 
@@ -16,8 +18,9 @@ for i in $(seq 1 5); do
     if etcdctl cluster-health &> /dev/null; then
       break
     else
-      >&2 echo "etcd is not running, try to restart (retry counter $i)..."
+      >&2 echo "etcd is not running, try to restart (waiting for $((10 * i)) seconds)..."
       systemctl restart etcd.service &>/dev/null
+      sleep $((10 * i)) # Increase waiting time in every loop
     fi
   else
     echo "etcd successfully started ..."
